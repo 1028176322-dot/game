@@ -1,0 +1,35 @@
+# 系统文件
+Thumbs.db
+.DS_Store
+*.swp
+*.swo
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# Cocos Creator (Phase 1 后启用)
+library/
+temp/
+build/
+local/
+
+# 构建产物
+发布/
+
+# 环境配置
+.env
+config.local.*
+secrets.*.json
+
+# 临时备份
+*.bak.*
+*.backup/
+
+# 工具输出
+tools/output/
+*.log
+
+# Node
+node_modules/
