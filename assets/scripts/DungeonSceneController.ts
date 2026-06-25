@@ -14,16 +14,19 @@ import { RoomTransition } from './dungeon/RoomTransition';
 import { BattleManager } from './battle/BattleManager';
 import { PlayerController } from './battle/PlayerController';
 import { AutoAttack } from './battle/AutoAttack';
-import { SkillSystem } from './battle/SkillSystem';
+import { SkillSystem, SkillSlot } from './battle/SkillSystem';
 import { UpgradeManager } from './battle/UpgradeManager';
 import { ElementSystem } from './battle/ElementSystem';
 import { EquipmentSystem } from './battle/EquipmentSystem';
 import { EquipmentUI } from './ui/EquipmentUI';
+import { ItemSystem } from './battle/ItemSystem';
+import { InventoryUI } from './ui/InventoryUI';
 import { VirtualJoystick } from './ui/VirtualJoystick';
 import { BattleHUD } from './ui/BattleHUD';
 import { DungeonMapUI } from './ui/DungeonMapUI';
 import { UpgradeUI } from './ui/UpgradeUI';
 import { DeathUI } from './ui/DeathUI';
+import { PlayerDataManager, CHARACTER_LIST } from './core/PlayerDataManager';
 
 const { ccclass, property } = _decorator;
 
@@ -59,6 +62,10 @@ export class DungeonSceneController extends Component {
     equipmentSystem: EquipmentSystem | null = null;
     @property(EquipmentUI)
     equipmentUI: EquipmentUI | null = null;
+    @property(ItemSystem)
+    itemSystem: ItemSystem | null = null;
+    @property(InventoryUI)
+    inventoryUI: InventoryUI | null = null;
 
     onLoad(): void {
         // 初始化玩家
@@ -100,6 +107,14 @@ export class DungeonSceneController extends Component {
             this.equipmentUI.init(this.equipmentSystem);
         }
 
+        // 初始化道具系统 (M2.5)
+        if (this.itemSystem && this.player && this.battleManager) {
+            this.itemSystem.init(this.player, this.battleManager);
+        }
+        if (this.inventoryUI && this.itemSystem) {
+            this.inventoryUI.init(this.itemSystem);
+        }
+
         // 初始化地牢（随机种子）
         const seed = Math.floor(Math.random() * 2147483647);
         if (this.dungeonManager && this.player) {
@@ -128,11 +143,41 @@ export class DungeonSceneController extends Component {
         // 注册事件
         eventBus.on('player:revive', this._onPlayerRevive, this);
         eventBus.on('battle:victory', this._onBattleVictory, this);
+        eventBus.on('room:shop', this._onEnterShopRoom, this);
+
+        // 应用选中角色初始能力 (M2.4)
+        this._applySelectedCharacter();
 
         const gm = GameManager.instance;
         if (gm) {
             gm.setPhase(GamePhase.Dungeon);
         }
+    }
+
+    /** 应用选中角色的初始能力 + 初始技能 */
+    private _applySelectedCharacter(): void {
+        if (!this.player || !this.skillSystem) return;
+
+        const pdm = PlayerDataManager.getInstance();
+        const charId = pdm.selectedCharacter;
+        const charDef = CHARACTER_LIST.find(c => c.id === charId);
+        if (!charDef) return;
+
+        // 应用初始能力 (相当于选择了一个ability类的upgrade)
+        // 通过 UpgradeManager 间接应用
+        eventBus.emit('upgrade:selected', { id: charDef.initialAbility, type: 'ability' });
+
+        // 装备初始技能 (替换默认的右边技能槽)
+        const skillDef = { id: charDef.initialSkill, name: charDef.name + '初始技', cd: 5.0, duration: 0, cooldownRemaining: 0, isActive: false, isRelic: false };
+        this.skillSystem.equipSkill(SkillSlot.ActiveRight, {
+            id: charDef.initialSkill,
+            name: charDef.name + '初始技',
+            cd: 5.0,
+            duration: 0,
+            cooldownRemaining: 0,
+            isActive: true,
+            isRelic: false,
+        });
     }
 
     /** 玩家复活 */
@@ -143,9 +188,9 @@ export class DungeonSceneController extends Component {
         }
     }
 
-    /** 战斗胜利: 生成装备掉落 (M2.3) */
+    /** 战斗胜利: 生成装备掉落 (M2.3) + 道具掉落 (M2.5) */
     private _onBattleVictory(): void {
-        if (!this.equipmentSystem || !this.dungeonManager) return;
+        if (!this.dungeonManager) return;
 
         const room = this.dungeonManager.currentRoom;
         if (!room) return;
@@ -154,16 +199,31 @@ export class DungeonSceneController extends Component {
             : room.type === RoomType.Elite ? 'elite' as const
             : 'normal' as const;
 
-        const drops = this.equipmentSystem.generateDrops(roomType, 1);
-        for (const drop of drops) {
-            if (drop) {
-                const autoPickup = this.equipmentSystem.pickupToBackpack(drop);
-                if (autoPickup) {
-                    console.log(`[装备] 拾取: ${drop.name}`);
-                    eventBus.emit('equip:picked_up', drop);
+        // 装备掉落 (M2.3)
+        if (this.equipmentSystem) {
+            const drops = this.equipmentSystem.generateDrops(roomType, 1);
+            for (const drop of drops) {
+                if (drop) {
+                    const autoPickup = this.equipmentSystem.pickupToBackpack(drop);
+                    if (autoPickup) {
+                        console.log(`[装备] 拾取: ${drop.name}`);
+                        eventBus.emit('equip:picked_up', drop);
+                    }
                 }
             }
         }
+
+        // 道具掉落 (M2.5)
+        if (this.itemSystem) {
+            this.itemSystem.tryDrop(roomType);
+        }
+    }
+
+    /** 商店房间: 不卖消耗品 (仅钥匙/卷轴/装备) */
+    private _onEnterShopRoom(roomId: number): void {
+        eventBus.emit('ui:show_shop', {
+            sellItems: ['key', 'advancedKey', 'rerollScroll', 'elementScroll'],
+        });
     }
 
     onDestroy(): void {

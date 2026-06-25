@@ -6,6 +6,7 @@
 
 import { _decorator, Component, Node, Vec3, Color, UITransform, Sprite, instantiate, Prefab } from 'cc';
 import { GameConfig } from '../core/GameConfig';
+import { TerrainType } from '../core/Constants';
 
 const { ccclass, property } = _decorator;
 

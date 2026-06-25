@@ -143,8 +143,8 @@ function buildSetBonuses(): SetBonusDef[] {
             name: '战士之怒',
             pieceEffects: [
                 { count: 2, description: '攻击 +15%', apply: s => s.applyModifier({ source: 'set:warrior_2', stat: 'atk', value: 0.15, type: 'percent', duration: 0 }) },
-                { count: 4, description: '攻击 +30%', apply: s => { s.applyModifier({ source: 'set:warrior_4', stat: 'atk', value: 0.30, type: 'percent', duration: 0 }); } },
-                { count: 6, description: '狂暴: HP<50% 时攻击翻倍', apply: s => s.applyModifier({ source: 'set:warrior_6', stat: 'atk', value: 0.5, type: 'percent', duration: 0 }) },
+                { count: 6, description: '攻击 +35%', apply: s => { s.applyModifier({ source: 'set:warrior_6', stat: 'atk', value: 0.35, type: 'percent', duration: 0 }); } },
+                { count: 8, description: '狂暴: HP<30% 时攻击翻倍', apply: s => s.applyModifier({ source: 'set:warrior_8', stat: 'atk', value: 0.5, type: 'percent', duration: 0 }) },
             ],
         },
         {
@@ -152,8 +152,8 @@ function buildSetBonuses(): SetBonusDef[] {
             name: '冰霜守护',
             pieceEffects: [
                 { count: 2, description: '防御 +20%', apply: s => s.applyModifier({ source: 'set:frost_2', stat: 'def', value: 0.20, type: 'percent', duration: 0 }) },
-                { count: 4, description: '被攻击时 30% 冻结攻击者', apply: _s => {} },
-                { count: 6, description: '减伤 +15%', apply: s => s.applyModifier({ source: 'set:frost_6', stat: 'damageReduction', value: 0.15, type: 'flat', duration: 0 }) },
+                { count: 6, description: '被攻击时 30% 冻结攻击者 + 减伤 +10%', apply: s => s.applyModifier({ source: 'set:frost_6', stat: 'damageReduction', value: 0.10, type: 'flat', duration: 0 }) },
+                { count: 8, description: '减伤 +20% + 冰甲持续反伤', apply: s => s.applyModifier({ source: 'set:frost_8', stat: 'damageReduction', value: 0.20, type: 'flat', duration: 0 }) },
             ],
         },
         {
@@ -161,8 +161,8 @@ function buildSetBonuses(): SetBonusDef[] {
             name: '闪电之速',
             pieceEffects: [
                 { count: 2, description: '移速 +15%', apply: s => s.applyModifier({ source: 'set:lightning_2', stat: 'moveSpeed', value: 0.15, type: 'percent', duration: 0 }) },
-                { count: 4, description: '攻速 +20%', apply: s => s.applyModifier({ source: 'set:lightning_4', stat: 'atkSpeed', value: -0.15, type: 'flat', duration: 0 }) },
-                { count: 6, description: '15% 概率追加一次攻击', apply: _s => {} },
+                { count: 6, description: '攻速 +25%', apply: s => s.applyModifier({ source: 'set:lightning_6', stat: 'atkSpeed', value: -0.20, type: 'flat', duration: 0 }) },
+                { count: 8, description: '20% 概率追加一次攻击', apply: _s => {} },
             ],
         },
         {
@@ -170,8 +170,8 @@ function buildSetBonuses(): SetBonusDef[] {
             name: '暗影刺客',
             pieceEffects: [
                 { count: 2, description: '暴击率 +10%', apply: s => s.applyModifier({ source: 'set:shadow_2', stat: 'critChance', value: 0.10, type: 'flat', duration: 0 }) },
-                { count: 4, description: '暴击伤害 +40%', apply: s => s.applyModifier({ source: 'set:shadow_4', stat: 'critMultiplier', value: 0.40, type: 'flat', duration: 0 }) },
-                { count: 6, description: '击杀后 3 秒隐身 (怪物不追击)', apply: _s => {} },
+                { count: 6, description: '暴击伤害 +50%', apply: s => s.applyModifier({ source: 'set:shadow_6', stat: 'critMultiplier', value: 0.50, type: 'flat', duration: 0 }) },
+                { count: 8, description: '击杀后 3 秒隐身 (怪物不追击)', apply: _s => {} },
             ],
         },
         {
@@ -179,8 +179,8 @@ function buildSetBonuses(): SetBonusDef[] {
             name: '生命之源',
             pieceEffects: [
                 { count: 2, description: '最大生命 +25%', apply: s => s.applyModifier({ source: 'set:life_2', stat: 'maxHP', value: 0.25, type: 'percent', duration: 0 }) },
-                { count: 4, description: '每秒回复 1 HP', apply: _s => {} },
-                { count: 6, description: '死亡时满血复活一次', apply: _s => {} },
+                { count: 6, description: '每秒回复 1 HP + 最大生命 +15%', apply: s => { s.applyModifier({ source: 'set:life_6_hp', stat: 'maxHP', value: 0.15, type: 'percent', duration: 0 }); } },
+                { count: 8, description: '死亡时满血复活一次 (每局一次)', apply: _s => {} },
             ],
         },
         {
@@ -188,8 +188,8 @@ function buildSetBonuses(): SetBonusDef[] {
             name: '火焰之怒',
             pieceEffects: [
                 { count: 2, description: '伤害倍率 +15%', apply: s => s.applyModifier({ source: 'set:flame_2', stat: 'damageMultiplier', value: 0.15, type: 'percent', duration: 0 }) },
-                { count: 4, description: '攻击附加火焰 DoT (3秒8伤)', apply: _s => {} },
-                { count: 6, description: 'Overload 反应伤害翻倍', apply: _s => {} },
+                { count: 6, description: '攻击附加火焰 DoT (3秒10伤)', apply: _s => {} },
+                { count: 8, description: 'Overload 反应伤害翻倍 + 减CD 20%', apply: _s => {} },
             ],
         },
     ];

@@ -4,7 +4,7 @@
 
 > **引擎**: Cocos Creator 3.8.8 + TypeScript
 > **平台**: 微信小游戏 (IAA 纯广告变现)
-> **状态**: Phase 1 (核心玩法) · 代码完成 · 构建通过
+> **状态**: Phase 1-2 (核心玩法 + 肉鸽系统) · 代码完成 · 36 个 TS 文件 · 9 个配置表
 > **编码**: UTF-8
 > **仓库**: [github.com/1028176322-dot/game](https://github.com/1028176322-dot/game)
 > **分支**: `main` (稳定) / `develop` (开发) / `feature/*` (功能)
@@ -51,12 +51,12 @@
 │   │   ├── splash.scene       # 启动屏场景
 │   │   ├── main.scene         # 主界面场景
 │   │   └── dungeon.scene      # 地牢核心场景
-│   └── scripts/               # TypeScript 脚本
-│       ├── core/               # 基础框架 (GameManager/EventBus/Config/Constants)
-│       ├── battle/             # 战斗系统 (Player/Monster/AutoAttack/Skill/Battle)
-│       ├── dungeon/            # 地牢系统 (Grid/DAG/Dungeon/Room)
-│       ├── ui/                 # UI 层 (Splash/Main/Joystick/HUD/Skill/Map/Upgrade/Death)
-│       └── utils/              # 工具类 (Math/WXAdapter)
+│   └── scripts/               # TypeScript 脚本 (36 文件)
+│       ├── core/               # 基础框架 (7文件: GameManager/EventBus/Config/Constants/GameConfig/Pool/PlayerData)
+│       ├── battle/             # 战斗系统 (10文件: Player/Monster/AutoAttack/Skill/Battle + PlayerStats/Upgrade/Element/Equipment/Item)
+│       ├── dungeon/            # 地牢系统 (4文件: Grid/DAG/Dungeon/Room)
+│       ├── ui/                 # UI 层 (11文件: Splash/Main/Joystick/HUD/Skill/Map/Upgrade/Death/Equipment/Shop/Inventory)
+│       └── utils/              # 工具类 (2文件: Math/WXAdapter)
 │   └── resources/
 │       └── config/              # 9 个系统配置表 JSON (battle/player/monsters/zones/equipment/skills/items/economy/elements)
 │           └── env/             # 环境覆盖层 (dev.json/test.json/prod.json)
@@ -100,17 +100,17 @@ Phase 1 ─── Phase 2 ─── Phase 3 ─── Phase 4 ─── Phase 5
 | M1.7 觉悟战 + 结算流程 | 2 天 | ✅ 完成 |
 | **首次构建验证 (WeChat Game)** | — | ✅ 构建通过 (58s) |
 
-### Phase 2: 肉鸽系统 (3 周) ✅ 代码完成 (M2.1~M2.3)
+### Phase 2: 肉鸽系统 (3 周) ✅ 全部 5 个 Milestone 完成 (M2.1~M2.5)
 
-**目标**: 玩家能构筑 Build → 触发元素反应 → 有 Build 路线选择 → 魂石商店永久成长
+**目标**: 玩家能构筑 Build → 触发元素反应 → 装备/道具/套装收集 → 魂石商店永久成长
 
 | 里程碑 | 周期 | 内容 | 状态 |
 |--------|------|------|------|
 | M2.1 Build 3 选 1 + 遗物系统 | 5 天 | 12种核心能力 + 7种属性取舍 + 16种遗物(8被动+8主动) | ✅ **完成** |
 | M2.2 元素反应系统 | 3 天 | 6种元素 + 11种两两反应 + 链式反应(可达3层) | ✅ **完成** |
 | M2.3 装备系统 + 词缀 + 套装 | 4 天 | 8槽位 + 12前缀/12后缀 + 6套橙色套装(2/6/8件效果) | ✅ **完成** |
-| M2.4 魂石商店 + 角色解锁 | 3 天 | 5个角色(战士/弓手/刺客/法师/狂战士) + 3种天赋 | ⏳ 待开始 |
-| M2.5 道具系统 + 背包 | 3 天 | 8种消耗品 + 5格背包 + 区域绑定掉落 + 商店修正 | ⏳ 待开始 |
+| M2.4 魂石商店 + 角色解锁 | 3 天 | 5个角色(战士/弓手/刺客/法师/狂战士) + 3种天赋 | ✅ **完成** |
+| M2.5 道具系统 + 背包 | 3 天 | 8种消耗品 + 5格背包 + 区域绑定掉落 + 商店修正 | ✅ **完成** |
 
 ### 全局配置化改造 ✅
 
@@ -175,8 +175,14 @@ Phase 1 ─── Phase 2 ─── Phase 3 ─── Phase 4 ─── Phase 5
 | M1.5 翻滚+主动技能 | ✅ | ✅ | SkillSystem(4槽位) + SkillUI(遗物隐藏/显示) |
 | M1.6 地牢 DAG+房间切换 | ✅ | ✅ | DAGGenerator(种子) + DungeonManager + RoomTransition |
 | M1.7 觉悟战+结算 | ✅ | ✅ | DeathUI(觉悟面板+结算统计) |
+| **Phase 2** | | | |
+| M2.1 Build + 遗物系统 | ✅ | ❌ 需编辑器挂载 | PlayerStats + UpgradeManager(35种选项效果) |
+| M2.2 元素反应系统 | ✅ | ❌ 需编辑器挂载 | ElementSystem(11反应+链式) + MonsterController冻结/沉默/减防 |
+| M2.3 装备 + 词缀 + 套装 | ✅ | ❌ 需编辑器挂载 | EquipmentSystem(8槽/24词缀/6套装) + EquipmentUI |
+| M2.4 魂石商店 + 角色解锁 | ✅ | ❌ 需编辑器挂载 | PlayerDataManager + ShopUI(5角色/3天赋) |
+| M2.5 道具系统 + 背包 | ✅ | ❌ 需编辑器挂载 | ItemSystem(8消耗品) + InventoryUI(5格+快捷键) |
 
-**代码统计**: 30+ 个 TypeScript 文件，~4000+ 行代码，9 个配置表 JSON 文件
+**代码统计**: 36 个 TypeScript 文件，~6000+ 行代码，9 个配置表 JSON 文件
 **完整文档**: 20+ 个设计/技术文档，~5000+ 行规格描述
 
 ## 工程规范

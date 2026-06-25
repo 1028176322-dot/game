@@ -8,6 +8,7 @@ import { _decorator, Component, Node, Sprite, Label, Color, instantiate, Prefab 
 import { RoomType } from '../core/Constants';
 import { RoomNode, DungeonDAG } from '../dungeon/DAGGenerator';
 import { eventBus } from '../core/EventBus';
+import { PlayerDataManager } from '../core/PlayerDataManager';
 
 const { ccclass, property } = _decorator;
 
@@ -73,6 +74,19 @@ export class DungeonMapUI extends Component {
         const roomHeight = 30;
         const marginX = 60;
         const marginY = 50;
+
+        // 探索者天赋: 显示提示
+        const pdm = PlayerDataManager.getInstance();
+        const isExplorer = pdm.selectedTalent === 'explorer';
+        if (isExplorer) {
+            const labelNode = new Node('explorer_hint');
+            labelNode.setPosition(0, 120, 0);
+            this.mapContainer.addChild(labelNode);
+            const hint = labelNode.addComponent(Label);
+            hint.string = '🔍 探索者 - 地图全开';
+            hint.fontSize = 12;
+            hint.color = new Color(100, 200, 255);
+        }
 
         // 按深度分组
         const depthMap = new Map<number, RoomNode[]>();

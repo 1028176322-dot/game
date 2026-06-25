@@ -10,6 +10,7 @@
  */
 
 import { _decorator, Component, Node, Vec3 } from 'cc';
+import { ElementType } from '../core/Constants';
 import { GameConfig } from '../core/GameConfig';
 import { eventBus } from '../core/EventBus';
 import { MonsterController } from './MonsterController';

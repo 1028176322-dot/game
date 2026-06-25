@@ -4,10 +4,12 @@
  */
 
 import { _decorator, Component, Node, Button, Label } from 'cc';
-import { AdPlacement } from '../core/Constants';
+import { AdPlacement, GamePhase } from '../core/Constants';
 import { GameManager, GameEvent } from '../core/GameManager';
 import { eventBus } from '../core/EventBus';
 import { WXAdapter } from '../utils/WXAdapter';
+import { PlayerDataManager } from '../core/PlayerDataManager';
+import { GameConfig } from '../core/GameConfig';
 
 const { ccclass, property } = _decorator;
 
@@ -103,6 +105,10 @@ export class DeathUI extends Component {
             this.settlementPanel.active = false;
         }
 
+        // 魂石结算存入永久存档 (M2.4)
+        const pdm = PlayerDataManager.getInstance();
+        pdm.commitRunResult(this._deathData.floor, this._deathData.kills, this._deathData.soulStones);
+
         // 上报数据
         WXAdapter.getInstance().reportAnalytics('game_settlement', {
             floor: this._deathData.floor,
@@ -117,9 +123,20 @@ export class DeathUI extends Component {
         }
     }
 
-    /** 魂石结算公式（按层数） */
+    /** 魂石结算公式 (来自 GameConfig 配置，含天赋增益) */
     private _calcSoulStones(floor: number): number {
-        return floor * 10 + Math.floor(Math.random() * 20);
+        const base = GameConfig.SOULSTONE_BASE_RATE;
+        const perFloor = floor * 8;
+        const bossBonus = GameConfig.SOULSTONE_BOSS_BONUS * floor;
+        let stones = base + perFloor + bossBonus + Math.floor(Math.random() * 10);
+
+        // 贪婪天赋: +15% 魂石
+        const pdm = PlayerDataManager.getInstance();
+        if (pdm.selectedTalent === 'greed') {
+            stones = Math.floor(stones * GameConfig.SOULSTONE_BASE_RATE * 0.15 + stones);
+        }
+
+        return stones;
     }
 
     /** 更新击杀数（由外部在战斗中累计设置） */

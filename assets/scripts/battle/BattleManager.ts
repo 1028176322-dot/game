@@ -6,6 +6,7 @@
 
 import { _decorator, Component, Node, Prefab, instantiate, Vec3 } from 'cc';
 import { GameConfig } from '../core/GameConfig';
+import { BattlePhase } from '../core/Constants';
 import { eventBus } from '../core/EventBus';
 import { MathUtils } from '../utils/MathUtils';
 import { PlayerController } from './PlayerController';

@@ -13,6 +13,7 @@ import { GameEvent } from '../core/GameManager';
 import { JoystickDirection, JoystickEvent } from '../ui/VirtualJoystick';
 import { GridManager, GridCell } from '../dungeon/GridManager';
 import { PlayerStats } from './PlayerStats';
+import { PlayerDataManager } from '../core/PlayerDataManager';
 
 const { ccclass, property } = _decorator;
 
@@ -266,12 +267,18 @@ export class PlayerController extends Component {
         return Math.floor(afterDef * (1 - stats.damageReduction));
     }
 
-    /** 回血（使用最终 maxHP） */
+    /** 回血（使用最终 maxHP，含铁胃天赋增益） */
     heal(amount: number): void {
+        // 铁胃天赋: 回复效果 +30%
+        const pdm = PlayerDataManager.getInstance();
+        const effectiveAmount = pdm.selectedTalent === 'iron_stomach'
+            ? Math.floor(amount * 1.3)
+            : amount;
+
         const maxHP = this.stats.getFinalStats().maxHP;
-        this._currentHP = Math.min(maxHP, this._currentHP + amount);
+        this._currentHP = Math.min(maxHP, this._currentHP + effectiveAmount);
         this.onHPChanged?.(this._currentHP, maxHP);
-        eventBus.emit('player:healed', amount);
+        eventBus.emit('player:healed', effectiveAmount);
     }
 
     /** 更新 CD + PlayerStats 倒计时修饰符（每帧调用） */
