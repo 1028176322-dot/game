@@ -6,7 +6,8 @@
  */
 
 import { _decorator, Component, Node, Vec3, tween, Sprite, Animation } from 'cc';
-import { PlayerState, BATTLE_CONSTANTS } from '../core/Constants';
+import { GameConfig } from '../core/GameConfig';
+import { PlayerState } from '../core/Constants';
 import { eventBus } from '../core/EventBus';
 import { GameEvent } from '../core/GameManager';
 import { JoystickDirection, JoystickEvent } from '../ui/VirtualJoystick';
@@ -24,7 +25,7 @@ export class PlayerController extends Component {
     @property
     def: number = 3;
     @property
-    moveSpeed: number = BATTLE_CONSTANTS.PLAYER_MOVE_SPEED;
+    moveSpeed: number = GameConfig.PLAYER_MOVE_SPEED;
 
     /** 运行时属性叠加层（外部通过此对象访问最终属性） */
     stats: PlayerStats = PlayerStats.createDefault();
@@ -54,10 +55,10 @@ export class PlayerController extends Component {
             def: this.def,
             maxHP: this.maxHP,
             moveSpeed: this.moveSpeed,
-            atkSpeed: BATTLE_CONSTANTS.AUTO_ATTACK_INTERVAL,
+            atkSpeed: GameConfig.AUTO_ATTACK_INTERVAL,
             attackRange: 2,
-            critChance: BATTLE_CONSTANTS.CRIT_BASE_CHANCE,
-            critMultiplier: BATTLE_CONSTANTS.CRIT_MULTIPLIER,
+            critChance: GameConfig.CRIT_BASE_CHANCE,
+            critMultiplier: GameConfig.CRIT_MULTIPLIER,
         });
         this._currentHP = this.stats.getFinalStats().maxHP;
         this._sprite = this.getComponent(Sprite);
@@ -73,10 +74,10 @@ export class PlayerController extends Component {
             def: this.def,
             maxHP: this.maxHP,
             moveSpeed: this.moveSpeed,
-            atkSpeed: BATTLE_CONSTANTS.AUTO_ATTACK_INTERVAL,
+            atkSpeed: GameConfig.AUTO_ATTACK_INTERVAL,
             attackRange: 2,
-            critChance: BATTLE_CONSTANTS.CRIT_BASE_CHANCE,
-            critMultiplier: BATTLE_CONSTANTS.CRIT_MULTIPLIER,
+            critChance: GameConfig.CRIT_BASE_CHANCE,
+            critMultiplier: GameConfig.CRIT_MULTIPLIER,
         });
         this._currentHP = this.stats.getFinalStats().maxHP;
         // 出生点：网格中心
@@ -140,7 +141,7 @@ export class PlayerController extends Component {
             this._isMoving = true;
 
             tween(this.node)
-                .to(1 / speed * BATTLE_CONSTANTS.TILE_SIZE, { position: this._targetPos })
+                .to(1 / speed * GameConfig.TILE_SIZE, { position: this._targetPos })
                 .call(() => {
                     this._isMoving = false;
                     if (this._state !== PlayerState.Dodging) {
@@ -161,8 +162,8 @@ export class PlayerController extends Component {
 
         this._setState(PlayerState.Dodging);
         this._isDodging = true;
-        this._dodgeCooldown = BATTLE_CONSTANTS.DODGE_COOLDOWN;
-        this._dodgeTimer = BATTLE_CONSTANTS.DODGE_DURATION;
+        this._dodgeCooldown = GameConfig.DODGE_COOLDOWN;
+        this._dodgeTimer = GameConfig.DODGE_DURATION;
 
         eventBus.emit('player:dodged'); // M2.1: 触发穿影标记
 
@@ -185,13 +186,13 @@ export class PlayerController extends Component {
                 .start();
         } else {
             // 翻滚撞墙：原地触发无敌帧
-            this._dodgeTimer = BATTLE_CONSTANTS.DODGE_DURATION;
+            this._dodgeTimer = GameConfig.DODGE_DURATION;
             this.scheduleOnce(() => {
                 this._isDodging = false;
                 if (this._state === PlayerState.Dodging) {
                     this._setState(PlayerState.Idle);
                 }
-            }, BATTLE_CONSTANTS.DODGE_DURATION);
+            }, GameConfig.DODGE_DURATION);
         }
     }
 
@@ -259,8 +260,8 @@ export class PlayerController extends Component {
     /** 伤害公式：rawDamage + d6 - (DEF × 0.5)，再 × 减伤因子 */
     private _calcDamage(rawDamage: number, stats: { def: number; damageReduction: number }): number {
         const d6Roll = Math.floor(Math.random() * 6) + 1;
-        const reduced = Math.floor(stats.def * BATTLE_CONSTANTS.DAMAGE_FORMULA_DEF_FACTOR);
-        const afterDef = Math.max(1, rawDamage + d6Roll - reduced);
+        const reduced = Math.floor(stats.def * GameConfig.DAMAGE_FORMULA_DEF_FACTOR);
+        const afterDef = Math.max(GameConfig.MIN_DAMAGE, rawDamage + d6Roll - reduced);
         // 应用减伤百分比
         return Math.floor(afterDef * (1 - stats.damageReduction));
     }

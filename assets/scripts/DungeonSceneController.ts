@@ -16,6 +16,9 @@ import { PlayerController } from './battle/PlayerController';
 import { AutoAttack } from './battle/AutoAttack';
 import { SkillSystem } from './battle/SkillSystem';
 import { UpgradeManager } from './battle/UpgradeManager';
+import { ElementSystem } from './battle/ElementSystem';
+import { EquipmentSystem } from './battle/EquipmentSystem';
+import { EquipmentUI } from './ui/EquipmentUI';
 import { VirtualJoystick } from './ui/VirtualJoystick';
 import { BattleHUD } from './ui/BattleHUD';
 import { DungeonMapUI } from './ui/DungeonMapUI';
@@ -50,6 +53,12 @@ export class DungeonSceneController extends Component {
     deathUI: DeathUI | null = null;
     @property(UpgradeManager)
     upgradeManager: UpgradeManager | null = null;
+    @property(ElementSystem)
+    elementSystem: ElementSystem | null = null;
+    @property(EquipmentSystem)
+    equipmentSystem: EquipmentSystem | null = null;
+    @property(EquipmentUI)
+    equipmentUI: EquipmentUI | null = null;
 
     onLoad(): void {
         // 初始化玩家
@@ -76,6 +85,19 @@ export class DungeonSceneController extends Component {
                 autoAttack!,
                 this.battleManager!,
             );
+        }
+
+        // 初始化元素反应系统 (M2.2)
+        if (this.elementSystem && this.player && this.battleManager) {
+            this.elementSystem.init(this.player, this.battleManager);
+        }
+
+        // 初始化装备系统 (M2.3)
+        if (this.equipmentSystem && this.player) {
+            this.equipmentSystem.init(this.player);
+        }
+        if (this.equipmentUI && this.equipmentSystem) {
+            this.equipmentUI.init(this.equipmentSystem);
         }
 
         // 初始化地牢（随机种子）
@@ -105,6 +127,7 @@ export class DungeonSceneController extends Component {
 
         // 注册事件
         eventBus.on('player:revive', this._onPlayerRevive, this);
+        eventBus.on('battle:victory', this._onBattleVictory, this);
 
         const gm = GameManager.instance;
         if (gm) {
@@ -117,6 +140,29 @@ export class DungeonSceneController extends Component {
         if (this.battleManager && this.player) {
             this.player.heal(50); // 复活恢复 50HP
             this.battleManager.setPaused(false);
+        }
+    }
+
+    /** 战斗胜利: 生成装备掉落 (M2.3) */
+    private _onBattleVictory(): void {
+        if (!this.equipmentSystem || !this.dungeonManager) return;
+
+        const room = this.dungeonManager.currentRoom;
+        if (!room) return;
+
+        const roomType = room.type === RoomType.Boss ? 'boss' as const
+            : room.type === RoomType.Elite ? 'elite' as const
+            : 'normal' as const;
+
+        const drops = this.equipmentSystem.generateDrops(roomType, 1);
+        for (const drop of drops) {
+            if (drop) {
+                const autoPickup = this.equipmentSystem.pickupToBackpack(drop);
+                if (autoPickup) {
+                    console.log(`[装备] 拾取: ${drop.name}`);
+                    eventBus.emit('equip:picked_up', drop);
+                }
+            }
         }
     }
 

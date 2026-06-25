@@ -5,7 +5,7 @@
  */
 
 import { _decorator, Component, Node, tween, Vec3, UIOpacity } from 'cc';
-import { BATTLE_CONSTANTS } from '../core/Constants';
+import { GameConfig } from '../core/GameConfig';
 import { eventBus } from '../core/EventBus';
 
 const { ccclass, property } = _decorator;
@@ -43,7 +43,7 @@ export class RoomTransition extends Component {
         if (opacity) {
             opacity.opacity = 0;
             tween(opacity)
-                .to(BATTLE_CONSTANTS.ROOM_TRANSITION_DURATION, { opacity: 255 })
+                .to(GameConfig.ROOM_TRANSITION_DURATION, { opacity: 255 })
                 .call(() => {
                     this._isTransitioning = false;
                     callback?.();
@@ -53,7 +53,7 @@ export class RoomTransition extends Component {
             this.scheduleOnce(() => {
                 this._isTransitioning = false;
                 callback?.();
-            }, BATTLE_CONSTANTS.ROOM_TRANSITION_DURATION);
+            }, GameConfig.ROOM_TRANSITION_DURATION);
         }
     }
 
@@ -65,7 +65,7 @@ export class RoomTransition extends Component {
         const opacity = this.roomContainer?.getComponent(UIOpacity);
         if (opacity) {
             tween(opacity)
-                .to(BATTLE_CONSTANTS.ROOM_TRANSITION_DURATION, { opacity: 0 })
+                .to(GameConfig.ROOM_TRANSITION_DURATION, { opacity: 0 })
                 .call(() => {
                     this._isTransitioning = false;
                     callback?.();
@@ -75,7 +75,7 @@ export class RoomTransition extends Component {
             this.scheduleOnce(() => {
                 this._isTransitioning = false;
                 callback?.();
-            }, BATTLE_CONSTANTS.ROOM_TRANSITION_DURATION);
+            }, GameConfig.ROOM_TRANSITION_DURATION);
         }
     }
 

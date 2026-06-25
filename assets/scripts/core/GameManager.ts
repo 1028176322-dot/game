@@ -4,7 +4,7 @@
  */
 
 import { _decorator, Component, Node, director } from 'cc';
-import { GamePhase, BATTLE_CONSTANTS } from './Constants';
+import { GamePhase } from './Constants';
 import { eventBus } from './EventBus';
 
 const { ccclass, property } = _decorator;

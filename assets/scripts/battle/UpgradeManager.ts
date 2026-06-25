@@ -8,7 +8,7 @@
  */
 
 import { _decorator, Component, Node, Vec3 } from 'cc';
-import { BATTLE_CONSTANTS, ElementType, GamePhase } from '../core/Constants';
+import { GameConfig } from '../core/GameConfig';
 import { eventBus } from '../core/EventBus';
 import { GameManager, GameEvent } from '../core/GameManager';
 import { PlayerStats, RuntimeStats } from './PlayerStats';
@@ -178,7 +178,7 @@ export class UpgradeManager extends Component {
         if (!MathUtils.chance(0.3)) return;
 
         const finalStats = this._player.stats.getFinalStats();
-        const secondDmg = Math.max(1, Math.floor(finalStats.atk * 0.5));
+        const secondDmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor(finalStats.atk * 0.5));
         const killed = result.target.takeDamage(secondDmg, false);
         eventBus.emit('attack:double_strike', result.target.node.getPosition(), secondDmg);
 
@@ -208,7 +208,7 @@ export class UpgradeManager extends Component {
         const pos = result.target.node.getPosition();
         const monsters = this._battleManager.getAllMonsters();
         const atk = this._player.stats.getFinalStats().atk;
-        const aoeDmg = Math.max(1, Math.floor(atk * 0.6));
+        const aoeDmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor(atk * 0.6));
 
         for (const m of monsters) {
             if (m === result.target || m.isDead) continue;
@@ -216,7 +216,7 @@ export class UpgradeManager extends Component {
                 pos.x, pos.y,
                 m.node.getPosition().x, m.node.getPosition().y
             );
-            if (dist <= BATTLE_CONSTANTS.TILE_SIZE * 1.5) {
+            if (dist <= GameConfig.TILE_SIZE * 1.5) {
                 const killed = m.takeDamage(aoeDmg, false);
                 if (killed) this._battleManager!.removeMonster(m);
             }
@@ -230,7 +230,7 @@ export class UpgradeManager extends Component {
         const pos = result.target.node.getPosition();
         const monsters = this._battleManager.getAllMonsters();
         const atk = this._player.stats.getFinalStats().atk;
-        const chainDmg = Math.max(1, Math.floor(atk * 0.5));
+        const chainDmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor(atk * 0.5));
 
         // 找最近的另一个敌人
         let nearestDist = Infinity;
@@ -243,7 +243,7 @@ export class UpgradeManager extends Component {
                 nearest = m;
             }
         }
-        if (nearest && nearestDist <= BATTLE_CONSTANTS.TILE_SIZE * 2.5) {
+        if (nearest && nearestDist <= GameConfig.TILE_SIZE * 2.5) {
             const killed = nearest.takeDamage(chainDmg, false);
             if (killed) this._battleManager!.removeMonster(nearest);
             eventBus.emit('attack:chain_lightning', nearest.node.getPosition(), chainDmg);
@@ -499,7 +499,7 @@ export class UpgradeManager extends Component {
         const monsters = this._battleManager.getAllMonsters();
         for (const m of monsters) {
             const d = MathUtils.euclideanDistance(pos.x, pos.y, m.node.getPosition().x, m.node.getPosition().y);
-            if (d <= BATTLE_CONSTANTS.TILE_SIZE * 2) {
+            if (d <= GameConfig.TILE_SIZE * 2) {
                 const killed = m.takeDamage(15, false);
                 if (killed) this._battleManager.removeMonster(m);
             }
@@ -532,7 +532,7 @@ export class UpgradeManager extends Component {
         const monsters = this._battleManager.getAllMonsters();
         for (const m of monsters) {
             const d = MathUtils.euclideanDistance(pos.x, pos.y, m.node.getPosition().x, m.node.getPosition().y);
-            if (d <= BATTLE_CONSTANTS.TILE_SIZE * 1.5) {
+            if (d <= GameConfig.TILE_SIZE * 1.5) {
                 eventBus.emit('monster:freeze', m, 2);
             }
         }
@@ -546,7 +546,7 @@ export class UpgradeManager extends Component {
         const monsters = this._battleManager.getAllMonsters();
         for (const m of monsters) {
             const d = MathUtils.euclideanDistance(pos.x, pos.y, m.node.getPosition().x, m.node.getPosition().y);
-            if (d <= BATTLE_CONSTANTS.TILE_SIZE * 2) {
+            if (d <= GameConfig.TILE_SIZE * 2) {
                 eventBus.emit('monster:poison', m, 5, 5);
             }
         }
@@ -610,7 +610,7 @@ export class UpgradeManager extends Component {
         const monsters = this._battleManager.getAllMonsters();
         for (const m of monsters) {
             const d = MathUtils.euclideanDistance(pos.x, pos.y, m.node.getPosition().x, m.node.getPosition().y);
-            if (d <= BATTLE_CONSTANTS.TILE_SIZE * 1.5) {
+            if (d <= GameConfig.TILE_SIZE * 1.5) {
                 const killed = m.takeDamage(3, false);
                 if (killed) this._battleManager.removeMonster(m);
             }

@@ -5,7 +5,7 @@
  */
 
 import { _decorator, Component, Node, Vec3, Color, UITransform, Sprite, instantiate, Prefab } from 'cc';
-import { TerrainType, BATTLE_CONSTANTS } from '../core/Constants';
+import { GameConfig } from '../core/GameConfig';
 
 const { ccclass, property } = _decorator;
 
@@ -25,8 +25,8 @@ export class GridManager extends Component {
     tilePrefab: Prefab | null = null;  // Tile Prefab（编辑器拖入，缺失时用 Sprite 兜底）
 
     private _grid: GridCell[][] = [];
-    private _tileSize: number = BATTLE_CONSTANTS.TILE_SIZE;
-    private _gridSize: number = BATTLE_CONSTANTS.GRID_SIZE;
+    private _tileSize: number = GameConfig.TILE_SIZE;
+    private _gridSize: number = GameConfig.GRID_SIZE;
 
     /** 地形颜色映射（缺失时使用默认颜色兜底） */
     private _terrainColors: Record<TerrainType, Color> = {

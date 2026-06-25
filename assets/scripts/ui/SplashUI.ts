@@ -5,7 +5,7 @@
  */
 
 import { _decorator, Component, Node, Label, tween, UIOpacity } from 'cc';
-import { GamePhase, BATTLE_CONSTANTS } from '../core/Constants';
+import { GameConfig } from '../core/GameConfig';
 import { GameManager, GameEvent } from '../core/GameManager';
 import { eventBus } from '../core/EventBus';
 
@@ -47,7 +47,7 @@ export class SplashUI extends Component {
         this._elapsed += dt;
 
         // 2 秒自动跳转
-        if (this._elapsed >= BATTLE_CONSTANTS.SPLASH_DURATION) {
+        if (this._elapsed >= GameConfig.SPLASH_DURATION) {
             this._goToMain();
         }
 

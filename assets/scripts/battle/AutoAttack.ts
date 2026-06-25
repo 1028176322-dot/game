@@ -5,7 +5,8 @@
  */
 
 import { _decorator, Component, Node, Vec3 } from 'cc';
-import { BATTLE_CONSTANTS, ElementType } from '../core/Constants';
+import { ElementType, MODIFIER_SOURCE } from '../core/Constants';
+import { GameConfig } from '../core/GameConfig';
 import { MathUtils } from '../utils/MathUtils';
 import { eventBus } from '../core/EventBus';
 import { MonsterController } from './MonsterController';
@@ -25,13 +26,13 @@ export interface AttackResult {
 @ccclass('AutoAttack')
 export class AutoAttack extends Component {
     @property
-    attackRange: number = 2.0;   // 默认攻击范围（格），运行时使用 PlayerStats 最终值
+    attackRange: number = GameConfig.PLAYER_BASE_ATTACK_RANGE;
     @property
-    attackInterval: number = BATTLE_CONSTANTS.AUTO_ATTACK_INTERVAL;
+    attackInterval: number = GameConfig.AUTO_ATTACK_INTERVAL;
     @property
-    atk: number = 10;
+    atk: number = GameConfig.PLAYER_BASE_ATK;
     @property
-    critChance: number = BATTLE_CONSTANTS.CRIT_BASE_CHANCE;
+    critChance: number = GameConfig.CRIT_BASE_CHANCE;
 
     private _timer: number = 0;
     private _battleManager: BattleManager | null = null;
@@ -106,7 +107,7 @@ export class AutoAttack extends Component {
             this.node.getPosition().x, this.node.getPosition().y,
             nearestMonster.monster.node.getPosition().x, nearestMonster.monster.node.getPosition().y
         );
-        const distInTiles = dist / BATTLE_CONSTANTS.TILE_SIZE;
+        const distInTiles = dist / GameConfig.TILE_SIZE;
 
         if (distInTiles > stats.attackRange) {
             eventBus.emit('attack:miss');
@@ -121,14 +122,14 @@ export class AutoAttack extends Component {
             : stats.atk;
 
         // 应用伤害倍率
-        const finalDamage = Math.max(1, Math.floor(rawDamage * stats.damageMultiplier));
+        const finalDamage = Math.max(GameConfig.MIN_DAMAGE, Math.floor(rawDamage * stats.damageMultiplier));
 
         // 施加伤害
         const killed = nearestMonster.monster.takeDamage(finalDamage, isCrit);
 
         // 生命偷取
         if (stats.lifeSteal > 0 && finalDamage > 0) {
-            const healAmount = Math.max(1, Math.floor(finalDamage * stats.lifeSteal));
+            const healAmount = Math.max(GameConfig.MIN_DAMAGE, Math.floor(finalDamage * stats.lifeSteal));
             this._player.heal(healAmount);
         }
 

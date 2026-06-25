@@ -14,6 +14,7 @@ import { BattleManager } from '../battle/BattleManager';
 import { PlayerController } from '../battle/PlayerController';
 import { MonsterConfig } from '../battle/MonsterController';
 import { GameManager } from '../core/GameManager';
+import { MathUtils } from '../utils/MathUtils';
 
 const { ccclass, property } = _decorator;
 

@@ -40,6 +40,7 @@ export class BattleHUD extends Component {
         eventBus.on('attack:performed', this._showDamageNumber, this);
         eventBus.on('battle:victory', this._onVictory, this);
         eventBus.on('floor:changed', this._onFloorChanged, this);
+        eventBus.on('element:reaction', this._showReactionText, this);
     }
 
     onDestroy(): void {
@@ -90,43 +91,24 @@ export class BattleHUD extends Component {
         this.refreshFloor(floor);
     }
 
-    /** 显示伤害数字 */
-    private _showDamageNumber(data: AttackResultPayload | Vec3, damage?: number, isCrit?: boolean): void {
-        if (!this.damageNumberPrefab) return;
+    /** 显示元素反应文字 */
+    private _showReactionText(reactionName: string, pos: Vec3): void {
+        // 创建一个临时 Label 节点显示反应名
+        const labelNode = new Node('reaction_text');
+        labelNode.setPosition(pos.x, pos.y + 30, pos.z);
+        this.node.addChild(labelNode);
 
-        let pos: Vec3;
-        let dmg: number;
-        let crit: boolean;
+        const label = labelNode.addComponent(Label);
+        label.string = reactionName;
+        label.fontSize = 28;
+        label.color = new Color(255, 215, 0); // 金色
+        label.lineHeight = 32;
 
-        if (data instanceof Vec3) {
-            // 旧式调用: (Vec3, number, boolean)
-            pos = data;
-            dmg = damage ?? 0;
-            crit = isCrit ?? false;
-        } else if (data && 'target' in data) {
-            // AttackResult 对象调用
-            pos = data.target.node.getPosition();
-            dmg = data.damage;
-            crit = data.isCrit;
-        } else {
-            return;
-        }
-
-        const numNode = this.damageNumberPrefab.clone();
-        numNode.setPosition(pos);
-        this.node.addChild(numNode);
-
-        const label = numNode.getComponent(Label);
-        if (label) {
-            label.string = crit ? `暴击! ${dmg}` : `${dmg}`;
-            label.color = crit ? Color.RED : Color.WHITE;
-        }
-
-        // 浮动 + 消失
-        tween(numNode)
-            .to(0.5, { position: new Vec3(pos.x, pos.y + 50, pos.z) })
-            .call(() => numNode.destroy())
+        // 上浮 + 放大 + 消失
+        const upPos = new Vec3(pos.x, pos.y + 80, pos.z);
+        tween(labelNode)
+            .to(1.0, { position: upPos, scale: new Vec3(1.3, 1.3, 1) })
+            .call(() => labelNode.destroy())
             .start();
     }
-}
 }

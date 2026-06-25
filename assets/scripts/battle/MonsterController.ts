@@ -5,7 +5,8 @@
  */
 
 import { _decorator, Component, Node, Vec3, tween, Sprite, Animation } from 'cc';
-import { MonsterState, MonsterAIType, BATTLE_CONSTANTS } from '../core/Constants';
+import { GameConfig } from '../core/GameConfig';
+import { MonsterState, MonsterAIType, ElementType } from '../core/Constants';
 import { eventBus } from '../core/EventBus';
 import { MathUtils } from '../utils/MathUtils';
 import { PlayerController } from './PlayerController';
@@ -60,6 +61,18 @@ export class MonsterController extends Component {
     private _config: MonsterConfig | null = null;
     private _isDead: boolean = false;
 
+    // ======== 元素状态效果 (M2.2) ========
+    /** 冻结计时 (秒) */
+    private _freezeTimer: number = 0;
+    /** 沉默计时 (秒) */
+    private _silenceTimer: number = 0;
+    /** 防御倍率 (默认1, Superconduct=0.5) */
+    private _defMultiplier: number = 1;
+    /** 受伤倍率 (默认1, Brittle=1.3) */
+    private _damageTakenMultiplier: number = 1;
+    /** 防御/受伤 debuff 剩余时间 */
+    private _debuffTimer: number = 0;
+
     onLoad(): void {
         this._maxHP = this.hp;
         this._sprite = this.getComponent(Sprite);
@@ -81,6 +94,12 @@ export class MonsterController extends Component {
         this._gridManager = gridManager;
         this._attackInterval = this._getAttackInterval();
         this._isDead = false;
+        // 重置元素状态
+        this._freezeTimer = 0;
+        this._silenceTimer = 0;
+        this._defMultiplier = 1;
+        this._damageTakenMultiplier = 1;
+        this._debuffTimer = 0;
 
         this.node.setPosition(gridManager.gridToWorld(gridX, gridY));
         gridManager.setOccupied(gridX, gridY, true);
@@ -96,11 +115,16 @@ export class MonsterController extends Component {
     updateAI(dt: number, player: PlayerController): void {
         if (this._isDead || !this._gridManager) return;
 
+        // 冻结时停止所有行动
+        if (this._freezeTimer > 0) return;
+
         this._target = player;
         const dist = MathUtils.manhattanDistance(this._gridX, this._gridY, player.gridX, player.gridY);
 
-        // 更新攻击计时
-        this._attackTimer += dt;
+        // 更新攻击计时（沉默时不计时）
+        if (this._silenceTimer <= 0) {
+            this._attackTimer += dt;
+        }
 
         // AI 状态机流转
         switch (this.aiType) {
@@ -115,8 +139,8 @@ export class MonsterController extends Component {
                 break;
         }
 
-        // 攻击冷却到了且目标在攻击范围内 → 攻击
-        if (this._attackTimer >= this._attackInterval && this._isInAttackRange(dist)) {
+        // 攻击冷却到了且目标在攻击范围内 → 攻击（沉默时不能攻击）
+        if (this._attackTimer >= this._attackInterval && this._isInAttackRange(dist) && this._silenceTimer <= 0) {
             this._attackPlayer();
             this._attackTimer = 0;
         }
@@ -194,7 +218,7 @@ export class MonsterController extends Component {
 
             const targetPos = this._gridManager.gridToWorld(newX, newY);
             tween(this.node)
-                .to(1 / this.speed * BATTLE_CONSTANTS.TILE_SIZE, { position: targetPos })
+                .to(1 / this.speed * GameConfig.TILE_SIZE, { position: targetPos })
                 .start();
         }
     }
@@ -240,9 +264,9 @@ export class MonsterController extends Component {
         if (!this._target) return;
         this._playAnimation('attack');
 
-        const isCrit = MathUtils.chance(BATTLE_CONSTANTS.CRIT_BASE_CHANCE);
+        const isCrit = MathUtils.chance(GameConfig.CRIT_BASE_CHANCE);
         const damage = isCrit
-            ? Math.floor(this.atk * BATTLE_CONSTANTS.CRIT_MULTIPLIER)
+            ? Math.floor(this.atk * GameConfig.CRIT_MULTIPLIER)
             : this.atk;
 
         this._target.takeDamage(damage, isCrit);
@@ -252,8 +276,13 @@ export class MonsterController extends Component {
     /** 被攻击 */
     takeDamage(rawDamage: number, isCrit: boolean = false): boolean {
         // 防御型架盾时减伤 50%
-        const defMultiplier = (this.aiType === MonsterAIType.Defender && this._state === MonsterState.Defend) ? 0.5 : 1;
-        const actualDamage = Math.max(1, Math.floor((rawDamage + MathUtils.d6() - this.def * BATTLE_CONSTANTS.DAMAGE_FORMULA_DEF_FACTOR) * defMultiplier));
+        const shieldMultiplier = (this.aiType === MonsterAIType.Defender && this._state === MonsterState.Defend) ? 0.5 : 1;
+        // 减防 debuff (Superconduct 等)
+        const effectiveDef = Math.floor(this.def * this._defMultiplier);
+        const actualDamage = Math.max(GameConfig.MIN_DAMAGE, Math.floor(
+            (rawDamage + MathUtils.d6() - effectiveDef * GameConfig.DAMAGE_FORMULA_DEF_FACTOR)
+            * shieldMultiplier * this._damageTakenMultiplier
+        ));
 
         this.hp = Math.max(0, this.hp - actualDamage);
         eventBus.emit('monster:damaged', this._gridX, this._gridY, actualDamage, isCrit);
@@ -290,9 +319,9 @@ export class MonsterController extends Component {
 
     private _getAttackInterval(): number {
         switch (this.aiType) {
-            case MonsterAIType.Charger: return BATTLE_CONSTANTS.MONSTER_ATTACK_INTERVAL_CHARGER;
-            case MonsterAIType.Ranged: return BATTLE_CONSTANTS.MONSTER_ATTACK_INTERVAL_RANGED;
-            case MonsterAIType.Defender: return BATTLE_CONSTANTS.MONSTER_ATTACK_INTERVAL_DEFENDER;
+            case MonsterAIType.Charger: return GameConfig.MONSTER_ATTACK_INTERVAL_CHARGER;
+            case MonsterAIType.Ranged: return GameConfig.MONSTER_ATTACK_INTERVAL_RANGED;
+            case MonsterAIType.Defender: return GameConfig.MONSTER_ATTACK_INTERVAL_DEFENDER;
             default: return 1.5;
         }
     }
@@ -334,9 +363,60 @@ export class MonsterController extends Component {
         }
     }
 
+    // ======== 元素状态效果 API (M2.2) ========
+
+    /** 冻结: 停止所有行动 N 秒 */
+    freeze(duration: number): void {
+        this._freezeTimer = Math.max(this._freezeTimer, duration);
+        eventBus.emit('monster:status_freeze', this, duration);
+    }
+
+    /** 沉默: N 秒内不能攻击 */
+    silence(duration: number): void {
+        this._silenceTimer = Math.max(this._silenceTimer, duration);
+        eventBus.emit('monster:status_silence', this, duration);
+    }
+
+    /**
+     * 应用防御/受伤 debuff
+     * @param multiplier 防御倍率 (0.5=半防) 或 受伤倍率 (1.3=+30%)
+     * @param duration 持续秒数
+     * @param isDamageTaken 是否为受伤倍率 (默认false=防御倍率)
+     */
+    applyDefDebuff(multiplier: number, duration: number, isDamageTaken: boolean = false): void {
+        if (isDamageTaken) {
+            this._damageTakenMultiplier = Math.max(GameConfig.MIN_DAMAGE, multiplier);
+        } else {
+            this._defMultiplier = Math.min(1, Math.max(0.1, multiplier));
+        }
+        this._debuffTimer = Math.max(this._debuffTimer, duration);
+    }
+
+    /** 更新元素状态计时 (由 BattleManager 或元素系统调用) */
+    updateStatusTimers(dt: number): void {
+        // 冻结计时
+        if (this._freezeTimer > 0) {
+            this._freezeTimer = Math.max(0, this._freezeTimer - dt);
+        }
+        // 沉默计时
+        if (this._silenceTimer > 0) {
+            this._silenceTimer = Math.max(0, this._silenceTimer - dt);
+        }
+        // debuff 计时 (防御/受伤)
+        if (this._debuffTimer > 0) {
+            this._debuffTimer = Math.max(0, this._debuffTimer - dt);
+            if (this._debuffTimer <= 0) {
+                this._defMultiplier = 1;
+                this._damageTakenMultiplier = 1;
+            }
+        }
+    }
+
     get state(): MonsterState { return this._state; }
     get gridX(): number { return this._gridX; }
     get gridY(): number { return this._gridY; }
     get isDead(): boolean { return this._isDead; }
     get hpPercent(): number { return this._maxHP > 0 ? this.hp / this._maxHP : 0; }
+    get isFrozen(): boolean { return this._freezeTimer > 0; }
+    get isSilenced(): boolean { return this._silenceTimer > 0; }
 }

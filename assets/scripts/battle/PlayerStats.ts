@@ -3,15 +3,16 @@
  * 统一管理玩家最终属性的计算
  * 
  * 属性来源:
- *   base → 角色基础属性(PlayerController @property)
+ *   base → 角色基础属性
  *   buff → Build/升级增益
  *   relic → 遗物效果
  *   equip → 装备加成
+ *   set   → 套装效果
  * 
- * 计算顺序: final = (base + flatModifiers) × (1 + percentModifiers)
+ * 所有数值边界均来自 GameConfig，禁止硬编码
  */
 
-import { BATTLE_CONSTANTS } from '../core/Constants';
+import { GameConfig } from '../core/GameConfig';
 
 // ======== 运行时属性接口 ========
 
@@ -157,18 +158,18 @@ export class PlayerStats {
             (final as any)[stat] *= (1 + totalPercent);
         }
 
-        // 确保最小值和边界
-        final.atk = Math.max(0, final.atk);
-        final.def = Math.max(0, final.def);
-        final.maxHP = Math.max(1, final.maxHP);
-        final.moveSpeed = Math.max(50, final.moveSpeed);
-        final.atkSpeed = Math.max(0.2, final.atkSpeed); // 最快 0.2 秒一次
-        final.attackRange = Math.max(0.5, final.attackRange);
-        final.critChance = MathUtils.clamp(final.critChance, 0, 1);
-        final.critMultiplier = Math.max(1, final.critMultiplier);
-        final.lifeSteal = MathUtils.clamp(final.lifeSteal, 0, 1);
-        final.damageMultiplier = Math.max(0.1, final.damageMultiplier);
-        final.damageReduction = MathUtils.clamp(final.damageReduction, 0, 0.9); // 最高 90% 减伤
+        // 确保最小值和边界（所有数值来源: GameConfig.ts）
+        final.atk = Math.max(GameConfig.STAT_ATK_MIN, final.atk);
+        final.def = Math.max(GameConfig.STAT_DEF_MIN, final.def);
+        final.maxHP = Math.max(GameConfig.STAT_MAX_HP_MIN, final.maxHP);
+        final.moveSpeed = Math.max(GameConfig.STAT_MOVE_SPEED_MIN, final.moveSpeed);
+        final.atkSpeed = MathUtils.clamp(final.atkSpeed, GameConfig.STAT_ATK_SPEED_MIN, GameConfig.STAT_ATK_SPEED_MAX);
+        final.attackRange = Math.max(GameConfig.STAT_ATTACK_RANGE_MIN, final.attackRange);
+        final.critChance = MathUtils.clamp(final.critChance, 0, GameConfig.STAT_CRIT_CHANCE_MAX);
+        final.critMultiplier = Math.max(GameConfig.STAT_CRIT_MULTIPLIER_MIN, final.critMultiplier);
+        final.lifeSteal = MathUtils.clamp(final.lifeSteal, 0, GameConfig.STAT_LIFE_STEAL_MAX);
+        final.damageMultiplier = Math.max(GameConfig.STAT_DAMAGE_MULTIPLIER_MIN, final.damageMultiplier);
+        final.damageReduction = MathUtils.clamp(final.damageReduction, 0, GameConfig.STAT_DAMAGE_REDUCTION_MAX);
 
         return final;
     }
@@ -208,17 +209,17 @@ export class PlayerStats {
         return new PlayerStats(merged);
     }
 
-    /** 初始默认属性 (匹配 PlayerController 原始默认值) */
+    /** 初始默认属性（来源: GameConfig.ts） */
     static createDefault(): PlayerStats {
         return PlayerStats.createFromBase({
-            atk: 10,
-            def: 3,
-            maxHP: 100,
-            moveSpeed: 200,
-            atkSpeed: BATTLE_CONSTANTS.AUTO_ATTACK_INTERVAL,
-            attackRange: 2,
-            critChance: BATTLE_CONSTANTS.CRIT_BASE_CHANCE,
-            critMultiplier: BATTLE_CONSTANTS.CRIT_MULTIPLIER,
+            atk: GameConfig.PLAYER_BASE_ATK,
+            def: GameConfig.PLAYER_BASE_DEF,
+            maxHP: GameConfig.PLAYER_BASE_MAX_HP,
+            moveSpeed: GameConfig.PLAYER_MOVE_SPEED,
+            atkSpeed: GameConfig.AUTO_ATTACK_INTERVAL,
+            attackRange: GameConfig.PLAYER_BASE_ATTACK_RANGE,
+            critChance: GameConfig.CRIT_BASE_CHANCE,
+            critMultiplier: GameConfig.CRIT_MULTIPLIER,
         });
     }
 }

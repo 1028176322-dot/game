@@ -5,7 +5,7 @@
  */
 
 import { _decorator, Component, Node, Prefab, instantiate, Vec3 } from 'cc';
-import { BattlePhase, MonsterAIType, BATTLE_CONSTANTS } from '../core/Constants';
+import { GameConfig } from '../core/GameConfig';
 import { eventBus } from '../core/EventBus';
 import { MathUtils } from '../utils/MathUtils';
 import { PlayerController } from './PlayerController';
@@ -126,7 +126,7 @@ export class BattleManager extends Component {
     /** 获取范围内的最近怪物 */
     getNearestMonster(position: Vec3, range: number): MonsterEntry | null {
         let nearest: MonsterEntry | null = null;
-        let nearestDist = range * BATTLE_CONSTANTS.TILE_SIZE + 1;
+        let nearestDist = range * GameConfig.TILE_SIZE + 1;
 
         for (const entry of this._monsters) {
             if (entry.monster.isDead) continue;
@@ -185,11 +185,12 @@ export class BattleManager extends Component {
     update(dt: number): void {
         if (this._phase !== BattlePhase.InProgress) return;
 
-        // 更新所有怪物 AI
+        // 更新所有怪物 AI + 状态计时
         if (this._player) {
             for (const entry of this._monsters) {
                 if (!entry.monster.isDead) {
                     entry.monster.updateAI(dt, this._player);
+                    entry.monster.updateStatusTimers(dt);
                 }
             }
         }

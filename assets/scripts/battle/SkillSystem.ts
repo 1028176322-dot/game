@@ -6,7 +6,7 @@
  */
 
 import { _decorator, Component, Node } from 'cc';
-import { PlayerState, BATTLE_CONSTANTS } from '../core/Constants';
+import { GameConfig } from '../core/GameConfig';
 import { eventBus } from '../core/EventBus';
 import { PlayerController } from './PlayerController';
 
