@@ -1,0 +1,13 @@
+{
+    "metadata": { "version": "1.0.0", "lastUpdated": "2026-06-25", "description": "开发环境配置覆盖层 - 仅包含与默认值不同的项" },
+    "overrides": {
+        "AUTO_ATTACK_INTERVAL": 0.5,
+        "$comment": "开发时攻速加快方便测试战斗逻辑",
+        "DROP_NORMAL_CHANCE": 0.5,
+        "$comment": "开发时掉率提高方便验证掉落系统",
+        "SPLASH_MIN_DURATION": 0.5,
+        "$comment": "跳过启动屏加速迭代循环",
+        "DODGE_COOLDOWN": 1.0,
+        "$comment": "缩短翻滚CD方便测试操作"
+    }
+}

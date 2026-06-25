@@ -1,0 +1,58 @@
+{
+    "metadata": { "version": "1.0.0", "lastUpdated": "2026-06-25", "description": "装备系统配置表 - 8槽位/6套装/词缀/稀有度" },
+    "slotBaseStats": {
+        "weapon": { "atk": 4, "attackInterval": 1.0, "range": 1.5 },
+        "ring": { "atk": 0, "critChance": 0 },
+        "necklace": { "def": 1, "cdReduction": 0 },
+        "helmet": { "def": 1, "maxHP": 0 },
+        "chest": { "def": 2, "moveSpeedMod": -0.05 },
+        "legs": { "def": 1, "dodgeCdReduction": 0 },
+        "shoes": { "moveSpeedMod": 0.03, "dodgeDistance": 1 },
+        "gloves": { "atk": 0, "attackIntervalMod": 0 }
+    },
+    "rarityWeights": { "common": 60, "magic": 30, "rare": 9, "legendary": 1 },
+    "prefixes": [
+        { "id": "sharp", "name": "锋利的", "slotType": ["weapon","gloves"], "effect": { "atk": 2 } },
+        { "id": "heavy", "name": "沉重的", "slotType": ["weapon"], "effect": { "atk": 3, "attackInterval": 0.1 } },
+        { "id": "swift", "name": "迅捷的", "slotType": ["weapon","shoes","gloves"], "effect": { "attackInterval": -0.05 } },
+        { "id": "sturdy", "name": "坚固的", "slotType": ["helmet","chest","legs"], "effect": { "def": 2 } },
+        { "id": "vampiric", "name": "吸血", "slotType": ["weapon"], "effect": { "lifeSteal": 0.15 } },
+        { "id": "shocking", "name": "带电的", "slotType": ["weapon","gloves"], "effect": { "element": "lightning" } },
+        { "id": "blazing", "name": "燃烧的", "slotType": ["weapon","gloves"], "effect": { "element": "fire" } },
+        { "id": "icy", "name": "冰封的", "slotType": ["weapon"], "effect": { "element": "frost" } },
+        { "id": "toxic", "name": "剧毒的", "slotType": ["weapon"], "effect": { "element": "poison" } },
+        { "id": "shadowy", "name": "暗影的", "slotType": ["weapon"], "effect": { "element": "shadow" } },
+        { "id": "hallowed", "name": "神圣的", "slotType": ["weapon"], "effect": { "element": "holy" } },
+        { "id": "lucky", "name": "幸运的", "slotType": ["all"], "effect": { "critChance": 0.05 } }
+    ],
+    "suffixes": [
+        { "id": "ofFlames", "name": "之火焰", "slotType": ["weapon"], "effect": { "element": "fire" } },
+        { "id": "ofWinter", "name": "之寒冬", "slotType": ["weapon"], "effect": { "element": "frost" } },
+        { "id": "ofThunder", "name": "之雷霆", "slotType": ["weapon"], "effect": { "element": "lightning" } },
+        { "id": "ofTheDead", "name": "之亡者", "slotType": ["weapon"], "effect": { "onKillSummonChance": 0.2 } },
+        { "id": "ofTheBerserker", "name": "之狂战士", "slotType": ["weapon"], "effect": { "lowHpAtkBonus": 3 } },
+        { "id": "ofThePhantom", "name": "之幻影", "slotType": ["shoes"], "effect": { "stealthInDarkZone": true } },
+        { "id": "ofProtection", "name": "之守护", "slotType": ["helmet","chest","legs"], "effect": { "autoHealPerSec": 0.5 } },
+        { "id": "ofThorns", "name": "之荆棘", "slotType": ["chest","gloves"], "effect": { "thornDamage": 2 } },
+        { "id": "ofPower", "name": "之力量", "slotType": ["ring","necklace"], "effect": { "atk": 1, "def": 1 } },
+        { "id": "ofGreed", "name": "之贪婪", "slotType": ["all"], "effect": { "goldDropBonus": 0.2 } },
+        { "id": "ofImmortality", "name": "之不朽", "slotType": ["necklace"], "effect": { "revivePerFloor": true } },
+        { "id": "ofEcho", "name": "之回响", "slotType": ["ring"], "effect": { "skillHpRestore": 1 } }
+    ],
+    "sets": {
+        "tempest": { "name": "狂风", "twoPiece": "attackSpeed+12%", "sixPiece": "every4thHitExtra60%", "eightPiece": "windBladeAoe40%", "twoPieceEffect": { "attackSpeedMod": 0.12 } },
+        "ironwall": { "name": "铁壁", "twoPiece": "incomingDmg-8%", "sixPiece": "50%reflect3", "eightPiece": "shield10per5s", "twoPieceEffect": { "damageReduction": 0.08 } },
+        "shadow": { "name": "暗影", "twoPiece": "moveSpeed+15%", "sixPiece": "dodgeBuff30%", "eightPiece": "killStealthDouble", "twoPieceEffect": { "moveSpeedMod": 0.15 } },
+        "fury": { "name": "狂怒", "twoPiece": "lowHpAtk+15%", "sixPiece": "per10HpLostAtkSpeed+5%", "eightPiece": "lowHpCrit+30%x2.5", "twoPieceEffect": { "lowHpAtkBonus": 0.15 } },
+        "frostbite": { "name": "霜噬", "twoPiece": "slowEffect+20%", "sixPiece": "vsSlowed+25%", "eightPiece": "20%freeze1s", "twoPieceEffect": { "slowEffectiveness": 0.2 } },
+        "radiance": { "name": "圣光", "twoPiece": "healEffect+20%", "sixPiece": "autoHeal2per3s", "eightPiece": "fakeDeath60sCD30%", "twoPieceEffect": { "healingModifier": 0.2 } }
+    },
+    "weaponTypes": [
+        { "id": "sword", "name": "单手剑", "atk": 4, "attackInterval": 1.0, "range": 1.5 },
+        { "id": "greatsword", "name": "双手剑", "atk": 6, "attackInterval": 1.3, "range": 2.0 },
+        { "id": "bow", "name": "弓", "atk": 3, "attackInterval": 0.9, "range": 3.0 },
+        { "id": "staff", "name": "法杖", "atk": 3, "attackInterval": 0.8, "range": 2.5 },
+        { "id": "dagger", "name": "匕首", "atk": 3, "attackInterval": 0.7, "range": 1.0 },
+        { "id": "shield", "name": "盾牌", "atk": 1, "attackInterval": 1.2, "range": 1.0 }
+    ]
+}

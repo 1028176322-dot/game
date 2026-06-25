@@ -1,0 +1,43 @@
+{
+    "metadata": {
+        "version": "1.0.0",
+        "lastUpdated": "2026-06-25",
+        "description": "核心战斗参数配置表 - 所有战斗机制的数值配置"
+    },
+    "autoAttack": {
+        "baseInterval": 1.0,
+        "$comment": "baseInterval: 自动攻击基础间隔(秒), 范围0.2~5.0",
+        "minDamage": 1,
+        "$comment": "minDamage: 最小伤害保底值, 范围1~10",
+        "rangeDecayRate": 0.2,
+        "$comment": "rangeDecayRate: 超出射程每格命中率衰减, 范围0~0.5",
+        "switchTargetDelay": 0.2,
+        "$comment": "switchTargetDelay: 目标死亡后切换锁定的延迟(秒), 范围0.05~0.5"
+    },
+    "dodge": {
+        "duration": 0.3,
+        "$comment": "duration: 翻滚无敌帧时长(秒), 范围0.1~1.0",
+        "cooldown": 3.0,
+        "$comment": "cooldown: 翻滚冷却时间(秒), 范围1.0~10.0"
+    },
+    "crit": {
+        "diceSides": 6,
+        "$comment": "diceSides: D6骰子面数, 范围2~20, 影响暴击阈值和伤害波动",
+        "triggerValue": 6,
+        "$comment": "triggerValue: 骰子>=此值触发暴击, 范围1~20",
+        "multiplier": 1.5,
+        "$comment": "multiplier: 暴击伤害倍率, 范围1.0~5.0",
+        "baseChance": 0.05,
+        "$comment": "baseChance: 快速判定的基础暴击率, 范围0~1"
+    },
+    "damage": {
+        "defReductionFactor": 0.5,
+        "$comment": "defReductionFactor: 防御减伤系数 floor(DEF*系数), 范围0~1",
+        "formulaDiceRange": 6,
+        "$comment": "formulaDiceRange: 伤害公式骰子范围, 范围1~12"
+    },
+    "skillCastTime": 0.2,
+    "$comment": "skillCastTime: 技能前摇动画时间(秒), 范围0.1~1.0",
+    "itemUseTime": 0.3,
+    "$comment": "itemUseTime: 道具使用前摇动画时间(秒), 范围0.1~1.0"
+}
