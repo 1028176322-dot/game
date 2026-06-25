@@ -216,7 +216,7 @@ export class WXAdapter {
 
     // ======== 数据上报 ========
 
-    /** 上报事件 */
+    /** 上报事件 (含失败缓存) */
     reportAnalytics(eventName: string, data: Record<string, any>): void {
         if (!this._isWXEnv) {
             console.log(`[WXAdapter] 上报: ${eventName}`, data);
@@ -232,7 +232,56 @@ export class WXAdapter {
             wx.reportAnalytics(eventName, data);
         } catch (err) {
             console.warn(`[WXAdapter] 上报失败: ${eventName}`);
+            this._cacheEvent(eventName, data);
         }
+    }
+
+    /** 上报广告展示事件 (方便数据统计) */
+    reportAdImpression(placement: AdPlacement): void {
+        this.reportAnalytics('ad_impression', {
+            pos: placement,
+            type: this._getAdType(placement),
+        });
+    }
+
+    /** 获取广告类型 */
+    private _getAdType(placement: AdPlacement): string {
+        switch (placement) {
+            case AdPlacement.Interstitial: return 'interstitial';
+            case AdPlacement.Banner: return 'banner';
+            default: return 'reward';
+        }
+    }
+
+    // ======== 上报缓存 ========
+
+    private _analyticsCache: Array<{ eventId: string; params: Record<string, any>; ts: number }> = [];
+
+    /** 缓存失败事件 */
+    private _cacheEvent(eventId: string, params: Record<string, any>): void {
+        this._analyticsCache.push({ eventId, params, ts: Date.now() });
+        if (this._analyticsCache.length > 20) {
+            this._analyticsCache.shift();
+        }
+        this.setData('analytics_cache', this._analyticsCache);
+    }
+
+    /** 刷新缓存（启动时调用） */
+    flushAnalyticsCache(): void {
+        const cache = this.getData<Array<{ eventId: string; params: Record<string, any>; ts: number }>>('analytics_cache', []);
+        if (cache.length === 0) return;
+
+        for (const item of cache) {
+            try {
+                if (this._isWXEnv) {
+                    wx.reportAnalytics(item.eventId, item.params);
+                }
+            } catch (err) {
+                // 重试失败就丢弃（防止无限重试循环）
+            }
+        }
+        this.removeData('analytics_cache');
+        this._analyticsCache = [];
     }
 
     // ======== 私有方法 ========

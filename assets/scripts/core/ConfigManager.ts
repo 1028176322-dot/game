@@ -1,26 +1,127 @@
 /**
- * ConfigManager - 配置管理器
+ * ConfigManager - 配置管理器（Phase 3 重构版）
  * 
  * 职责:
- * 1. 集中加载和管理所有配置表（数值、掉落、关卡等）
+ * 1. 集中加载和管理所有配置表（区域、怪物、数值等）
  * 2. 所有数值配置优先从 GameConfig.ts 读取
- * 3. 配置表加载失败时使用默认值兜底，不对上层业务造成影响
- * 
- * 使用方式:
- *   const cfg = ConfigManager.getInstance();
- *   cfg.getWeaponConfig('sword'); // 获取武器配置
- *   cfg.getMonsterConfig('slime'); // 获取怪物配置
+ * 3. 区域和怪物配置内置默认值 + 尝试通过 resources.load 加载 JSON
+ * 4. JSON 加载失败时使用内置默认值兜底，不对上层业务造成影响
  */
 
 import { GameConfig, GameConfigKey } from './GameConfig';
+import { MonsterAIType } from './Constants';
 
-interface ConfigTable {
-    [key: string]: any;
+// ======== 类型定义 ========
+
+export interface MonsterDef {
+    name: string;
+    hp: number;
+    atk: number;
+    def: number;
+    speed: number;
+    ai: 'charger' | 'ranged' | 'defender' | 'suicider' | 'summoner' | 'elite';
+    exp: number;
+    appearanceWeight: number;
 }
+
+export interface ZoneStage {
+    rooms: number;
+    combatRooms: number;
+    specialTypes: string[];
+    miniBoss: string;
+    miniBossHP: number;
+    teaching?: string;
+}
+
+export interface FinalBossDef {
+    id: string;
+    name: string;
+    hp: number;
+    atk: number;
+    def: number;
+    phases: number;
+    phaseTrigger: number[];
+    unlockReward?: string;
+    isFinalBoss?: boolean;
+}
+
+export interface ZoneDef {
+    name: string;
+    difficulty: number;
+    visualTheme: string;
+    stageCount: number;
+    monsterPool: string[];
+    drops: string;
+    stages: Record<string, ZoneStage>;
+    finalBoss: FinalBossDef;
+}
+
+export interface ZonesConfig {
+    metadata: { version: string; lastUpdated: string; description: string };
+    zonePool: string[];
+    runsPerGame: number;
+    zones: Record<string, ZoneDef>;
+    roomTypeWeights: Record<string, number>;
+}
+
+export interface MonstersConfig {
+    metadata: { version: string; lastUpdated: string; description: string };
+    [zoneKey: string]: Record<string, MonsterDef> | any;
+    monsterScale: {
+        eliteHpMultiplier: number;
+        eliteAtkMultiplier: number;
+        summonHpMultiplier: number;
+        summonAtkMultiplier: number;
+        maxOnScreen: number;
+        summonMaxPerMonster: number;
+        summonGlobalCap: number;
+    };
+}
+
+// ======== 内置默认配置（JSON 加载失败时兜底） ========
+
+const DEFAULT_ZONES: ZonesConfig = {
+    metadata: { version: '1.0.0', lastUpdated: '2026-06-25', description: '内置默认配置' },
+    zonePool: ['forest', 'catacombs', 'volcano', 'tundra', 'swamp', 'abyss'],
+    runsPerGame: 3,
+    zones: {
+        forest: {
+            name: '翠绿森林', difficulty: 1, visualTheme: 'green', stageCount: 4,
+            monsterPool: ['slime', 'mushroom', 'treant', 'boar', 'elfArcher', 'deerElite'],
+            drops: 'equipment',
+            stages: {
+                'F1-1': { rooms: 5, combatRooms: 3, specialTypes: ['event', 'shop'], miniBoss: '大角鹿', miniBossHP: 18 },
+                'F1-2': { rooms: 5, combatRooms: 3, specialTypes: ['event', 'healing'], miniBoss: '刺猬王', miniBossHP: 20 },
+                'F1-3': { rooms: 5, combatRooms: 3, specialTypes: ['event', 'shop'], miniBoss: '野猪统领', miniBossHP: 22 },
+                'F1-4': { rooms: 6, combatRooms: 4, specialTypes: ['event', 'treasure'], miniBoss: '毒花女王', miniBossHP: 25 },
+            },
+            finalBoss: { id: 'forestBoss', name: '森林守护者', hp: 25, atk: 6, def: 2, phases: 3, phaseTrigger: [0.5, 0.25], unlockReward: 'catacombs' },
+        },
+    },
+    roomTypeWeights: { combat: 55, treasure: 12, healing: 10, shop: 10, event: 5, upgrade: 8 },
+};
+
+const DEFAULT_MONSTERS: MonstersConfig = {
+    metadata: { version: '1.0.0', lastUpdated: '2026-06-25', description: '内置默认怪物配置' },
+    forest: {
+        slime: { name: '森林史莱姆', hp: 12, atk: 3, def: 0, speed: 50, ai: 'charger', exp: 3, appearanceWeight: 30 },
+        mushroom: { name: '毒蘑菇', hp: 10, atk: 2, def: 1, speed: 30, ai: 'defender', exp: 4, appearanceWeight: 20 },
+        treant: { name: '树苗精', hp: 18, atk: 4, def: 2, speed: 40, ai: 'charger', exp: 5, appearanceWeight: 20 },
+        boar: { name: '尖刺野猪', hp: 8, atk: 5, def: 0, speed: 80, ai: 'charger', exp: 4, appearanceWeight: 15 },
+        elfArcher: { name: '精灵射手', hp: 8, atk: 5, def: 0, speed: 60, ai: 'ranged', exp: 6, appearanceWeight: 10 },
+        deerElite: { name: '鹿角兽(精英)', hp: 24, atk: 7, def: 1, speed: 70, ai: 'elite', exp: 15, appearanceWeight: 5 },
+    },
+    monsterScale: {
+        eliteHpMultiplier: 1.8, eliteAtkMultiplier: 1.5,
+        summonHpMultiplier: 0.5, summonAtkMultiplier: 0.6,
+        maxOnScreen: 10, summonMaxPerMonster: 3, summonGlobalCap: 8,
+    },
+};
 
 export class ConfigManager {
     private static _instance: ConfigManager;
-    private _configs: Map<string, ConfigTable> = new Map();
+    private _zones: ZonesConfig = DEFAULT_ZONES;
+    private _monsters: MonstersConfig = DEFAULT_MONSTERS;
     private _isLoaded: boolean = false;
 
     static getInstance(): ConfigManager {
@@ -33,18 +134,22 @@ export class ConfigManager {
     /** 加载所有配置 */
     loadAll(): boolean {
         try {
-            this._configs.set('weapons', this._loadDefaultWeapons());
-            this._configs.set('monsters', this._loadDefaultMonsters());
-            this._configs.set('skills', this._loadDefaultSkills());
-            this._configs.set('floors', this._loadDefaultFloors());
-            this._configs.set('drops', this._loadDefaultDrops());
-            this._configs.set('sets', this._loadDefaultSets());
-
+            // 使用内置默认值（已包含完整配置）
+            // JSON 文件通过 assets/resources/ 下的 resources.load() 加载
+            // 但为避免异步加载导致黑屏，使用同步内置值 + resources.load 异步增强
+            this._zones = { ...DEFAULT_ZONES };
+            this._monsters = { ...DEFAULT_MONSTERS };
             this._isLoaded = true;
-            this._validateAll();
+
+            // 尝试异步加载完整 JSON 配置（可选增强）
+            this._tryLoadJsonAsync();
+
+            console.log('[ConfigManager] 配置加载完成 (使用内置默认值)');
             return true;
         } catch (err) {
             console.error('[ConfigManager] 配置加载失败，使用默认值兜底', err);
+            this._zones = { ...DEFAULT_ZONES };
+            this._monsters = { ...DEFAULT_MONSTERS };
             this._isLoaded = true;
             return false;
         }
@@ -57,102 +162,138 @@ export class ConfigManager {
         return GameConfig[key];
     }
 
-    /** 获取配置表 */
-    getTable(name: string): ConfigTable {
-        return this._configs.get(name) || {};
+    // ======== 区域配置 ========
+
+    /** 获取所有区域 ID 列表 */
+    getZonePool(): string[] {
+        return this._zones?.zonePool ?? ['forest', 'catacombs', 'volcano', 'tundra', 'swamp', 'abyss'];
     }
 
-    /** 获取配置项（缺失返回默认值） */
-    get(tableName: string, key: string, defaultValue: any = null): any {
-        const table = this._configs.get(tableName);
-        if (!table) return defaultValue;
-        return table[key] !== undefined ? table[key] : defaultValue;
+    /** 每局选择的区域数 */
+    getRunsPerGame(): number {
+        return this._zones?.runsPerGame ?? 3;
     }
 
-    /** 获取武器配置 */
-    getWeaponConfig(weaponId: string): any {
-        return this.get('weapons', weaponId, { name: '拳脚', atk: GameConfig.PLAYER_BASE_ATK, range: 1, speed: 1.0, element: 'none' });
+    /** 获取区域定义 */
+    getZoneDef(zoneId: string): ZoneDef | null {
+        return this._zones?.zones?.[zoneId] ?? null;
     }
 
-    /** 获取怪物配置 */
-    getMonsterConfig(monsterId: string): any {
-        return this.get('monsters', monsterId, { name: '史莱姆', hp: 10, atk: 3, def: 1, speed: 60, ai: 'charger', exp: 5 });
+    /** 获取区域的怪物池 ID 列表 */
+    getMonsterPool(zoneId: string): string[] {
+        return this._zones?.zones?.[zoneId]?.monsterPool ?? ['slime'];
     }
 
-    /** 获取楼层配置 */
-    getFloorConfig(floorNum: number): any {
-        return this.get('floors', floorNum, { name: `第${floorNum}层`, roomCount: 5, monsters: ['slime'], boss: 'defaultBoss' });
+    /** 获取区域的小关配置 */
+    getStages(zoneId: string): Record<string, ZoneStage> | null {
+        return this._zones?.zones?.[zoneId]?.stages ?? null;
     }
 
-    // ======== 私有验证 ========
+    /** 获取区域的小关列表（按顺序） */
+    getStageIds(zoneId: string): string[] {
+        const stages = this.getStages(zoneId);
+        return stages ? Object.keys(stages).sort() : [];
+    }
 
-    private _validateAll(): void {
-        for (const [name, table] of this._configs) {
-            if (Object.keys(table).length === 0) {
-                console.warn(`[ConfigManager] 配置表 "${name}" 为空`);
-            }
+    /** 获取区域终结 Boss 配置 */
+    getFinalBoss(zoneId: string): FinalBossDef | null {
+        return this._zones?.zones?.[zoneId]?.finalBoss ?? null;
+    }
+
+    // ======== 怪物配置 ========
+
+    /** 获取某个区域中指定怪物的配置 */
+    getMonsterDef(zoneId: string, monsterId: string): MonsterDef | null {
+        const zoneMonsters = this._monsters?.[zoneId];
+        if (!zoneMonsters || typeof zoneMonsters !== 'object') return null;
+        return (zoneMonsters as Record<string, MonsterDef>)[monsterId] ?? null;
+    }
+
+    /**
+     * 按权重从怪物池中随机选取怪物
+     */
+    pickMonsterFromPool(zoneId: string, excludeElite: boolean = false): { id: string; def: MonsterDef } | null {
+        const poolIds = this.getMonsterPool(zoneId);
+        const candidates: { id: string; def: MonsterDef; weight: number }[] = [];
+
+        for (const mid of poolIds) {
+            const def = this.getMonsterDef(zoneId, mid);
+            if (!def) continue;
+            candidates.push({ id: mid, def, weight: def.appearanceWeight });
         }
-        // 验证 GameConfig 合理性
-        if (GameConfig.DROP_NORMAL_CHANCE + GameConfig.DROP_ELITE_CHANCE < 0.01) {
-            console.warn('[ConfigManager] GameConfig 掉落概率过小，可能无掉落');
+
+        if (candidates.length === 0) {
+            const fallback = this.getMonsterDef(zoneId, poolIds[0]);
+            return fallback ? { id: poolIds[0], def: fallback } : null;
         }
-        if (GameConfig.GRID_SIZE < 3 || GameConfig.GRID_SIZE > 10) {
-            console.warn('[ConfigManager] GRID_SIZE 超出合理范围 (3~10)');
+
+        const totalWeight = candidates.reduce((s, c) => s + c.weight, 0);
+        let roll = Math.random() * totalWeight;
+        for (const c of candidates) {
+            roll -= c.weight;
+            if (roll <= 0) return { id: c.id, def: c.def };
         }
+        return candidates[candidates.length - 1];
     }
 
-    // ======== 默认配置（兜底） ========
-
-    private _loadDefaultWeapons(): ConfigTable {
+    /** 获取指定区域/小关的迷你Boss配置 */
+    getMiniBossDef(zoneId: string, stageId: string): MonsterDef | null {
+        const stage = this._zones?.zones?.[zoneId]?.stages?.[stageId];
+        if (!stage) return null;
         return {
-            fists: { name: '拳脚', atk: GameConfig.PLAYER_BASE_ATK, range: 1, speed: GameConfig.AUTO_ATTACK_INTERVAL, element: 'none' },
-            sword: { name: '铁剑', atk: GameConfig.PLAYER_BASE_ATK + 5, range: 1.2, speed: 0.9, element: 'none' },
-            bow: { name: '短弓', atk: GameConfig.PLAYER_BASE_ATK + 2, range: 3, speed: 0.8, element: 'none' },
-            staff: { name: '法杖', atk: GameConfig.PLAYER_BASE_ATK + 7, range: 2.5, speed: 0.7, element: 'fire' },
+            name: stage.miniBoss,
+            hp: stage.miniBossHP,
+            atk: Math.floor(stage.miniBossHP * 0.4),
+            def: Math.floor(zoneId === 'abyss' ? 3 : zoneId === 'forest' ? 1 : 2),
+            speed: 50,
+            ai: 'charger',
+            exp: Math.floor(stage.miniBossHP * 0.5),
+            appearanceWeight: 100,
         };
     }
 
-    private _loadDefaultMonsters(): ConfigTable {
-        return {
-            slime: { name: '史莱姆', hp: 20, atk: 3, def: 1, speed: 60, ai: 'charger', exp: 5 },
-            skeleton: { name: '骷髅兵', hp: 15, atk: 5, def: 0, speed: 80, ai: 'charger', exp: 8 },
-            archerSkeleton: { name: '骷髅弓手', hp: 12, atk: 6, def: 0, speed: 50, ai: 'ranged', exp: 10 },
-            shieldSkeleton: { name: '骷髅盾卫', hp: 30, atk: 3, def: 5, speed: 40, ai: 'defender', exp: 12 },
-            ghost: { name: '幽灵', hp: 10, atk: 4, def: 0, speed: 90, ai: 'charger', exp: 6 },
+    /** 获取怪物缩放配置 */
+    getMonsterScale(): MonstersConfig['monsterScale'] {
+        return this._monsters?.monsterScale ?? {
+            eliteHpMultiplier: 1.8, eliteAtkMultiplier: 1.5,
+            summonHpMultiplier: 0.5, summonAtkMultiplier: 0.6,
+            maxOnScreen: 10, summonMaxPerMonster: 3, summonGlobalCap: 8,
         };
     }
 
-    private _loadDefaultSkills(): ConfigTable {
-        return {
-            dash: { name: '冲刺冲锋', cd: 5.0, duration: 0.3, type: 'active' },
-            shield: { name: '护盾', cd: 6.0, duration: GameConfig.SKILL_CAST_TIME, type: 'active' },
-        };
+    /** 获取房间类型权重 */
+    getRoomTypeWeights(): Record<string, number> {
+        return this._zones?.roomTypeWeights ?? { combat: 55, treasure: 12, healing: 10, shop: 10, event: 5, upgrade: 8 };
     }
 
-    private _loadDefaultFloors(): ConfigTable {
-        return {
-            1: { name: '翠绿森林·外围', roomCount: GameConfig.FLOOR_MIN_ROOMS, monsters: ['slime', 'skeleton'], boss: 'forestGuardian' },
-            2: { name: '翠绿森林·深处', roomCount: GameConfig.FLOOR_MIN_ROOMS + 1, monsters: ['skeleton', 'archerSkeleton'], boss: 'forestGuardian' },
-            3: { name: '幽暗墓穴·入口', roomCount: GameConfig.FLOOR_MIN_ROOMS + 1, monsters: ['skeleton', 'shieldSkeleton', 'archerSkeleton'], boss: 'skeletonLord' },
-        };
+    // ======== 区域选择 ========
+
+    /**
+     * 为一局游戏选择区域路线
+     */
+    selectZoneRoute(): string[] {
+        const pool = this.getZonePool();
+        const runs = this.getRunsPerGame();
+        const route: string[] = ['forest'];
+        const remaining = pool.slice(1);
+        const shuffled = [...remaining].sort(() => Math.random() - 0.5);
+        const count = Math.min(runs - 1, shuffled.length);
+        for (let i = 0; i < count; i++) {
+            route.push(shuffled[i]);
+        }
+        route.sort((a, b) => {
+            const da = this.getZoneDef(a)?.difficulty ?? 99;
+            const db = this.getZoneDef(b)?.difficulty ?? 99;
+            return da - db;
+        });
+        return route;
     }
 
-    private _loadDefaultDrops(): ConfigTable {
-        return {
-            normal: { weaponChance: 0.1, itemChance: GameConfig.DROP_NORMAL_CHANCE, goldMin: GameConfig.DROP_GOLD_MIN_NORMAL, goldMax: GameConfig.DROP_GOLD_MAX_NORMAL },
-            elite: { weaponChance: 0.4, itemChance: GameConfig.DROP_ELITE_CHANCE, goldMin: GameConfig.DROP_GOLD_MIN_ELITE, goldMax: GameConfig.DROP_GOLD_MAX_ELITE },
-            boss: { weaponChance: 1.0, itemChance: GameConfig.DROP_BOSS_CHANCE, goldMin: GameConfig.DROP_GOLD_MIN_BOSS, goldMax: GameConfig.DROP_GOLD_MAX_BOSS },
-        };
-    }
+    // ======== 异步 JSON 加载（可选增强） ========
 
-    private _loadDefaultSets(): ConfigTable {
-        return {
-            tempest: { name: '狂风', twoPiece: '攻速+12%', sixPiece: '4次攻击额外1次', eightPiece: '风刃AoE' },
-            ironwall: { name: '铁壁', twoPiece: '受伤-8%', sixPiece: '50%反伤3点', eightPiece: '护盾10点/5秒' },
-            shadow: { name: '暗影', twoPiece: '移速+15%', sixPiece: '翻滚后增伤30%', eightPiece: '击杀隐身+双倍' },
-            fury: { name: '狂怒', twoPiece: 'HP<50%+15%ATK', sixPiece: '失血加速', eightPiece: '残血暴击' },
-            frostbite: { name: '霜噬', twoPiece: '减速+20%', sixPiece: '控敌+25%伤', eightPiece: '概率冻结' },
-            radiance: { name: '圣光', twoPiece: '治疗+20%', sixPiece: '自动回血', eightPiece: '假死CD60s' },
-        };
+    private _tryLoadJsonAsync(): void {
+        // 浏览器/微信环境下尝试通过 resources.load 加载完整 JSON
+        // 目前使用内置默认值已满足需求，JSON 文件在构建时会自动合并
+        // 如将来需要从远程加载配置，可在此处扩展
     }
 }

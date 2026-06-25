@@ -29,6 +29,7 @@ export class DeathUI extends Component {
     reviveButton: Button | null = null;  // 复活按钮
 
     private _deathData: DeathData = { floor: 0, kills: 0, soulStones: 0 };
+    private _doubleAdInProgress: boolean = false;
 
     onLoad(): void {
         eventBus.on(GameEvent.GAME_OVER, this._onPlayerDeath, this);
@@ -97,6 +98,25 @@ export class DeathUI extends Component {
 
         this.settlementPanel.active = true;
         eventBus.emit('ui:settlement_shown', this._deathData);
+
+        // Phase 4: 展示插屏广告 (死亡结算后)
+        WXAdapter.getInstance().reportAdImpression(AdPlacement.Interstitial);
+    }
+
+    /** 点击"翻倍广告"按钮 (魂石 ×2) */
+    onDoubleClick(): void {
+        if (this._doubleAdInProgress) return;
+        this._doubleAdInProgress = true;
+
+        WXAdapter.getInstance().playRewardedAd(AdPlacement.CoinDouble, (result) => {
+            this._doubleAdInProgress = false;
+            if (result.rewarded) {
+                this._deathData.soulStones *= 2;
+                // 刷新显示
+                const ssLabel = this.soulStoneLabel?.getComponent(Label);
+                if (ssLabel) ssLabel.string = `魂石: ${this._deathData.soulStones} (翻倍!)`;
+            }
+        });
     }
 
     /** 点击"回到地面"按钮 */

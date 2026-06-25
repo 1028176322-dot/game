@@ -79,7 +79,7 @@ function buildReactions(): Map<string, ReactionConfig> {
         description: '2x 伤害',
         handler: (sys, monster, pos) => {
             // 额外造成一次 100% ATK 伤害
-            const extraDmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor((sys._player?.stats.getFinalStats().atk ? ?? GameConfig.PLAYER_BASE_ATK) * 1.0));
+            const extraDmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor((sys._player?.stats.getFinalStats().atk ?? GameConfig.PLAYER_BASE_ATK) * 1.0));
             sys._dealReactionDamage(monster, extraDmg);
         },
     });
@@ -88,7 +88,7 @@ function buildReactions(): Map<string, ReactionConfig> {
         name: 'Overload',
         description: 'AoE 爆炸',
         handler: (sys, monster, pos) => {
-            const dmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor((sys._player?.stats.getFinalStats().atk ? ?? GameConfig.PLAYER_BASE_ATK) * 0.8));
+            const dmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor((sys._player?.stats.getFinalStats().atk ?? GameConfig.PLAYER_BASE_ATK) * 0.8));
             // 对周围 1 格怪物造成 AoE
             sys._aoeDamage(pos, GameConfig.TILE_SIZE * 1.5, dmg, monster);
         },
@@ -98,7 +98,7 @@ function buildReactions(): Map<string, ReactionConfig> {
         name: 'Burn',
         description: '3s DoT',
         handler: (sys, monster, _pos) => {
-            const dmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor((sys._player?.stats.getFinalStats().atk ? ?? GameConfig.PLAYER_BASE_ATK) * 0.15));
+            const dmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor((sys._player?.stats.getFinalStats().atk ?? GameConfig.PLAYER_BASE_ATK) * 0.15));
             sys._applyDot(monster, ElementType.Fire, dmg, 1.0, 3);
         },
     });
@@ -107,7 +107,7 @@ function buildReactions(): Map<string, ReactionConfig> {
         name: 'Explosion',
         description: '大范围 AoE',
         handler: (sys, monster, pos) => {
-            const dmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor((sys._player?.stats.getFinalStats().atk ? ?? GameConfig.PLAYER_BASE_ATK) * 1.2));
+            const dmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor((sys._player?.stats.getFinalStats().atk ?? GameConfig.PLAYER_BASE_ATK) * 1.2));
             sys._aoeDamage(pos, GameConfig.TILE_SIZE * 3, dmg, monster);
         },
     });
@@ -162,7 +162,7 @@ function buildReactions(): Map<string, ReactionConfig> {
         name: 'Decay',
         description: '递增 DoT 5s',
         handler: (sys, monster, _pos) => {
-            const baseDmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor((sys._player?.stats.getFinalStats().atk ? ?? GameConfig.PLAYER_BASE_ATK) * 0.1));
+            const baseDmg = Math.max(GameConfig.MIN_DAMAGE, Math.floor((sys._player?.stats.getFinalStats().atk ?? GameConfig.PLAYER_BASE_ATK) * 0.1));
             // 每 1 秒一跳, 伤害递增 20%
             sys._applyDot(monster, ElementType.Shadow, baseDmg, 1.0, 5, true);
         },
@@ -331,7 +331,7 @@ export class ElementSystem extends Component {
         const existing = list.find(s => s.element === element);
         if (existing) {
             existing.remainingTime = Math.max(existing.remainingTime, duration);
-            existing.stacks = Math.min(existing.stacks + stacks, ?? GameConfig.PLAYER_BASE_ATK);
+            existing.stacks = Math.min(existing.stacks + stacks, 5);
             existing.tickDamage = Math.max(existing.tickDamage, tickDamage);
             return;
         }

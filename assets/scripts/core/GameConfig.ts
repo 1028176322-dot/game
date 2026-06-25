@@ -40,6 +40,9 @@ export const GameConfig = {
     /** 防御减伤系数 `floor(DEF×系数)` | 范围: 0~1 | 默认: 0.5 */
     DEF_REDUCTION_FACTOR: 0.5,
 
+    /** 伤害公式防御系数（同 DEF_REDUCTION_FACTOR，兼容旧引用）| 范围: 0~1 | 默认: 0.5 */
+    DAMAGE_FORMULA_DEF_FACTOR: 0.5,
+
     /** 最小伤害保底值 | 范围: 1~10 | 默认: 1 */
     MIN_DAMAGE: 1,
 

@@ -10,6 +10,8 @@ import { eventBus } from './core/EventBus';
 import { ConfigManager } from './core/ConfigManager';
 import { ShopUI } from './ui/ShopUI';
 import { PlayerDataManager } from './core/PlayerDataManager';
+import { WXAdapter } from './utils/WXAdapter';
+import { GameConfig } from './core/GameConfig';
 
 const { ccclass, property } = _decorator;
 
@@ -31,6 +33,14 @@ export class MainSceneController extends Component {
             this.shopUI.init();
         }
 
+        // Phase 4: 主界面显示 Banner 广告
+        WXAdapter.getInstance().showBanner();
+
+        // Phase 4: 上报游戏启动事件
+        WXAdapter.getInstance().reportAnalytics('game_start', {
+            day: new Date().getDate(),
+        });
+
         // 监听进入地牢事件
         eventBus.on('scene:transition', this._onSceneTransition, this);
         eventBus.on(GameEvent.DUNGEON_ENTER, this._onDungeonEnter, this);
@@ -50,6 +60,12 @@ export class MainSceneController extends Component {
     }
 
     private _onDungeonEnter(floor: number): void {
+        // 使用 GameManager 初始化新的一局（选择区域路线）
+        const gm = GameManager.instance;
+        if (gm) {
+            const route = gm.initNewRun();
+            console.log('[区域路线]', route.map(id => gm.currentZoneDef?.name).join(' → '));
+        }
         director.loadScene('dungeon');
     }
 

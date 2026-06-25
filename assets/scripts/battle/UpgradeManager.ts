@@ -91,8 +91,7 @@ export class UpgradeManager extends Component {
         if (this._player) {
             this._player.stats.clearAll();
         }
-    }
-    }
+}
 
     // ======== 主入口 ========
 

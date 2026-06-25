@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-06-25",
+  "tool": "generate_placeholder_art.py",
+  "count": 74,
+  "zones": [
+    "forest",
+    "catacombs",
+    "volcano",
+    "tundra",
+    "swamp",
+    "abyss"
+  ]
+}

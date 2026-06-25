@@ -1,7 +1,7 @@
 /**
- * BattleManager - 战斗管理器
+ * BattleManager - 战斗管理器 (Phase 3)
  * 管理战斗生命周期：怪物生成 → 战斗进行 → 胜利/失败
- * 单一写入口管理战斗状态
+ * Phase 3 新增：召唤怪处理、自爆处理、Boss阶段
  */
 
 import { _decorator, Component, Node, Prefab, instantiate, Vec3 } from 'cc';
@@ -24,7 +24,7 @@ export interface MonsterEntry {
 @ccclass('BattleManager')
 export class BattleManager extends Component {
     @property(Prefab)
-    monsterPrefab: Prefab | null = null;  // 怪物 Prefab（编辑器拖入，缺失时应有兜底）
+    monsterPrefab: Prefab | null = null;
 
     private _phase: BattlePhase = BattlePhase.Init;
     private _player: PlayerController | null = null;
@@ -45,9 +45,12 @@ export class BattleManager extends Component {
             this._autoAttack.init(this);
         }
         this._setPhase(BattlePhase.Init);
+
+        // 注册召唤事件
+        eventBus.on('monster:summon', this._onSummonMonster, this);
     }
 
-    /** 开始战斗（进入战斗房时调用） */
+    /** 开始战斗 */
     startBattle(monsterConfigs: MonsterConfig[]): void {
         this._monsters = [];
         this._killCount = 0;
@@ -68,33 +71,42 @@ export class BattleManager extends Component {
     }
 
     /** 生成单个怪物 */
-    private _spawnMonster(config: MonsterConfig, gridX: number, gridY: number): void {
+    private _spawnMonster(config: MonsterConfig, gridX: number, gridY: number, isSummon: boolean = false): void {
         let monsterNode: Node;
 
-        if (this.monsterPrefab) {
+        if (this.monsterPrefab && !isSummon) {
             monsterNode = instantiate(this.monsterPrefab);
         } else {
-            // Prefab 缺失兜底：创建空节点 + MonsterController
             monsterNode = new Node(`monster_${gridX}_${gridY}`);
         }
 
         this.node.addChild(monsterNode);
-        const monsterCtrl = monsterNode.getComponent(MonsterController);
+        let monsterCtrl = monsterNode.getComponent(MonsterController);
         if (!monsterCtrl) {
-            // 组件缺失兜底：自动添加
-            monsterNode.addComponent(MonsterController);
+            monsterCtrl = monsterNode.addComponent(MonsterController);
         }
-        const ctrl = monsterNode.getComponent(MonsterController)!;
-        ctrl.init(config, gridX, gridY, this._gridManager!);
+
+        // 传递 battleManager 引用给召唤型怪物
+        monsterCtrl.init(config, gridX, gridY, this._gridManager!, this);
 
         if (this._player) {
-            ctrl.setTarget(this._player);
+            monsterCtrl.setTarget(this._player);
         }
 
-        this._monsters.push({ monster: ctrl, config });
+        this._monsters.push({ monster: monsterCtrl, config });
+
+        // 如果是召唤物，增加总计数
+        if (isSummon) {
+            this._totalMonsters++;
+        }
     }
 
-    /** 查找可用的怪物生成位置（离玩家至少 2 格） */
+    /** 处理召唤事件 */
+    private _onSummonMonster(config: MonsterConfig, gridX: number, gridY: number): void {
+        this._spawnMonster(config, gridX, gridY, true);
+    }
+
+    /** 查找可用的怪物生成位置 */
     private _findSpawnPosition(): { x: number; y: number } | null {
         if (!this._gridManager) return null;
 
@@ -102,10 +114,9 @@ export class BattleManager extends Component {
         const playerX = this._player?.gridX ?? Math.floor(gridSize / 2);
         const playerY = this._player?.gridY ?? Math.floor(gridSize / 2);
 
-        // 遍历寻找可通行且离玩家 2 格以上的位置
         for (let y = 0; y < gridSize; y++) {
             for (let x = 0; x < gridSize; x++) {
-                if (this._gridManager.isWalkable(x, y)) {
+                if (this._gridManager.isWalkable(x, y) && !this._gridManager.isOccupied(x, y)) {
                     const dist = MathUtils.manhattanDistance(x, y, playerX, playerY);
                     if (dist >= 2 && dist <= 4) {
                         return { x, y };
@@ -113,10 +124,10 @@ export class BattleManager extends Component {
                 }
             }
         }
-        // 兜底：找任何一个可通行位置
+        // 兜底
         for (let y = 0; y < gridSize; y++) {
             for (let x = 0; x < gridSize; x++) {
-                if (this._gridManager.isWalkable(x, y) && !(x === playerX && y === playerY)) {
+                if (this._gridManager.isWalkable(x, y) && !this._gridManager.isOccupied(x, y)) {
                     return { x, y };
                 }
             }
@@ -149,7 +160,6 @@ export class BattleManager extends Component {
             this._monsters.splice(idx, 1);
             this._killCount++;
 
-            // 全清判定
             if (this._monsters.length === 0 && this._totalMonsters > 0) {
                 this._onRoomCleared();
             }
@@ -169,7 +179,7 @@ export class BattleManager extends Component {
         eventBus.emit('battle:defeat');
     }
 
-    /** 暂停/恢复战斗（场景切换时） */
+    /** 暂停/恢复战斗 */
     setPaused(paused: boolean): void {
         this._autoAttack?.setActive(!paused);
         if (paused) {
@@ -186,7 +196,6 @@ export class BattleManager extends Component {
     update(dt: number): void {
         if (this._phase !== BattlePhase.InProgress) return;
 
-        // 更新所有怪物 AI + 状态计时
         if (this._player) {
             for (const entry of this._monsters) {
                 if (!entry.monster.isDead) {
@@ -197,6 +206,10 @@ export class BattleManager extends Component {
         }
     }
 
+    onDestroy(): void {
+        eventBus.offTarget(this);
+    }
+
     get phase(): BattlePhase { return this._phase; }
     get isRoomCleared(): boolean { return this._isRoomCleared; }
     get killCount(): number { return this._killCount; }
@@ -204,7 +217,6 @@ export class BattleManager extends Component {
     get aliveMonsters(): MonsterEntry[] { return this._monsters.filter(e => !e.monster.isDead); }
     get monsterCount(): number { return this._monsters.filter(e => !e.monster.isDead).length; }
 
-    /** 获取所有怪物（含死亡，用于清点/转场） */
     getAllMonsters(): MonsterController[] {
         return this._monsters
             .filter(e => !e.monster.isDead)
