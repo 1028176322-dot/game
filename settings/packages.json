@@ -1,0 +1,17 @@
+{
+  "packages/engine": {
+    "version": "3.8.8",
+    "enginePath": ""
+  },
+  "packages/builder": {
+    "platform": "wechatgame",
+    "buildPath": "build"
+  },
+  "packages/project": {
+    "useBuiltinAssets": false,
+    "baseUrl": ""
+  },
+  "packages/scene-script": {
+    "useBuiltinScript": false
+  }
+}

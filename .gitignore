@@ -9,11 +9,12 @@ Thumbs.db
 .vscode/
 *.code-workspace
 
-# Cocos Creator (Phase 1 后启用)
+# Cocos Creator
 library/
 temp/
 build/
 local/
+profiles/
 
 # 构建产物
 发布/

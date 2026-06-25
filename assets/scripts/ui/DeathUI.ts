@@ -1,0 +1,135 @@
+/**
+ * DeathUI - 觉悟战/结算 UI
+ * 玩家死亡 → 弹出觉悟战（复活/结算选项）→ 结算统计 → 回到主界面
+ */
+
+import { _decorator, Component, Node, Button, Label } from 'cc';
+import { AdPlacement } from '../core/Constants';
+import { GameManager, GameEvent } from '../core/GameManager';
+import { eventBus } from '../core/EventBus';
+import { WXAdapter } from '../utils/WXAdapter';
+
+const { ccclass, property } = _decorator;
+
+@ccclass('DeathUI')
+export class DeathUI extends Component {
+    @property(Node)
+    awakenPanel: Node | null = null;    // 觉悟战面板
+    @property(Node)
+    settlementPanel: Node | null = null; // 结算面板
+    @property(Label)
+    floorLabel: Node | null = null;
+    @property(Label)
+    killLabel: Node | null = null;
+    @property(Label)
+    soulStoneLabel: Node | null = null;
+    @property(Button)
+    reviveButton: Button | null = null;  // 复活按钮
+
+    private _deathData: DeathData = { floor: 0, kills: 0, soulStones: 0 };
+
+    onLoad(): void {
+        eventBus.on(GameEvent.GAME_OVER, this._onPlayerDeath, this);
+        this.awakenPanel && (this.awakenPanel.active = false);
+        this.settlementPanel && (this.settlementPanel.active = false);
+    }
+
+    onDestroy(): void {
+        eventBus.offTarget(this);
+    }
+
+    private _onPlayerDeath(): void {
+        // 收集本局数据
+        const gm = GameManager.instance;
+        this._deathData = {
+            floor: gm.currentFloor,
+            kills: 0,  // 由外部更新
+            soulStones: this._calcSoulStones(gm.currentFloor),
+        };
+
+        // 弹出觉悟战面板
+        if (this.awakenPanel) {
+            this.awakenPanel.active = true;
+        }
+    }
+
+    /** 点击"看广告复活"按钮 */
+    onReviveClick(): void {
+        if (this.reviveButton) {
+            this.reviveButton.interactable = false;
+        }
+
+        WXAdapter.getInstance().playRewardedAd(AdPlacement.Revive, (result) => {
+            if (result.rewarded) {
+                // 复活成功
+                eventBus.emit('player:revive');
+                this.awakenPanel && (this.awakenPanel.active = false);
+            } else {
+                // 广告未看完或失败 → 进入结算
+                this._showSettlement();
+            }
+            if (this.reviveButton) {
+                this.reviveButton.interactable = true;
+            }
+        });
+    }
+
+    /** 点击"放弃/结算"按钮 */
+    onSettleClick(): void {
+        this.awakenPanel && (this.awakenPanel.active = false);
+        this._showSettlement();
+    }
+
+    private _showSettlement(): void {
+        if (!this.settlementPanel) return;
+
+        // 更新结算数据
+        const flLabel = this.floorLabel?.getComponent(Label);
+        if (flLabel) flLabel.string = `到达层数: ${this._deathData.floor}`;
+
+        const klLabel = this.killLabel?.getComponent(Label);
+        if (klLabel) klLabel.string = `击杀数: ${this._deathData.kills}`;
+
+        const ssLabel = this.soulStoneLabel?.getComponent(Label);
+        if (ssLabel) ssLabel.string = `魂石: ${this._deathData.soulStones}`;
+
+        this.settlementPanel.active = true;
+        eventBus.emit('ui:settlement_shown', this._deathData);
+    }
+
+    /** 点击"回到地面"按钮 */
+    onBackToMainClick(): void {
+        if (this.settlementPanel) {
+            this.settlementPanel.active = false;
+        }
+
+        // 上报数据
+        WXAdapter.getInstance().reportAnalytics('game_settlement', {
+            floor: this._deathData.floor,
+            kills: this._deathData.kills,
+            soulStones: this._deathData.soulStones,
+        });
+
+        const gm = GameManager.instance;
+        if (gm) {
+            gm.setPhase(GamePhase.MainMenu);
+            eventBus.emit(GameEvent.DUNGEON_EXIT);
+        }
+    }
+
+    /** 魂石结算公式（按层数） */
+    private _calcSoulStones(floor: number): number {
+        return floor * 10 + Math.floor(Math.random() * 20);
+    }
+
+    /** 更新击杀数（由外部在战斗中累计设置） */
+    setKillCount(kills: number): void {
+        this._deathData.kills = kills;
+    }
+}
+
+export interface DeathData {
+    floor: number;
+    kills: number;
+    soulStones: number;
+}

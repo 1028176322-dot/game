@@ -1,0 +1,14 @@
+{
+  "name": "回到地面",
+  "uuid": "3d4c5f6e-7a8b-9c0d-1e2f-3a4b5c6d7e8f",
+  "creator": {
+    "version": "3.8.8"
+  },
+  "description": "Roguelike Dungeon Crawler - 微信小游戏",
+  "author": "",
+  "scripts": {
+    "build": "cocos build",
+    "build:wechat": "cocos build --platform wechatgame"
+  },
+  "dependencies": {}
+}
