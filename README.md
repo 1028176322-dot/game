@@ -31,10 +31,16 @@
 | [启动屏设计](./design/风格/启动屏设计.md) | 微信小游戏合规启动屏 | v1.0 |
 | [战斗系统规格](./docs/战斗系统规格.md) | 实时自动攻击系统完整规格 | v2.0 |
 | [地牢生成系统规格](./docs/地牢生成系统规格.md) | DAG 生成/房间类型/地形模板/种子 | v1.0 |
+| [关卡内容设计](./docs/关卡内容设计.md) | 6大区域/27小关/33个Boss | v3.1 |
+| [技能系统设计](./docs/技能系统设计.md) | 主动/核心/属性/遗物/角色5层体系 | v2.0 |
+| [装备系统设计](./docs/装备系统设计.md) | 8槽位/24词缀/6套装/混合套策略 | v2.0 |
+| [道具系统设计](./docs/道具系统设计.md) | 消耗品掉落/商店不售/不可带出 | v1.1 |
+| [数值系统模型](./docs/数值系统模型.md) | 玩家/怪物/BOSS全链路数值 | v1.0 |
 | [数据埋点方案](./docs/数据埋点方案.md) | 12 个核心事件/微信上报 | v1.0 |
 | [本地存储设计](./docs/本地存储设计.md) | 存档结构(500字节)/版本迁移 | v1.0 |
 | [合规审查报告](./docs/合规审查报告_微信小游戏.md) | 微信小游戏平台合规检测 | v1.0 |
-| [实施路线图](./docs/实施路线图.md) | 5 阶段详细实施计划 | v1.0 |
+| [实施路线图](./docs/实施路线图.md) | 5 阶段详细实施计划 (Phase 1-5) | v1.0 |
+| [配置表规范](./docs/配置表规范.md) | 数据格式/命名/校验/环境隔离/版本管理 | v1.0 |
 
 ## 项目结构
 
@@ -51,8 +57,11 @@
 │       ├── dungeon/            # 地牢系统 (Grid/DAG/Dungeon/Room)
 │       ├── ui/                 # UI 层 (Splash/Main/Joystick/HUD/Skill/Map/Upgrade/Death)
 │       └── utils/              # 工具类 (Math/WXAdapter)
+│   └── resources/
+│       └── config/              # 9 个系统配置表 JSON (battle/player/monsters/zones/equipment/skills/items/economy/elements)
+│           └── env/             # 环境覆盖层 (dev.json/test.json/prod.json)
 ├── design/                    # 设计文档
-├── docs/                      # 技术文档
+├── docs/                      # 技术文档 (20+ 文件)
 ├── extensions/                # 编辑器扩展（可选）
 ├── settings/                  # 引擎设置
 ├── GDD_回到地面.md             # 主设计文档
@@ -91,17 +100,35 @@ Phase 1 ─── Phase 2 ─── Phase 3 ─── Phase 4 ─── Phase 5
 | M1.7 觉悟战 + 结算流程 | 2 天 | ✅ 完成 |
 | **首次构建验证 (WeChat Game)** | — | ✅ 构建通过 (58s) |
 
-### Phase 2: 肉鸽系统 (3 周)
+### Phase 2: 肉鸽系统 (3 周) ✅ 代码完成 (M2.1~M2.3)
 
 **目标**: 玩家能构筑 Build → 触发元素反应 → 有 Build 路线选择 → 魂石商店永久成长
 
-| 里程碑 | 周期 | 内容 |
+| 里程碑 | 周期 | 内容 | 状态 |
+|--------|------|------|------|
+| M2.1 Build 3 选 1 + 遗物系统 | 5 天 | 12种核心能力 + 7种属性取舍 + 16种遗物(8被动+8主动) | ✅ **完成** |
+| M2.2 元素反应系统 | 3 天 | 6种元素 + 11种两两反应 + 链式反应(可达3层) | ✅ **完成** |
+| M2.3 装备系统 + 词缀 + 套装 | 4 天 | 8槽位 + 12前缀/12后缀 + 6套橙色套装(2/6/8件效果) | ✅ **完成** |
+| M2.4 魂石商店 + 角色解锁 | 3 天 | 5个角色(战士/弓手/刺客/法师/狂战士) + 3种天赋 | ⏳ 待开始 |
+| M2.5 道具系统 + 背包 | 3 天 | 8种消耗品 + 5格背包 + 区域绑定掉落 + 商店修正 | ⏳ 待开始 |
+
+### 全局配置化改造 ✅
+
+所有数值型配置已从硬编码中提取，统一通过配置表管理：
+
+| 配置表 | 路径 | 内容 |
 |--------|------|------|
-| M2.1 Build 3 选 1 + 遗物系统 | 5 天 | 12种核心能力 + 7种属性取舍 + 16种遗物(8被动+8主动) |
-| M2.2 元素反应系统 | 3 天 | 6种元素 + 11种两两反应 + 链式反应(可达3层) |
-| M2.3 装备系统 + 词缀 + 套装 | 4 天 | 8槽位 + 12前缀/12后缀 + 6套橙色套装 |
-| M2.4 魂石商店 + 角色解锁 | 3 天 | 5个角色(战士/弓手/刺客/法师/狂战士) + 3种天赋 |
-| M2.5 道具系统 + 背包 | 3 天 | 8种消耗品 + 5格背包 + 区域绑定掉落 |
+| GameConfig.ts | `assets/scripts/core/GameConfig.ts` | 150+ 运行时常量 (战斗/属性边界/掉落/经济/广告) |
+| battle.json | `assets/resources/config/battle.json` | 自动攻击/翻滚/暴击/伤害公式参数 |
+| player.json | `assets/resources/config/player.json` | 玩家初始属性/边界/5角色配置 |
+| monsters.json | `assets/resources/config/monsters.json` | 6区域 × 6种 = 36种怪物属性 |
+| zones.json | `assets/resources/config/zones.json` | 6区域/27小关/9Boss/迷你Boss配置 |
+| equipment.json | `assets/resources/config/equipment.json` | 8槽位/24词缀/6套装/6武器类型 |
+| skills.json | `assets/resources/config/skills.json` | 6主动/12核心/7取舍/16遗物 |
+| items.json | `assets/resources/config/items.json` | 8消耗品/6卷轴/5功能道具/掉落率 |
+| economy.json | `assets/resources/config/economy.json` | 金币/魂石/商店/广告定价 |
+| elements.json | `assets/resources/config/elements.json` | 6元素/11反应/链式参数/附魔 |
+| env/dev.json | `assets/resources/config/env/dev.json` | 开发环境覆盖 (攻速/掉率/启动) |
 
 ### Phase 3: 区域内容填充 (3 周)
 
@@ -149,17 +176,8 @@ Phase 1 ─── Phase 2 ─── Phase 3 ─── Phase 4 ─── Phase 5
 | M1.6 地牢 DAG+房间切换 | ✅ | ✅ | DAGGenerator(种子) + DungeonManager + RoomTransition |
 | M1.7 觉悟战+结算 | ✅ | ✅ | DeathUI(觉悟面板+结算统计) |
 
-**代码统计**: 26 个 TypeScript 文件，~3000+ 行代码，分布在 4 个核心模块目录
-
-### 待完成: 首次构建验证
-
-Phase 1 代码和场景已完成，但尚未进行首次构建验证。请在 Cocos Creator 编辑器中执行：
-
-1. **菜单 → 项目 → 项目设置 → 功能裁剪** → 确认仅启用必要模块（减小包体）
-2. **菜单 → 项目 → 构建发布** → 平台选择 **WeChat Game**
-3. **发布路径** → `build/wechatgame`
-4. **构建** → 等待构建完成
-5. **用微信开发者工具打开** `build/wechatgame` 目录 → 真机预览
+**代码统计**: 30+ 个 TypeScript 文件，~4000+ 行代码，9 个配置表 JSON 文件
+**完整文档**: 20+ 个设计/技术文档，~5000+ 行规格描述
 
 ## 工程规范
 
