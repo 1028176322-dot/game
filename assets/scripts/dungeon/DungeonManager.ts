@@ -5,14 +5,14 @@
  */
 
 import { _decorator, Component, Node, Prefab, instantiate } from 'cc';
-import { RoomType, BattlePhase } from '../core/Constants';
+import { RoomType, BattlePhase, MonsterAIType } from '../core/Constants';
 import { eventBus } from '../core/EventBus';
 import { DAGGenerator, DungeonDAG, RoomNode } from './DAGGenerator';
 import { GridManager } from './GridManager';
 import { RoomTransition } from './RoomTransition';
 import { BattleManager } from '../battle/BattleManager';
 import { PlayerController } from '../battle/PlayerController';
-import { MonsterConfig, MonsterAIType } from '../battle/MonsterController';
+import { MonsterConfig } from '../battle/MonsterController';
 import { GameManager } from '../core/GameManager';
 
 const { ccclass, property } = _decorator;

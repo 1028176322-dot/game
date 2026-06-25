@@ -21,7 +21,7 @@ export class ConfigManager {
     }
 
     /** 加载配置 */
-    async loadAll(): Promise<boolean> {
+    loadAll(): boolean {
         try {
             // 武器配置
             this._configs.set('weapons', this._loadDefaultWeapons());

@@ -27,7 +27,6 @@ export interface DungeonDAG {
     maxDepth: number;
 }
 
-@ccclass('DAGGenerator')  // 注意：实际作为纯数据类，实际使用中可能不需要 ccclass
 export class DAGGenerator {
     /** 生成地牢 DAG */
     static generate(seed: number, floorNumber: number, roomCount: number = 5): DungeonDAG {

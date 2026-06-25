@@ -108,6 +108,25 @@ export class UpgradeUI extends Component {
             { id: 'echo_orb', name: '回响之珠', description: '技能 CD 减少 20%', type: 'relic', rarity: 'rare' },
             { id: 'haste_gloves', name: '急速手套', description: '攻击间隔 -0.2 秒', type: 'relic', rarity: 'rare' },
             { id: 'iron_armor', name: '铁甲', description: '受到的伤害 -2', type: 'relic', rarity: 'common' },
+            // --- 遗物 (续) 属性宝石 (6种) ---
+            { id: 'life_gem', name: '生命宝石', description: '最大生命 +25%', type: 'relic', rarity: 'rare' },
+            { id: 'power_gem', name: '力量宝石', description: '攻击力 +5', type: 'relic', rarity: 'rare' },
+            { id: 'guard_gem', name: '防御宝石', description: '防御力 +3', type: 'relic', rarity: 'rare' },
+            { id: 'swift_gem', name: '迅捷宝石', description: '移动速度 +15%', type: 'relic', rarity: 'common' },
+            { id: 'crit_gem', name: '暴击宝石', description: '暴击率 +5%', type: 'relic', rarity: 'rare' },
+            { id: 'crit_dmg_gem', name: '暴伤宝石', description: '暴击伤害 +25%', type: 'relic', rarity: 'epic' },
+            // --- 遗物 (续) 功能 (2种) ---
+            { id: 'explore_map', name: '探险家地图', description: '地牢地图全开', type: 'relic', rarity: 'rare' },
+            { id: 'heal_spring', name: '治疗之泉', description: '每层回复 25% 生命', type: 'relic', rarity: 'epic' },
+            // --- 遗物 (续) 主动技能 (8种, 占用遗物槽位) ---
+            { id: 'flame_ring', name: '烈焰指环', description: '释放火焰波，对周围 2 格造成 15 点火伤害 (CD 8s)', type: 'relic', rarity: 'epic' },
+            { id: 'lightning_totem', name: '闪电图腾', description: '召唤图腾，每 1.5 秒电击最近敌人 (CD 12s)', type: 'relic', rarity: 'epic' },
+            { id: 'ice_prison', name: '冰霜牢笼', description: '冻结周围 1 格敌人 2 秒 (CD 10s)', type: 'relic', rarity: 'rare' },
+            { id: 'poison_cloud', name: '毒雾术', description: '释放毒雾，5 秒持续伤害 (CD 10s)', type: 'relic', rarity: 'rare' },
+            { id: 'holy_light', name: '圣光术', description: '回复 50% 生命 (CD 15s)', type: 'relic', rarity: 'epic' },
+            { id: 'shadow_blink', name: '暗影闪烁', description: '瞬移并隐身 3 秒 (CD 12s)', type: 'relic', rarity: 'epic' },
+            { id: 'rage_potion', name: '狂暴药剂', description: '5 秒内 +50% 攻速 +30% 移速 (CD 15s)', type: 'relic', rarity: 'rare' },
+            { id: 'time_freeze', name: '时间冻结', description: '2 秒内时间减速 50% (CD 20s)', type: 'relic', rarity: 'epic' },
         ];
     }
 

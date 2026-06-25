@@ -15,6 +15,7 @@ import { BattleManager } from './battle/BattleManager';
 import { PlayerController } from './battle/PlayerController';
 import { AutoAttack } from './battle/AutoAttack';
 import { SkillSystem } from './battle/SkillSystem';
+import { UpgradeManager } from './battle/UpgradeManager';
 import { VirtualJoystick } from './ui/VirtualJoystick';
 import { BattleHUD } from './ui/BattleHUD';
 import { DungeonMapUI } from './ui/DungeonMapUI';
@@ -47,6 +48,8 @@ export class DungeonSceneController extends Component {
     upgradeUI: UpgradeUI | null = null;
     @property(DeathUI)
     deathUI: DeathUI | null = null;
+    @property(UpgradeManager)
+    upgradeManager: UpgradeManager | null = null;
 
     onLoad(): void {
         // 初始化玩家
@@ -62,6 +65,17 @@ export class DungeonSceneController extends Component {
         // 初始化战斗管理器
         if (this.battleManager && this.player && this.gridManager) {
             this.battleManager.init(this.player, this.gridManager);
+        }
+
+        // 初始化强化管理器 (M2.1)
+        if (this.upgradeManager && this.player && this.skillSystem) {
+            const autoAttack = this.player.getComponent(AutoAttack);
+            this.upgradeManager.init(
+                this.player,
+                this.skillSystem,
+                autoAttack!,
+                this.battleManager!,
+            );
         }
 
         // 初始化地牢（随机种子）
@@ -82,7 +96,8 @@ export class DungeonSceneController extends Component {
 
         // 更新 HUD
         if (this.battleHUD && this.player) {
-            this.battleHUD.refreshHP(this.player.currentHP, this.player.maxHP);
+            const initStats = this.player.stats.getFinalStats();
+            this.battleHUD.refreshHP(this.player.currentHP, initStats.maxHP);
             this.player.onHPChanged = (current, max) => {
                 this.battleHUD?.refreshHP(current, max);
             };

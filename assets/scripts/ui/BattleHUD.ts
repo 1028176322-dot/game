@@ -10,6 +10,13 @@ import { GameManager } from '../core/GameManager';
 
 const { ccclass, property } = _decorator;
 
+// 攻击结果载荷类型（与 AutoAttack.AttackResult 一致）
+interface AttackResultPayload {
+    target: { node: Node };
+    damage: number;
+    isCrit: boolean;
+}
+
 @ccclass('BattleHUD')
 export class BattleHUD extends Component {
     @property(ProgressBar)
@@ -84,9 +91,26 @@ export class BattleHUD extends Component {
     }
 
     /** 显示伤害数字 */
-    private _showDamageNumber(pos: Vec3, damage: number, isCrit: boolean): void {
-        // 可使用对象池或临时节点显示伤害数字
+    private _showDamageNumber(data: AttackResultPayload | Vec3, damage?: number, isCrit?: boolean): void {
         if (!this.damageNumberPrefab) return;
+
+        let pos: Vec3;
+        let dmg: number;
+        let crit: boolean;
+
+        if (data instanceof Vec3) {
+            // 旧式调用: (Vec3, number, boolean)
+            pos = data;
+            dmg = damage ?? 0;
+            crit = isCrit ?? false;
+        } else if (data && 'target' in data) {
+            // AttackResult 对象调用
+            pos = data.target.node.getPosition();
+            dmg = data.damage;
+            crit = data.isCrit;
+        } else {
+            return;
+        }
 
         const numNode = this.damageNumberPrefab.clone();
         numNode.setPosition(pos);
@@ -94,8 +118,8 @@ export class BattleHUD extends Component {
 
         const label = numNode.getComponent(Label);
         if (label) {
-            label.string = isCrit ? `暴击! ${damage}` : `${damage}`;
-            label.color = isCrit ? Color.RED : Color.WHITE;
+            label.string = crit ? `暴击! ${dmg}` : `${dmg}`;
+            label.color = crit ? Color.RED : Color.WHITE;
         }
 
         // 浮动 + 消失
@@ -104,4 +128,5 @@ export class BattleHUD extends Component {
             .call(() => numNode.destroy())
             .start();
     }
+}
 }

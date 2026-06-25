@@ -201,4 +201,11 @@ export class BattleManager extends Component {
     get totalMonsters(): number { return this._totalMonsters; }
     get aliveMonsters(): MonsterEntry[] { return this._monsters.filter(e => !e.monster.isDead); }
     get monsterCount(): number { return this._monsters.filter(e => !e.monster.isDead).length; }
+
+    /** 获取所有怪物（含死亡，用于清点/转场） */
+    getAllMonsters(): MonsterController[] {
+        return this._monsters
+            .filter(e => !e.monster.isDead)
+            .map(e => e.monster);
+    }
 }

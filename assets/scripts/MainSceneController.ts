@@ -5,7 +5,6 @@
  */
 
 import { _decorator, Component, Node, director } from 'cc';
-import { GamePhase } from './core/Constants';
 import { GameManager, GameEvent } from './core/GameManager';
 import { eventBus } from './core/EventBus';
 import { ConfigManager } from './core/ConfigManager';
@@ -14,10 +13,10 @@ const { ccclass, property } = _decorator;
 
 @ccclass('MainSceneController')
 export class MainSceneController extends Component {
-    async onLoad(): Promise<void> {
-        // 加载配置
+    onLoad(): void {
+        // 配置同步加载（所有配置均为硬编码，无 I/O）
         const configManager = ConfigManager.getInstance();
-        await configManager.loadAll();
+        configManager.loadAll();
 
         // 监听进入地牢事件
         eventBus.on('scene:transition', this._onSceneTransition, this);

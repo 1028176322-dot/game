@@ -1,14 +1,17 @@
 /**
  * PlayerController - 玩家角色控制器
  * 负责角色移动、4 方向动画、翻滚、HP 管理
+ * 运行时属性通过 PlayerStats 叠加层计算
  * 状态切换走统一 setState，禁止散落赋值
  */
 
 import { _decorator, Component, Node, Vec3, tween, Sprite, Animation } from 'cc';
 import { PlayerState, BATTLE_CONSTANTS } from '../core/Constants';
-import { eventBus, GameEvent } from '../core/GameManager';
+import { eventBus } from '../core/EventBus';
+import { GameEvent } from '../core/GameManager';
 import { JoystickDirection, JoystickEvent } from '../ui/VirtualJoystick';
 import { GridManager, GridCell } from '../dungeon/GridManager';
+import { PlayerStats } from './PlayerStats';
 
 const { ccclass, property } = _decorator;
 
@@ -22,6 +25,9 @@ export class PlayerController extends Component {
     def: number = 3;
     @property
     moveSpeed: number = BATTLE_CONSTANTS.PLAYER_MOVE_SPEED;
+
+    /** 运行时属性叠加层（外部通过此对象访问最终属性） */
+    stats: PlayerStats = PlayerStats.createDefault();
 
     private _currentHP: number = 100;
     private _state: PlayerState = PlayerState.Idle;
@@ -42,7 +48,18 @@ export class PlayerController extends Component {
     onHPChanged: ((current: number, max: number) => void) | null = null;
 
     onLoad(): void {
-        this._currentHP = this.maxHP;
+        // 从 @property 默认值初始化属性叠加层基础值
+        this.stats = PlayerStats.createFromBase({
+            atk: this.atk,
+            def: this.def,
+            maxHP: this.maxHP,
+            moveSpeed: this.moveSpeed,
+            atkSpeed: BATTLE_CONSTANTS.AUTO_ATTACK_INTERVAL,
+            attackRange: 2,
+            critChance: BATTLE_CONSTANTS.CRIT_BASE_CHANCE,
+            critMultiplier: BATTLE_CONSTANTS.CRIT_MULTIPLIER,
+        });
+        this._currentHP = this.stats.getFinalStats().maxHP;
         this._sprite = this.getComponent(Sprite);
         this._animation = this.getComponent(Animation);
     }
@@ -50,6 +67,18 @@ export class PlayerController extends Component {
     /** 初始化网格引用 */
     init(gridManager: GridManager): void {
         this._gridManager = gridManager;
+        // 重置玩家属性（新的一局）
+        this.stats = PlayerStats.createFromBase({
+            atk: this.atk,
+            def: this.def,
+            maxHP: this.maxHP,
+            moveSpeed: this.moveSpeed,
+            atkSpeed: BATTLE_CONSTANTS.AUTO_ATTACK_INTERVAL,
+            attackRange: 2,
+            critChance: BATTLE_CONSTANTS.CRIT_BASE_CHANCE,
+            critMultiplier: BATTLE_CONSTANTS.CRIT_MULTIPLIER,
+        });
+        this._currentHP = this.stats.getFinalStats().maxHP;
         // 出生点：网格中心
         const center = Math.floor(gridManager.gridSize / 2);
         this._gridX = center;
@@ -91,7 +120,7 @@ export class PlayerController extends Component {
         this._tryMove(dx, dy);
     }
 
-    /** 尝试移动 */
+    /** 尝试移动（使用最终 moveSpeed） */
     private _tryMove(dx: number, dy: number): void {
         if (this._isMoving) return;
         if (!this._gridManager) return;
@@ -100,6 +129,7 @@ export class PlayerController extends Component {
         const newY = this._gridY + dy;
 
         if (this._gridManager.isWalkable(newX, newY)) {
+            const speed = this.stats.getFinalStats().moveSpeed;
             this._gridManager.setOccupied(this._gridX, this._gridY, false);
             this._gridX = newX;
             this._gridY = newY;
@@ -110,7 +140,7 @@ export class PlayerController extends Component {
             this._isMoving = true;
 
             tween(this.node)
-                .to(1 / this.moveSpeed * BATTLE_CONSTANTS.TILE_SIZE, { position: this._targetPos })
+                .to(1 / speed * BATTLE_CONSTANTS.TILE_SIZE, { position: this._targetPos })
                 .call(() => {
                     this._isMoving = false;
                     if (this._state !== PlayerState.Dodging) {
@@ -133,6 +163,8 @@ export class PlayerController extends Component {
         this._isDodging = true;
         this._dodgeCooldown = BATTLE_CONSTANTS.DODGE_COOLDOWN;
         this._dodgeTimer = BATTLE_CONSTANTS.DODGE_DURATION;
+
+        eventBus.emit('player:dodged'); // M2.1: 触发穿影标记
 
         // 翻滚位移（固定 1 格）
         const newX = this._gridX + dx;
@@ -187,7 +219,6 @@ export class PlayerController extends Component {
     /** 更新面向方向 */
     private _updateFacing(dx: number, dy: number): void {
         if (this._sprite) {
-            // 水平翻转
             if (dx < 0) {
                 this.node.setScale(new Vec3(-1, 1, 1));
             } else if (dx > 0) {
@@ -207,15 +238,16 @@ export class PlayerController extends Component {
         }
     }
 
-    /** 受到伤害 */
+    /** 受到伤害（使用最终 DEF + 减伤） */
     takeDamage(rawDamage: number, isCrit: boolean = false): void {
         if (this._isDodging) return; // 无敌帧免疫伤害
 
-        const actualDamage = this._calcDamage(rawDamage);
+        const finalStats = this.stats.getFinalStats();
+        const actualDamage = this._calcDamage(rawDamage, finalStats);
         this._currentHP = Math.max(0, this._currentHP - actualDamage);
-        this.onHPChanged?.(this._currentHP, this.maxHP);
 
-        // 显示伤害数字回调
+        const maxHP = finalStats.maxHP;
+        this.onHPChanged?.(this._currentHP, maxHP);
         eventBus.emit('player:damaged', actualDamage, isCrit);
 
         if (this._currentHP <= 0) {
@@ -224,21 +256,24 @@ export class PlayerController extends Component {
         }
     }
 
-    /** 伤害公式：ATK + d6 - DEF × 0.5 */
-    private _calcDamage(rawDamage: number): number {
+    /** 伤害公式：rawDamage + d6 - (DEF × 0.5)，再 × 减伤因子 */
+    private _calcDamage(rawDamage: number, stats: { def: number; damageReduction: number }): number {
         const d6Roll = Math.floor(Math.random() * 6) + 1;
-        const reduced = Math.floor(this.def * BATTLE_CONSTANTS.DAMAGE_FORMULA_DEF_FACTOR);
-        return Math.max(1, rawDamage + d6Roll - reduced);
+        const reduced = Math.floor(stats.def * BATTLE_CONSTANTS.DAMAGE_FORMULA_DEF_FACTOR);
+        const afterDef = Math.max(1, rawDamage + d6Roll - reduced);
+        // 应用减伤百分比
+        return Math.floor(afterDef * (1 - stats.damageReduction));
     }
 
-    /** 回血 */
+    /** 回血（使用最终 maxHP） */
     heal(amount: number): void {
-        this._currentHP = Math.min(this.maxHP, this._currentHP + amount);
-        this.onHPChanged?.(this._currentHP, this.maxHP);
+        const maxHP = this.stats.getFinalStats().maxHP;
+        this._currentHP = Math.min(maxHP, this._currentHP + amount);
+        this.onHPChanged?.(this._currentHP, maxHP);
         eventBus.emit('player:healed', amount);
     }
 
-    /** 更新 CD（每帧调用） */
+    /** 更新 CD + PlayerStats 倒计时修饰符（每帧调用） */
     update(dt: number): void {
         if (this._dodgeCooldown > 0) {
             this._dodgeCooldown = Math.max(0, this._dodgeCooldown - dt);
@@ -246,6 +281,8 @@ export class PlayerController extends Component {
         if (this._dodgeTimer > 0) {
             this._dodgeTimer = Math.max(0, this._dodgeTimer - dt);
         }
+        // 更新属性修饰符计时
+        this.stats.update(dt);
     }
 
     // ======== 属性访问 ========
