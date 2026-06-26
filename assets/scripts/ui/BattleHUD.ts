@@ -71,7 +71,7 @@ export class BattleHUD extends Component {
     refreshKills(kills: number): void {
         this._killCount = kills;
         if (this.killLabel) {
-            this.killLabel.string = `击杀: ${kills}`;
+            this.killLabel.string = `击败: ${kills}`;
         }
     }
 

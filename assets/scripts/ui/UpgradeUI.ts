@@ -89,7 +89,7 @@ export class UpgradeUI extends Component {
             { id: 'poison_blade', name: '淬毒', description: '攻击附带中毒效果，3 秒内造成 12 点毒伤害', type: 'ability', rarity: 'common' },
             { id: 'holy_shield', name: '圣盾', description: '每 10 秒获得一次伤害免疫', type: 'ability', rarity: 'epic' },
             { id: 'shadow_cloak', name: '暗影斗篷', description: '脱离战斗后 3 秒隐身，下次攻击额外造成 50% 伤害', type: 'ability', rarity: 'rare' },
-            { id: 'time_warp', name: '时序加速', description: '每次击杀敌人后 2 秒内攻速提升 30%', type: 'ability', rarity: 'rare' },
+            { id: 'time_warp', name: '时序加速', description: '每次击败敌人后 2 秒内攻速提升 30%', type: 'ability', rarity: 'rare' },
 
             // ======== 属性取舍 (7 种) ========
             { id: 'atk_up', name: '+ATK -HP', description: '攻击 +3，最大生命 -15', type: 'stat', rarity: 'common' },
@@ -104,7 +104,7 @@ export class UpgradeUI extends Component {
             { id: 'thorn_armor', name: '荆棘甲', description: '受到伤害时反弹 20% 伤害给攻击者', type: 'relic', rarity: 'rare' },
             { id: 'lucky_coin', name: '幸运币', description: '怪物掉落概率 +10%', type: 'relic', rarity: 'rare' },
             { id: 'berserk_axe', name: '狂战斧', description: 'HP 低于 30% 时攻击力翻倍', type: 'relic', rarity: 'epic' },
-            { id: 'immortal_stone', name: '不朽石', description: '死亡时满血复活一次（每局一次）', type: 'relic', rarity: 'epic' },
+            { id: 'immortal_stone', name: '不朽石', description: '战败时满血复活一次（每局一次）', type: 'relic', rarity: 'epic' },
             { id: 'echo_orb', name: '回响之珠', description: '技能 CD 减少 20%', type: 'relic', rarity: 'rare' },
             { id: 'haste_gloves', name: '急速手套', description: '攻击间隔 -0.2 秒', type: 'relic', rarity: 'rare' },
             { id: 'iron_armor', name: '铁甲', description: '受到的伤害 -2', type: 'relic', rarity: 'common' },

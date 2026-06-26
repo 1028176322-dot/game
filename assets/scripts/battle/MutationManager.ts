@@ -75,12 +75,12 @@ const ALL_MUTATIONS: RoomMutation[] = [
         goodFor: '暗影斗篷', badFor: '远程流',
     },
     {
-        id: 'M02', name: '血月',
-        description: '治疗效果 -50%，吸血效果 ×2',
+        id: 'M02', name: '绯红之月',
+        description: '治疗效果 -50%，汲取效果 ×2',
         effect: { playerHealEffect: 0.5, playerLifesteal: 2.0 },
         baseWeight: 12,
         ddaWeightMod: (died) => died ? 10 : 0,
-        goodFor: '吸血光环', badFor: '药水流',
+        goodFor: '生命吸取', badFor: '药水流',
     },
     {
         id: 'M03', name: '奥术风暴',
@@ -115,7 +115,7 @@ const ALL_MUTATIONS: RoomMutation[] = [
     },
     {
         id: 'M07', name: '虚弱诅咒',
-        description: '玩家 ATK -2，每击杀 1 怪永久 +1 ATK',
+        description: '玩家 ATK -2，每击败 1 怪永久 +1 ATK',
         effect: { playerAtkMod: -2 },
         baseWeight: 10,
         ddaWeightMod: (died) => died ? 15 : 0,

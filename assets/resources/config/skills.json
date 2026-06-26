@@ -11,15 +11,15 @@
     "coreAbilities": [
         { "id": "doubleStrike", "name": "二段斩", "tier": "T0", "effect": "攻击打2下(第二下60%)", "secondHitMultiplier": 0.6 },
         { "id": "phaseWalk", "name": "穿影", "tier": "T0", "effect": "可穿越敌人和障碍物" },
-        { "id": "warCry", "name": "怒吼", "tier": "T2", "effect": "击杀后下击ATK×2", "atkMultiplier": 2.0 },
-        { "id": "lifeStealAura", "name": "吸血光环", "tier": "T1", "effect": "攻击回复15%伤害HP", "lifeStealPercent": 0.15 },
+        { "id": "warCry", "name": "怒吼", "tier": "T2", "effect": "击败后下击ATK×2", "atkMultiplier": 2.0 },
+        { "id": "lifeStealAura", "name": "生命吸取", "tier": "T1", "effect": "攻击回复15%伤害HP", "lifeStealPercent": 0.15 },
         { "id": "ricochet", "name": "弹射箭", "tier": "T1", "effect": "弹射第2目标(50%伤害)", "ricochetMultiplier": 0.5 },
         { "id": "shieldReflect", "name": "盾反", "tier": "T1", "effect": "受击30%概率反弹100%", "reflectChance": 0.3, "reflectMultiplier": 1.0 },
         { "id": "bulletTime", "name": "子弹时间", "tier": "T0", "effect": "翻滚后2秒攻速翻倍", "duration": 2.0, "attackSpeedMultiplier": 2.0 },
         { "id": "elementResonance", "name": "元素共鸣", "tier": "T0", "effect": "元素反应时额外50%AoE", "aoeDamagePercent": 0.5 },
         { "id": "sprint", "name": "疾跑", "tier": "T2", "effect": "移速+30%", "moveSpeedMod": 0.3 },
         { "id": "frostBite", "name": "霜噬", "tier": "T1", "effect": "攻击附带30%减速1秒", "slowAmount": 0.3, "slowDuration": 1.0 },
-        { "id": "fireWalker", "name": "浴火", "tier": "T2", "effect": "荆棘上不扣血ATK+2", "thornImmune": true, "thornAtkBonus": 2 },
+        { "id": "fireWalker", "name": "火行者", "tier": "T2", "effect": "荆棘上不扣血ATK+2", "thornImmune": true, "thornAtkBonus": 2 },
         { "id": "holyShield", "name": "圣盾", "tier": "T2", "effect": "每10秒自动护盾8点", "shieldInterval": 10.0, "shieldAmount": 8 }
     ],
     "statUpgrades": [
@@ -35,7 +35,7 @@
         { "id": "thornArmor", "effect": "受击反伤2点", "thornDamage": 2 },
         { "id": "luckyCoin", "effect": "暴击率+10%", "critChanceBonus": 0.1 },
         { "id": "frenzyAxe", "effect": "HP<50%时ATK翻倍", "triggerHpRatio": 0.5, "atkMultiplier": 2.0 },
-        { "id": "immortalStone", "effect": "每层首次死亡1HP复活+1s无敌", "revivePerFloor": true, "invincibleDuration": 1.0 },
+        { "id": "immortalStone", "effect": "每层首次战败1HP复活+1s无敌", "revivePerFloor": true, "invincibleDuration": 1.0 },
         { "id": "echoOrb", "effect": "使用技能回复3HP", "skillHpRestore": 3 },
         { "id": "shadowCloak", "effect": "暗区隐身延长2秒", "stealthExtension": 2.0 },
         { "id": "speedGauntlet", "effect": "攻击间隔1.0→0.8秒", "atkSpeedMod": -0.2 },

@@ -171,7 +171,7 @@ function buildSetBonuses(): SetBonusDef[] {
             pieceEffects: [
                 { count: 2, description: '暴击率 +10%', apply: s => s.applyModifier({ source: 'set:shadow_2', stat: 'critChance', value: 0.10, type: 'flat', duration: 0 }) },
                 { count: 6, description: '暴击伤害 +50%', apply: s => s.applyModifier({ source: 'set:shadow_6', stat: 'critMultiplier', value: 0.50, type: 'flat', duration: 0 }) },
-                { count: 8, description: '击杀后 3 秒隐身 (怪物不追击)', apply: _s => {} },
+                { count: 8, description: '击败后 3 秒隐身 (怪物不追击)', apply: _s => {} },
             ],
         },
         {
@@ -180,7 +180,7 @@ function buildSetBonuses(): SetBonusDef[] {
             pieceEffects: [
                 { count: 2, description: '最大生命 +25%', apply: s => s.applyModifier({ source: 'set:life_2', stat: 'maxHP', value: 0.25, type: 'percent', duration: 0 }) },
                 { count: 6, description: '每秒回复 1 HP + 最大生命 +15%', apply: s => { s.applyModifier({ source: 'set:life_6_hp', stat: 'maxHP', value: 0.15, type: 'percent', duration: 0 }); } },
-                { count: 8, description: '死亡时满血复活一次 (每局一次)', apply: _s => {} },
+                { count: 8, description: '战败时满血复活一次 (每局一次)', apply: _s => {} },
             ],
         },
         {

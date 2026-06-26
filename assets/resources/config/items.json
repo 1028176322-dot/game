@@ -27,7 +27,7 @@
         { "id": "key", "name": "钥匙", "shopPrice": 10, "effect": "开宝箱", "stackMax": 3 },
         { "id": "advancedKey", "name": "高级钥匙", "shopPrice": 15, "effect": "开金箱(保底橙装)", "stackMax": 3 },
         { "id": "rerollScroll", "name": "洗点券", "shopPrice": 12, "effect": "重置本层强化" },
-        { "id": "reviveCoin", "name": "复活币", "shopPrice": 20, "effect": "死亡自动复活(不消耗广告)", "stackMax": 1 },
+        { "id": "reviveCoin", "name": "复活币", "shopPrice": 20, "effect": "战败自动复活(不消耗广告)", "stackMax": 1 },
         { "id": "mapScroll", "name": "地图卷轴", "shopPrice": 8, "effect": "显示本层全部房间" }
     ],
     "bagLimits": {

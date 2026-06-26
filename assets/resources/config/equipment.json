@@ -16,7 +16,7 @@
         { "id": "heavy", "name": "沉重的", "slotType": ["weapon"], "effect": { "atk": 3, "attackInterval": 0.1 } },
         { "id": "swift", "name": "迅捷的", "slotType": ["weapon","shoes","gloves"], "effect": { "attackInterval": -0.05 } },
         { "id": "sturdy", "name": "坚固的", "slotType": ["helmet","chest","legs"], "effect": { "def": 2 } },
-        { "id": "vampiric", "name": "吸血", "slotType": ["weapon"], "effect": { "lifeSteal": 0.15 } },
+        { "id": "vampiric", "name": "汲取", "slotType": ["weapon"], "effect": { "lifeSteal": 0.15 } },
         { "id": "shocking", "name": "带电的", "slotType": ["weapon","gloves"], "effect": { "element": "lightning" } },
         { "id": "blazing", "name": "燃烧的", "slotType": ["weapon","gloves"], "effect": { "element": "fire" } },
         { "id": "icy", "name": "冰封的", "slotType": ["weapon"], "effect": { "element": "frost" } },
@@ -29,7 +29,7 @@
         { "id": "ofFlames", "name": "之火焰", "slotType": ["weapon"], "effect": { "element": "fire" } },
         { "id": "ofWinter", "name": "之寒冬", "slotType": ["weapon"], "effect": { "element": "frost" } },
         { "id": "ofThunder", "name": "之雷霆", "slotType": ["weapon"], "effect": { "element": "lightning" } },
-        { "id": "ofTheDead", "name": "之亡者", "slotType": ["weapon"], "effect": { "onKillSummonChance": 0.2 } },
+        { "id": "ofTheDead", "name": "之幽影", "slotType": ["weapon"], "effect": { "onKillSummonChance": 0.2 } },
         { "id": "ofTheBerserker", "name": "之狂战士", "slotType": ["weapon"], "effect": { "lowHpAtkBonus": 3 } },
         { "id": "ofThePhantom", "name": "之幻影", "slotType": ["shoes"], "effect": { "stealthInDarkZone": true } },
         { "id": "ofProtection", "name": "之守护", "slotType": ["helmet","chest","legs"], "effect": { "autoHealPerSec": 0.5 } },
@@ -42,7 +42,7 @@
     "sets": {
         "tempest": { "name": "狂风", "twoPiece": "attackSpeed+12%", "sixPiece": "every4thHitExtra60%", "eightPiece": "windBladeAoe40%", "twoPieceEffect": { "attackSpeedMod": 0.12 } },
         "ironwall": { "name": "铁壁", "twoPiece": "incomingDmg-8%", "sixPiece": "50%reflect3", "eightPiece": "shield10per5s", "twoPieceEffect": { "damageReduction": 0.08 } },
-        "shadow": { "name": "暗影", "twoPiece": "moveSpeed+15%", "sixPiece": "dodgeBuff30%", "eightPiece": "killStealthDouble", "twoPieceEffect": { "moveSpeedMod": 0.15 } },
+        "shadow": { "name": "暗影", "twoPiece": "moveSpeed+15%", "sixPiece": "dodgeBuff30%", "eightPiece": "defeatStealthDouble", "twoPieceEffect": { "moveSpeedMod": 0.15 } },
         "fury": { "name": "狂怒", "twoPiece": "lowHpAtk+15%", "sixPiece": "per10HpLostAtkSpeed+5%", "eightPiece": "lowHpCrit+30%x2.5", "twoPieceEffect": { "lowHpAtkBonus": 0.15 } },
         "frostbite": { "name": "霜噬", "twoPiece": "slowEffect+20%", "sixPiece": "vsSlowed+25%", "eightPiece": "20%freeze1s", "twoPieceEffect": { "slowEffectiveness": 0.2 } },
         "radiance": { "name": "圣光", "twoPiece": "healEffect+20%", "sixPiece": "autoHeal2per3s", "eightPiece": "fakeDeath60sCD30%", "twoPieceEffect": { "healingModifier": 0.2 } }

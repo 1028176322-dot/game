@@ -91,7 +91,7 @@ export class DeathUI extends Component {
         if (flLabel) flLabel.string = `到达层数: ${this._deathData.floor}`;
 
         const klLabel = this.killLabel?.getComponent(Label);
-        if (klLabel) klLabel.string = `击杀数: ${this._deathData.kills}`;
+        if (klLabel) klLabel.string = `击败数: ${this._deathData.kills}`;
 
         const ssLabel = this.soulStoneLabel?.getComponent(Label);
         if (ssLabel) ssLabel.string = `魂石: ${this._deathData.soulStones}`;
