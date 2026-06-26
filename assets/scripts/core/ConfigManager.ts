@@ -10,6 +10,7 @@
 
 import { GameConfig, GameConfigKey } from './GameConfig';
 import { MonsterAIType } from './Constants';
+import { loadTextConfig } from './TextManager';
 
 // ======== 类型定义 ========
 
@@ -135,11 +136,12 @@ export class ConfigManager {
     loadAll(): boolean {
         try {
             // 使用内置默认值（已包含完整配置）
-            // JSON 文件通过 assets/resources/ 下的 resources.load() 加载
-            // 但为避免异步加载导致黑屏，使用同步内置值 + resources.load 异步增强
             this._zones = { ...DEFAULT_ZONES };
             this._monsters = { ...DEFAULT_MONSTERS };
             this._isLoaded = true;
+
+            // 加载文本配置
+            this._loadTextConfig();
 
             // 尝试异步加载完整 JSON 配置（可选增强）
             this._tryLoadJsonAsync();
@@ -295,5 +297,21 @@ export class ConfigManager {
         // 浏览器/微信环境下尝试通过 resources.load 加载完整 JSON
         // 目前使用内置默认值已满足需求，JSON 文件在构建时会自动合并
         // 如将来需要从远程加载配置，可在此处扩展
+    }
+
+    /** 加载文本配置到 TextManager */
+    private _loadTextConfig(): void {
+        try {
+            // 尝试加载 text.json（运行时通过 resources.load 异步加载）
+            // 同步环境下先使用内置默认文本数据兜底
+            const defaultText = {
+                ui: { hp: '生命: {cur}/{max}', defeat: '击败: {count}', floor: '第 {floor} 层' },
+                room: { combat: '战', treasure: '宝', healing: '泉', shop: '店', upgrade: '强', event: '?', boss: '王', start: '始', unknown: '?' },
+            };
+            loadTextConfig(defaultText);
+            console.log('[ConfigManager] 文本配置已加载');
+        } catch (err) {
+            console.warn('[ConfigManager] 文本配置加载失败', err);
+        }
     }
 }

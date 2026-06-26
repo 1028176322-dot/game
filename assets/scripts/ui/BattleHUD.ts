@@ -7,6 +7,7 @@
 import { _decorator, Component, Node, Label, Sprite, ProgressBar, color, Color, UIOpacity, tween, Vec3 } from 'cc';
 import { eventBus } from '../core/EventBus';
 import { GameManager } from '../core/GameManager';
+import { T } from '../core/TextManager';
 
 const { ccclass, property } = _decorator;
 
@@ -56,14 +57,14 @@ export class BattleHUD extends Component {
             this.hpBar.progress = maxHP > 0 ? currentHP / maxHP : 0;
         }
         if (this.hpLabel) {
-            this.hpLabel.string = `${currentHP}/${maxHP}`;
+            this.hpLabel.string = T('ui.hp', { cur: currentHP, max: maxHP });
         }
     }
 
     /** 刷新层数 */
     refreshFloor(floor: number): void {
         if (this.floorLabel) {
-            this.floorLabel.string = `第 ${floor} 层`;
+            this.floorLabel.string = T('ui.floor', { floor });
         }
     }
 
@@ -71,7 +72,7 @@ export class BattleHUD extends Component {
     refreshKills(kills: number): void {
         this._killCount = kills;
         if (this.killLabel) {
-            this.killLabel.string = `击败: ${kills}`;
+            this.killLabel.string = T('ui.defeat', { count: kills });
         }
     }
 

@@ -6,6 +6,7 @@
 import { _decorator, Component, Node, Button, Label } from 'cc';
 import { AdPlacement, GamePhase } from '../core/Constants';
 import { GameManager, GameEvent } from '../core/GameManager';
+import { T } from '../core/TextManager';
 import { eventBus } from '../core/EventBus';
 import { WXAdapter } from '../utils/WXAdapter';
 import { PlayerDataManager } from '../core/PlayerDataManager';
@@ -88,13 +89,13 @@ export class DeathUI extends Component {
 
         // 更新结算数据
         const flLabel = this.floorLabel?.getComponent(Label);
-        if (flLabel) flLabel.string = `到达层数: ${this._deathData.floor}`;
+        if (flLabel) flLabel.string = T('ui.reachFloor', { floor: this._deathData.floor });
 
         const klLabel = this.killLabel?.getComponent(Label);
-        if (klLabel) klLabel.string = `击败数: ${this._deathData.kills}`;
+        if (klLabel) klLabel.string = T('ui.defeatCount', { count: this._deathData.kills });
 
         const ssLabel = this.soulStoneLabel?.getComponent(Label);
-        if (ssLabel) ssLabel.string = `魂石: ${this._deathData.soulStones}`;
+        if (ssLabel) ssLabel.string = T('ui.soulStone', { count: this._deathData.soulStones });
 
         this.settlementPanel.active = true;
         eventBus.emit('ui:settlement_shown', this._deathData);
@@ -114,7 +115,7 @@ export class DeathUI extends Component {
                 this._deathData.soulStones *= 2;
                 // 刷新显示
                 const ssLabel = this.soulStoneLabel?.getComponent(Label);
-                if (ssLabel) ssLabel.string = `魂石: ${this._deathData.soulStones} (翻倍!)`;
+                if (ssLabel) ssLabel.string = T('ui.soulStoneDouble', { count: this._deathData.soulStones });
             }
         });
     }
