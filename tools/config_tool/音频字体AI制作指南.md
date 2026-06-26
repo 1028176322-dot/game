@@ -21,16 +21,16 @@
 
 ```
 Suno AI 做 BGM:
-  1. 打开 suno.com → 注册/登录
-  2. 在 Create 页面粘贴下方的"生成描述"
+  1. 打开 suno.com → 注册/登录（需梯子）
+  2. 在 Create 页面粘贴"生成描述"（推荐用英文，效果更好）
   3. 风格选 Instrumental (纯音乐)
-  4. 时长选 30 秒
+  4. 时长选 30 秒（或自定义）
   5. 生成 → 下载 MP3 → 按下方路径和命名保存
 
 ElevenLabs 做 SFX:
   1. 打开 elevenlabs.io → 注册/登录
   2. 进入 Sound Effects 页面
-  3. 粘贴下方的"生成描述" (英文效果最好)
+  3. 粘贴"生成描述" (英文效果最好)
   4. 时长选 Short (< 2秒) 或 Medium (2~5秒)
   5. 生成 → 下载 WAV → 按下方路径和命名保存
   
@@ -41,79 +41,111 @@ ElevenLabs 做 SFX:
 
 ---
 
-## 一、BGM（11 首）
+## 一、BGM（11 首）—— 快速生成清单
 
-> 存放路径: E:/game/回到地面/assets/resources/audio/bgm/
+> 存放路径: `E:/game/回到地面/assets/resources/audio/bgm/`
 > 格式: MP3, 96kbps, 单文件 < 200KB, 循环播放 (30~60秒)
 > 工具: Suno AI → 纯音乐(Instrumental) → 下载 MP3
 
-### 1.1 主界面 BGM
+### 操作步骤
+
+在 Suno Create 页面：
+1. **Paste** 下方对应英文描述到输入框
+2. **Style** 选择 `Instrumental`（纯音乐）
+3. **Duration** 选 30 秒（或 Custom 按需设置）
+4. **Generate** → 试听满意后下载
+5. **重命名** 为对应文件名，存入 `audio/bgm/`
+
+> 💡 英文描述效果比中文好，下面直接给英文版，复制粘贴即可
+
+---
+
+### 第 1 首 · 主界面 BGM
 
 | 字段 | 内容 |
 |------|------|
 | **文件名** | `bgm_main.mp3` |
-| **完整路径** | `E:/game/回到地面/assets/resources/audio/bgm/bgm_main.mp3` |
 | **时长** | 60 秒循环 |
-| **文件大小** | < 200KB (MP3 96kbps) |
-| **🤖 Suno 生成描述 (中文)** | 风格: 史诗管弦+神秘. 空灵笛声开场, 竖琴琶音铺底, 低音弦乐烘托地牢探险氛围. 中速 80bpm, 持续循环, 无明确结尾. 纯音乐无歌词. |
-| **🤖 Suno 生成描述 (English)** | Style: Epic orchestral, mysterious. Ethereal flute intro, harp arpeggios, low strings building dungeon exploration atmosphere. Medium tempo 80bpm, loopable, no ending, instrumental only. |
+| **目标大小** | < 200KB |
+| **📋 复制这个到 Suno** | `Style: Epic orchestral, mysterious. Ethereal flute intro, harp arpeggios, low strings building dungeon exploration atmosphere. Medium tempo 80bpm, loopable, no ending, instrumental only.` |
 
-### 1.2 战斗 BGM
+### 第 2 首 · 战斗 BGM
 
 | 字段 | 内容 |
 |------|------|
 | **文件名** | `bgm_combat.mp3` |
-| **完整路径** | `E:/game/回到地面/assets/resources/audio/bgm/bgm_combat.mp3` |
 | **时长** | 30 秒循环 |
-| **文件大小** | < 150KB |
-| **🤖 Suno 生成描述** | Style: Action, tense percussion. Driving drums, brass stabs, electronic beats. Fast tempo 120bpm, loopable 30s, no vocals, instrumental battle music. |
-| **中文描述** | 风格: 紧张战斗节奏. 驱动鼓点, 铜管重音, 电子节拍. 快板 120bpm, 30秒可循环, 纯音乐. |
+| **目标大小** | < 150KB |
+| **📋 复制这个到 Suno** | `Style: Action, tense percussion. Driving drums, brass stabs, electronic beats. Fast tempo 120bpm, loopable 30s, no vocals, instrumental battle music.` |
 
-### 1.3 Boss 战 BGM
+### 第 3 首 · Boss 战 BGM
 
 | 字段 | 内容 |
 |------|------|
 | **文件名** | `bgm_boss.mp3` |
-| **完整路径** | `E:/game/回到地面/assets/resources/audio/bgm/bgm_boss.mp3` |
 | **时长** | 30 秒循环 |
-| **文件大小** | < 150KB |
-| **🤖 Suno 生成描述** | Style: Epic orchestral, intense. Full orchestra with choir, timpani pounding, brass fanfare. Dark powerful tension. 100bpm, loopable, instrumental. |
-| **中文描述** | 风格: 宏大压迫. 交响乐+合唱, 定音鼓重击, 铜管高亢. 暗黑强力, 100bpm, 可循环, 纯音乐. |
+| **目标大小** | < 150KB |
+| **📋 复制这个到 Suno** | `Style: Epic orchestral, intense. Full orchestra with choir, timpani pounding, brass fanfare. Dark powerful tension. 100bpm, loopable, instrumental.` |
 
-### 1.4 强化房 BGM
+### 第 4 首 · 强化房 BGM
 
 | 字段 | 内容 |
 |------|------|
 | **文件名** | `bgm_upgrade.mp3` |
-| **完整路径** | `E:/game/回到地面/assets/resources/audio/bgm/bgm_upgrade.mp3` |
 | **时长** | 20 秒循环 |
-| **文件大小** | < 100KB |
-| **🤖 Suno 生成描述** | Style: Hopeful, light. Harp and strings, glockenspiel. Warm and inviting, sense of discovery. Medium tempo 90bpm, loopable 20s, instrumental. |
-| **中文描述** | 风格: 希望轻快. 竖琴+弦乐+钟琴. 温暖邀请感, 发现新事物的兴奋. 中板 90bpm, 20秒循环. |
+| **目标大小** | < 100KB |
+| **📋 复制这个到 Suno** | `Style: Hopeful, light. Harp and strings, glockenspiel. Warm and inviting, sense of discovery. Medium tempo 90bpm, loopable 20s, instrumental.` |
 
-### 1.5 觉悟战 BGM
+### 第 5 首 · 觉悟战 BGM（死亡）
 
 | 字段 | 内容 |
 |------|------|
 | **文件名** | `bgm_death.mp3` |
-| **完整路径** | `E:/game/回到地面/assets/resources/audio/bgm/bgm_death.mp3` |
 | **时长** | 15 秒循环 |
-| **文件大小** | < 80KB |
-| **🤖 Suno 生成描述** | Style: Dark, somber. Solo cello, low sustained notes, minimal ambient. Melancholic and reflective. Slow 50bpm, loopable 15s, instrumental. |
-| **中文描述** | 风格: 低沉悲伤. 大提琴独奏, 低音持续, 极简氛围. 忧郁反思感. 慢板 50bpm, 15秒循环. |
+| **目标大小** | < 80KB |
+| **📋 复制这个到 Suno** | `Style: Dark, somber. Solo cello, low sustained notes, minimal ambient. Melancholic and reflective. Slow 50bpm, loopable 15s, instrumental.` |
 
-### 1.6~1.11 区域 BGM（6 首）
+### 第 6 首 · 森林区域 BGM
 
-> 所有区域 BGM: 30 秒循环, < 150KB
+| 字段 | 内容 |
+|------|------|
+| **文件名** | `bgm_forest.mp3` |
+| **📋 复制这个到 Suno** | `Style: Ethereal, nature. Chinese bamboo flute, harp, soft bird chirps in background. Mystical forest atmosphere. 70bpm, loopable 30s, instrumental.` |
 
-| 文件名 | 完整路径 | 🤖 Suno 生成描述 (English) | 中文描述 |
-|--------|----------|---------------------------|----------|
-| `bgm_forest.mp3` | `.../audio/bgm/bgm_forest.mp3` | Style: Ethereal, nature. Chinese bamboo flute, harp, soft bird chirps in background. Mystical forest atmosphere. 70bpm, loopable 30s, instrumental. | 空灵自然. 竹笛+竖琴+鸟鸣. 神秘森林, 70bpm. |
-| `bgm_catacombs.mp3` | `.../audio/bgm/bgm_catacombs.mp3` | Style: Dark, oppressive. Pipe organ, low strings, chain rattling sounds. Underground tomb atmosphere. 60bpm, loopable 30s, instrumental. | 低沉压抑. 管风琴+低音弦乐+铁链声. 地下墓穴, 60bpm. |
-| `bgm_volcano.mp3` | `.../audio/bgm/bgm_volcano.mp3` | Style: Intense, urgent. Taiko drums, electric guitar, fire crackling sounds. Volcanic fury. 130bpm, loopable 30s, instrumental. | 激烈紧迫. 太鼓+电吉他+火焰声. 火山愤怒, 130bpm. |
-| `bgm_tundra.mp3` | `.../audio/bgm/bgm_tundra.mp3` | Style: Cold, lonely. Piano, wind chimes, howling wind. Frozen wasteland atmosphere. 60bpm, loopable 30s, instrumental. | 清冷孤寂. 钢琴+风铃+风声. 冰封旷野, 60bpm. |
-| `bgm_swamp.mp3` | `.../audio/bgm/bgm_swamp.mp3` | Style: Eerie, viscous. Cello, synthesizer pad, water droplet sounds. Toxic swamp dread. 70bpm, loopable 30s, instrumental. | 诡异粘滞. 大提琴+合成器+水滴声. 毒沼恐惧, 70bpm. |
-| `bgm_abyss.mp3` | `.../audio/bgm/bgm_abyss.mp3` | Style: Grand, despairing. Full symphony, choir, deep低频 drone. Void of the abyss. 90bpm, loopable 30s, instrumental. | 宏大绝望. 交响+合唱+低频嗡鸣. 深渊虚空, 90bpm. |
+### 第 7 首 · 墓穴区域 BGM
+
+| 字段 | 内容 |
+|------|------|
+| **文件名** | `bgm_catacombs.mp3` |
+| **📋 复制这个到 Suno** | `Style: Dark, oppressive. Pipe organ, low strings, chain rattling sounds. Underground tomb atmosphere. 60bpm, loopable 30s, instrumental.` |
+
+### 第 8 首 · 火山区域 BGM
+
+| 字段 | 内容 |
+|------|------|
+| **文件名** | `bgm_volcano.mp3` |
+| **📋 复制这个到 Suno** | `Style: Intense, urgent. Taiko drums, electric guitar, fire crackling sounds. Volcanic fury. 130bpm, loopable 30s, instrumental.` |
+
+### 第 9 首 · 冰原区域 BGM
+
+| 字段 | 内容 |
+|------|------|
+| **文件名** | `bgm_tundra.mp3` |
+| **📋 复制这个到 Suno** | `Style: Cold, lonely. Piano, wind chimes, howling wind. Frozen wasteland atmosphere. 60bpm, loopable 30s, instrumental.` |
+
+### 第 10 首 · 沼泽区域 BGM
+
+| 字段 | 内容 |
+|------|------|
+| **文件名** | `bgm_swamp.mp3` |
+| **📋 复制这个到 Suno** | `Style: Eerie, viscous. Cello, synthesizer pad, water droplet sounds. Toxic swamp dread. 70bpm, loopable 30s, instrumental.` |
+
+### 第 11 首 · 深渊区域 BGM
+
+| 字段 | 内容 |
+|------|------|
+| **文件名** | `bgm_abyss.mp3` |
+| **📋 复制这个到 Suno** | `Style: Grand, despairing. Full symphony, choir, deep bass drone. Void of the abyss. 90bpm, loopable 30s, instrumental.` |
 
 ---
 
