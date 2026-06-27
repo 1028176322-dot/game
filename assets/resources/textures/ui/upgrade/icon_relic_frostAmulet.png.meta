@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "a3693559-1114-4b62-909b-6e55b8850650",
+  "uuid": "60475473-65ca-4820-9176-61a01bc160d5",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "a3693559-1114-4b62-909b-6e55b8850650@6c48a",
-      "displayName": "icon_relic_frostAmulet",
+      "uuid": "60475473-65ca-4820-9176-61a01bc160d5@6c48a",
+      "displayName": "icon_relic_frostamulet",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "a3693559-1114-4b62-909b-6e55b8850650",
+        "imageUuidOrDatabaseUri": "60475473-65ca-4820-9176-61a01bc160d5",
         "visible": false
       },
       "ver": "1.0.22",
@@ -36,7 +36,7 @@
   "userData": {
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
-    "hasAlpha": true,
-    "redirect": "a3693559-1114-4b62-909b-6e55b8850650@6c48a"
+    "hasAlpha": false,
+    "redirect": "60475473-65ca-4820-9176-61a01bc160d5@6c48a"
   }
 }

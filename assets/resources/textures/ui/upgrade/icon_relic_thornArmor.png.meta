@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "63ad8e09-0942-4e1d-aa9a-2ddf8dfc2c0d",
+  "uuid": "5f3a39c5-f4ce-43f6-9aca-5dd2f6ac3977",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "63ad8e09-0942-4e1d-aa9a-2ddf8dfc2c0d@6c48a",
-      "displayName": "icon_relic_thornArmor",
+      "uuid": "5f3a39c5-f4ce-43f6-9aca-5dd2f6ac3977@6c48a",
+      "displayName": "icon_relic_thornarmor",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "63ad8e09-0942-4e1d-aa9a-2ddf8dfc2c0d",
+        "imageUuidOrDatabaseUri": "5f3a39c5-f4ce-43f6-9aca-5dd2f6ac3977",
         "visible": false
       },
       "ver": "1.0.22",
@@ -36,7 +36,7 @@
   "userData": {
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
-    "hasAlpha": true,
-    "redirect": "63ad8e09-0942-4e1d-aa9a-2ddf8dfc2c0d@6c48a"
+    "hasAlpha": false,
+    "redirect": "5f3a39c5-f4ce-43f6-9aca-5dd2f6ac3977@6c48a"
   }
 }

@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "ac5a6bff-e8f1-419d-926f-57773d44c674",
+  "uuid": "b59e83cc-6a49-4b12-9f04-33663e732885",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "ac5a6bff-e8f1-419d-926f-57773d44c674@6c48a",
-      "displayName": "boss_frostQueen_death",
+      "uuid": "b59e83cc-6a49-4b12-9f04-33663e732885@6c48a",
+      "displayName": "boss_frostqueen_death",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "ac5a6bff-e8f1-419d-926f-57773d44c674",
+        "imageUuidOrDatabaseUri": "b59e83cc-6a49-4b12-9f04-33663e732885",
         "visible": false
       },
       "ver": "1.0.22",
@@ -37,6 +37,6 @@
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
-    "redirect": "ac5a6bff-e8f1-419d-926f-57773d44c674@6c48a"
+    "redirect": "b59e83cc-6a49-4b12-9f04-33663e732885@6c48a"
   }
 }

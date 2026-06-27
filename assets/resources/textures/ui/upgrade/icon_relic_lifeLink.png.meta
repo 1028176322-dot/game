@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "75d529cc-1084-4313-a0be-d736feaa56c5",
+  "uuid": "7a2f9631-17c1-42fb-8a8c-8ea1240c61e7",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "75d529cc-1084-4313-a0be-d736feaa56c5@6c48a",
-      "displayName": "icon_relic_lifeLink",
+      "uuid": "7a2f9631-17c1-42fb-8a8c-8ea1240c61e7@6c48a",
+      "displayName": "icon_relic_lifelink",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "75d529cc-1084-4313-a0be-d736feaa56c5",
+        "imageUuidOrDatabaseUri": "7a2f9631-17c1-42fb-8a8c-8ea1240c61e7",
         "visible": false
       },
       "ver": "1.0.22",
@@ -36,7 +36,7 @@
   "userData": {
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
-    "hasAlpha": true,
-    "redirect": "75d529cc-1084-4313-a0be-d736feaa56c5@6c48a"
+    "hasAlpha": false,
+    "redirect": "7a2f9631-17c1-42fb-8a8c-8ea1240c61e7@6c48a"
   }
 }

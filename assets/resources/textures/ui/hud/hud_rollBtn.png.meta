@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "902fbf1e-d02d-4145-8f13-927c0d40a657",
+  "uuid": "4bd1fb2b-eb79-4a61-a6ec-5381e0b4b0a8",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "902fbf1e-d02d-4145-8f13-927c0d40a657@6c48a",
-      "displayName": "hud_rollBtn",
+      "uuid": "4bd1fb2b-eb79-4a61-a6ec-5381e0b4b0a8@6c48a",
+      "displayName": "hud_rollbtn",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "902fbf1e-d02d-4145-8f13-927c0d40a657",
+        "imageUuidOrDatabaseUri": "4bd1fb2b-eb79-4a61-a6ec-5381e0b4b0a8",
         "visible": false
       },
       "ver": "1.0.22",
@@ -36,7 +36,7 @@
   "userData": {
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
-    "hasAlpha": true,
-    "redirect": "902fbf1e-d02d-4145-8f13-927c0d40a657@6c48a"
+    "hasAlpha": false,
+    "redirect": "4bd1fb2b-eb79-4a61-a6ec-5381e0b4b0a8@6c48a"
   }
 }

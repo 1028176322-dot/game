@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "c83ff7ad-1f67-434a-bb97-4a14ad8a2154",
+  "uuid": "1c90738c-6ed4-4684-b5a0-08a40461d8d0",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "c83ff7ad-1f67-434a-bb97-4a14ad8a2154@6c48a",
-      "displayName": "icon_relic_timeHourglass",
+      "uuid": "1c90738c-6ed4-4684-b5a0-08a40461d8d0@6c48a",
+      "displayName": "icon_relic_timehourglass",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "c83ff7ad-1f67-434a-bb97-4a14ad8a2154",
+        "imageUuidOrDatabaseUri": "1c90738c-6ed4-4684-b5a0-08a40461d8d0",
         "visible": false
       },
       "ver": "1.0.22",
@@ -36,7 +36,7 @@
   "userData": {
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
-    "hasAlpha": true,
-    "redirect": "c83ff7ad-1f67-434a-bb97-4a14ad8a2154@6c48a"
+    "hasAlpha": false,
+    "redirect": "1c90738c-6ed4-4684-b5a0-08a40461d8d0@6c48a"
   }
 }

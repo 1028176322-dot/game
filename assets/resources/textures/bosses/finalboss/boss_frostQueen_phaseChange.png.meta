@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "d944dd7e-dd47-4b00-84d6-fd1040703e48",
+  "uuid": "ab55fdc9-06bd-45af-bd11-e4f9d5c7cdd0",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "d944dd7e-dd47-4b00-84d6-fd1040703e48@6c48a",
-      "displayName": "boss_frostQueen_phaseChange",
+      "uuid": "ab55fdc9-06bd-45af-bd11-e4f9d5c7cdd0@6c48a",
+      "displayName": "boss_frostqueen_phasechange",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "d944dd7e-dd47-4b00-84d6-fd1040703e48",
+        "imageUuidOrDatabaseUri": "ab55fdc9-06bd-45af-bd11-e4f9d5c7cdd0",
         "visible": false
       },
       "ver": "1.0.22",
@@ -37,6 +37,6 @@
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
-    "redirect": "d944dd7e-dd47-4b00-84d6-fd1040703e48@6c48a"
+    "redirect": "ab55fdc9-06bd-45af-bd11-e4f9d5c7cdd0@6c48a"
   }
 }

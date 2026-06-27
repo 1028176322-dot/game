@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "243cd0b0-a17f-407f-b37e-60bf37bc046d",
+  "uuid": "6b689aba-ac09-4eca-8fa7-67048350032e",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "243cd0b0-a17f-407f-b37e-60bf37bc046d@6c48a",
-      "displayName": "icon_item_ironPotion",
+      "uuid": "6b689aba-ac09-4eca-8fa7-67048350032e@6c48a",
+      "displayName": "icon_item_ironpotion",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "243cd0b0-a17f-407f-b37e-60bf37bc046d",
+        "imageUuidOrDatabaseUri": "6b689aba-ac09-4eca-8fa7-67048350032e",
         "visible": false
       },
       "ver": "1.0.22",
@@ -36,7 +36,7 @@
   "userData": {
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
-    "hasAlpha": true,
-    "redirect": "243cd0b0-a17f-407f-b37e-60bf37bc046d@6c48a"
+    "hasAlpha": false,
+    "redirect": "6b689aba-ac09-4eca-8fa7-67048350032e@6c48a"
   }
 }

@@ -36,7 +36,7 @@
   "userData": {
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
-    "hasAlpha": true,
+    "hasAlpha": false,
     "redirect": "845e4af3-a7af-4c39-8ca0-031747b6e829@6c48a"
   }
 }

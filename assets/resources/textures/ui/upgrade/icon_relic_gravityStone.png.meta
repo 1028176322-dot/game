@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "f5813ced-f7d8-46dd-8609-31bf38192bf4",
+  "uuid": "59c80de4-7e2a-47be-a333-e4c9ab204a0f",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "f5813ced-f7d8-46dd-8609-31bf38192bf4@6c48a",
-      "displayName": "icon_relic_gravityStone",
+      "uuid": "59c80de4-7e2a-47be-a333-e4c9ab204a0f@6c48a",
+      "displayName": "icon_relic_gravitystone",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "f5813ced-f7d8-46dd-8609-31bf38192bf4",
+        "imageUuidOrDatabaseUri": "59c80de4-7e2a-47be-a333-e4c9ab204a0f",
         "visible": false
       },
       "ver": "1.0.22",
@@ -36,7 +36,7 @@
   "userData": {
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
-    "hasAlpha": true,
-    "redirect": "f5813ced-f7d8-46dd-8609-31bf38192bf4@6c48a"
+    "hasAlpha": false,
+    "redirect": "59c80de4-7e2a-47be-a333-e4c9ab204a0f@6c48a"
   }
 }

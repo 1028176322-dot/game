@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "86a8bfac-053c-49fa-9cd5-de9cae7cbf2e",
+  "uuid": "c4abd903-b0b0-4217-9482-a1e76e72a2ae",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "86a8bfac-053c-49fa-9cd5-de9cae7cbf2e@6c48a",
-      "displayName": "boss_frostQueen_attack",
+      "uuid": "c4abd903-b0b0-4217-9482-a1e76e72a2ae@6c48a",
+      "displayName": "boss_frostqueen_attack",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "86a8bfac-053c-49fa-9cd5-de9cae7cbf2e",
+        "imageUuidOrDatabaseUri": "c4abd903-b0b0-4217-9482-a1e76e72a2ae",
         "visible": false
       },
       "ver": "1.0.22",
@@ -37,6 +37,6 @@
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
-    "redirect": "86a8bfac-053c-49fa-9cd5-de9cae7cbf2e@6c48a"
+    "redirect": "c4abd903-b0b0-4217-9482-a1e76e72a2ae@6c48a"
   }
 }

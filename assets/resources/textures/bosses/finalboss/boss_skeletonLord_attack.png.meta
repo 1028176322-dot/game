@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "eae29256-a05b-4538-b129-c3dd52ac4a19",
+  "uuid": "bdb01036-e65f-4cbd-aee0-407cb870108e",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "eae29256-a05b-4538-b129-c3dd52ac4a19@6c48a",
-      "displayName": "boss_skeletonLord_attack",
+      "uuid": "bdb01036-e65f-4cbd-aee0-407cb870108e@6c48a",
+      "displayName": "boss_skeletonlord_attack",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "eae29256-a05b-4538-b129-c3dd52ac4a19",
+        "imageUuidOrDatabaseUri": "bdb01036-e65f-4cbd-aee0-407cb870108e",
         "visible": false
       },
       "ver": "1.0.22",
@@ -37,6 +37,6 @@
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
-    "redirect": "eae29256-a05b-4538-b129-c3dd52ac4a19@6c48a"
+    "redirect": "bdb01036-e65f-4cbd-aee0-407cb870108e@6c48a"
   }
 }

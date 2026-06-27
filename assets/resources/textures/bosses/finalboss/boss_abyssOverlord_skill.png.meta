@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "f14c0edb-6c5a-4d20-b09b-e4e3b1bea56c",
+  "uuid": "71484ee1-2f42-4457-aaa8-4f71a31bd4ae",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "f14c0edb-6c5a-4d20-b09b-e4e3b1bea56c@6c48a",
-      "displayName": "boss_abyssOverlord_skill",
+      "uuid": "71484ee1-2f42-4457-aaa8-4f71a31bd4ae@6c48a",
+      "displayName": "boss_abyssoverlord_skill",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "f14c0edb-6c5a-4d20-b09b-e4e3b1bea56c",
+        "imageUuidOrDatabaseUri": "71484ee1-2f42-4457-aaa8-4f71a31bd4ae",
         "visible": false
       },
       "ver": "1.0.22",
@@ -37,6 +37,6 @@
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
-    "redirect": "f14c0edb-6c5a-4d20-b09b-e4e3b1bea56c@6c48a"
+    "redirect": "71484ee1-2f42-4457-aaa8-4f71a31bd4ae@6c48a"
   }
 }

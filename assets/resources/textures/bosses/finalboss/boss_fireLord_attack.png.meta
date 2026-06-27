@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "db292605-5cd9-4e8d-be01-fb5cc76f4824",
+  "uuid": "358f0a53-3103-488a-8ebc-6345264e0b6f",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "db292605-5cd9-4e8d-be01-fb5cc76f4824@6c48a",
-      "displayName": "boss_fireLord_attack",
+      "uuid": "358f0a53-3103-488a-8ebc-6345264e0b6f@6c48a",
+      "displayName": "boss_firelord_attack",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "db292605-5cd9-4e8d-be01-fb5cc76f4824",
+        "imageUuidOrDatabaseUri": "358f0a53-3103-488a-8ebc-6345264e0b6f",
         "visible": false
       },
       "ver": "1.0.22",
@@ -37,6 +37,6 @@
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
-    "redirect": "db292605-5cd9-4e8d-be01-fb5cc76f4824@6c48a"
+    "redirect": "358f0a53-3103-488a-8ebc-6345264e0b6f@6c48a"
   }
 }

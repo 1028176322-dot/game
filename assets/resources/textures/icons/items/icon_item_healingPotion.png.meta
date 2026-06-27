@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "afc08b1b-49d5-4795-a21c-dc9b3df0661a",
+  "uuid": "c096f159-7ef1-44ba-924e-700efd16d361",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "afc08b1b-49d5-4795-a21c-dc9b3df0661a@6c48a",
-      "displayName": "icon_item_healingPotion",
+      "uuid": "c096f159-7ef1-44ba-924e-700efd16d361@6c48a",
+      "displayName": "icon_item_healingpotion",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "afc08b1b-49d5-4795-a21c-dc9b3df0661a",
+        "imageUuidOrDatabaseUri": "c096f159-7ef1-44ba-924e-700efd16d361",
         "visible": false
       },
       "ver": "1.0.22",
@@ -36,7 +36,7 @@
   "userData": {
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
-    "hasAlpha": true,
-    "redirect": "afc08b1b-49d5-4795-a21c-dc9b3df0661a@6c48a"
+    "hasAlpha": false,
+    "redirect": "c096f159-7ef1-44ba-924e-700efd16d361@6c48a"
   }
 }

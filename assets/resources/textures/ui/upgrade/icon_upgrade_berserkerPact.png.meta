@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "f28a6988-3567-4577-8075-d5504e7f88cc",
+  "uuid": "0ae7c491-02e2-4f1b-87db-f3671bd630ce",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "f28a6988-3567-4577-8075-d5504e7f88cc@6c48a",
-      "displayName": "icon_upgrade_berserkerPact",
+      "uuid": "0ae7c491-02e2-4f1b-87db-f3671bd630ce@6c48a",
+      "displayName": "icon_upgrade_berserkerpact",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "f28a6988-3567-4577-8075-d5504e7f88cc",
+        "imageUuidOrDatabaseUri": "0ae7c491-02e2-4f1b-87db-f3671bd630ce",
         "visible": false
       },
       "ver": "1.0.22",
@@ -36,7 +36,7 @@
   "userData": {
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
-    "hasAlpha": true,
-    "redirect": "f28a6988-3567-4577-8075-d5504e7f88cc@6c48a"
+    "hasAlpha": false,
+    "redirect": "0ae7c491-02e2-4f1b-87db-f3671bd630ce@6c48a"
   }
 }

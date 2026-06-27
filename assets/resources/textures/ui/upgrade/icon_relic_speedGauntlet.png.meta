@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "213ebbeb-451b-4d42-a443-89b5d500ba9d",
+  "uuid": "bf113417-4976-4c83-b9e7-3dba1d86f580",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "213ebbeb-451b-4d42-a443-89b5d500ba9d@6c48a",
-      "displayName": "icon_relic_speedGauntlet",
+      "uuid": "bf113417-4976-4c83-b9e7-3dba1d86f580@6c48a",
+      "displayName": "icon_relic_speedgauntlet",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "213ebbeb-451b-4d42-a443-89b5d500ba9d",
+        "imageUuidOrDatabaseUri": "bf113417-4976-4c83-b9e7-3dba1d86f580",
         "visible": false
       },
       "ver": "1.0.22",
@@ -36,7 +36,7 @@
   "userData": {
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
-    "hasAlpha": true,
-    "redirect": "213ebbeb-451b-4d42-a443-89b5d500ba9d@6c48a"
+    "hasAlpha": false,
+    "redirect": "bf113417-4976-4c83-b9e7-3dba1d86f580@6c48a"
   }
 }

@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "f82fe777-802c-449e-a72f-b587c239316e",
+  "uuid": "c24df6ac-91f5-4276-acaf-2d69925f6836",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "f82fe777-802c-449e-a72f-b587c239316e@6c48a",
-      "displayName": "item_largehealthpotion",
+      "uuid": "c24df6ac-91f5-4276-acaf-2d69925f6836@6c48a",
+      "displayName": "item_largeHealthPotion",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "f82fe777-802c-449e-a72f-b587c239316e",
+        "imageUuidOrDatabaseUri": "c24df6ac-91f5-4276-acaf-2d69925f6836",
         "visible": false
       },
       "ver": "1.0.22",
@@ -37,6 +37,6 @@
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
-    "redirect": "f82fe777-802c-449e-a72f-b587c239316e@6c48a"
+    "redirect": "c24df6ac-91f5-4276-acaf-2d69925f6836@6c48a"
   }
 }

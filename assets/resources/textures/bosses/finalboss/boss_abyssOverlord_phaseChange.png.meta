@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "651ecd7a-ed00-48e1-9e65-a21859ff9470",
+  "uuid": "0d7311fa-027f-4c6c-b963-47344c42149d",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "651ecd7a-ed00-48e1-9e65-a21859ff9470@6c48a",
-      "displayName": "boss_abyssOverlord_phaseChange",
+      "uuid": "0d7311fa-027f-4c6c-b963-47344c42149d@6c48a",
+      "displayName": "boss_abyssoverlord_phasechange",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "651ecd7a-ed00-48e1-9e65-a21859ff9470",
+        "imageUuidOrDatabaseUri": "0d7311fa-027f-4c6c-b963-47344c42149d",
         "visible": false
       },
       "ver": "1.0.22",
@@ -37,6 +37,6 @@
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": true,
-    "redirect": "651ecd7a-ed00-48e1-9e65-a21859ff9470@6c48a"
+    "redirect": "0d7311fa-027f-4c6c-b963-47344c42149d@6c48a"
   }
 }

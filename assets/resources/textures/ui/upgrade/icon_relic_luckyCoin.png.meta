@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "c908e060-58ed-453b-b9e4-38f8dc0f9ccd",
+  "uuid": "c04cdd9a-d9d2-4819-a99a-cba4607ef6e3",
   "files": [
     ".json",
     ".png"
@@ -10,8 +10,8 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "c908e060-58ed-453b-b9e4-38f8dc0f9ccd@6c48a",
-      "displayName": "icon_relic_luckyCoin",
+      "uuid": "c04cdd9a-d9d2-4819-a99a-cba4607ef6e3@6c48a",
+      "displayName": "icon_relic_luckycoin",
       "id": "6c48a",
       "name": "texture",
       "userData": {
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "c908e060-58ed-453b-b9e4-38f8dc0f9ccd",
+        "imageUuidOrDatabaseUri": "c04cdd9a-d9d2-4819-a99a-cba4607ef6e3",
         "visible": false
       },
       "ver": "1.0.22",
@@ -36,7 +36,7 @@
   "userData": {
     "type": "texture",
     "fixAlphaTransparencyArtifacts": false,
-    "hasAlpha": true,
-    "redirect": "c908e060-58ed-453b-b9e4-38f8dc0f9ccd@6c48a"
+    "hasAlpha": false,
+    "redirect": "c04cdd9a-d9d2-4819-a99a-cba4607ef6e3@6c48a"
   }
 }
