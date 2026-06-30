@@ -1,0 +1,43 @@
+{
+    "metadata": {
+        "version": "1.0.0",
+        "lastUpdated": "2026-06-25",
+        "description": "玩家基础属性配置表 - 角色初始值、属性边界、成长参数"
+    },
+    "baseStats": {
+        "atk": 10,
+        "$comment": "atk: 初始攻击力, 范围0~100",
+        "def": 3,
+        "$comment": "def: 初始防御力, 范围0~100",
+        "maxHP": 100,
+        "$comment": "maxHP: 初始最大生命值, 范围1~1000",
+        "moveSpeed": 200,
+        "$comment": "moveSpeed: 移动速度(像素/秒), 范围50~500",
+        "attackRange": 2.0,
+        "$comment": "attackRange: 基础攻击范围(格), 范围0.5~10"
+    },
+    "statBounds": {
+        "atkMin": 0,
+        "defMin": 0,
+        "maxHPMin": 1,
+        "moveSpeedMin": 50,
+        "atkSpeedMin": 0.2,
+        "$comment": "atkSpeedMin: 最快攻击间隔(秒), >=0.1",
+        "atkSpeedMax": 5.0,
+        "$comment": "atkSpeedMax: 最慢攻击间隔(秒), >=0.5",
+        "attackRangeMin": 0.5,
+        "critChanceMax": 1.0,
+        "critMultiplierMin": 1.0,
+        "lifeStealMax": 1.0,
+        "damageMultiplierMin": 0.1,
+        "damageReductionMax": 0.9,
+        "$comment": "damageReductionMax: 减伤上限, 0~1"
+    },
+    "characters": {
+        "warrior": { "name": "战士", "initialAbility": "shield", "unlockCost": 500, "initialSkill": "shield", "description": "初始核心能力: 盾反" },
+        "archer": { "name": "弓手", "initialAbility": "ricochet", "unlockCost": 500, "initialSkill": "snapShot", "description": "初始核心能力: 弹射箭" },
+        "assassin": { "name": "刺客", "initialAbility": "phaseWalk", "unlockCost": 800, "initialSkill": "dash", "description": "初始核心能力: 穿影" },
+        "mage": { "name": "法师", "initialAbility": "elementResonance", "unlockCost": 1000, "initialSkill": "elementBurst", "description": "初始核心能力: 元素共鸣" },
+        "berserker": { "name": "狂战士", "initialAbility": "warCry", "unlockCost": 1200, "initialSkill": "healWave", "description": "初始核心能力: 怒吼" }
+    }
+}

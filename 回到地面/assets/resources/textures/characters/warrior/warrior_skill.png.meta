@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "4ceb0ba2-1491-44ca-a39b-af742632d3e6",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "4ceb0ba2-1491-44ca-a39b-af742632d3e6@f9941",
+      "displayName": "warrior_skill",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0.5,
+        "trimX": 9,
+        "trimY": 9,
+        "width": 174,
+        "height": 749,
+        "rawWidth": 192,
+        "rawHeight": 768,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -87,
+            -374.5,
+            0,
+            87,
+            -374.5,
+            0,
+            -87,
+            374.5,
+            0,
+            87,
+            374.5,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            9,
+            759,
+            183,
+            759,
+            9,
+            10,
+            183,
+            10
+          ],
+          "nuv": [
+            0.046875,
+            0.013020833333333334,
+            0.953125,
+            0.013020833333333334,
+            0.046875,
+            0.98828125,
+            0.953125,
+            0.98828125
+          ],
+          "minPos": [
+            -87,
+            -374.5,
+            0
+          ],
+          "maxPos": [
+            87,
+            374.5,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "4ceb0ba2-1491-44ca-a39b-af742632d3e6@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "4ceb0ba2-1491-44ca-a39b-af742632d3e6@6c48a",
+      "displayName": "warrior_skill",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "4ceb0ba2-1491-44ca-a39b-af742632d3e6",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "fixAlphaTransparencyArtifacts": false,
+    "hasAlpha": true,
+    "redirect": "4ceb0ba2-1491-44ca-a39b-af742632d3e6@6c48a"
+  }
+}

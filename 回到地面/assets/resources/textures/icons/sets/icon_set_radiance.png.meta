@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "e20a47ae-7bdd-4ace-a05d-2e8a13634988",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "e20a47ae-7bdd-4ace-a05d-2e8a13634988@f9941",
+      "displayName": "icon_set_radiance",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 10,
+        "trimY": 18,
+        "width": 108,
+        "height": 92,
+        "rawWidth": 128,
+        "rawHeight": 128,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -54,
+            -46,
+            0,
+            54,
+            -46,
+            0,
+            -54,
+            46,
+            0,
+            54,
+            46,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            10,
+            110,
+            118,
+            110,
+            10,
+            18,
+            118,
+            18
+          ],
+          "nuv": [
+            0.078125,
+            0.140625,
+            0.921875,
+            0.140625,
+            0.078125,
+            0.859375,
+            0.921875,
+            0.859375
+          ],
+          "minPos": [
+            -54,
+            -46,
+            0
+          ],
+          "maxPos": [
+            54,
+            46,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "e20a47ae-7bdd-4ace-a05d-2e8a13634988@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "e20a47ae-7bdd-4ace-a05d-2e8a13634988@6c48a",
+      "displayName": "icon_set_radiance",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "e20a47ae-7bdd-4ace-a05d-2e8a13634988",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "fixAlphaTransparencyArtifacts": false,
+    "hasAlpha": true,
+    "redirect": "e20a47ae-7bdd-4ace-a05d-2e8a13634988@6c48a"
+  }
+}

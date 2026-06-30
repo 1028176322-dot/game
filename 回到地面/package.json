@@ -1,0 +1,20 @@
+{
+  "name": "回到地面",
+  "uuid": "3d4c5f6e-7a8b-9c0d-1e2f-3a4b5c6d7e8f",
+  "creator": {
+    "version": "3.8.8"
+  },
+  "description": "Roguelike Dungeon Crawler - 微信小游戏",
+  "author": "",
+  "scripts": {
+    "build": "cocos build",
+    "build:wechat": "cocos build --platform wechatgame",
+    "validate:config": "python tools/config_pipeline/validate_config.py",
+    "validate:bundle": "python tools/bundle/check_bundle_budget.py",
+    "validate:all": "python tools/config_pipeline/check_all.py",
+    "validate:ci": "python tools/config_pipeline/check_all.py --ci",
+    "prebuild:wechat": "npm run validate:all",
+    "typecheck": "echo '请使用 Cocos Creator 编辑器内置 TypeScript 检查（ccc tsc）'"
+  },
+  "dependencies": {}
+}

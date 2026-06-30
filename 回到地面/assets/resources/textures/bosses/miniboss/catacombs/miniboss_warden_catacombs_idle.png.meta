@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "61719cdd-9c0f-4a25-9ac7-397b0995052d",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "61719cdd-9c0f-4a25-9ac7-397b0995052d@f9941",
+      "displayName": "miniboss_warden_catacombs_idle",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": -0.5,
+        "offsetY": 0,
+        "trimX": 20,
+        "trimY": 9,
+        "width": 151,
+        "height": 174,
+        "rawWidth": 192,
+        "rawHeight": 192,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -75.5,
+            -87,
+            0,
+            75.5,
+            -87,
+            0,
+            -75.5,
+            87,
+            0,
+            75.5,
+            87,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            20,
+            183,
+            171,
+            183,
+            20,
+            9,
+            171,
+            9
+          ],
+          "nuv": [
+            0.10416666666666667,
+            0.046875,
+            0.890625,
+            0.046875,
+            0.10416666666666667,
+            0.953125,
+            0.890625,
+            0.953125
+          ],
+          "minPos": [
+            -75.5,
+            -87,
+            0
+          ],
+          "maxPos": [
+            75.5,
+            87,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "61719cdd-9c0f-4a25-9ac7-397b0995052d@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "61719cdd-9c0f-4a25-9ac7-397b0995052d@6c48a",
+      "displayName": "miniboss_warden_catacombs_idle",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "61719cdd-9c0f-4a25-9ac7-397b0995052d",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "fixAlphaTransparencyArtifacts": false,
+    "hasAlpha": true,
+    "redirect": "61719cdd-9c0f-4a25-9ac7-397b0995052d@6c48a"
+  }
+}

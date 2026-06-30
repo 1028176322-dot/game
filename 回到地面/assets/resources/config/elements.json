@@ -1,0 +1,39 @@
+{
+    "metadata": { "version": "1.0.0", "lastUpdated": "2026-06-25", "description": "元素系统配置表 - 6元素/11反应/链式反应参数" },
+    "elements": {
+        "fire": { "name": "火焰", "color": "#FF4400", "statusDuration": 3.0 },
+        "frost": { "name": "冰霜", "color": "#44CCFF", "statusDuration": 3.0 },
+        "lightning": { "name": "闪电", "color": "#FFDD00", "statusDuration": 3.0 },
+        "poison": { "name": "毒素", "color": "#88FF44", "statusDuration": 5.0, "tickDamage": 1, "tickInterval": 1.0, "maxStacks": 3 },
+        "shadow": { "name": "暗影", "color": "#8844FF", "statusDuration": 3.0 },
+        "holy": { "name": "神圣", "color": "#FFFFFF", "statusDuration": 2.0 }
+    },
+    "reactions": [
+        { "id": "burn", "name": "爆燃", "elements": ["fire","poison"], "effect": "范围AoE+持续灼烧", "aoeRange": 1.5, "dotDamage": 3, "dotDuration": 3.0, "elementOutput": "fire" },
+        { "id": "vaporize", "name": "蒸汽", "elements": ["fire","frost"], "effect": "范围AoE+击退", "aoeRange": 1.5, "damageMultiplier": 1.2, "elementOutput": "none" },
+        { "id": "overload", "name": "超载", "elements": ["fire","lightning"], "effect": "高伤害+眩晕", "damageMultiplier": 1.5, "stunDuration": 0.5, "elementOutput": "lightning" },
+        { "id": "melt", "name": "融化", "elements": ["fire","shadow"], "effect": "破甲+持续伤害", "defReduction": 2, "dotDamage": 2, "dotDuration": 2.0, "elementOutput": "fire" },
+        { "id": "freeze", "name": "冻结", "elements": ["frost","lightning"], "effect": "定身+伤害", "stunDuration": 1.5, "damageMultiplier": 0.8, "elementOutput": "frost" },
+        { "id": "shatter", "name": "碎裂", "elements": ["frost","poison"], "effect": "AoE+减速", "aoeRange": 1.5, "slowAmount": 0.5, "slowDuration": 2.0, "elementOutput": "none" },
+        { "id": "decay", "name": "霜蚀", "elements": ["frost","shadow"], "effect": "持续伤害+减速", "dotDamage": 2, "dotDuration": 3.0, "slowAmount": 0.3, "slowDuration": 2.0, "elementOutput": "shadow" },
+        { "id": "conduct", "name": "传导", "elements": ["lightning","poison"], "effect": "弹射3目标", "bounceCount": 3, "bounceDamageRatio": 0.6, "elementOutput": "lightning" },
+        { "id": "void", "name": "虚空", "elements": ["lightning","shadow"], "effect": "真实伤害+汲取", "damageType": "true", "lifeStealRatio": 0.3, "elementOutput": "shadow" },
+        { "id": "corrode", "name": "腐蚀", "elements": ["poison","shadow"], "effect": "DEF归零+持续毒伤", "defReduction": 999, "dotDamage": 3, "dotDuration": 3.0, "elementOutput": "poison" },
+        { "id": "radiance", "name": "光辉", "elements": ["shadow","holy"], "effect": "大范围AoE+治疗", "aoeRange": 3.0, "damageMultiplier": 1.0, "healRatio": 0.1, "elementOutput": "holy" }
+    ],
+    "chainReaction": {
+        "enabled": true,
+        "maxChainDepth": 3,
+        "$comment": "maxChainDepth: 链式反应最大深度, 超过后不再触发新的反应, 范围1~5",
+        "tickInterval": 0.5,
+        "$comment": "tickInterval: 元素反应检测间隔(秒), 范围0.1~1.0"
+    },
+    "elementEnchantments": [
+        { "id": "fire", "name": "火焰附魔", "effect": "灼烧2点持续2秒", "dotDamage": 2, "dotDuration": 2.0 },
+        { "id": "frost", "name": "冰霜附魔", "effect": "减速30%持续1秒", "slowAmount": 0.3, "slowDuration": 1.0 },
+        { "id": "lightning", "name": "闪电附魔", "effect": "15%概率眩晕0.5秒", "stunChance": 0.15, "stunDuration": 0.5 },
+        { "id": "poison", "name": "毒素附魔", "effect": "1点毒伤叠3层", "dotDamage": 1, "maxStacks": 3 },
+        { "id": "shadow", "name": "暗影附魔", "effect": "回复10%伤害量", "lifeSteal": 0.1 },
+        { "id": "holy", "name": "神圣附魔", "effect": "暗影生物额外50%", "bonusDamageVs": ["undead","demon"], "bonusMultiplier": 0.5 }
+    ]
+}

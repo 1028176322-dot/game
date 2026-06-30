@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "303cee43-b548-4d97-9437-7c09507ed64a",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "303cee43-b548-4d97-9437-7c09507ed64a@f9941",
+      "displayName": "miniboss_inferno_idle",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 29,
+        "trimY": 9,
+        "width": 134,
+        "height": 174,
+        "rawWidth": 192,
+        "rawHeight": 192,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -67,
+            -87,
+            0,
+            67,
+            -87,
+            0,
+            -67,
+            87,
+            0,
+            67,
+            87,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            29,
+            183,
+            163,
+            183,
+            29,
+            9,
+            163,
+            9
+          ],
+          "nuv": [
+            0.15104166666666666,
+            0.046875,
+            0.8489583333333334,
+            0.046875,
+            0.15104166666666666,
+            0.953125,
+            0.8489583333333334,
+            0.953125
+          ],
+          "minPos": [
+            -67,
+            -87,
+            0
+          ],
+          "maxPos": [
+            67,
+            87,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "303cee43-b548-4d97-9437-7c09507ed64a@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "303cee43-b548-4d97-9437-7c09507ed64a@6c48a",
+      "displayName": "miniboss_inferno_idle",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "303cee43-b548-4d97-9437-7c09507ed64a",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "fixAlphaTransparencyArtifacts": false,
+    "hasAlpha": true,
+    "redirect": "303cee43-b548-4d97-9437-7c09507ed64a@6c48a"
+  }
+}

@@ -1,0 +1,2936 @@
+{
+  "backgrounds/bg_combat_abyss.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_combat_catacombs.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_combat_forest.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_combat_swamp.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_combat_tundra.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_combat_volcano.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_event_abyss.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_event_catacombs.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_event_forest.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_event_swamp.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_event_tundra.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_event_volcano.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_room_healing.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_room_rest.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_room_shop.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_room_treasure.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "backgrounds/bg_room_upgrade.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_abyssoverlord_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_abyssoverlord_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_abyssoverlord_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_abyssoverlord_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_abyssoverlord_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_beast_swamp_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_beast_swamp_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_beast_swamp_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_beast_swamp_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_beast_swamp_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_firelord_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_firelord_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_firelord_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_firelord_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_firelord_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_forestguardian_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_forestguardian_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_forestguardian_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_forestguardian_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_forestguardian_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_frostqueen_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_frostqueen_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_frostqueen_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_frostqueen_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_frostqueen_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_guardian_forest_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_guardian_forest_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_guardian_forest_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_guardian_forest_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_guardian_forest_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_abyss_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_abyss_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_abyss_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_abyss_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_abyss_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_catacombs_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_catacombs_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_catacombs_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_catacombs_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_catacombs_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_volcano_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_volcano_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_volcano_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_volcano_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_lord_volcano_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_queen_tundra_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_queen_tundra_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_queen_tundra_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_queen_tundra_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_queen_tundra_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_skeletonlord_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_skeletonlord_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_skeletonlord_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_skeletonlord_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_skeletonlord_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_swampbehemoth_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_swampbehemoth_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_swampbehemoth_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_swampbehemoth_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/boss_swampbehemoth_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/abyss/boss_abyssoverlord_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/abyss/boss_abyssoverlord_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/abyss/boss_abyssoverlord_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/abyss/boss_abyssoverlord_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/abyss/boss_abyssoverlord_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/catacombs/boss_skeletonlord_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/catacombs/boss_skeletonlord_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/catacombs/boss_skeletonlord_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/catacombs/boss_skeletonlord_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/catacombs/boss_skeletonlord_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/forest/boss_forestguardian_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/forest/boss_forestguardian_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/forest/boss_forestguardian_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/forest/boss_forestguardian_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/forest/boss_forestguardian_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/swamp/boss_swampbehemoth_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/swamp/boss_swampbehemoth_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/swamp/boss_swampbehemoth_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/swamp/boss_swampbehemoth_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/swamp/boss_swampbehemoth_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/tundra/boss_frostqueen_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/tundra/boss_frostqueen_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/tundra/boss_frostqueen_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/tundra/boss_frostqueen_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/tundra/boss_frostqueen_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/volcano/boss_firelord_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/volcano/boss_firelord_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/volcano/boss_firelord_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/volcano/boss_firelord_phasechange.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/finalboss/volcano/boss_firelord_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/abyss/miniboss_abysssentinel_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/abyss/miniboss_nightmareknight_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/abyss/miniboss_shadowdragon_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/abyss/miniboss_voidhunter_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/abyss/miniboss_voidlord_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/catacombs/miniboss_blackknight_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/catacombs/miniboss_gargoyle_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/catacombs/miniboss_giantskeleton_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/catacombs/miniboss_lich_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/catacombs/miniboss_warden_catacombs_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/forest/miniboss_boarchief_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/forest/miniboss_poisonflower_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/forest/miniboss_porcupineking_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/forest/miniboss_stagbeetle_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/forest/miniboss_warden_forest_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/swamp/miniboss_poisonscorpion_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/swamp/miniboss_rottreantelite_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/swamp/miniboss_serpentqueen_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/swamp/miniboss_swampcrocodile_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/swamp/miniboss_swampfrog_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/tundra/miniboss_frostelemental_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/tundra/miniboss_icegiant_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/tundra/miniboss_icescorpion_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/tundra/miniboss_polarbearking_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/tundra/miniboss_snowape_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/volcano/miniboss_firegolem_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/volcano/miniboss_inferno_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/volcano/miniboss_lavaworm_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/volcano/miniboss_volcanogiant_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "bosses/miniboss/volcano/miniboss_warden_volcano_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/archer/archer_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/archer/archer_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/archer/archer_dodge.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/archer/archer_hit.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/archer/archer_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/archer/archer_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/archer/archer_walk.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/assassin/assassin_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/assassin/assassin_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/assassin/assassin_dodge.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/assassin/assassin_hit.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/assassin/assassin_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/assassin/assassin_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/assassin/assassin_walk.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/berserker/berserker_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/berserker/berserker_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/berserker/berserker_dodge.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/berserker/berserker_hit.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/berserker/berserker_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/berserker/berserker_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/berserker/berserker_walk.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/mage/mage_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/mage/mage_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/mage/mage_dodge.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/mage/mage_hit.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/mage/mage_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/mage/mage_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/mage/mage_walk.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/warrior/warrior_attack.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/warrior/warrior_death.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/warrior/warrior_dodge.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/warrior/warrior_hit.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/warrior/warrior_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/warrior/warrior_skill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "characters/warrior/warrior_walk.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/combat/fx_crit.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/combat/fx_dash.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/combat/fx_dodge.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/combat/fx_heal.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/combat/fx_hit_normal.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/combat/fx_shield.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/reactions/fx_reaction_burn.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/reactions/fx_reaction_conduct.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/reactions/fx_reaction_corrode.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/reactions/fx_reaction_decay.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/reactions/fx_reaction_freeze.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/reactions/fx_reaction_melt.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/reactions/fx_reaction_overload.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/reactions/fx_reaction_radiance.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/reactions/fx_reaction_shatter.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/reactions/fx_reaction_vaporize.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/reactions/fx_reaction_void.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/relics/fx_relic_blink_stone.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/relics/fx_relic_decoy_scroll.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/relics/fx_relic_flame_ring.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/relics/fx_relic_frost_amulet.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/relics/fx_relic_gravity_stone.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/relics/fx_relic_life_link.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/relics/fx_relic_shadow_dagger.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/relics/fx_relic_time_hourglass.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/ui/fx_ui_glow.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "effects/ui/fx_ui_loading.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/buffs/icon_buff_atkup.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/buffs/icon_buff_defup.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/buffs/icon_buff_shield.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/buffs/icon_buff_speedup.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/buffs/icon_buff_stealth.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/buffs/icon_debuff_burn.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/buffs/icon_debuff_freeze.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/buffs/icon_debuff_poison.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/buffs/icon_debuff_slow.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/buffs/icon_debuff_stun.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/elements/icon_element_fire.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/elements/icon_element_frost.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/elements/icon_element_holy.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/elements/icon_element_lightning.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/elements/icon_element_poison.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/elements/icon_element_shadow.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_advancedkey.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_bighealingpotion.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_flamebomb.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_furypotion.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_healingpotion.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_icebomb.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_ironpotion.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_key.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_mapscroll.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_purifypotion.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_rerollscroll.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_revivecoin.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_scrollfire.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_scrollholy.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_scrollice.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_scrollpoison.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_scrollshadow.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_scrollthunder.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/icon_item_speedpotion.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/item_healthPotion.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/item_key.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/item_largeHealthPotion.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/items/item_map.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_blinkstone.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_decoyscroll.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_echoorb.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_flamering.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_frenzyaxe.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_frostamulet.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_gravitystone.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_immortalstone.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_ironarmor.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_lifelink.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_luckycoin.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_shadowcloak.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_shadowdagger.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_speedgauntlet.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_thornarmor.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/relics/icon_relic_timehourglass.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/sets/icon_set_frostbite.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/sets/icon_set_fury.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/sets/icon_set_ironwall.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/sets/icon_set_radiance.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/sets/icon_set_shadow.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/sets/icon_set_tempest.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/skills/icon_skill_dash.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/skills/icon_skill_elementburst.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/skills/icon_skill_healwave.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/skills/icon_skill_shield.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/skills/icon_skill_slowfield.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "icons/skills/icon_skill_snapshot.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/abyss/monster_abyss_abyssarcher_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/abyss/monster_abyss_abysslordelite_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/abyss/monster_abyss_shadowdemon_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/abyss/monster_abyss_shadowgolem_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/abyss/monster_abyss_voidrift_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/abyss/monster_abyss_voidwraith_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/catacombs/monster_catacombs_batswarm_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/catacombs/monster_catacombs_deathknight_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/catacombs/monster_catacombs_ghost_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/catacombs/monster_catacombs_ghoul_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/catacombs/monster_catacombs_skeletonarcher_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/catacombs/monster_catacombs_skeleton_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/forest/monster_forest_boar_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/forest/monster_forest_deerelite_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/forest/monster_forest_elfarcher_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/forest/monster_forest_mushroom_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/forest/monster_forest_slime_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/forest/monster_forest_treant_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/swamp/monster_swamp_gianttoad_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/swamp/monster_swamp_rottreant_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/swamp/monster_swamp_slimepoison_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/swamp/monster_swamp_swampdragon_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/swamp/monster_swamp_swampspider_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/swamp/monster_swamp_viper_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/tundra/monster_tundra_frostgiant_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/tundra/monster_tundra_frostmage_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/tundra/monster_tundra_iceskeleton_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/tundra/monster_tundra_penguinsoldier_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/tundra/monster_tundra_snowman_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/tundra/monster_tundra_snowwolf_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/volcano/monster_volcano_ashwraith_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/volcano/monster_volcano_demon_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/volcano/monster_volcano_fireelemental_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/volcano/monster_volcano_infernoelite_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/volcano/monster_volcano_lavaspider_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "monsters/volcano/monster_volcano_suicidegolem_idle.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/abyss/tile_abyss_floor.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/abyss/tile_abyss_highground.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/abyss/tile_abyss_thorn.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/abyss/tile_abyss_wall.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/catacombs/tile_catacombs_floor.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/catacombs/tile_catacombs_highground.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/catacombs/tile_catacombs_thorn.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/catacombs/tile_catacombs_wall.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/forest/tile_forest_floor.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/forest/tile_forest_highground.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/forest/tile_forest_thorn.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/forest/tile_forest_wall.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/swamp/tile_swamp_floor.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/swamp/tile_swamp_highground.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/swamp/tile_swamp_thorn.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/swamp/tile_swamp_wall.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/tundra/tile_tundra_floor.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/tundra/tile_tundra_highground.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/tundra/tile_tundra_thorn.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/tundra/tile_tundra_wall.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/volcano/tile_volcano_floor.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/volcano/tile_volcano_highground.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/volcano/tile_volcano_thorn.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "tiles/volcano/tile_volcano_wall.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/common/btn_active.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/common/btn_close.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/common/btn_default.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/common/btn_hover.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/common/panel_bg.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/death/btn_revive_active.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/death/btn_revive_default.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/death/btn_settle_active.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/death/btn_settle_default.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/death/death_bg.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/death/icon_soulstone.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/death/result_panel.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/equip_body_frame.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/equip_slot_chest.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/equip_slot_gloves.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/equip_slot_helmet.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/equip_slot_legs.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/equip_slot_necklace.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/equip_slot_ring.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/equip_slot_shoes.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/equip_slot_weapon.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/inventory_slot.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/item_slot.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/rarity_common.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/rarity_legendary.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/rarity_magic.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/rarity_rare.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/equipment/set_counter_bg.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/hud/hud_cdmask.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/hud/hud_hpbar_bg.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/hud/hud_hpbar_fill.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/hud/hud_hpbar_frame.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/hud/hud_rollbtn.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/hud/hud_skillslot.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/hud/joystick_base.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/hud/joystick_dot.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/main/main_bg.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/main/main_titledeco.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/map/icon_room_boss.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/map/icon_room_combat.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/map/icon_room_event.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/map/icon_room_healing.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/map/icon_room_shop.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/map/icon_room_treasure.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/map/icon_room_upgrade.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/map/map_line.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/map/map_node_current.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/map/map_node_unknown.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/map/map_node_visited.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/shop/icon_coin.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/shop/shop_bg.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/shop/shop_slot.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/splash/splash_bg.png": {
+    "reference_count": 1,
+    "possible_reference_count": 0,
+    "used_by": "assets/scenes/splash.scene",
+    "references": [
+      {
+        "file": "assets/scenes/splash.scene",
+        "line": 517,
+        "match_type": "spriteframe_uuid",
+        "confidence": "high",
+        "count": 1
+      }
+    ],
+    "possible_references": []
+  },
+  "ui/splash/splash_logo.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/card_frame_common.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/card_frame_epic.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/card_frame_rare.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_ability_bullettime.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_ability_doublestrike.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_ability_elementresonance.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_ability_firewalker.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_ability_frostbite.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_ability_holyshield.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_ability_lifestealaura.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_ability_phasewalk.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_ability_ricochet.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_ability_shieldreflect.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_ability_sprint.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_ability_warcry.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_blinkstone.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_decoyscroll.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_echoorb.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_flamering.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_frenzyaxe.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_frostamulet.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_gravitystone.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_immortalstone.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_ironarmor.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_lifelink.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_luckycoin.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_shadowcloak.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_shadowdagger.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_speedgauntlet.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_thornarmor.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_relic_timehourglass.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_upgrade_agileboots.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_upgrade_berserkerpact.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_upgrade_greedring.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_upgrade_ironwall.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_upgrade_lifecharm.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_upgrade_longarm.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  },
+  "ui/upgrade/icon_upgrade_windstep.png": {
+    "reference_count": 0,
+    "possible_reference_count": 0,
+    "used_by": "unknown",
+    "references": [],
+    "possible_references": []
+  }
+}

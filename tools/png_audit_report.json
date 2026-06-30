@@ -1,0 +1,2106 @@
+{
+  "p_mode": [],
+  "rgba": [
+    {
+      "file": "backgrounds\\bg_combat_abyss.png",
+      "mode": "RGBA",
+      "size_bytes": 331479
+    },
+    {
+      "file": "backgrounds\\bg_combat_catacombs.png",
+      "mode": "RGBA",
+      "size_bytes": 325594
+    },
+    {
+      "file": "backgrounds\\bg_combat_forest.png",
+      "mode": "RGBA",
+      "size_bytes": 208674
+    },
+    {
+      "file": "backgrounds\\bg_combat_swamp.png",
+      "mode": "RGBA",
+      "size_bytes": 278514
+    },
+    {
+      "file": "backgrounds\\bg_combat_tundra.png",
+      "mode": "RGBA",
+      "size_bytes": 253792
+    },
+    {
+      "file": "backgrounds\\bg_combat_volcano.png",
+      "mode": "RGBA",
+      "size_bytes": 284755
+    },
+    {
+      "file": "backgrounds\\bg_event_abyss.png",
+      "mode": "RGBA",
+      "size_bytes": 328929
+    },
+    {
+      "file": "backgrounds\\bg_event_catacombs.png",
+      "mode": "RGBA",
+      "size_bytes": 293320
+    },
+    {
+      "file": "backgrounds\\bg_event_forest.png",
+      "mode": "RGBA",
+      "size_bytes": 237081
+    },
+    {
+      "file": "backgrounds\\bg_event_swamp.png",
+      "mode": "RGBA",
+      "size_bytes": 269125
+    },
+    {
+      "file": "backgrounds\\bg_event_tundra.png",
+      "mode": "RGBA",
+      "size_bytes": 356559
+    },
+    {
+      "file": "backgrounds\\bg_event_volcano.png",
+      "mode": "RGBA",
+      "size_bytes": 204322
+    },
+    {
+      "file": "backgrounds\\bg_room_healing.png",
+      "mode": "RGBA",
+      "size_bytes": 190715
+    },
+    {
+      "file": "backgrounds\\bg_room_rest.png",
+      "mode": "RGBA",
+      "size_bytes": 180231
+    },
+    {
+      "file": "backgrounds\\bg_room_shop.png",
+      "mode": "RGBA",
+      "size_bytes": 215536
+    },
+    {
+      "file": "backgrounds\\bg_room_treasure.png",
+      "mode": "RGBA",
+      "size_bytes": 257370
+    },
+    {
+      "file": "backgrounds\\bg_room_upgrade.png",
+      "mode": "RGBA",
+      "size_bytes": 258415
+    },
+    {
+      "file": "bosses\\finalboss\\boss_abyssoverlord_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 1048
+    },
+    {
+      "file": "bosses\\finalboss\\boss_abyssoverlord_death.png",
+      "mode": "RGBA",
+      "size_bytes": 893
+    },
+    {
+      "file": "bosses\\finalboss\\boss_abyssoverlord_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 665
+    },
+    {
+      "file": "bosses\\finalboss\\boss_abyssoverlord_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 687
+    },
+    {
+      "file": "bosses\\finalboss\\boss_abyssoverlord_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 989
+    },
+    {
+      "file": "bosses\\finalboss\\boss_beast_swamp_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 601
+    },
+    {
+      "file": "bosses\\finalboss\\boss_beast_swamp_death.png",
+      "mode": "RGBA",
+      "size_bytes": 684
+    },
+    {
+      "file": "bosses\\finalboss\\boss_beast_swamp_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 684
+    },
+    {
+      "file": "bosses\\finalboss\\boss_beast_swamp_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 2053
+    },
+    {
+      "file": "bosses\\finalboss\\boss_beast_swamp_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 2053
+    },
+    {
+      "file": "bosses\\finalboss\\boss_firelord_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 1026
+    },
+    {
+      "file": "bosses\\finalboss\\boss_firelord_death.png",
+      "mode": "RGBA",
+      "size_bytes": 872
+    },
+    {
+      "file": "bosses\\finalboss\\boss_firelord_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 652
+    },
+    {
+      "file": "bosses\\finalboss\\boss_firelord_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 688
+    },
+    {
+      "file": "bosses\\finalboss\\boss_firelord_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 953
+    },
+    {
+      "file": "bosses\\finalboss\\boss_forestguardian_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 1035
+    },
+    {
+      "file": "bosses\\finalboss\\boss_forestguardian_death.png",
+      "mode": "RGBA",
+      "size_bytes": 883
+    },
+    {
+      "file": "bosses\\finalboss\\boss_forestguardian_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 662
+    },
+    {
+      "file": "bosses\\finalboss\\boss_forestguardian_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 683
+    },
+    {
+      "file": "bosses\\finalboss\\boss_forestguardian_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 994
+    },
+    {
+      "file": "bosses\\finalboss\\boss_frostqueen_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 1038
+    },
+    {
+      "file": "bosses\\finalboss\\boss_frostqueen_death.png",
+      "mode": "RGBA",
+      "size_bytes": 885
+    },
+    {
+      "file": "bosses\\finalboss\\boss_frostqueen_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 648
+    },
+    {
+      "file": "bosses\\finalboss\\boss_frostqueen_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 688
+    },
+    {
+      "file": "bosses\\finalboss\\boss_frostqueen_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 970
+    },
+    {
+      "file": "bosses\\finalboss\\boss_guardian_forest_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 600
+    },
+    {
+      "file": "bosses\\finalboss\\boss_guardian_forest_death.png",
+      "mode": "RGBA",
+      "size_bytes": 685
+    },
+    {
+      "file": "bosses\\finalboss\\boss_guardian_forest_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 685
+    },
+    {
+      "file": "bosses\\finalboss\\boss_guardian_forest_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 2054
+    },
+    {
+      "file": "bosses\\finalboss\\boss_guardian_forest_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 2054
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_abyss_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 604
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_abyss_death.png",
+      "mode": "RGBA",
+      "size_bytes": 685
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_abyss_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 685
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_abyss_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 2056
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_abyss_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 2056
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_catacombs_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 598
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_catacombs_death.png",
+      "mode": "RGBA",
+      "size_bytes": 683
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_catacombs_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 683
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_catacombs_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 2036
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_catacombs_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 2036
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_volcano_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 601
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_volcano_death.png",
+      "mode": "RGBA",
+      "size_bytes": 683
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_volcano_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 683
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_volcano_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 2060
+    },
+    {
+      "file": "bosses\\finalboss\\boss_lord_volcano_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 2060
+    },
+    {
+      "file": "bosses\\finalboss\\boss_queen_tundra_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 576
+    },
+    {
+      "file": "bosses\\finalboss\\boss_queen_tundra_death.png",
+      "mode": "RGBA",
+      "size_bytes": 660
+    },
+    {
+      "file": "bosses\\finalboss\\boss_queen_tundra_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 660
+    },
+    {
+      "file": "bosses\\finalboss\\boss_queen_tundra_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 1934
+    },
+    {
+      "file": "bosses\\finalboss\\boss_queen_tundra_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 1934
+    },
+    {
+      "file": "bosses\\finalboss\\boss_skeletonlord_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 1041
+    },
+    {
+      "file": "bosses\\finalboss\\boss_skeletonlord_death.png",
+      "mode": "RGBA",
+      "size_bytes": 882
+    },
+    {
+      "file": "bosses\\finalboss\\boss_skeletonlord_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 666
+    },
+    {
+      "file": "bosses\\finalboss\\boss_skeletonlord_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 683
+    },
+    {
+      "file": "bosses\\finalboss\\boss_skeletonlord_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 988
+    },
+    {
+      "file": "bosses\\finalboss\\boss_swampbehemoth_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 1036
+    },
+    {
+      "file": "bosses\\finalboss\\boss_swampbehemoth_death.png",
+      "mode": "RGBA",
+      "size_bytes": 888
+    },
+    {
+      "file": "bosses\\finalboss\\boss_swampbehemoth_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 665
+    },
+    {
+      "file": "bosses\\finalboss\\boss_swampbehemoth_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 687
+    },
+    {
+      "file": "bosses\\finalboss\\boss_swampbehemoth_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 1001
+    },
+    {
+      "file": "bosses\\finalboss\\abyss\\boss_abyssoverlord_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 23034
+    },
+    {
+      "file": "bosses\\finalboss\\abyss\\boss_abyssoverlord_death.png",
+      "mode": "RGBA",
+      "size_bytes": 25097
+    },
+    {
+      "file": "bosses\\finalboss\\abyss\\boss_abyssoverlord_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 22373
+    },
+    {
+      "file": "bosses\\finalboss\\abyss\\boss_abyssoverlord_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 26436
+    },
+    {
+      "file": "bosses\\finalboss\\abyss\\boss_abyssoverlord_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 28411
+    },
+    {
+      "file": "bosses\\finalboss\\catacombs\\boss_skeletonlord_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 21831
+    },
+    {
+      "file": "bosses\\finalboss\\catacombs\\boss_skeletonlord_death.png",
+      "mode": "RGBA",
+      "size_bytes": 21708
+    },
+    {
+      "file": "bosses\\finalboss\\catacombs\\boss_skeletonlord_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 20671
+    },
+    {
+      "file": "bosses\\finalboss\\catacombs\\boss_skeletonlord_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 27003
+    },
+    {
+      "file": "bosses\\finalboss\\catacombs\\boss_skeletonlord_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 28550
+    },
+    {
+      "file": "bosses\\finalboss\\forest\\boss_forestguardian_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 25807
+    },
+    {
+      "file": "bosses\\finalboss\\forest\\boss_forestguardian_death.png",
+      "mode": "RGBA",
+      "size_bytes": 23941
+    },
+    {
+      "file": "bosses\\finalboss\\forest\\boss_forestguardian_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 22789
+    },
+    {
+      "file": "bosses\\finalboss\\forest\\boss_forestguardian_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 29290
+    },
+    {
+      "file": "bosses\\finalboss\\forest\\boss_forestguardian_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 26479
+    },
+    {
+      "file": "bosses\\finalboss\\swamp\\boss_swampbehemoth_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 22457
+    },
+    {
+      "file": "bosses\\finalboss\\swamp\\boss_swampbehemoth_death.png",
+      "mode": "RGBA",
+      "size_bytes": 22733
+    },
+    {
+      "file": "bosses\\finalboss\\swamp\\boss_swampbehemoth_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 23449
+    },
+    {
+      "file": "bosses\\finalboss\\swamp\\boss_swampbehemoth_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 23770
+    },
+    {
+      "file": "bosses\\finalboss\\swamp\\boss_swampbehemoth_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 29142
+    },
+    {
+      "file": "bosses\\finalboss\\tundra\\boss_frostqueen_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 20499
+    },
+    {
+      "file": "bosses\\finalboss\\tundra\\boss_frostqueen_death.png",
+      "mode": "RGBA",
+      "size_bytes": 22760
+    },
+    {
+      "file": "bosses\\finalboss\\tundra\\boss_frostqueen_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 22792
+    },
+    {
+      "file": "bosses\\finalboss\\tundra\\boss_frostqueen_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 25689
+    },
+    {
+      "file": "bosses\\finalboss\\tundra\\boss_frostqueen_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 27702
+    },
+    {
+      "file": "bosses\\finalboss\\volcano\\boss_firelord_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 21734
+    },
+    {
+      "file": "bosses\\finalboss\\volcano\\boss_firelord_death.png",
+      "mode": "RGBA",
+      "size_bytes": 21117
+    },
+    {
+      "file": "bosses\\finalboss\\volcano\\boss_firelord_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 22695
+    },
+    {
+      "file": "bosses\\finalboss\\volcano\\boss_firelord_phasechange.png",
+      "mode": "RGBA",
+      "size_bytes": 27215
+    },
+    {
+      "file": "bosses\\finalboss\\volcano\\boss_firelord_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 27264
+    },
+    {
+      "file": "bosses\\miniboss\\abyss\\miniboss_abysssentinel_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 6759
+    },
+    {
+      "file": "bosses\\miniboss\\abyss\\miniboss_nightmareknight_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 8355
+    },
+    {
+      "file": "bosses\\miniboss\\abyss\\miniboss_shadowdragon_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 8380
+    },
+    {
+      "file": "bosses\\miniboss\\abyss\\miniboss_voidhunter_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 9328
+    },
+    {
+      "file": "bosses\\miniboss\\abyss\\miniboss_voidlord_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7543
+    },
+    {
+      "file": "bosses\\miniboss\\catacombs\\miniboss_blackknight_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7031
+    },
+    {
+      "file": "bosses\\miniboss\\catacombs\\miniboss_gargoyle_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7846
+    },
+    {
+      "file": "bosses\\miniboss\\catacombs\\miniboss_giantskeleton_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 8098
+    },
+    {
+      "file": "bosses\\miniboss\\catacombs\\miniboss_lich_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 6932
+    },
+    {
+      "file": "bosses\\miniboss\\catacombs\\miniboss_warden_catacombs_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 8912
+    },
+    {
+      "file": "bosses\\miniboss\\forest\\miniboss_boarchief_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7106
+    },
+    {
+      "file": "bosses\\miniboss\\forest\\miniboss_poisonflower_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 6932
+    },
+    {
+      "file": "bosses\\miniboss\\forest\\miniboss_porcupineking_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7343
+    },
+    {
+      "file": "bosses\\miniboss\\forest\\miniboss_stagbeetle_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 6687
+    },
+    {
+      "file": "bosses\\miniboss\\forest\\miniboss_warden_forest_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 8153
+    },
+    {
+      "file": "bosses\\miniboss\\swamp\\miniboss_poisonscorpion_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7375
+    },
+    {
+      "file": "bosses\\miniboss\\swamp\\miniboss_rottreantelite_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 8293
+    },
+    {
+      "file": "bosses\\miniboss\\swamp\\miniboss_serpentqueen_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7277
+    },
+    {
+      "file": "bosses\\miniboss\\swamp\\miniboss_swampcrocodile_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 6406
+    },
+    {
+      "file": "bosses\\miniboss\\swamp\\miniboss_swampfrog_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 6107
+    },
+    {
+      "file": "bosses\\miniboss\\tundra\\miniboss_frostelemental_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7714
+    },
+    {
+      "file": "bosses\\miniboss\\tundra\\miniboss_icegiant_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7684
+    },
+    {
+      "file": "bosses\\miniboss\\tundra\\miniboss_icescorpion_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7860
+    },
+    {
+      "file": "bosses\\miniboss\\tundra\\miniboss_polarbearking_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 8088
+    },
+    {
+      "file": "bosses\\miniboss\\tundra\\miniboss_snowape_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 8232
+    },
+    {
+      "file": "bosses\\miniboss\\volcano\\miniboss_firegolem_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 8148
+    },
+    {
+      "file": "bosses\\miniboss\\volcano\\miniboss_inferno_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7689
+    },
+    {
+      "file": "bosses\\miniboss\\volcano\\miniboss_lavaworm_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7657
+    },
+    {
+      "file": "bosses\\miniboss\\volcano\\miniboss_volcanogiant_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7304
+    },
+    {
+      "file": "bosses\\miniboss\\volcano\\miniboss_warden_volcano_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 8464
+    },
+    {
+      "file": "characters\\archer\\archer_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 17944
+    },
+    {
+      "file": "characters\\archer\\archer_death.png",
+      "mode": "RGBA",
+      "size_bytes": 16223
+    },
+    {
+      "file": "characters\\archer\\archer_dodge.png",
+      "mode": "RGBA",
+      "size_bytes": 16646
+    },
+    {
+      "file": "characters\\archer\\archer_hit.png",
+      "mode": "RGBA",
+      "size_bytes": 10944
+    },
+    {
+      "file": "characters\\archer\\archer_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 16423
+    },
+    {
+      "file": "characters\\archer\\archer_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 23155
+    },
+    {
+      "file": "characters\\archer\\archer_walk.png",
+      "mode": "RGBA",
+      "size_bytes": 18418
+    },
+    {
+      "file": "characters\\assassin\\assassin_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 16176
+    },
+    {
+      "file": "characters\\assassin\\assassin_death.png",
+      "mode": "RGBA",
+      "size_bytes": 16713
+    },
+    {
+      "file": "characters\\assassin\\assassin_dodge.png",
+      "mode": "RGBA",
+      "size_bytes": 15917
+    },
+    {
+      "file": "characters\\assassin\\assassin_hit.png",
+      "mode": "RGBA",
+      "size_bytes": 10920
+    },
+    {
+      "file": "characters\\assassin\\assassin_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 15744
+    },
+    {
+      "file": "characters\\assassin\\assassin_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 20905
+    },
+    {
+      "file": "characters\\assassin\\assassin_walk.png",
+      "mode": "RGBA",
+      "size_bytes": 22763
+    },
+    {
+      "file": "characters\\berserker\\berserker_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 14185
+    },
+    {
+      "file": "characters\\berserker\\berserker_death.png",
+      "mode": "RGBA",
+      "size_bytes": 16239
+    },
+    {
+      "file": "characters\\berserker\\berserker_dodge.png",
+      "mode": "RGBA",
+      "size_bytes": 17674
+    },
+    {
+      "file": "characters\\berserker\\berserker_hit.png",
+      "mode": "RGBA",
+      "size_bytes": 10695
+    },
+    {
+      "file": "characters\\berserker\\berserker_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 15109
+    },
+    {
+      "file": "characters\\berserker\\berserker_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 23092
+    },
+    {
+      "file": "characters\\berserker\\berserker_walk.png",
+      "mode": "RGBA",
+      "size_bytes": 20340
+    },
+    {
+      "file": "characters\\mage\\mage_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 16370
+    },
+    {
+      "file": "characters\\mage\\mage_death.png",
+      "mode": "RGBA",
+      "size_bytes": 16050
+    },
+    {
+      "file": "characters\\mage\\mage_dodge.png",
+      "mode": "RGBA",
+      "size_bytes": 12826
+    },
+    {
+      "file": "characters\\mage\\mage_hit.png",
+      "mode": "RGBA",
+      "size_bytes": 10544
+    },
+    {
+      "file": "characters\\mage\\mage_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 15475
+    },
+    {
+      "file": "characters\\mage\\mage_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 20019
+    },
+    {
+      "file": "characters\\mage\\mage_walk.png",
+      "mode": "RGBA",
+      "size_bytes": 23646
+    },
+    {
+      "file": "characters\\warrior\\warrior_attack.png",
+      "mode": "RGBA",
+      "size_bytes": 20305
+    },
+    {
+      "file": "characters\\warrior\\warrior_death.png",
+      "mode": "RGBA",
+      "size_bytes": 16721
+    },
+    {
+      "file": "characters\\warrior\\warrior_dodge.png",
+      "mode": "RGBA",
+      "size_bytes": 16341
+    },
+    {
+      "file": "characters\\warrior\\warrior_hit.png",
+      "mode": "RGBA",
+      "size_bytes": 11466
+    },
+    {
+      "file": "characters\\warrior\\warrior_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 16809
+    },
+    {
+      "file": "characters\\warrior\\warrior_skill.png",
+      "mode": "RGBA",
+      "size_bytes": 21175
+    },
+    {
+      "file": "characters\\warrior\\warrior_walk.png",
+      "mode": "RGBA",
+      "size_bytes": 23409
+    },
+    {
+      "file": "effects\\combat\\fx_crit.png",
+      "mode": "RGBA",
+      "size_bytes": 27232
+    },
+    {
+      "file": "effects\\combat\\fx_dash.png",
+      "mode": "RGBA",
+      "size_bytes": 13380
+    },
+    {
+      "file": "effects\\combat\\fx_dodge.png",
+      "mode": "RGBA",
+      "size_bytes": 7338
+    },
+    {
+      "file": "effects\\combat\\fx_heal.png",
+      "mode": "RGBA",
+      "size_bytes": 32000
+    },
+    {
+      "file": "effects\\combat\\fx_hit_normal.png",
+      "mode": "RGBA",
+      "size_bytes": 13199
+    },
+    {
+      "file": "effects\\combat\\fx_shield.png",
+      "mode": "RGBA",
+      "size_bytes": 27019
+    },
+    {
+      "file": "effects\\reactions\\fx_reaction_burn.png",
+      "mode": "RGBA",
+      "size_bytes": 17574
+    },
+    {
+      "file": "effects\\reactions\\fx_reaction_conduct.png",
+      "mode": "RGBA",
+      "size_bytes": 18550
+    },
+    {
+      "file": "effects\\reactions\\fx_reaction_corrode.png",
+      "mode": "RGBA",
+      "size_bytes": 17394
+    },
+    {
+      "file": "effects\\reactions\\fx_reaction_decay.png",
+      "mode": "RGBA",
+      "size_bytes": 19502
+    },
+    {
+      "file": "effects\\reactions\\fx_reaction_freeze.png",
+      "mode": "RGBA",
+      "size_bytes": 18358
+    },
+    {
+      "file": "effects\\reactions\\fx_reaction_melt.png",
+      "mode": "RGBA",
+      "size_bytes": 16752
+    },
+    {
+      "file": "effects\\reactions\\fx_reaction_overload.png",
+      "mode": "RGBA",
+      "size_bytes": 19519
+    },
+    {
+      "file": "effects\\reactions\\fx_reaction_radiance.png",
+      "mode": "RGBA",
+      "size_bytes": 17513
+    },
+    {
+      "file": "effects\\reactions\\fx_reaction_shatter.png",
+      "mode": "RGBA",
+      "size_bytes": 18910
+    },
+    {
+      "file": "effects\\reactions\\fx_reaction_vaporize.png",
+      "mode": "RGBA",
+      "size_bytes": 18506
+    },
+    {
+      "file": "effects\\reactions\\fx_reaction_void.png",
+      "mode": "RGBA",
+      "size_bytes": 19358
+    },
+    {
+      "file": "effects\\relics\\fx_relic_blink_stone.png",
+      "mode": "RGBA",
+      "size_bytes": 21419
+    },
+    {
+      "file": "effects\\relics\\fx_relic_decoy_scroll.png",
+      "mode": "RGBA",
+      "size_bytes": 19067
+    },
+    {
+      "file": "effects\\relics\\fx_relic_flame_ring.png",
+      "mode": "RGBA",
+      "size_bytes": 16577
+    },
+    {
+      "file": "effects\\relics\\fx_relic_frost_amulet.png",
+      "mode": "RGBA",
+      "size_bytes": 19227
+    },
+    {
+      "file": "effects\\relics\\fx_relic_gravity_stone.png",
+      "mode": "RGBA",
+      "size_bytes": 20435
+    },
+    {
+      "file": "effects\\relics\\fx_relic_life_link.png",
+      "mode": "RGBA",
+      "size_bytes": 19691
+    },
+    {
+      "file": "effects\\relics\\fx_relic_shadow_dagger.png",
+      "mode": "RGBA",
+      "size_bytes": 19554
+    },
+    {
+      "file": "effects\\relics\\fx_relic_time_hourglass.png",
+      "mode": "RGBA",
+      "size_bytes": 18283
+    },
+    {
+      "file": "effects\\ui\\fx_ui_glow.png",
+      "mode": "RGBA",
+      "size_bytes": 15272
+    },
+    {
+      "file": "effects\\ui\\fx_ui_loading.png",
+      "mode": "RGBA",
+      "size_bytes": 15740
+    },
+    {
+      "file": "icons\\buffs\\icon_buff_atkup.png",
+      "mode": "RGBA",
+      "size_bytes": 3987
+    },
+    {
+      "file": "icons\\buffs\\icon_buff_defup.png",
+      "mode": "RGBA",
+      "size_bytes": 4273
+    },
+    {
+      "file": "icons\\buffs\\icon_buff_shield.png",
+      "mode": "RGBA",
+      "size_bytes": 4294
+    },
+    {
+      "file": "icons\\buffs\\icon_buff_speedup.png",
+      "mode": "RGBA",
+      "size_bytes": 3777
+    },
+    {
+      "file": "icons\\buffs\\icon_buff_stealth.png",
+      "mode": "RGBA",
+      "size_bytes": 3944
+    },
+    {
+      "file": "icons\\buffs\\icon_debuff_burn.png",
+      "mode": "RGBA",
+      "size_bytes": 4792
+    },
+    {
+      "file": "icons\\buffs\\icon_debuff_freeze.png",
+      "mode": "RGBA",
+      "size_bytes": 4984
+    },
+    {
+      "file": "icons\\buffs\\icon_debuff_poison.png",
+      "mode": "RGBA",
+      "size_bytes": 4145
+    },
+    {
+      "file": "icons\\buffs\\icon_debuff_slow.png",
+      "mode": "RGBA",
+      "size_bytes": 4031
+    },
+    {
+      "file": "icons\\buffs\\icon_debuff_stun.png",
+      "mode": "RGBA",
+      "size_bytes": 4537
+    },
+    {
+      "file": "icons\\elements\\icon_element_fire.png",
+      "mode": "RGBA",
+      "size_bytes": 4074
+    },
+    {
+      "file": "icons\\elements\\icon_element_frost.png",
+      "mode": "RGBA",
+      "size_bytes": 5056
+    },
+    {
+      "file": "icons\\elements\\icon_element_holy.png",
+      "mode": "RGBA",
+      "size_bytes": 4342
+    },
+    {
+      "file": "icons\\elements\\icon_element_lightning.png",
+      "mode": "RGBA",
+      "size_bytes": 4722
+    },
+    {
+      "file": "icons\\elements\\icon_element_poison.png",
+      "mode": "RGBA",
+      "size_bytes": 3833
+    },
+    {
+      "file": "icons\\elements\\icon_element_shadow.png",
+      "mode": "RGBA",
+      "size_bytes": 4176
+    },
+    {
+      "file": "icons\\items\\icon_item_advancedkey.png",
+      "mode": "RGBA",
+      "size_bytes": 3208
+    },
+    {
+      "file": "icons\\items\\icon_item_bighealingpotion.png",
+      "mode": "RGBA",
+      "size_bytes": 3878
+    },
+    {
+      "file": "icons\\items\\icon_item_flamebomb.png",
+      "mode": "RGBA",
+      "size_bytes": 4328
+    },
+    {
+      "file": "icons\\items\\icon_item_furypotion.png",
+      "mode": "RGBA",
+      "size_bytes": 4453
+    },
+    {
+      "file": "icons\\items\\icon_item_healingpotion.png",
+      "mode": "RGBA",
+      "size_bytes": 3889
+    },
+    {
+      "file": "icons\\items\\icon_item_icebomb.png",
+      "mode": "RGBA",
+      "size_bytes": 4151
+    },
+    {
+      "file": "icons\\items\\icon_item_ironpotion.png",
+      "mode": "RGBA",
+      "size_bytes": 3395
+    },
+    {
+      "file": "icons\\items\\icon_item_key.png",
+      "mode": "RGBA",
+      "size_bytes": 4922
+    },
+    {
+      "file": "icons\\items\\icon_item_mapscroll.png",
+      "mode": "RGBA",
+      "size_bytes": 3610
+    },
+    {
+      "file": "icons\\items\\icon_item_purifypotion.png",
+      "mode": "RGBA",
+      "size_bytes": 4423
+    },
+    {
+      "file": "icons\\items\\icon_item_rerollscroll.png",
+      "mode": "RGBA",
+      "size_bytes": 4718
+    },
+    {
+      "file": "icons\\items\\icon_item_revivecoin.png",
+      "mode": "RGBA",
+      "size_bytes": 4266
+    },
+    {
+      "file": "icons\\items\\icon_item_scrollfire.png",
+      "mode": "RGBA",
+      "size_bytes": 4972
+    },
+    {
+      "file": "icons\\items\\icon_item_scrollholy.png",
+      "mode": "RGBA",
+      "size_bytes": 4270
+    },
+    {
+      "file": "icons\\items\\icon_item_scrollice.png",
+      "mode": "RGBA",
+      "size_bytes": 4595
+    },
+    {
+      "file": "icons\\items\\icon_item_scrollpoison.png",
+      "mode": "RGBA",
+      "size_bytes": 3931
+    },
+    {
+      "file": "icons\\items\\icon_item_scrollshadow.png",
+      "mode": "RGBA",
+      "size_bytes": 3863
+    },
+    {
+      "file": "icons\\items\\icon_item_scrollthunder.png",
+      "mode": "RGBA",
+      "size_bytes": 4224
+    },
+    {
+      "file": "icons\\items\\icon_item_speedpotion.png",
+      "mode": "RGBA",
+      "size_bytes": 3525
+    },
+    {
+      "file": "icons\\items\\item_healthPotion.png",
+      "mode": "RGBA",
+      "size_bytes": 297
+    },
+    {
+      "file": "icons\\items\\item_key.png",
+      "mode": "RGBA",
+      "size_bytes": 302
+    },
+    {
+      "file": "icons\\items\\item_largeHealthPotion.png",
+      "mode": "RGBA",
+      "size_bytes": 301
+    },
+    {
+      "file": "icons\\items\\item_map.png",
+      "mode": "RGBA",
+      "size_bytes": 302
+    },
+    {
+      "file": "icons\\relics\\icon_relic_blinkstone.png",
+      "mode": "RGBA",
+      "size_bytes": 9392
+    },
+    {
+      "file": "icons\\relics\\icon_relic_decoyscroll.png",
+      "mode": "RGBA",
+      "size_bytes": 10426
+    },
+    {
+      "file": "icons\\relics\\icon_relic_echoorb.png",
+      "mode": "RGBA",
+      "size_bytes": 8664
+    },
+    {
+      "file": "icons\\relics\\icon_relic_flamering.png",
+      "mode": "RGBA",
+      "size_bytes": 8608
+    },
+    {
+      "file": "icons\\relics\\icon_relic_frenzyaxe.png",
+      "mode": "RGBA",
+      "size_bytes": 9139
+    },
+    {
+      "file": "icons\\relics\\icon_relic_frostamulet.png",
+      "mode": "RGBA",
+      "size_bytes": 9816
+    },
+    {
+      "file": "icons\\relics\\icon_relic_gravitystone.png",
+      "mode": "RGBA",
+      "size_bytes": 9782
+    },
+    {
+      "file": "icons\\relics\\icon_relic_immortalstone.png",
+      "mode": "RGBA",
+      "size_bytes": 8813
+    },
+    {
+      "file": "icons\\relics\\icon_relic_ironarmor.png",
+      "mode": "RGBA",
+      "size_bytes": 9316
+    },
+    {
+      "file": "icons\\relics\\icon_relic_lifelink.png",
+      "mode": "RGBA",
+      "size_bytes": 8492
+    },
+    {
+      "file": "icons\\relics\\icon_relic_luckycoin.png",
+      "mode": "RGBA",
+      "size_bytes": 8934
+    },
+    {
+      "file": "icons\\relics\\icon_relic_shadowcloak.png",
+      "mode": "RGBA",
+      "size_bytes": 8913
+    },
+    {
+      "file": "icons\\relics\\icon_relic_shadowdagger.png",
+      "mode": "RGBA",
+      "size_bytes": 8575
+    },
+    {
+      "file": "icons\\relics\\icon_relic_speedgauntlet.png",
+      "mode": "RGBA",
+      "size_bytes": 9344
+    },
+    {
+      "file": "icons\\relics\\icon_relic_thornarmor.png",
+      "mode": "RGBA",
+      "size_bytes": 9426
+    },
+    {
+      "file": "icons\\relics\\icon_relic_timehourglass.png",
+      "mode": "RGBA",
+      "size_bytes": 9480
+    },
+    {
+      "file": "icons\\sets\\icon_set_frostbite.png",
+      "mode": "RGBA",
+      "size_bytes": 4916
+    },
+    {
+      "file": "icons\\sets\\icon_set_fury.png",
+      "mode": "RGBA",
+      "size_bytes": 4978
+    },
+    {
+      "file": "icons\\sets\\icon_set_ironwall.png",
+      "mode": "RGBA",
+      "size_bytes": 4221
+    },
+    {
+      "file": "icons\\sets\\icon_set_radiance.png",
+      "mode": "RGBA",
+      "size_bytes": 4998
+    },
+    {
+      "file": "icons\\sets\\icon_set_shadow.png",
+      "mode": "RGBA",
+      "size_bytes": 4576
+    },
+    {
+      "file": "icons\\sets\\icon_set_tempest.png",
+      "mode": "RGBA",
+      "size_bytes": 3862
+    },
+    {
+      "file": "icons\\skills\\icon_skill_dash.png",
+      "mode": "RGBA",
+      "size_bytes": 4088
+    },
+    {
+      "file": "icons\\skills\\icon_skill_elementburst.png",
+      "mode": "RGBA",
+      "size_bytes": 5108
+    },
+    {
+      "file": "icons\\skills\\icon_skill_healwave.png",
+      "mode": "RGBA",
+      "size_bytes": 3989
+    },
+    {
+      "file": "icons\\skills\\icon_skill_shield.png",
+      "mode": "RGBA",
+      "size_bytes": 4411
+    },
+    {
+      "file": "icons\\skills\\icon_skill_slowfield.png",
+      "mode": "RGBA",
+      "size_bytes": 4471
+    },
+    {
+      "file": "icons\\skills\\icon_skill_snapshot.png",
+      "mode": "RGBA",
+      "size_bytes": 3930
+    },
+    {
+      "file": "monsters\\abyss\\monster_abyss_abyssarcher_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4755
+    },
+    {
+      "file": "monsters\\abyss\\monster_abyss_abysslordelite_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 6928
+    },
+    {
+      "file": "monsters\\abyss\\monster_abyss_shadowdemon_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 3833
+    },
+    {
+      "file": "monsters\\abyss\\monster_abyss_shadowgolem_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4561
+    },
+    {
+      "file": "monsters\\abyss\\monster_abyss_voidrift_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4071
+    },
+    {
+      "file": "monsters\\abyss\\monster_abyss_voidwraith_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4679
+    },
+    {
+      "file": "monsters\\catacombs\\monster_catacombs_batswarm_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4846
+    },
+    {
+      "file": "monsters\\catacombs\\monster_catacombs_deathknight_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7650
+    },
+    {
+      "file": "monsters\\catacombs\\monster_catacombs_ghost_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4566
+    },
+    {
+      "file": "monsters\\catacombs\\monster_catacombs_ghoul_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4024
+    },
+    {
+      "file": "monsters\\catacombs\\monster_catacombs_skeletonarcher_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4876
+    },
+    {
+      "file": "monsters\\catacombs\\monster_catacombs_skeleton_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4436
+    },
+    {
+      "file": "monsters\\forest\\monster_forest_boar_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4376
+    },
+    {
+      "file": "monsters\\forest\\monster_forest_deerelite_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7130
+    },
+    {
+      "file": "monsters\\forest\\monster_forest_elfarcher_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4247
+    },
+    {
+      "file": "monsters\\forest\\monster_forest_mushroom_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4163
+    },
+    {
+      "file": "monsters\\forest\\monster_forest_slime_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 3567
+    },
+    {
+      "file": "monsters\\forest\\monster_forest_treant_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4151
+    },
+    {
+      "file": "monsters\\swamp\\monster_swamp_gianttoad_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4223
+    },
+    {
+      "file": "monsters\\swamp\\monster_swamp_rottreant_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 5037
+    },
+    {
+      "file": "monsters\\swamp\\monster_swamp_slimepoison_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 3896
+    },
+    {
+      "file": "monsters\\swamp\\monster_swamp_swampdragon_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 6956
+    },
+    {
+      "file": "monsters\\swamp\\monster_swamp_swampspider_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 3769
+    },
+    {
+      "file": "monsters\\swamp\\monster_swamp_viper_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 3735
+    },
+    {
+      "file": "monsters\\tundra\\monster_tundra_frostgiant_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7276
+    },
+    {
+      "file": "monsters\\tundra\\monster_tundra_frostmage_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4894
+    },
+    {
+      "file": "monsters\\tundra\\monster_tundra_iceskeleton_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4062
+    },
+    {
+      "file": "monsters\\tundra\\monster_tundra_penguinsoldier_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 6535
+    },
+    {
+      "file": "monsters\\tundra\\monster_tundra_snowman_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 3826
+    },
+    {
+      "file": "monsters\\tundra\\monster_tundra_snowwolf_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4181
+    },
+    {
+      "file": "monsters\\volcano\\monster_volcano_ashwraith_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4126
+    },
+    {
+      "file": "monsters\\volcano\\monster_volcano_demon_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4544
+    },
+    {
+      "file": "monsters\\volcano\\monster_volcano_fireelemental_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4032
+    },
+    {
+      "file": "monsters\\volcano\\monster_volcano_infernoelite_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 7795
+    },
+    {
+      "file": "monsters\\volcano\\monster_volcano_lavaspider_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 4131
+    },
+    {
+      "file": "monsters\\volcano\\monster_volcano_suicidegolem_idle.png",
+      "mode": "RGBA",
+      "size_bytes": 5021
+    },
+    {
+      "file": "tiles\\abyss\\tile_abyss_floor.png",
+      "mode": "RGBA",
+      "size_bytes": 2460
+    },
+    {
+      "file": "tiles\\abyss\\tile_abyss_highground.png",
+      "mode": "RGBA",
+      "size_bytes": 2305
+    },
+    {
+      "file": "tiles\\abyss\\tile_abyss_thorn.png",
+      "mode": "RGBA",
+      "size_bytes": 2937
+    },
+    {
+      "file": "tiles\\abyss\\tile_abyss_wall.png",
+      "mode": "RGBA",
+      "size_bytes": 2438
+    },
+    {
+      "file": "tiles\\catacombs\\tile_catacombs_floor.png",
+      "mode": "RGBA",
+      "size_bytes": 2255
+    },
+    {
+      "file": "tiles\\catacombs\\tile_catacombs_highground.png",
+      "mode": "RGBA",
+      "size_bytes": 2867
+    },
+    {
+      "file": "tiles\\catacombs\\tile_catacombs_thorn.png",
+      "mode": "RGBA",
+      "size_bytes": 3078
+    },
+    {
+      "file": "tiles\\catacombs\\tile_catacombs_wall.png",
+      "mode": "RGBA",
+      "size_bytes": 1846
+    },
+    {
+      "file": "tiles\\forest\\tile_forest_floor.png",
+      "mode": "RGBA",
+      "size_bytes": 2926
+    },
+    {
+      "file": "tiles\\forest\\tile_forest_highground.png",
+      "mode": "RGBA",
+      "size_bytes": 2261
+    },
+    {
+      "file": "tiles\\forest\\tile_forest_thorn.png",
+      "mode": "RGBA",
+      "size_bytes": 2902
+    },
+    {
+      "file": "tiles\\forest\\tile_forest_wall.png",
+      "mode": "RGBA",
+      "size_bytes": 2679
+    },
+    {
+      "file": "tiles\\swamp\\tile_swamp_floor.png",
+      "mode": "RGBA",
+      "size_bytes": 2459
+    },
+    {
+      "file": "tiles\\swamp\\tile_swamp_highground.png",
+      "mode": "RGBA",
+      "size_bytes": 2501
+    },
+    {
+      "file": "tiles\\swamp\\tile_swamp_thorn.png",
+      "mode": "RGBA",
+      "size_bytes": 3179
+    },
+    {
+      "file": "tiles\\swamp\\tile_swamp_wall.png",
+      "mode": "RGBA",
+      "size_bytes": 2552
+    },
+    {
+      "file": "tiles\\tundra\\tile_tundra_floor.png",
+      "mode": "RGBA",
+      "size_bytes": 1967
+    },
+    {
+      "file": "tiles\\tundra\\tile_tundra_highground.png",
+      "mode": "RGBA",
+      "size_bytes": 2274
+    },
+    {
+      "file": "tiles\\tundra\\tile_tundra_thorn.png",
+      "mode": "RGBA",
+      "size_bytes": 2686
+    },
+    {
+      "file": "tiles\\tundra\\tile_tundra_wall.png",
+      "mode": "RGBA",
+      "size_bytes": 2355
+    },
+    {
+      "file": "tiles\\volcano\\tile_volcano_floor.png",
+      "mode": "RGBA",
+      "size_bytes": 2868
+    },
+    {
+      "file": "tiles\\volcano\\tile_volcano_highground.png",
+      "mode": "RGBA",
+      "size_bytes": 3065
+    },
+    {
+      "file": "tiles\\volcano\\tile_volcano_thorn.png",
+      "mode": "RGBA",
+      "size_bytes": 2857
+    },
+    {
+      "file": "tiles\\volcano\\tile_volcano_wall.png",
+      "mode": "RGBA",
+      "size_bytes": 2749
+    },
+    {
+      "file": "ui\\common\\btn_active.png",
+      "mode": "RGBA",
+      "size_bytes": 12938
+    },
+    {
+      "file": "ui\\common\\btn_close.png",
+      "mode": "RGBA",
+      "size_bytes": 1368
+    },
+    {
+      "file": "ui\\common\\btn_default.png",
+      "mode": "RGBA",
+      "size_bytes": 9664
+    },
+    {
+      "file": "ui\\common\\btn_hover.png",
+      "mode": "RGBA",
+      "size_bytes": 9652
+    },
+    {
+      "file": "ui\\common\\panel_bg.png",
+      "mode": "RGBA",
+      "size_bytes": 1672
+    },
+    {
+      "file": "ui\\death\\btn_revive_active.png",
+      "mode": "RGBA",
+      "size_bytes": 9469
+    },
+    {
+      "file": "ui\\death\\btn_revive_default.png",
+      "mode": "RGBA",
+      "size_bytes": 8025
+    },
+    {
+      "file": "ui\\death\\btn_settle_active.png",
+      "mode": "RGBA",
+      "size_bytes": 10337
+    },
+    {
+      "file": "ui\\death\\btn_settle_default.png",
+      "mode": "RGBA",
+      "size_bytes": 10605
+    },
+    {
+      "file": "ui\\death\\death_bg.png",
+      "mode": "RGBA",
+      "size_bytes": 508849
+    },
+    {
+      "file": "ui\\death\\icon_soulstone.png",
+      "mode": "RGBA",
+      "size_bytes": 1412
+    },
+    {
+      "file": "ui\\death\\result_panel.png",
+      "mode": "RGBA",
+      "size_bytes": 1303
+    },
+    {
+      "file": "ui\\equipment\\equip_body_frame.png",
+      "mode": "RGBA",
+      "size_bytes": 76411
+    },
+    {
+      "file": "ui\\equipment\\equip_slot_chest.png",
+      "mode": "RGBA",
+      "size_bytes": 2658
+    },
+    {
+      "file": "ui\\equipment\\equip_slot_gloves.png",
+      "mode": "RGBA",
+      "size_bytes": 2462
+    },
+    {
+      "file": "ui\\equipment\\equip_slot_helmet.png",
+      "mode": "RGBA",
+      "size_bytes": 2501
+    },
+    {
+      "file": "ui\\equipment\\equip_slot_legs.png",
+      "mode": "RGBA",
+      "size_bytes": 2572
+    },
+    {
+      "file": "ui\\equipment\\equip_slot_necklace.png",
+      "mode": "RGBA",
+      "size_bytes": 2551
+    },
+    {
+      "file": "ui\\equipment\\equip_slot_ring.png",
+      "mode": "RGBA",
+      "size_bytes": 2333
+    },
+    {
+      "file": "ui\\equipment\\equip_slot_shoes.png",
+      "mode": "RGBA",
+      "size_bytes": 2747
+    },
+    {
+      "file": "ui\\equipment\\equip_slot_weapon.png",
+      "mode": "RGBA",
+      "size_bytes": 2399
+    },
+    {
+      "file": "ui\\equipment\\inventory_slot.png",
+      "mode": "RGBA",
+      "size_bytes": 2505
+    },
+    {
+      "file": "ui\\equipment\\item_slot.png",
+      "mode": "RGBA",
+      "size_bytes": 1865
+    },
+    {
+      "file": "ui\\equipment\\rarity_common.png",
+      "mode": "RGBA",
+      "size_bytes": 4683
+    },
+    {
+      "file": "ui\\equipment\\rarity_legendary.png",
+      "mode": "RGBA",
+      "size_bytes": 5771
+    },
+    {
+      "file": "ui\\equipment\\rarity_magic.png",
+      "mode": "RGBA",
+      "size_bytes": 5062
+    },
+    {
+      "file": "ui\\equipment\\rarity_rare.png",
+      "mode": "RGBA",
+      "size_bytes": 5199
+    },
+    {
+      "file": "ui\\equipment\\set_counter_bg.png",
+      "mode": "RGBA",
+      "size_bytes": 20354
+    },
+    {
+      "file": "ui\\hud\\hud_cdmask.png",
+      "mode": "RGBA",
+      "size_bytes": 3533
+    },
+    {
+      "file": "ui\\hud\\hud_hpbar_bg.png",
+      "mode": "RGBA",
+      "size_bytes": 3156
+    },
+    {
+      "file": "ui\\hud\\hud_hpbar_fill.png",
+      "mode": "RGBA",
+      "size_bytes": 3139
+    },
+    {
+      "file": "ui\\hud\\hud_hpbar_frame.png",
+      "mode": "RGBA",
+      "size_bytes": 3393
+    },
+    {
+      "file": "ui\\hud\\hud_rollbtn.png",
+      "mode": "RGBA",
+      "size_bytes": 2621
+    },
+    {
+      "file": "ui\\hud\\hud_skillslot.png",
+      "mode": "RGBA",
+      "size_bytes": 3399
+    },
+    {
+      "file": "ui\\hud\\joystick_base.png",
+      "mode": "RGBA",
+      "size_bytes": 8277
+    },
+    {
+      "file": "ui\\hud\\joystick_dot.png",
+      "mode": "RGBA",
+      "size_bytes": 2301
+    },
+    {
+      "file": "ui\\main\\main_bg.png",
+      "mode": "RGBA",
+      "size_bytes": 317803
+    },
+    {
+      "file": "ui\\main\\main_titledeco.png",
+      "mode": "RGBA",
+      "size_bytes": 83729
+    },
+    {
+      "file": "ui\\map\\icon_room_boss.png",
+      "mode": "RGBA",
+      "size_bytes": 807
+    },
+    {
+      "file": "ui\\map\\icon_room_combat.png",
+      "mode": "RGBA",
+      "size_bytes": 796
+    },
+    {
+      "file": "ui\\map\\icon_room_event.png",
+      "mode": "RGBA",
+      "size_bytes": 810
+    },
+    {
+      "file": "ui\\map\\icon_room_healing.png",
+      "mode": "RGBA",
+      "size_bytes": 883
+    },
+    {
+      "file": "ui\\map\\icon_room_shop.png",
+      "mode": "RGBA",
+      "size_bytes": 882
+    },
+    {
+      "file": "ui\\map\\icon_room_treasure.png",
+      "mode": "RGBA",
+      "size_bytes": 771
+    },
+    {
+      "file": "ui\\map\\icon_room_upgrade.png",
+      "mode": "RGBA",
+      "size_bytes": 869
+    },
+    {
+      "file": "ui\\map\\map_line.png",
+      "mode": "RGBA",
+      "size_bytes": 171
+    },
+    {
+      "file": "ui\\map\\map_node_current.png",
+      "mode": "RGBA",
+      "size_bytes": 1664
+    },
+    {
+      "file": "ui\\map\\map_node_unknown.png",
+      "mode": "RGBA",
+      "size_bytes": 1619
+    },
+    {
+      "file": "ui\\map\\map_node_visited.png",
+      "mode": "RGBA",
+      "size_bytes": 1969
+    },
+    {
+      "file": "ui\\shop\\icon_coin.png",
+      "mode": "RGBA",
+      "size_bytes": 958
+    },
+    {
+      "file": "ui\\shop\\shop_bg.png",
+      "mode": "RGBA",
+      "size_bytes": 516786
+    },
+    {
+      "file": "ui\\shop\\shop_slot.png",
+      "mode": "RGBA",
+      "size_bytes": 18875
+    },
+    {
+      "file": "ui\\splash\\splash_bg.png",
+      "mode": "RGBA",
+      "size_bytes": 225963
+    },
+    {
+      "file": "ui\\splash\\splash_logo.png",
+      "mode": "RGBA",
+      "size_bytes": 38254
+    },
+    {
+      "file": "ui\\upgrade\\card_frame_common.png",
+      "mode": "RGBA",
+      "size_bytes": 23240
+    },
+    {
+      "file": "ui\\upgrade\\card_frame_epic.png",
+      "mode": "RGBA",
+      "size_bytes": 24276
+    },
+    {
+      "file": "ui\\upgrade\\card_frame_rare.png",
+      "mode": "RGBA",
+      "size_bytes": 21978
+    },
+    {
+      "file": "ui\\upgrade\\icon_ability_bullettime.png",
+      "mode": "RGBA",
+      "size_bytes": 1104274
+    },
+    {
+      "file": "ui\\upgrade\\icon_ability_doublestrike.png",
+      "mode": "RGBA",
+      "size_bytes": 992046
+    },
+    {
+      "file": "ui\\upgrade\\icon_ability_elementresonance.png",
+      "mode": "RGBA",
+      "size_bytes": 1257727
+    },
+    {
+      "file": "ui\\upgrade\\icon_ability_firewalker.png",
+      "mode": "RGBA",
+      "size_bytes": 1096785
+    },
+    {
+      "file": "ui\\upgrade\\icon_ability_frostbite.png",
+      "mode": "RGBA",
+      "size_bytes": 1206398
+    },
+    {
+      "file": "ui\\upgrade\\icon_ability_holyshield.png",
+      "mode": "RGBA",
+      "size_bytes": 1374975
+    },
+    {
+      "file": "ui\\upgrade\\icon_ability_lifestealaura.png",
+      "mode": "RGBA",
+      "size_bytes": 938049
+    },
+    {
+      "file": "ui\\upgrade\\icon_ability_phasewalk.png",
+      "mode": "RGBA",
+      "size_bytes": 1177249
+    },
+    {
+      "file": "ui\\upgrade\\icon_ability_ricochet.png",
+      "mode": "RGBA",
+      "size_bytes": 1109313
+    },
+    {
+      "file": "ui\\upgrade\\icon_ability_shieldreflect.png",
+      "mode": "RGBA",
+      "size_bytes": 1035157
+    },
+    {
+      "file": "ui\\upgrade\\icon_ability_sprint.png",
+      "mode": "RGBA",
+      "size_bytes": 1100101
+    },
+    {
+      "file": "ui\\upgrade\\icon_ability_warcry.png",
+      "mode": "RGBA",
+      "size_bytes": 1267918
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_blinkstone.png",
+      "mode": "RGBA",
+      "size_bytes": 1101776
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_decoyscroll.png",
+      "mode": "RGBA",
+      "size_bytes": 1449611
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_echoorb.png",
+      "mode": "RGBA",
+      "size_bytes": 1224769
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_flamering.png",
+      "mode": "RGBA",
+      "size_bytes": 1451113
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_frenzyaxe.png",
+      "mode": "RGBA",
+      "size_bytes": 995950
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_frostamulet.png",
+      "mode": "RGBA",
+      "size_bytes": 1584148
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_gravitystone.png",
+      "mode": "RGBA",
+      "size_bytes": 1186786
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_immortalstone.png",
+      "mode": "RGBA",
+      "size_bytes": 1280424
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_ironarmor.png",
+      "mode": "RGBA",
+      "size_bytes": 1272546
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_lifelink.png",
+      "mode": "RGBA",
+      "size_bytes": 955368
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_luckycoin.png",
+      "mode": "RGBA",
+      "size_bytes": 1002436
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_shadowcloak.png",
+      "mode": "RGBA",
+      "size_bytes": 1040225
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_shadowdagger.png",
+      "mode": "RGBA",
+      "size_bytes": 918326
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_speedgauntlet.png",
+      "mode": "RGBA",
+      "size_bytes": 1488302
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_thornarmor.png",
+      "mode": "RGBA",
+      "size_bytes": 1240754
+    },
+    {
+      "file": "ui\\upgrade\\icon_relic_timehourglass.png",
+      "mode": "RGBA",
+      "size_bytes": 1316456
+    },
+    {
+      "file": "ui\\upgrade\\icon_upgrade_agileboots.png",
+      "mode": "RGBA",
+      "size_bytes": 1096675
+    },
+    {
+      "file": "ui\\upgrade\\icon_upgrade_berserkerpact.png",
+      "mode": "RGBA",
+      "size_bytes": 1337073
+    },
+    {
+      "file": "ui\\upgrade\\icon_upgrade_greedring.png",
+      "mode": "RGBA",
+      "size_bytes": 1144358
+    },
+    {
+      "file": "ui\\upgrade\\icon_upgrade_ironwall.png",
+      "mode": "RGBA",
+      "size_bytes": 1173356
+    },
+    {
+      "file": "ui\\upgrade\\icon_upgrade_lifecharm.png",
+      "mode": "RGBA",
+      "size_bytes": 1143038
+    },
+    {
+      "file": "ui\\upgrade\\icon_upgrade_longarm.png",
+      "mode": "RGBA",
+      "size_bytes": 1034615
+    },
+    {
+      "file": "ui\\upgrade\\icon_upgrade_windstep.png",
+      "mode": "RGBA",
+      "size_bytes": 1171631
+    }
+  ],
+  "other": [],
+  "errors": [],
+  "summary": {
+    "total_png": 418,
+    "p_mode": 0,
+    "rgba": 418,
+    "other": 0,
+    "errors": 0,
+    "total_size_p_mode_bytes": 0,
+    "total_size_p_mode_kb": 0.0
+  }
+}

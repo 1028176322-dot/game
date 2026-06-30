@@ -1,0 +1,42 @@
+{
+    "metadata": {
+        "version": "1.0.0",
+        "lastUpdated": "2026-06-29",
+        "description": "Bundle 包体预算配置（微信小游戏）"
+    },
+    "platforms": {
+        "wechat": {
+            "mainPackageMaxMB": 4,
+            "subpackageMaxMB": 20,
+            "totalTextureBudgetMB": 30
+        }
+    },
+    "bundles": {
+        "core_ui":           { "maxMB": 2.0, "description": "UI 基础件、图块、通用特效" },
+        "characters_basic":  { "maxMB": 4.0, "description": "4 个角色的基础帧动画" },
+        "zone_forest":       { "maxMB": 2.5, "description": "森林区域：怪物 + 背景" },
+        "zone_catacombs":    { "maxMB": 2.5, "description": "墓穴区域：怪物 + 背景" },
+        "zone_volcano":      { "maxMB": 3.0, "description": "火山区域：怪物 + 背景" },
+        "zone_tundra":       { "maxMB": 2.5, "description": "冻原区域：怪物 + 背景" },
+        "zone_swamp":        { "maxMB": 2.5, "description": "沼泽区域：怪物 + 背景" },
+        "zone_abyss":        { "maxMB": 3.0, "description": "深渊区域：怪物 + 背景" },
+        "bosses":            { "maxMB": 8.0, "description": "全部 Boss 贴图" }
+    },
+    "totalMaxMB": 30.0,
+    "rules": {
+        "mainPackage": [
+            "仅包含 splash.scene + main.scene 使用的资源",
+            "配置表 JSON 打包到 resources",
+            "UI 基础件放到 core_ui bundle"
+        ],
+        "zoneLoading": [
+            "进入区域前预加载对应 zone bundle",
+            "离开区域后释放上一区域 bundle",
+            "Boss 房前预加载 bosses bundle"
+        ],
+        "forbidden": [
+            "resources 目录不放贴图，只放配置",
+            "禁止硬编码 resources.load('textures/...')"
+        ]
+    }
+}

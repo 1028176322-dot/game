@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "74cf5c79-b474-4c42-93fd-5e03d7a65251",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "74cf5c79-b474-4c42-93fd-5e03d7a65251@f9941",
+      "displayName": "boss_queen_tundra_death",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 13,
+        "trimY": 4,
+        "width": 70,
+        "height": 88,
+        "rawWidth": 96,
+        "rawHeight": 96,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -35,
+            -44,
+            0,
+            35,
+            -44,
+            0,
+            -35,
+            44,
+            0,
+            35,
+            44,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            13,
+            92,
+            83,
+            92,
+            13,
+            4,
+            83,
+            4
+          ],
+          "nuv": [
+            0.13541666666666666,
+            0.041666666666666664,
+            0.8645833333333334,
+            0.041666666666666664,
+            0.13541666666666666,
+            0.9583333333333334,
+            0.8645833333333334,
+            0.9583333333333334
+          ],
+          "minPos": [
+            -35,
+            -44,
+            0
+          ],
+          "maxPos": [
+            35,
+            44,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "74cf5c79-b474-4c42-93fd-5e03d7a65251@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "74cf5c79-b474-4c42-93fd-5e03d7a65251@6c48a",
+      "displayName": "boss_queen_tundra_death",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "74cf5c79-b474-4c42-93fd-5e03d7a65251",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "fixAlphaTransparencyArtifacts": false,
+    "hasAlpha": true,
+    "redirect": "74cf5c79-b474-4c42-93fd-5e03d7a65251@6c48a"
+  }
+}

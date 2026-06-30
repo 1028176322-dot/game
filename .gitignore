@@ -1,0 +1,44 @@
+# 系统文件
+Thumbs.db
+.DS_Store
+*.swp
+*.swo
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# Cocos Creator
+library/
+temp/
+build/
+local/
+profiles/
+
+# 构建产物
+发布/
+
+# 环境配置
+.env
+config.local.*
+secrets.*.json
+
+# 临时备份
+*.bak.*
+*.bak_*
+*.backup/
+
+# 美术源文件（AI母版/导出缓存/备份）
+art_source/
+
+# 工具输出
+tools/output/
+*.log
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# Node
+node_modules/

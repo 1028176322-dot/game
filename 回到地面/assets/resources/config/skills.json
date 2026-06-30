@@ -1,0 +1,54 @@
+{
+    "metadata": { "version": "1.0.0", "lastUpdated": "2026-06-25", "description": "技能系统配置表 - 核心能力/主动技能/遗物/属性强化" },
+    "activeSkills": [
+        { "id": "dash", "name": "冲刺冲锋", "cd": 5.0, "effect": "移动3格+路径50%ATK", "damageMultiplier": 0.5 },
+        { "id": "elementBurst", "name": "元素爆发", "cd": 8.0, "effect": "周围2格150%ATK元素伤害", "damageMultiplier": 1.5, "aoeRange": 2 },
+        { "id": "shield", "name": "护盾", "cd": 6.0, "effect": "持续2秒护盾吸收10伤害", "shieldAmount": 10, "duration": 2.0 },
+        { "id": "healWave", "name": "治疗波", "cd": 10.0, "effect": "回复25%HP+清1个负面", "healPercent": 0.25 },
+        { "id": "slowField", "name": "减速领域", "cd": 7.0, "effect": "3秒减速场", "duration": 3.0, "slowAmount": 0.5 },
+        { "id": "snapShot", "name": "锁定射击", "cd": 4.0, "effect": "200%ATK必中", "damageMultiplier": 2.0 }
+    ],
+    "coreAbilities": [
+        { "id": "doubleStrike", "name": "二段斩", "tier": "T0", "effect": "攻击打2下(第二下60%)", "secondHitMultiplier": 0.6 },
+        { "id": "phaseWalk", "name": "穿影", "tier": "T0", "effect": "可穿越敌人和障碍物" },
+        { "id": "warCry", "name": "怒吼", "tier": "T2", "effect": "击败后下击ATK×2", "atkMultiplier": 2.0 },
+        { "id": "lifeStealAura", "name": "生命吸取", "tier": "T1", "effect": "攻击回复15%伤害HP", "lifeStealPercent": 0.15 },
+        { "id": "ricochet", "name": "弹射箭", "tier": "T1", "effect": "弹射第2目标(50%伤害)", "ricochetMultiplier": 0.5 },
+        { "id": "shieldReflect", "name": "盾反", "tier": "T1", "effect": "受击30%概率反弹100%", "reflectChance": 0.3, "reflectMultiplier": 1.0 },
+        { "id": "bulletTime", "name": "子弹时间", "tier": "T0", "effect": "翻滚后2秒攻速翻倍", "duration": 2.0, "attackSpeedMultiplier": 2.0 },
+        { "id": "elementResonance", "name": "元素共鸣", "tier": "T0", "effect": "元素反应时额外50%AoE", "aoeDamagePercent": 0.5 },
+        { "id": "sprint", "name": "疾跑", "tier": "T2", "effect": "移速+30%", "moveSpeedMod": 0.3 },
+        { "id": "frostBite", "name": "霜噬", "tier": "T1", "effect": "攻击附带30%减速1秒", "slowAmount": 0.3, "slowDuration": 1.0 },
+        { "id": "fireWalker", "name": "火行者", "tier": "T2", "effect": "荆棘上不扣血ATK+2", "thornImmune": true, "thornAtkBonus": 2 },
+        { "id": "holyShield", "name": "圣盾", "tier": "T2", "effect": "每10秒自动护盾8点", "shieldInterval": 10.0, "shieldAmount": 8 }
+    ],
+    "statUpgrades": [
+        { "id": "berserkerPact", "effect": { "atk": 4 }, "penalty": { "maxHP": -3 }, "description": "ATK+4, HP-3" },
+        { "id": "ironWall", "effect": { "def": 3 }, "penalty": { "moveSpeed": -0.15 }, "description": "DEF+3, 移速-15%" },
+        { "id": "windStep", "effect": { "moveSpeed": 0.10 }, "penalty": { "atk": -1 }, "description": "移速+10%, ATK-1" },
+        { "id": "longArm", "effect": { "attackRange": 1 }, "penalty": { "def": -1 }, "description": "Range+1, DEF-1" },
+        { "id": "lifeCharm", "effect": { "maxHP": 8 }, "penalty": { "canUseItems": false }, "description": "HP+8, 无法使用道具" },
+        { "id": "greedRing", "effect": { "goldDropBonus": 0.3 }, "penalty": { "incomingDamage": 1 }, "description": "金币+30%, 受伤+1" },
+        { "id": "agileBoots", "effect": { "dodgeCDReduction": 1.0 }, "penalty": { "atk": -1 }, "description": "翻滚CD-1秒, ATK-1" }
+    ],
+    "passiveRelics": [
+        { "id": "thornArmor", "effect": "受击反伤2点", "thornDamage": 2 },
+        { "id": "luckyCoin", "effect": "暴击率+10%", "critChanceBonus": 0.1 },
+        { "id": "frenzyAxe", "effect": "HP<50%时ATK翻倍", "triggerHpRatio": 0.5, "atkMultiplier": 2.0 },
+        { "id": "immortalStone", "effect": "每层首次战败1HP复活+1s无敌", "revivePerFloor": true, "invincibleDuration": 1.0 },
+        { "id": "echoOrb", "effect": "使用技能回复3HP", "skillHpRestore": 3 },
+        { "id": "shadowCloak", "effect": "暗区隐身延长2秒", "stealthExtension": 2.0 },
+        { "id": "speedGauntlet", "effect": "攻击间隔1.0→0.8秒", "atkSpeedMod": -0.2 },
+        { "id": "ironArmor", "effect": "翻滚无敌0.3→0.5秒", "dodgeExtension": 0.2 }
+    ],
+    "activeRelics": [
+        { "id": "shadowDagger", "cd": 2.0, "effect": "远程30%ATK,5格射程", "damageMultiplier": 0.3, "range": 5 },
+        { "id": "frostAmulet", "cd": 5.0, "effect": "冻住最近敌人1秒", "freezeDuration": 1.0 },
+        { "id": "flameRing", "cd": 3.0, "effect": "自身2格AoE40%ATK", "damageMultiplier": 0.4, "aoeRange": 2 },
+        { "id": "blinkStone", "cd": 8.0, "effect": "瞬移3格+路径眩晕0.5s", "blinkDistance": 3, "stunDuration": 0.5 },
+        { "id": "gravityStone", "cd": 10.0, "effect": "拉3格内敌人+30%ATK", "pullRange": 3, "damageMultiplier": 0.3 },
+        { "id": "lifeLink", "cd": 0, "effect": "受伤30%反弹AoE", "reflectRatio": 0.3 },
+        { "id": "decoyScroll", "cd": 12.0, "effect": "分身3秒吸引仇恨", "decoyDuration": 3.0 },
+        { "id": "timeHourglass", "cd": 6.0, "effect": "减所有技能CD1秒", "cdReduction": 1.0 }
+    ]
+}

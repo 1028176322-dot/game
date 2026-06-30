@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "de6f10b0-104e-42bf-af11-f1310ae7a84b",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "de6f10b0-104e-42bf-af11-f1310ae7a84b@f9941",
+      "displayName": "boss_firelord_phasechange",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": -0.5,
+        "offsetY": 0,
+        "trimX": 9,
+        "trimY": 4,
+        "width": 77,
+        "height": 88,
+        "rawWidth": 96,
+        "rawHeight": 96,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -38.5,
+            -44,
+            0,
+            38.5,
+            -44,
+            0,
+            -38.5,
+            44,
+            0,
+            38.5,
+            44,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            9,
+            92,
+            86,
+            92,
+            9,
+            4,
+            86,
+            4
+          ],
+          "nuv": [
+            0.09375,
+            0.041666666666666664,
+            0.8958333333333334,
+            0.041666666666666664,
+            0.09375,
+            0.9583333333333334,
+            0.8958333333333334,
+            0.9583333333333334
+          ],
+          "minPos": [
+            -38.5,
+            -44,
+            0
+          ],
+          "maxPos": [
+            38.5,
+            44,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "de6f10b0-104e-42bf-af11-f1310ae7a84b@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "de6f10b0-104e-42bf-af11-f1310ae7a84b@6c48a",
+      "displayName": "boss_firelord_phasechange",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "de6f10b0-104e-42bf-af11-f1310ae7a84b",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "fixAlphaTransparencyArtifacts": false,
+    "hasAlpha": true,
+    "redirect": "de6f10b0-104e-42bf-af11-f1310ae7a84b@6c48a"
+  }
+}

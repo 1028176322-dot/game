@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2015",
+    "experimentalDecorators": true,
+    "strict": true,
+    "outDir": "./temp/vscode-dist",
+    "rootDir": ".",
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "cc": ["./temp/vscode-dist/cc"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "library",
+    "local",
+    "temp"
+  ]
+}
