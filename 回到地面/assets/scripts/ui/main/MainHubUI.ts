@@ -69,7 +69,8 @@ export class MainHubUI extends Component {
         }
         if (this.shopBtn) {
             this.shopBtn.node.on(Button.EventType.CLICK, () => {
-                UiRouter.instance.open('shop');
+                // Shop is NOT a UIPanel — route via eventBus to MainSceneController
+                eventBus.emit('ui:open_shop');
             }, this);
         }
         if (this.logBtn) {

@@ -100,7 +100,11 @@ export class MainSceneController extends Component {
     }
 
     private _onOpenShop(): void {
-        UiRouter.instance.open('shop');
+        if (this.shopUI) {
+            this.shopUI.show();
+        } else {
+            console.warn('[MainScene] shopUI not bound');
+        }
     }
 
     private _onOpenSettings(): void {
