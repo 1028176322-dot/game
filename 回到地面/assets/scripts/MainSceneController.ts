@@ -1,24 +1,21 @@
 /**
  * MainSceneController - Main scene bootstrap (simplified)
  *
- * Responsibilities reduced to:
+ * Responsibilities:
  *   1. Listen for flow state changes
- *   2. Initialize main-scene panels
+ *   2. Register and initialize all main-scene panels with UiRouter
  *   3. No longer manages dungeon entry directly
  *
- * Dungeon entry now goes through: AreaSelectPanel -> RunCoordinator -> AppFlowController
+ * Dungeon entry goes through: AreaSelectPanel -> RunCoordinator -> AppFlowController
  */
 
-import { _decorator, Component, director } from 'cc';
-import { AssetBundleService } from './assets/AssetBundleService';
-import { ConfigService } from './config/ConfigService';
-import { ConfigManager } from './core/ConfigManager';
-import { eventBus } from './core/TypedEventBus';
+import { _decorator, Component } from 'cc';
 import { PlayerDataManager } from './core/PlayerDataManager';
 import { ShopUI } from './ui/ShopUI';
 import { WXAdapter } from './utils/WXAdapter';
-import { UiRouter, UiPanelId } from './ui/UiRouter';
+import { UiRouter } from './ui/UiRouter';
 import { AppFlowController, AppFlowState } from './app/AppFlowController';
+import { eventBus } from './core/EventBus';
 
 const { ccclass, property } = _decorator;
 
@@ -26,8 +23,6 @@ const { ccclass, property } = _decorator;
 export class MainSceneController extends Component {
     @property(ShopUI)
     shopUI: ShopUI | null = null;
-
-    private _ready = false;
 
     onLoad(): void {
         PlayerDataManager.getInstance();
@@ -38,15 +33,40 @@ export class MainSceneController extends Component {
             day: new Date().getDate(),
         });
 
+        // Register all main-scene panels with UiRouter
+        this._registerPanels();
+
+        // Listen for flow state changes
         eventBus.on('appflow:state_changed', this._onFlowState, this);
         eventBus.on('ui:open_shop', this._onOpenShop, this);
     }
 
-    private _onFlowState(state: AppFlowState): void {
-        console.log('[MainSceneController] flow state:', state);
+    private _registerPanels(): void {
+        const panels = [
+            { id: 'area_select' as const, nodeName: 'AreaSelectPanel' },
+            { id: 'character' as const, nodeName: 'CharacterPanel' },
+            { id: 'settlement' as const, nodeName: 'SettlementPanel' },
+            { id: 'settings' as const, nodeName: 'SettingsPanel' },
+            { id: 'adventure_log' as const, nodeName: 'AdventureLogPanel' },
+        ];
+
+        for (const p of panels) {
+            const node = this.node.getChildByName(p.nodeName);
+            if (!node) {
+                console.warn(`[MainScene] panel node not found: ${p.nodeName}`);
+                continue;
+            }
+            const comp = node.getComponent(p.id as any) as any;
+            if (comp && typeof comp.open === 'function') {
+                UiRouter.instance.register(comp);
+                console.log(`[MainScene] registered panel: ${p.id}`);
+            }
+        }
+    }
+
+    private _onFlowState(state: string): void {
         switch (state) {
             case AppFlowState.SETTLEMENT:
-                // Open settlement panel after returning from dungeon
                 UiRouter.instance.open('settlement');
                 break;
             default:
