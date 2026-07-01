@@ -42,3 +42,12 @@
 
 ## 最近变更
 - 2026-06-25：Phase 3 全部完成，MonsterController 重构完成（Phase 7 的一部分）。
+- 2026-07-01：P0 架构地基落地。
+  - 新增 `app/` 目录：SceneFlowService + AppFlowController（6 状态流程机）
+  - 新增 `run/` 目录：RunCoordinator + RunStartConfig（地牢统一入口）
+  - 新增 `render/` 目录：RuntimeLayerService（五层渲染）+ SpriteAnimationService（动画播放器）
+  - 升级 UiRouter v2：UIPanel 接口 + 面板栈
+  - 新增 `ui/main/` 目录：MainHubUI / AreaSelectPanel / SettlementPanel
+  - 清理所有非法 `director.loadScene()` 调用，仅 SceneFlowService 允许
+  - 设计文档 v1.2 定版：总原则 + P0 Architecture Rules（4 条红线 + 自查脚本）
+  - 验证门禁：encoding audit + architecture gate + validate:all 全通过

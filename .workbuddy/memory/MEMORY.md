@@ -10,7 +10,7 @@
 - **MEMORY_WRITE_RULE - 2026-06-30**: Different conversations must not directly edit long-term memory files unless the user explicitly says to merge main memory. Normal conversations write memory patches to `inbox/` first.
 - **ART_STYLE - 2026-06-30**: The art style is cartoon animal fantasy, not pixel art and not dark/gory style. Prompts and generated assets must avoid text, skulls, blood, organs, horror, and review-risk imagery.
 - **RUNTIME_ASSEMBLY - 2026-06-30**: Assets must be wired through `AssetBundleService` and `RenderAssetService`. Do not manually bind SpriteFrames in the Cocos editor as the primary production path.
-- **RESOURCE_STATUS - 2026-06-30**: Asset exists, `assets.json` mapping exists, and runtime visual wiring exists are three different statuses. Do not claim all 418 assets are visually integrated unless runtime wiring has been verified.
+- **ARCH_FOUNDATION - 2026-07-01**: P0 architecture foundation is now live: 3-scene principle, AppFlowController state machine, RunCoordinator for dungeon entry, UiRouter v2 with UIPanel lifecycle, RuntimeLayerService for 5-layer rendering, SpriteAnimationService for config-driven animation. All `director.loadScene()` calls restricted to SceneFlowService only. Design docs updated to v1.2 with P0 Architecture Rules. Full details in `docs/游戏流程总览.md`.
 
 ## Memory Write Workflow
 
