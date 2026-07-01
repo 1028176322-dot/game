@@ -1,0 +1,28 @@
+{
+    "metadata": {
+        "version": "1.0.0",
+        "description": "Sprite animation config for SpriteAnimationService"
+    },
+    "data": [
+        {
+            "id": "character_warrior_idle",
+            "resource": "textures/characters/warrior/warrior_idle",
+            "frameWidth": 96,
+            "frameHeight": 96,
+            "frames": 1,
+            "fps": 6,
+            "loop": true,
+            "layout": "vertical"
+        },
+        {
+            "id": "character_warrior_attack",
+            "resource": "textures/characters/warrior/warrior_attack",
+            "frameWidth": 96,
+            "frameHeight": 96,
+            "frames": 1,
+            "fps": 8,
+            "loop": false,
+            "layout": "vertical"
+        }
+    ]
+}

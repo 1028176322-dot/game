@@ -23,6 +23,7 @@ CHECKS = [
     ("包体预算", ["python", "tools/bundle/check_bundle_budget.py"]),
     ("编码审计", ["python", "tools/encoding_audit.py", "--ci"]),
     ("架构门禁", ["python", "tools/config_pipeline/check_architecture.py"]),
+    ("TS静态检查", ["python", "tools/config_pipeline/check_ts_static.py"]),
 ]
 
 

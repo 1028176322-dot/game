@@ -136,6 +136,7 @@ export class DungeonSceneController extends Component {
             if (gm.zoneRoute.length === 0 || !gm.currentStageId) {
                 gm.initNewRun();
             }
+        }
 
         if (this._installedRefs) {
             await this._installer.loadInitialArt(
@@ -163,6 +164,9 @@ export class DungeonSceneController extends Component {
         }
         ConfigManager.getInstance().loadAll();
         await AssetBundleService.instance.loadAssetMapFromResources();
+
+        // Load animation configs
+        await SpriteAnimationService.instance.loadAll();
     }
 
     private _wireSystems(): void {

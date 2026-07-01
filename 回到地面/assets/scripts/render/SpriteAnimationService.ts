@@ -5,7 +5,8 @@
  * removes @ccclass (plain service, not Component).
  */
 
-import { Node, Sprite, SpriteFrame, Texture2D, Rect } from 'cc';
+import { Node, Sprite, SpriteFrame, Texture2D, Rect, JsonAsset, resources } from 'cc';
+import { AssetBundleService } from '../assets/AssetBundleService';
 import { AssetBundleService } from '../assets/AssetBundleService';
 
 export interface AnimationConfig {
@@ -147,12 +148,17 @@ export class SpriteAnimationService {
     }
 
     private async _fetchConfig(): Promise<AnimationConfig[] | null> {
-        try {
-            const bundle = AssetBundleService.instance;
-            const data = await (bundle as any).loadById?.('config/animations');
-            return data?.json ?? null;
-        } catch {
-            return null;
-        }
+        return new Promise((resolve) => {
+            resources.load('config/animations', JsonAsset, (err: any, asset: JsonAsset | null) => {
+                if (err || !asset) {
+                    console.warn('[SpriteAnim] animations.json not found, no animations loaded');
+                    resolve(null);
+                    return;
+                }
+                const raw = asset.json as any;
+                const list: AnimationConfig[] = Array.isArray(raw) ? raw : raw?.data ?? [];
+                resolve(list.length > 0 ? list : null);
+            });
+        });
     }
 }

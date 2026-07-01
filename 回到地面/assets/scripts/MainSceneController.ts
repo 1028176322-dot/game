@@ -7,7 +7,7 @@
  *   3. No longer manages dungeon entry directly
  */
 
-import { _decorator, Component } from 'cc';
+import { _decorator, Component, Node } from 'cc';
 import { PlayerDataManager } from './core/PlayerDataManager';
 import { ShopUI } from './ui/ShopUI';
 import { WXAdapter } from './utils/WXAdapter';
