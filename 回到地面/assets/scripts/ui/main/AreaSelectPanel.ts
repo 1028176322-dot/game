@@ -8,7 +8,7 @@
  * Implements UIPanel interface for UiRouter lifecycle.
  */
 
-import { _decorator, Component, Node, Label, Button, Sprite, Color, Vec3 } from 'cc';
+import { _decorator, Component, Node, Label, Button, Sprite, Color, Vec3, UITransform } from 'cc';
 import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { RunCoordinator } from '../../run/RunCoordinator';
 import { RunStartConfig, createDefaultRunConfig } from '../../run/RunStartConfig';
@@ -132,21 +132,27 @@ export class AreaSelectPanel extends Component implements UIPanel {
         route.zones.forEach((zone, i) => {
             const card = new Node(`zone_${i}`);
             card.setPosition((i - 1) * 180, 0);
+            const uiTransform = card.addComponent(UITransform);
+            uiTransform.setContentSize(140, 90);
 
             const bg = card.addComponent(Sprite);
             bg.color = new Color(0xF0, 0xF0, 0xF0, 0xFF);
 
-            const nameLabel = card.addComponent(Label);
+            const nameNode = new Node('Name');
+            nameNode.setPosition(0, 15);
+            const nameLabel = nameNode.addComponent(Label);
             nameLabel.string = zone.name;
             nameLabel.fontSize = 16;
             nameLabel.color = new Color(0x33, 0x33, 0x33, 0xFF);
-            nameLabel.position = new Vec3(0, 12, 0);
+            card.addChild(nameNode);
 
-            const diffLabel = card.addComponent(Label);
+            const diffNode = new Node('Difficulty');
+            diffNode.setPosition(0, -10);
+            const diffLabel = diffNode.addComponent(Label);
             diffLabel.string = zone.difficulty;
             diffLabel.fontSize = 13;
             diffLabel.color = new Color(0x88, 0x88, 0x88, 0xFF);
-            diffLabel.position = new Vec3(0, -10, 0);
+            card.addChild(diffNode);
 
             this.routeContainer!.addChild(card);
 

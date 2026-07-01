@@ -94,11 +94,19 @@ export class DungeonSceneInstaller {
         F.ensureTransform(uiRoot, 1280, 720);
         uiRoot.layer = Layers.Enum.UI_2D;
 
-        const backgroundLayer = layerService.getLayer(LayerType.Background)!;
-        const tileLayer = layerService.getLayer(LayerType.Tile)!;
-        const actorLayer = layerService.getLayer(LayerType.Actor)!;
-        const effectLayer = layerService.getLayer(LayerType.Effect)!;
-        const doorLayer = layerService.getLayer(LayerType.Door)!;
+        // Initialize RuntimeLayerService for standardized 5-layer rendering
+        const layerService = RuntimeLayerService.instance;
+        layerService.ensureLayers(world);
+
+        const backgroundLayer = layerService.getLayer(LayerType.Background);
+        const tileLayer = layerService.getLayer(LayerType.Tile);
+        const actorLayer = layerService.getLayer(LayerType.Actor);
+        const effectLayer = layerService.getLayer(LayerType.Effect);
+        const doorLayer = layerService.getLayer(LayerType.Door);
+
+        if (!backgroundLayer || !tileLayer || !actorLayer || !effectLayer || !doorLayer) {
+            throw new Error('[DungeonSceneInstaller] render layers not initialized');
+        }
 
         const backgroundNode = this._ensureChild(backgroundLayer, 'Background');
         backgroundNode.setSiblingIndex(0);

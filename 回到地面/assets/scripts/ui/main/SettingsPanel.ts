@@ -7,7 +7,7 @@
 
 import { _decorator, Component, Node, Label, Button } from 'cc';
 import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
-import { StorageService } from '../../core/StorageService';
+import { StorageService } from '../../platform/StorageService';
 import { PlatformService } from '../../platform/PlatformService';
 
 const { ccclass, property } = _decorator;

@@ -1,19 +1,17 @@
 /**
- * SceneFlowService - Scene transition service
+ * SceneFlowService - Scene transition service (Promise-based)
  *
  * ONLY class in the project allowed to call director.loadScene().
  * All other code must go through AppFlowController or RunCoordinator.
  *
- * Enforced by P0 Architecture Rule: rg "director\\.loadScene" | grep -v SceneFlowService
+ * Returns Promise<void> so callers can await scene load completion
+ * before emitting events (fixes "event before listener registered" bug).
  */
 
-import { _decorator, director } from 'cc';
-
-const { ccclass } = _decorator;
+import { director } from 'cc';
 
 export type SceneId = 'splash' | 'main' | 'dungeon';
 
-@ccclass('SceneFlowService')
 export class SceneFlowService {
     private static _instance: SceneFlowService | null = null;
     private _currentScene: SceneId = 'splash';
@@ -27,28 +25,40 @@ export class SceneFlowService {
         return this._currentScene;
     }
 
-    /** Load splash scene (boot) */
-    goToSplash(): void {
-        this._load('splash');
+    goToSplash(): Promise<void> {
+        return this._load('splash');
     }
 
-    /** Load main scene (hub) */
-    goToMain(): void {
-        this._load('main');
+    goToMain(): Promise<void> {
+        return this._load('main');
     }
 
-    /** Load dungeon scene (run) */
-    goToDungeon(): void {
-        this._load('dungeon');
+    goToDungeon(): Promise<void> {
+        return this._load('dungeon');
     }
 
-    private _load(scene: SceneId): void {
+    /** Unified scene transition returning Promise on completion */
+    goTo(scene: SceneId): Promise<void> {
+        return this._load(scene);
+    }
+
+    private _load(scene: SceneId): Promise<void> {
         if (this._currentScene === scene) {
             console.warn(`[SceneFlow] already on scene: ${scene}`);
-            return;
+            return Promise.resolve();
         }
-        console.log(`[SceneFlow] transitioning: ${this._currentScene} -> ${scene}`);
-        this._currentScene = scene;
-        director.loadScene(scene);
+
+        return new Promise((resolve, reject) => {
+            console.log(`[SceneFlow] transitioning: ${this._currentScene} -> ${scene}`);
+            director.loadScene(scene, (err: any) => {
+                if (err) {
+                    console.error(`[SceneFlow] failed to load scene: ${scene}`, err);
+                    reject(err);
+                    return;
+                }
+                this._currentScene = scene;
+                resolve();
+            });
+        });
     }
 }

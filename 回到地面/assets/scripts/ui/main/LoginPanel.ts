@@ -9,7 +9,7 @@ import { _decorator, Component, Node, Label, Button, Sprite, Color } from 'cc';
 import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { AppFlowController, AppFlowState } from '../../app/AppFlowController';
 import { PlatformService } from '../../platform/PlatformService';
-import { StorageService } from '../../core/StorageService';
+import { StorageService } from '../../platform/StorageService';
 
 const { ccclass, property } = _decorator;
 

@@ -1,29 +1,22 @@
 /**
  * SpriteAnimationService - JSON config-driven sprite animation player
  *
- * Reads animation configs from assets/resources/config/animations.json
- * and plays frame-based sprite animations on target nodes.
- *
- * Supports:
- *   - Vertical and horizontal sprite sheet layouts
- *   - Configurable FPS, loop, frame count
- *   - Animation completion callbacks
+ * Fixed: uses AssetBundleService.loadById(), adds SpriteFrame cache,
+ * removes @ccclass (plain service, not Component).
  */
 
-import { _decorator, Component, Node, Sprite, SpriteFrame, Texture2D, Rect, JsonAsset } from 'cc';
+import { Node, Sprite, SpriteFrame, Texture2D, Rect } from 'cc';
 import { AssetBundleService } from '../assets/AssetBundleService';
-
-const { ccclass } = _decorator;
 
 export interface AnimationConfig {
     id: string;
-    resource: string;          // Path to sprite sheet texture
-    frameWidth: number;        // Width of single frame in pixels
-    frameHeight: number;       // Height of single frame in pixels
-    frames: number;            // Total frame count
-    fps: number;               // Frames per second
-    loop: boolean;             // Whether to loop
-    layout: 'vertical' | 'horizontal';  // Sheet layout direction
+    resource: string;
+    frameWidth: number;
+    frameHeight: number;
+    frames: number;
+    fps: number;
+    loop: boolean;
+    layout: 'vertical' | 'horizontal';
 }
 
 export interface AnimationPlayOptions {
@@ -41,11 +34,11 @@ interface ActiveAnimation {
     done: boolean;
 }
 
-@ccclass('SpriteAnimationService')
 export class SpriteAnimationService {
     private static _instance: SpriteAnimationService | null = null;
     private _configs = new Map<string, AnimationConfig>();
     private _active = new Map<Node, ActiveAnimation>();
+    private _frameCache = new Map<string, SpriteFrame>();
     private _loaded = false;
 
     static get instance(): SpriteAnimationService {
@@ -53,13 +46,9 @@ export class SpriteAnimationService {
         return this._instance;
     }
 
-    /** Load animations config from JSON */
     async loadAll(): Promise<void> {
         if (this._loaded) return;
-
         try {
-            // Attempt to load from AssetBundleService
-            // Fallback: use bundled config
             const cfg = await this._fetchConfig();
             if (cfg) {
                 for (const anim of cfg) {
@@ -73,65 +62,36 @@ export class SpriteAnimationService {
         }
     }
 
-    /** Get an animation config by id */
     getConfig(id: string): AnimationConfig | null {
         return this._configs.get(id) ?? null;
     }
 
-    /** Play an animation on a node */
     async play(node: Node, animId: string, options?: AnimationPlayOptions): Promise<void> {
         const config = this._configs.get(animId);
-        if (!config) {
-            console.warn(`[SpriteAnim] unknown animation: ${animId}`);
-            return;
-        }
+        if (!config) return;
 
-        // Ensure the node has a Sprite component
         let sprite = node.getComponent(Sprite);
-        if (!sprite) {
-            sprite = node.addComponent(Sprite);
-        }
+        if (!sprite) sprite = node.addComponent(Sprite);
 
-        // Load the sprite sheet texture
         const frame = await this._loadSpriteFrame(config, 0);
-        if (frame) {
-            sprite.spriteFrame = frame;
-        }
+        if (frame) sprite.spriteFrame = frame;
 
-        // Store active animation
         this._active.set(node, {
-            config,
-            node,
-            sprite,
-            currentFrame: 0,
-            elapsed: 0,
-            options: options ?? {},
-            done: false,
+            config, node, sprite,
+            currentFrame: 0, elapsed: 0,
+            options: options ?? {}, done: false,
         });
     }
 
-    /** Stop animation on a node */
-    stop(node: Node): void {
-        this._active.delete(node);
-    }
+    stop(node: Node): void { this._active.delete(node); }
 
-    /** Check if a node has an active animation */
-    isPlaying(node: Node): boolean {
-        return this._active.has(node);
-    }
+    isPlaying(node: Node): boolean { return this._active.has(node); }
 
-    /** Stop all animations */
-    stopAll(): void {
-        this._active.clear();
-    }
+    stopAll(): void { this._active.clear(); }
 
-    /** Tick all active animations (call from dungeon update loop) */
     tick(dt: number): void {
         for (const [node, anim] of this._active) {
-            if (anim.done) {
-                this._active.delete(node);
-                continue;
-            }
+            if (anim.done) { this._active.delete(node); continue; }
 
             anim.elapsed += dt;
             const frameDuration = 1 / anim.config.fps;
@@ -151,40 +111,34 @@ export class SpriteAnimationService {
                         continue;
                     }
                 }
-
-                this._applyFrame(anim);
+                this._loadSpriteFrame(anim.config, anim.currentFrame).then(frame => {
+                    if (frame) anim.sprite.spriteFrame = frame;
+                });
                 anim.options.onFrame?.(anim.currentFrame);
             }
         }
     }
 
-    // ── Private ──
-
-    private async _applyFrame(anim: ActiveAnimation): Promise<void> {
-        const frame = await this._loadSpriteFrame(anim.config, anim.currentFrame);
-        if (frame) {
-            anim.sprite.spriteFrame = frame;
-        }
-    }
-
     private async _loadSpriteFrame(config: AnimationConfig, frameIndex: number): Promise<SpriteFrame | null> {
+        const key = `${config.id}:${frameIndex}`;
+        const cached = this._frameCache.get(key);
+        if (cached) return cached;
+
         try {
-            const texture = await AssetBundleService.instance.loadAsset(config.resource, Texture2D) as Texture2D;
+            const texture = await AssetBundleService.instance.loadById<Texture2D>(config.resource);
             if (!texture) return null;
 
             let x = 0, y = 0;
             if (config.layout === 'vertical') {
-                // Vertical strip: frames stacked top-to-bottom
                 y = texture.height - (frameIndex + 1) * config.frameHeight;
             } else {
-                // Horizontal strip: frames arranged left-to-right
                 x = frameIndex * config.frameWidth;
             }
 
-            const rect = new Rect(x, y, config.frameWidth, config.frameHeight);
             const spriteFrame = new SpriteFrame();
             spriteFrame.texture = texture;
-            spriteFrame.rect = rect;
+            spriteFrame.rect = new Rect(x, y, config.frameWidth, config.frameHeight);
+            this._frameCache.set(key, spriteFrame);
             return spriteFrame;
         } catch (err) {
             console.warn(`[SpriteAnim] failed to load frame ${frameIndex} for ${config.id}:`, err);
@@ -194,13 +148,10 @@ export class SpriteAnimationService {
 
     private async _fetchConfig(): Promise<AnimationConfig[] | null> {
         try {
-            const data = await AssetBundleService.instance.loadAsset(
-                'config/animations',
-                JsonAsset
-            ) as any;
+            const bundle = AssetBundleService.instance;
+            const data = await (bundle as any).loadById?.('config/animations');
             return data?.json ?? null;
         } catch {
-            // Config doesn't exist yet - return null gracefully
             return null;
         }
     }

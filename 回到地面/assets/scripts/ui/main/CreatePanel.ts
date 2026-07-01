@@ -5,7 +5,7 @@
  * Player chooses a name and selects a character class.
  */
 
-import { _decorator, Component, Node, Label, Button, EditBox, Sprite, Color, Vec3 } from 'cc';
+import { _decorator, Component, Node, Label, Button, EditBox, Sprite, Color, Vec3, UITransform } from 'cc';
 import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { AppFlowController, AppFlowState } from '../../app/AppFlowController';
 import { PlayerDataManager } from '../../core/PlayerDataManager';
@@ -99,18 +99,23 @@ export class CreatePanel extends Component implements UIPanel {
         CHAR_OPTIONS.forEach((opt, i) => {
             const card = new Node(opt.id);
             card.setPosition((i - 2) * 110, 0);
+            const uiTransform = card.addComponent(UITransform);
+            uiTransform.setContentSize(96, 112);
 
             const bg = card.addComponent(Sprite);
             bg.color = new Color(0xF0, 0xF0, 0xF0, 0xFF);
-            bg.size = new Vec3(96, 112);
 
-            const animalLbl = card.addComponent(Label);
+            const animalNode = new Node('Animal');
+            animalNode.setPosition(0, 20);
+            const animalLbl = animalNode.addComponent(Label);
             animalLbl.string = opt.animal;
             animalLbl.fontSize = 16;
             animalLbl.color = new Color(0x33, 0x33, 0x33, 0xFF);
-            animalLbl.position = new Vec3(0, 20, 0);
+            card.addChild(animalNode);
 
-            const classLbl = card.addComponent(Label);
+            const classNode = new Node('Class');
+            classNode.setPosition(0, -5);
+            const classLbl = classNode.addComponent(Label);
             classLbl.string = opt.className;
             classLbl.fontSize = 13;
             classLbl.color = new Color(0x88, 0x88, 0x88, 0xFF);
