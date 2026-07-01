@@ -1,12 +1,24 @@
-import { _decorator, Button, Component, director, Node } from 'cc';
+/**
+ * MainSceneController - Main scene bootstrap (simplified)
+ *
+ * Responsibilities reduced to:
+ *   1. Listen for flow state changes
+ *   2. Initialize main-scene panels
+ *   3. No longer manages dungeon entry directly
+ *
+ * Dungeon entry now goes through: AreaSelectPanel -> RunCoordinator -> AppFlowController
+ */
+
+import { _decorator, Component, director } from 'cc';
 import { AssetBundleService } from './assets/AssetBundleService';
 import { ConfigService } from './config/ConfigService';
 import { ConfigManager } from './core/ConfigManager';
-import { eventBus } from './core/EventBus';
-import { GameEvent, GameManager } from './core/GameManager';
+import { eventBus } from './core/TypedEventBus';
 import { PlayerDataManager } from './core/PlayerDataManager';
 import { ShopUI } from './ui/ShopUI';
 import { WXAdapter } from './utils/WXAdapter';
+import { UiRouter, UiPanelId } from './ui/UiRouter';
+import { AppFlowController, AppFlowState } from './app/AppFlowController';
 
 const { ccclass, property } = _decorator;
 
@@ -16,12 +28,8 @@ export class MainSceneController extends Component {
     shopUI: ShopUI | null = null;
 
     private _ready = false;
-    private _enteringDungeon = false;
 
     onLoad(): void {
-        GameManager.ensure(director.getScene());
-        void this._ensureStartupReady();
-
         PlayerDataManager.getInstance();
         this.shopUI?.init();
 
@@ -30,80 +38,24 @@ export class MainSceneController extends Component {
             day: new Date().getDate(),
         });
 
-        eventBus.on('scene:transition', this._onSceneTransition, this);
-        eventBus.on(GameEvent.DUNGEON_ENTER, this._onDungeonEnter, this);
+        eventBus.on('appflow:state_changed', this._onFlowState, this);
         eventBus.on('ui:open_shop', this._onOpenShop, this);
-
-        this._bindMainButtons();
     }
 
-    private async _ensureStartupReady(): Promise<void> {
-        try {
-            if (!ConfigService.instance.loaded) {
-                await ConfigService.instance.loadAll();
-            }
-            ConfigManager.getInstance().loadAll();
-            await AssetBundleService.instance.loadAssetMapFromResources();
-            this._ready = true;
-        } catch (err) {
-            this._ready = false;
-            console.error('[MainSceneController] startup failed:', err);
+    private _onFlowState(state: AppFlowState): void {
+        console.log('[MainSceneController] flow state:', state);
+        switch (state) {
+            case AppFlowState.SETTLEMENT:
+                // Open settlement panel after returning from dungeon
+                UiRouter.instance.open('settlement');
+                break;
+            default:
+                break;
         }
-    }
-
-    private _bindMainButtons(): void {
-        const root = this.node.parent ?? this.node;
-        const startNode = this._findChildByName(root, 'StartButton');
-        const startButton = startNode?.getComponent(Button);
-        if (!startButton) {
-            console.error('[MainSceneController] StartButton is missing or has no Button component.');
-            return;
-        }
-        startButton.node.off(Button.EventType.CLICK, this._onStartClick, this);
-        startButton.node.on(Button.EventType.CLICK, this._onStartClick, this);
-    }
-
-    private _findChildByName(root: Node, name: string): Node | null {
-        if (root.name === name) return root;
-        for (const child of root.children) {
-            const found = this._findChildByName(child, name);
-            if (found) return found;
-        }
-        return null;
-    }
-
-    private _onStartClick(): void {
-        if (this._enteringDungeon) return;
-        if (!this._ready) {
-            console.warn('[MainSceneController] startup is not ready, delaying dungeon enter.');
-            this.scheduleOnce(() => this._onStartClick(), 0.2);
-            return;
-        }
-
-        WXAdapter.getInstance().hideBanner();
-        eventBus.emit(GameEvent.DUNGEON_ENTER, GameManager.instance?.currentFloor ?? 1);
     }
 
     private _onOpenShop(): void {
-        this.shopUI?.show();
-    }
-
-    private _onSceneTransition(targetScene: string): void {
-        if (targetScene === 'dungeon') {
-            this._loadDungeonScene();
-        }
-    }
-
-    private _onDungeonEnter(_floor: number): void {
-        this._enteringDungeon = true;
-        const gm = GameManager.ensure(director.getScene());
-        const route = gm.initNewRun();
-        console.log('[MainSceneController] zone route:', route.join(' -> '));
-        this._loadDungeonScene();
-    }
-
-    private _loadDungeonScene(): void {
-        director.loadScene('dungeon');
+        UiRouter.instance.open('shop');
     }
 
     onDestroy(): void {

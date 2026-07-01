@@ -4,12 +4,13 @@
  * 启动图加载异常时直接跳过
  */
 
-import { _decorator, Component, Node, Label, tween, UIOpacity, director } from 'cc';
+import { _decorator, Component, Node, Label, tween, UIOpacity } from 'cc';
 import { GameConfig } from '../core/GameConfig';
 import { GamePhase } from '../core/Constants';
 import { GameManager } from '../core/GameManager';
 import { eventBus } from '../core/EventBus';
 import { GameBootstrap } from '../core/GameBootstrap';
+import { SceneFlowService } from '../app/SceneFlowService';
 
 const { ccclass, property } = _decorator;
 
@@ -95,7 +96,7 @@ export class SplashUI extends Component {
         if (this._bootstrap) {
             this._bootstrap.goToMain();
         } else {
-            director.loadScene('main');
+            SceneFlowService.instance.goToMain();
         }
     }
 

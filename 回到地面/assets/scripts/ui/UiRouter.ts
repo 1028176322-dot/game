@@ -1,79 +1,107 @@
 /**
- * UiRouter - UI 导航路由（Phase 8）
+ * UiRouter - UI navigation router (Phase 8, upgraded v2)
  *
- * 职责:
- * 1. 统一管理 UI 面板的打开/关闭
- * 2. 支持模态栈（后打开的先关闭）
- * 3. 屏蔽重复打开和未初始化
+ * Unified Panel lifecycle management.
+ * Every Panel must implement the UIPanel interface.
  *
- * 使用方式:
- *   UiRouter.instance.open('shop');
- *   UiRouter.instance.close('shop');
- *   UiRouter.instance.toggle('equipment');
+ * Usage:
+ *   UiRouter.instance.open('character');
+ *   UiRouter.instance.close('character');
+ *   UiRouter.instance.refresh('shop');
  */
 
-export type UiPanelId = 'shop' | 'equipment' | 'inventory' | 'event' | 'upgrade' | 'settings';
+export type UiPanelId =
+    | 'login'
+    | 'create_character'
+    | 'character'
+    | 'area_select'
+    | 'shop'
+    | 'equipment'
+    | 'inventory'
+    | 'event'
+    | 'upgrade'
+    | 'settings'
+    | 'adventure_log'
+    | 'settlement';
+
+export interface UIPanel {
+    id: UiPanelId;
+    open(params?: unknown): void;
+    close(): void;
+    refresh?(): void;
+}
 
 type PanelEntry = {
-    toggle: () => void;
-    show: () => void;
-    hide: () => void;
-    isOpen: () => boolean;
+    panel: UIPanel;
+    isOpen: boolean;
 };
 
 export class UiRouter {
     private static _instance: UiRouter | null = null;
     private _panels = new Map<UiPanelId, PanelEntry>();
+    private _history: UiPanelId[] = [];
 
     static get instance(): UiRouter {
         if (!this._instance) this._instance = new UiRouter();
         return this._instance;
     }
 
-    /** 注册面板 */
-    register(id: UiPanelId, entry: PanelEntry): void {
-        if (this._panels.has(id)) {
-            console.warn(`[UiRouter] 面板 ${id} 已注册，覆盖`);
+    /** Register a panel implementing UIPanel interface */
+    register(panel: UIPanel): void {
+        if (this._panels.has(panel.id)) {
+            console.warn(`[UiRouter] panel ${panel.id} already registered, overwriting`);
         }
-        this._panels.set(id, entry);
+        this._panels.set(panel.id, { panel, isOpen: false });
     }
 
-    /** 打开面板 */
-    open(id: UiPanelId): void {
-        const panel = this._panels.get(id);
-        if (!panel) {
-            console.warn(`[UiRouter] 未注册的面板: ${id}`);
+    /** Open a panel by id */
+    open(id: UiPanelId, params?: unknown): void {
+        const entry = this._panels.get(id);
+        if (!entry) {
+            console.warn(`[UiRouter] panel not registered: ${id}`);
             return;
         }
-        panel.show();
+        if (entry.isOpen) {
+            console.log(`[UiRouter] panel already open: ${id}`);
+            return;
+        }
+        entry.isOpen = true;
+        this._history.push(id);
+        entry.panel.open(params);
     }
 
-    /** 关闭面板 */
+    /** Close a panel by id */
     close(id: UiPanelId): void {
-        const panel = this._panels.get(id);
-        if (!panel) return;
-        panel.hide();
+        const entry = this._panels.get(id);
+        if (!entry || !entry.isOpen) return;
+        entry.isOpen = false;
+        this._history = this._history.filter(h => h !== id);
+        entry.panel.close();
     }
 
-    /** 切换面板 */
-    toggle(id: UiPanelId): void {
-        const panel = this._panels.get(id);
-        if (!panel) {
-            console.warn(`[UiRouter] 未注册的面板: ${id}`);
-            return;
-        }
-        panel.toggle();
+    /** Refresh a panel's data */
+    refresh(id: UiPanelId): void {
+        const entry = this._panels.get(id);
+        if (!entry || !entry.isOpen) return;
+        entry.panel.refresh?.();
     }
 
-    /** 关闭所有面板 */
+    /** Close all open panels */
     closeAll(): void {
-        for (const [, panel] of this._panels) {
-            if (panel.isOpen()) panel.hide();
+        for (const id of [...this._history]) {
+            this.close(id);
         }
+        this._history = [];
     }
 
-    /** 检查面板是否已打开 */
+    /** Check if a panel is open */
     isOpen(id: UiPanelId): boolean {
-        return this._panels.get(id)?.isOpen() ?? false;
+        return this._panels.get(id)?.isOpen ?? false;
+    }
+
+    /** Close the most recently opened panel */
+    closeLast(): void {
+        const last = this._history.pop();
+        if (last) this.close(last);
     }
 }

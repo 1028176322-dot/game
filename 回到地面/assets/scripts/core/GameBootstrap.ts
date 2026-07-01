@@ -1,8 +1,9 @@
-import { _decorator, Component, director, Label, Node } from 'cc';
+import { _decorator, Component, Label, Node } from 'cc';
 import { AssetBundleService } from '../assets/AssetBundleService';
 import { ConfigService } from '../config/ConfigService';
 import { ConfigManager } from './ConfigManager';
 import { GameManager } from './GameManager';
+import { SceneFlowService } from '../app/SceneFlowService';
 
 const { ccclass, property } = _decorator;
 
@@ -57,7 +58,7 @@ export class GameBootstrap extends Component {
             this.scheduleOnce(() => this.goToMain(), 0.2);
             return;
         }
-        director.loadScene('main');
+        SceneFlowService.instance.goToMain();
     }
 
     private _setStatus(text: string): void {
