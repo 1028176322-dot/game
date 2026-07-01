@@ -99,6 +99,11 @@ export class UiRouter {
         return this._panels.get(id)?.isOpen ?? false;
     }
 
+    /** Check if a panel is registered */
+    has(id: UiPanelId): boolean {
+        return this._panels.has(id);
+    }
+
     /** Close the most recently opened panel */
     closeLast(): void {
         const last = this._history.pop();

@@ -7,7 +7,6 @@
 
 import { Node, Sprite, SpriteFrame, Texture2D, Rect, JsonAsset, resources } from 'cc';
 import { AssetBundleService } from '../assets/AssetBundleService';
-import { AssetBundleService } from '../assets/AssetBundleService';
 
 export interface AnimationConfig {
     id: string;

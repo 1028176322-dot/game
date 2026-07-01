@@ -113,6 +113,7 @@ export class PlayerDataManager {
     get bestFloor(): number { return this._data.bestFloor; }
     get totalKills(): number { return this._data.totalKills; }
     get totalRuns(): number { return this._data.totalRuns; }
+    getSelectedCharacterId(): string { return this.selectedCharacter; }
 
     /** 检查角色是否已解锁 */
     isCharacterUnlocked(charId: string): boolean {
@@ -131,7 +132,12 @@ export class PlayerDataManager {
 
     /** 获取角色名 (扩展字段, 从存档的额外数据读取) */
     getCharacterName(): string {
-        return (this._data as any).characterName ?? '';
+        const explicitName = (this._data as any).characterName;
+        if (explicitName) {
+            return explicitName;
+        }
+        const character = CHARACTER_LIST.find((c) => c.id === this.selectedCharacter);
+        return character ? character.name : this.selectedCharacter;
     }
 
     /** 获取角色等级 (预留, 当前固定 1) */
