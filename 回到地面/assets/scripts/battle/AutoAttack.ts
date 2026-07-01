@@ -102,10 +102,17 @@ export class AutoAttack extends Component {
             return;
         }
 
+        // 防御性检查：目标是否仍然有效
+        const target = nearestMonster.monster;
+        if (!target || !target.isValid || !target.node || !target.node.isValid || target.isDead) {
+            eventBus.emit('attack:miss');
+            return;
+        }
+
         // 精确距离判定（格为单位）
         const dist = MathUtils.euclideanDistance(
             this.node.getPosition().x, this.node.getPosition().y,
-            nearestMonster.monster.node.getPosition().x, nearestMonster.monster.node.getPosition().y
+            target.node.getPosition().x, target.node.getPosition().y
         );
         const distInTiles = dist / GameConfig.TILE_SIZE;
 
@@ -125,7 +132,7 @@ export class AutoAttack extends Component {
         const finalDamage = Math.max(GameConfig.MIN_DAMAGE, Math.floor(rawDamage * stats.damageMultiplier));
 
         // 施加伤害
-        const killed = nearestMonster.monster.takeDamage(finalDamage, isCrit);
+        const killed = target.takeDamage(finalDamage, isCrit);
 
         // 生命偷取
         if (stats.lifeSteal > 0 && finalDamage > 0) {
@@ -135,7 +142,7 @@ export class AutoAttack extends Component {
 
         // 触发攻击事件（携带元素信息）
         const attackResult: AttackResult = {
-            target: nearestMonster.monster,
+            target: target,
             damage: finalDamage,
             isCrit,
             element: this._attackElement,
@@ -146,7 +153,7 @@ export class AutoAttack extends Component {
 
         // 目标死亡处理
         if (killed) {
-            this._battleManager.removeMonster(nearestMonster.monster);
+            this._battleManager.removeMonster(target);
         }
     }
 }

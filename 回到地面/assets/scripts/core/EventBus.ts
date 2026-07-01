@@ -1,7 +1,10 @@
 /**
- * EventBus - 全局事件总线
- * 用于模块间解耦通信
- * 单一写入口 + 生命周期安全
+ * EventBus - global event dispatcher.
+ *
+ * Responsibilities:
+ * - decouple gameplay/UI modules
+ * - keep listener lifecycle cleanup predictable
+ * - prevent one broken listener from crashing the whole battle loop
  */
 
 type EventCallback = (...args: any[]) => void;
@@ -15,7 +18,7 @@ interface EventEntry {
 export class EventBus {
     private static _instance: EventBus;
     private _events: Map<string, Set<EventEntry>> = new Map();
-    private _paused: boolean = false;
+    private _paused = false;
 
     static getInstance(): EventBus {
         if (!EventBus._instance) {
@@ -24,52 +27,40 @@ export class EventBus {
         return EventBus._instance;
     }
 
-    /**
-     * 注册事件监听
-     * @param event 事件名
-     * @param callback 回调
-     * @param target 绑定的目标对象（用于自动清理）
-     */
     on(event: string, callback: EventCallback, target?: object): void {
+        if (!this._isValidCallback(event, callback, target)) return;
         if (!this._events.has(event)) {
             this._events.set(event, new Set());
         }
         this._events.get(event)!.add({ callback, target, once: false });
     }
 
-    /**
-     * 一次性事件监听
-     */
     once(event: string, callback: EventCallback, target?: object): void {
+        if (!this._isValidCallback(event, callback, target)) return;
         if (!this._events.has(event)) {
             this._events.set(event, new Set());
         }
         this._events.get(event)!.add({ callback, target, once: true });
     }
 
-    /**
-     * 移除事件监听
-     */
-    off(event: string, callback: EventCallback): void {
+    off(event: string, callback: EventCallback, target?: object): void {
         const entries = this._events.get(event);
         if (!entries) return;
-        for (const entry of entries) {
-            if (entry.callback === callback) {
+
+        for (const entry of Array.from(entries)) {
+            if (entry.callback === callback && (!target || entry.target === target)) {
                 entries.delete(entry);
-                break;
             }
         }
+
         if (entries.size === 0) {
             this._events.delete(event);
         }
     }
 
-    /**
-     * 移除某个目标对象的所有监听（场景切换/对象销毁时调用）
-     */
     offTarget(target: object): void {
         for (const [event, entries] of this._events) {
-            for (const entry of entries) {
+            for (const entry of Array.from(entries)) {
                 if (entry.target === target) {
                     entries.delete(entry);
                 }
@@ -80,9 +71,6 @@ export class EventBus {
         }
     }
 
-    /**
-     * 触发事件
-     */
     emit(event: string, ...args: any[]): void {
         if (this._paused) return;
 
@@ -90,12 +78,24 @@ export class EventBus {
         if (!entries) return;
 
         const toRemove: EventEntry[] = [];
-        for (const entry of entries) {
-            entry.callback.apply(entry.target, args);
+        for (const entry of Array.from(entries)) {
+            if (typeof entry.callback !== 'function') {
+                console.warn(`[EventBus] invalid callback removed: ${event}`);
+                toRemove.push(entry);
+                continue;
+            }
+
+            try {
+                entry.callback.apply(entry.target, args);
+            } catch (err) {
+                console.error(`[EventBus] listener failed: ${event}`, err);
+            }
+
             if (entry.once) {
                 toRemove.push(entry);
             }
         }
+
         for (const entry of toRemove) {
             entries.delete(entry);
         }
@@ -104,21 +104,30 @@ export class EventBus {
         }
     }
 
-    /** @deprecated Phase 3: 暂停事件广播已废弃。暂停战斗请使用 BattleClock。 */
+    /** @deprecated Use BattleClock for battle pause control. */
     pause(): void {
-        console.warn('[EventBus] pause() 已废弃，请使用 BattleClock.instance.paused');
+        console.warn('[EventBus] pause() is deprecated; use BattleClock.instance.paused');
         this._paused = true;
     }
 
-    /** @deprecated Phase 3: 恢复事件广播已废弃。暂停战斗请使用 BattleClock。 */
+    /** @deprecated Use BattleClock for battle pause control. */
     resume(): void {
-        console.warn('[EventBus] resume() 已废弃，请使用 BattleClock.instance.paused = false');
+        console.warn('[EventBus] resume() is deprecated; use BattleClock.instance.paused = false');
         this._paused = false;
     }
 
-    /** 清理所有事件 */
-    clear(): void { this._events.clear(); this._paused = false; }
+    clear(): void {
+        this._events.clear();
+        this._paused = false;
+    }
+
+    private _isValidCallback(event: string, callback: EventCallback, target?: object): boolean {
+        if (typeof callback === 'function') return true;
+
+        const owner = target?.constructor?.name ?? 'unknown';
+        console.warn(`[EventBus] ignored invalid listener: ${event}, target=${owner}`);
+        return false;
+    }
 }
 
-// 便捷引用
 export const eventBus = EventBus.getInstance();

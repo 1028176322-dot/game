@@ -196,6 +196,12 @@ export class ConfigManager {
             rebuiltMonsters[key] = monstersData[key];
         }
         this._monsters = rebuiltMonsters as MonstersConfig;
+
+        try {
+            loadTextConfig(cs.get('text') as unknown as Record<string, unknown>);
+        } catch (err) {
+            console.warn('[ConfigManager] TextManager sync failed', err);
+        }
     }
 
     get isLoaded(): boolean { return this._isLoaded; }
@@ -378,8 +384,35 @@ export class ConfigManager {
             // 尝试加载 text.json（运行时通过 resources.load 异步加载）
             // 同步环境下先使用内置默认文本数据兜底
             const defaultText = {
-                ui: { hp: '生命: {cur}/{max}', defeat: '击败: {count}', floor: '第 {floor} 层' },
+                ui: {
+                    hp: '生命: {cur}/{max}', defeat: '击败: {count}', floor: '第 {floor} 层',
+                    reachFloor: '到达层数: {floor}', defeatCount: '击败数: {count}',
+                    soulStone: '魂石: {count}', soulStoneDouble: '魂石: {count} (翻倍!)',
+                    mapExplore: '探索者 - 地图全开',
+                    equipment: '装备', inventory: '道具', inventoryHint: '按 1-5 使用',
+                    powerAndBag: '战力: {power}  背包: {used}/12',
+                    setTitle: '套装:\n{sets}',
+                    marqueeTitle: '跑马灯', marqueeHint: '看广告点亮跑马灯，3 格领钥匙！',
+                    marqueeContinue: '继续冒险', marqueeGetKey: '获得一把钥匙！',
+                    marqueeProgress: '进度: {lit}/{total}  看广告点亮 1 格',
+                    autoSelect: '自动选择: {secs}s', version: 'v1.0.0',
+                    shopTitle: '魂石商店', shopTabCharacters: '角色', shopTabTalents: '天赋', shopTabExtras: '扩展',
+                    shopSoulStone: '魂石: {count}', shopActionSelect: '选择', shopActionOwned: '已拥有',
+                    shopActionUnlock: '解锁', shopCost: '{cost}', close: '关闭', emptySlot: '[{slot}]',
+                },
                 room: { combat: '战', treasure: '宝', healing: '泉', shop: '店', upgrade: '强', event: '?', boss: '王', start: '始', unknown: '?' },
+                event: { sceneBrokenAltar: '破碎祭坛', sceneGlowingCrystal: '发光水晶', sceneAncientStatue: '古代雕像', sceneMysteriousChest: '神秘宝箱', sceneFountain: '古老喷泉', sceneCampfire: '营火', sceneWanderingMerchant: '流浪商人', sceneTrapRoom: '机关房', optionA: '选项A', optionB: '选项B' },
+                element: { fire: '火焰', frost: '冰霜', lightning: '闪电', poison: '毒素', shadow: '暗影', holy: '神圣' },
+                reaction: { burn: '爆燃', vaporize: '蒸汽', overload: '超载', melt: '融化', freeze: '冻结', shatter: '碎裂', decay: '霜蚀', conduct: '传导', void: '虚空', corrode: '腐蚀', radiance: '光辉' },
+                mutation: { M01: '黑暗降临', M02: '绯红之月', M03: '奥术风暴', M04: '时空扭曲', M05: '地震', M06: '淘金热', M07: '虚弱诅咒', M08: '狂乱', M09: '回声', M10: '薄雾', M11: '倒计时', M12: '不稳定空间' },
+                zone: { forest: '翠绿森林', catacombs: '幽暗墓穴', volcano: '熔岩火山', tundra: '冰封雪原', swamp: '翠毒沼泽', abyss: '暗影深渊' },
+                boss: { forestGuardian: '森林守护者', skeletonLord: '白骨君主', fireLord: '火焰领主', frostQueen: '冰霜女王', swampBehemoth: '翠毒巨兽', abyssOverlord: '深渊霸主' },
+                monster: { slime: '森林史莱姆', mushroom: '毒蘑菇', treant: '树苗精', boar: '尖刺野猪', elfArcher: '精灵射手', deerElite: '鹿角兽(精英)', skeleton: '骨兵', ghost: '幽灵', skeletonArcher: '暗影射手', ghoul: '掘地行者', batSwarm: '蝙蝠群', deathKnight: '暗影骑士(精英)', demon: '炎魔步兵', lavaSpider: '熔岩蜘蛛', fireElemental: '火元素', ashWraith: '灰烬魔', suicideGolem: '爆裂魔像', infernoElite: '炎魔(精英)', iceSkeleton: '冰晶兵', snowWolf: '雪狼', frostMage: '冰霜法师', penguinSoldier: '企鹅兵', snowman: '雪人', frostGiant: '冰霜巨人(精英)', slimePoison: '沼泽史莱姆', viper: '毒蛇', swampSpider: '沼泽蜘蛛', rotTreant: '枯木精', giantToad: '巨型蟾蜍', swampDragon: '毒沼龙(精英)', shadowDemon: '暗影魔', voidWraith: '虚空幽魂', abyssArcher: '深渊射手', shadowGolem: '暗影魔像', voidRift: '虚空裂隙', abyssLordElite: '深渊领主(精英)' },
+                ability: { doubleStrike: '二段斩', phaseWalk: '穿影', warCry: '怒吼', lifeStealAura: '生命吸取', ricochet: '弹射箭', shieldReflect: '盾反', bulletTime: '子弹时间', elementResonance: '元素共鸣', sprint: '疾跑', frostBite: '霜噬', fireWalker: '火行者', holyShield: '圣盾' },
+                skill: { dash: '冲刺冲锋', elementBurst: '元素爆发', shield: '护盾', healWave: '治疗波', slowField: '减速领域', snapShot: '锁定射击' },
+                relicPassive: { thornArmor: '荆棘甲', luckyCoin: '幸运币', frenzyAxe: '狂战斧', immortalStone: '不朽石', echoOrb: '回响之珠', shadowCloak: '暗影斗篷', speedGauntlet: '急速手套', ironArmor: '铁甲' },
+                relicActive: { shadowDagger: '暗影匕首', frostAmulet: '寒冰护符', flameRing: '烈焰之环', blinkStone: '闪烁石', gravityStone: '引力石', lifeLink: '生命链接', decoyScroll: '分身符', timeHourglass: '时间沙漏' },
+                item: { healingPotion: '回复药水', bigHealingPotion: '大回复药水', furyPotion: '狂暴药水', ironPotion: '铁壁药水', speedPotion: '疾速药水', purifyPotion: '净化药水', flameBomb: '火焰瓶', iceBomb: '冰霜瓶', key: '钥匙', advancedKey: '高级钥匙', rerollScroll: '洗点券', reviveCoin: '复活币', mapScroll: '地图卷轴' },
             };
             loadTextConfig(defaultText);
             console.log('[ConfigManager] 文本配置已加载');

@@ -1,4 +1,4 @@
-import { _decorator, Color, Component, Graphics, instantiate, Node, Prefab, Sprite, UITransform, Vec3 } from 'cc';
+import { _decorator, Component, instantiate, Node, Prefab, Sprite, UITransform, Vec3 } from 'cc';
 import { GameConfig } from '../core/GameConfig';
 import { TerrainType } from '../core/Constants';
 import { RunRng } from '../core/rng/RunRng';
@@ -24,17 +24,6 @@ export class GridManager extends Component {
     private _tileSize: number = GameConfig.TILE_SIZE;
     private _gridSize: number = GameConfig.GRID_SIZE;
     private _zoneId: string = 'forest';
-
-    private _terrainColors: Partial<Record<TerrainType, Color>> = {
-        [TerrainType.Floor]: new Color(200, 190, 170),
-        [TerrainType.Wall]: new Color(80, 70, 60),
-        [TerrainType.Water]: new Color(60, 120, 200),
-        [TerrainType.Lava]: new Color(220, 80, 30),
-        [TerrainType.Ice]: new Color(200, 220, 240),
-        [TerrainType.Swamp]: new Color(100, 140, 80),
-        [TerrainType.Grass]: new Color(120, 180, 80),
-        [TerrainType.Stone]: new Color(150, 150, 150),
-    };
 
     onLoad(): void {
         this._initGrid();
@@ -80,12 +69,6 @@ export class GridManager extends Component {
             tileNode = new Node(`tile_${cell.x}_${cell.y}`);
             tileNode.addComponent(UITransform);
             tileNode.addComponent(Sprite);
-
-            const graphics = tileNode.addComponent(Graphics);
-            graphics.fillColor = this._terrainColors[cell.terrain] ?? Color.WHITE;
-            graphics.rect(-this._tileSize / 2, -this._tileSize / 2, this._tileSize - 2, this._tileSize - 2);
-            graphics.fill();
-
             void RenderAssetService.applyTileSprite(tileNode, this._zoneId, cell.terrain);
         }
 

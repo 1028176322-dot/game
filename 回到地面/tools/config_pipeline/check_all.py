@@ -21,6 +21,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 CHECKS = [
     ("配置校验", ["python", "tools/config_pipeline/validate_config.py"]),
     ("包体预算", ["python", "tools/bundle/check_bundle_budget.py"]),
+    ("编码审计", ["python", "tools/encoding_audit.py", "--ci"]),
 ]
 
 

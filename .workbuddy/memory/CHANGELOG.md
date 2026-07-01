@@ -2,6 +2,16 @@
 
 > 长期记忆更新历史。每次合并 inbox → topics 后记录。
 
+## 2026-07-01
+
+### 编码质量专项治理
+- **类型**: 新增工具 + 规则
+- **Scope**: ENGINEERING
+- **变更**: 新增 encoding_audit.py 编码审计脚本、.editorconfig、CI 门禁接入、AI 协作编码规则
+- **源补丁**: `inbox/2026-07-01_1050_encoding_audit_completed.md`
+- **影响**: 所有 .ts/.json/.md/.csv/.py 文件必须为 UTF-8；修改后必须运行 `encoding_audit.py --ci`
+- **修复**: 2 个 docs 文件中的真实乱码（装�备UI→装备UI, 地牢地图→地牢地图）
+
 ## 2026-06-30
 
 ### 记忆系统重构

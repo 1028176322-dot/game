@@ -90,7 +90,20 @@ export class AssetBundleService {
     async loadById<T extends Asset>(resourceId: string): Promise<T> {
         const entry = this.resolve(resourceId);
         if (!entry) throw new Error(`[AssetBundleService] unknown resource: ${resourceId}`);
-        return this.load<T>(entry.bundle, entry.path, this._resolveType(entry.type) as AssetCtor<T>);
+        const type = this._resolveType(entry.type) as AssetCtor<T>;
+        let lastError: unknown = null;
+
+        for (const path of this._candidatePaths(entry)) {
+            try {
+                return await this.load<T>(entry.bundle, path, type);
+            } catch (err) {
+                lastError = err;
+            }
+        }
+
+        throw lastError instanceof Error
+            ? lastError
+            : new Error(`[AssetBundleService] load failed: ${resourceId}`);
     }
 
     async loadSpriteFrame(resourceId: string): Promise<SpriteFrame> {
@@ -147,5 +160,12 @@ export class AssetBundleService {
             AudioClip,
         };
         return typeMap[typeName] ?? SpriteFrame;
+    }
+
+    private _candidatePaths(entry: AssetMapEntry): string[] {
+        if (entry.type === 'Texture2D' && !entry.path.endsWith('/texture')) {
+            return [entry.path, `${entry.path}/texture`];
+        }
+        return [entry.path];
     }
 }

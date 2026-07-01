@@ -67,8 +67,10 @@ export class GameBootstrap extends Component {
     }
 
     static find(root: Node): GameBootstrap | null {
-        const own = root.getComponent(GameBootstrap);
-        if (own) return own;
+        if (!this._isSceneRoot(root)) {
+            const own = root.getComponent(GameBootstrap);
+            if (own) return own;
+        }
         for (const child of root.children) {
             const found = GameBootstrap.find(child);
             if (found) return found;
@@ -80,9 +82,16 @@ export class GameBootstrap extends Component {
         const existing = GameBootstrap.find(root);
         if (existing) return existing;
 
-        const node = new Node('GameBootstrap');
-        root.addChild(node);
-        return node.addComponent(GameBootstrap);
+        let node = root.getChildByName('GameBootstrap');
+        if (!node) {
+            node = new Node('GameBootstrap');
+            root.addChild(node);
+        }
+        return node.getComponent(GameBootstrap) ?? node.addComponent(GameBootstrap);
+    }
+
+    private static _isSceneRoot(node: Node): boolean {
+        return node.constructor?.name === 'Scene';
     }
 
     onDestroy(): void {

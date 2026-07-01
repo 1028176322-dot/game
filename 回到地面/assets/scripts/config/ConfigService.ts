@@ -24,6 +24,7 @@ import {
 } from './ConfigTypes';
 import { ConfigLoadError } from './ConfigError';
 import { validateMetadata, validateZoneMonsterRefs } from './ConfigSchemas';
+import { loadTextConfig } from '../core/TextManager';
 
 const CONFIG_NAMES: ConfigName[] = [
     'battle',
@@ -62,6 +63,7 @@ export class ConfigService {
 
         // 交叉引用校验
         this._validateCrossReferences();
+        loadTextConfig(this._configs.text as unknown as Record<string, unknown>);
 
         this._loaded = true;
         console.log('[ConfigService] 所有配置加载完成');

@@ -21,6 +21,7 @@ import { eventBus } from '../core/EventBus';
 import { PlayerController } from './PlayerController';
 import { GridManager } from '../dungeon/GridManager';
 import { MonsterAgent, AgentState } from './entity/MonsterAgent';
+import { MonsterRuntimeView } from './MonsterRuntimeView';
 
 const { ccclass, property } = _decorator;
 
@@ -50,9 +51,11 @@ export class MonsterController extends Component {
     private _animation: Animation | null = null;
     private _player: PlayerController | null = null;
     private _battleManagerRef: any = null;
+    private _view: MonsterRuntimeView | null = null;
 
     onLoad(): void {
-        this._sprite = this.getComponent(Sprite);
+        this._view = this.getComponent(MonsterRuntimeView);
+        this._sprite = this._view?.bodySprite ?? this.getComponent(Sprite) ?? this.node.getChildByName('Body')?.getComponent(Sprite) ?? null;
         this._animation = this.getComponent(Animation);
         this._agent = new MonsterAgent({
             onAttackAnimation: () => this._playAnim('attack'),
@@ -79,6 +82,8 @@ export class MonsterController extends Component {
         this.speed = config.speed;
         this.aiType = config.aiType;
         this._agent?.init(config, gridX, gridY);
+        this._view?.setHP(config.hp, config.hp);
+        this._view?.showHP(!config.isBoss);
         const pos = gridManager.gridToWorld(gridX, gridY);
         this.node.setPosition(pos);
     }
@@ -94,6 +99,7 @@ export class MonsterController extends Component {
 
     takeDamage(rawDamage: number, isCrit: boolean = false): boolean {
         const died = this._agent?.takeDamage(rawDamage, isCrit) ?? false;
+        this._view?.setHP(this._agent?.entity.hp ?? 0, this._agent?.entity.maxHP ?? this.maxHP);
         if (died && this._agent) {
             this._agent.die();
             this._dieVisual();
@@ -132,6 +138,10 @@ export class MonsterController extends Component {
     }
 
     private _flashWhite(): void {
+        if (this._view) {
+            this._view.flashHit();
+            return;
+        }
         if (!this._sprite) return;
         this._sprite.color = { r: 255, g: 80, b: 80, a: 255 } as any;
         this.scheduleOnce(() => {

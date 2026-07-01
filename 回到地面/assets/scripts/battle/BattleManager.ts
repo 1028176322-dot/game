@@ -1,4 +1,4 @@
-import { _decorator, Color, Component, Graphics, instantiate, Node, Prefab, UITransform, Vec3 } from 'cc';
+import { _decorator, Component, instantiate, Node, Prefab, UITransform, Vec3 } from 'cc';
 import { GameConfig } from '../core/GameConfig';
 import { BattlePhase } from '../core/Constants';
 import { eventBus } from '../core/EventBus';
@@ -10,6 +10,8 @@ import { MonsterController, MonsterConfig } from './MonsterController';
 import { AutoAttack } from './AutoAttack';
 import { GridManager } from '../dungeon/GridManager';
 import { RenderAssetService } from '../assets/RenderAssetService';
+import { MonsterRuntimeFactory } from './MonsterRuntimeFactory';
+import { MonsterRuntimeView } from './MonsterRuntimeView';
 
 const { ccclass, property } = _decorator;
 
@@ -28,10 +30,10 @@ export class BattleManager extends Component {
     private _autoAttack: AutoAttack | null = null;
     private _gridManager: GridManager | null = null;
     private _monsters: MonsterEntry[] = [];
-    private _roomMonsterCount: number = 0;
-    private _totalMonsters: number = 0;
-    private _killCount: number = 0;
-    private _isRoomCleared: boolean = false;
+    private _roomMonsterCount = 0;
+    private _totalMonsters = 0;
+    private _killCount = 0;
+    private _isRoomCleared = false;
 
     init(player: PlayerController, gridManager: GridManager): void {
         this._player = player;
@@ -43,7 +45,7 @@ export class BattleManager extends Component {
     }
 
     startBattle(monsterConfigs: MonsterConfig[]): void {
-        this._monsters = [];
+        this._clearMonsters();
         this._killCount = 0;
         this._totalMonsters = monsterConfigs.length;
         this._isRoomCleared = false;
@@ -61,50 +63,60 @@ export class BattleManager extends Component {
         runEvents.emit('battle:started', { total: this._totalMonsters });
     }
 
-    private _spawnMonster(config: MonsterConfig, gridX: number, gridY: number, isSummon: boolean = false): void {
-        let monsterNode: Node;
-
-        if (this.monsterPrefab && !isSummon) {
-            monsterNode = instantiate(this.monsterPrefab);
-        } else {
-            monsterNode = new Node(`monster_${gridX}_${gridY}`);
-            const transform = monsterNode.addComponent(UITransform);
-            transform.setContentSize(64, 64);
-
-            const graphics = monsterNode.addComponent(Graphics);
-            graphics.fillColor = new Color(255, 180, 120, 220);
-            graphics.circle(0, 0, 28);
-            graphics.fill();
-
-            if (CC_DEBUG) {
-                console.warn('[BattleManager] monsterPrefab is not assigned; using debug placeholder visual.');
+    private _clearMonsters(): void {
+        for (const entry of this._monsters) {
+            this._releaseGrid(entry.monster);
+            if (entry.monster?.node?.isValid) {
+                entry.monster.node.destroy();
             }
         }
+        this._monsters = [];
+    }
 
+    private _spawnMonster(config: MonsterConfig, gridX: number, gridY: number, isSummon = false): void {
+        const prefab = !isSummon ? this.monsterPrefab : null;
+        const runtime = prefab
+            ? this._createFromPrefab(config, gridX, gridY, prefab)
+            : MonsterRuntimeFactory.create(`monster_${gridX}_${gridY}`);
+
+        const monsterNode = runtime.root;
         this.node.addChild(monsterNode);
-        void this._applyMonsterVisual(monsterNode, config);
 
-        let monsterCtrl = monsterNode.getComponent(MonsterController);
-        if (!monsterCtrl) {
-            monsterCtrl = monsterNode.addComponent(MonsterController);
-        }
-
-        monsterCtrl.init(config, gridX, gridY, this._gridManager!, this);
+        runtime.controller.init(config, gridX, gridY, this._gridManager!, this);
         if (this._player) {
-            monsterCtrl.setTarget(this._player);
+            runtime.controller.setTarget(this._player);
         }
 
-        this._monsters.push({ monster: monsterCtrl, config });
+        this._gridManager?.setOccupied(gridX, gridY, true);
+        this._monsters.push({ monster: runtime.controller, config });
+        void this._applyMonsterVisual(monsterNode, config);
 
         if (isSummon) {
             this._totalMonsters++;
         }
     }
 
+    private _createFromPrefab(config: MonsterConfig, gridX: number, gridY: number, prefab: Prefab) {
+        const root = instantiate(prefab);
+        root.name = `monster_${config.id ?? gridX}_${gridY}`;
+        if (!root.getComponent(UITransform)) {
+            root.addComponent(UITransform).setContentSize(96, 96);
+        }
+        const controller = root.getComponent(MonsterController) ?? root.addComponent(MonsterController);
+        return {
+            root,
+            body: MonsterRuntimeFactory.getBodyNode(root),
+            effectSocket: root.getChildByName('EffectSocket') ?? root,
+            controller,
+            view: root.getComponent(MonsterRuntimeView),
+        };
+    }
+
     private async _applyMonsterVisual(monsterNode: Node, config: MonsterConfig): Promise<void> {
         if (!config.zoneId || !config.id) return;
 
-        const frame = await RenderAssetService.applyMonsterSprite(monsterNode, config.zoneId, config.id, 'idle');
+        const bodyNode = MonsterRuntimeFactory.getBodyNode(monsterNode);
+        const frame = await RenderAssetService.applyMonsterSprite(bodyNode, config.zoneId, config.id, 'idle');
         if (!frame || !monsterNode.isValid) return;
 
         const transform = monsterNode.getComponent(UITransform);
@@ -146,13 +158,16 @@ export class BattleManager extends Component {
     }
 
     getNearestMonster(position: Vec3, range: number): MonsterEntry | null {
+        this._pruneInvalidMonsters();
+
         let nearest: MonsterEntry | null = null;
         let nearestDist = range * GameConfig.TILE_SIZE + 1;
 
         for (const entry of this._monsters) {
-            if (entry.monster.isDead) continue;
+            const node = entry.monster.node;
+            if (!node || !node.isValid || entry.monster.isDead) continue;
 
-            const dist = Vec3.distance(position, entry.monster.node.getPosition());
+            const dist = Vec3.distance(position, node.getPosition());
             if (dist < nearestDist) {
                 nearestDist = dist;
                 nearest = entry;
@@ -163,6 +178,8 @@ export class BattleManager extends Component {
     }
 
     removeMonster(monster: MonsterController): void {
+        this._releaseGrid(monster);
+
         const idx = this._monsters.findIndex(e => e.monster === monster);
         if (idx >= 0) {
             this._monsters.splice(idx, 1);
@@ -172,6 +189,22 @@ export class BattleManager extends Component {
                 this._onRoomCleared();
             }
         }
+    }
+
+    private _releaseGrid(monster: MonsterController | null | undefined): void {
+        if (!this._gridManager || !monster || !monster.isValid) return;
+        this._gridManager.setOccupied(monster.gridX, monster.gridY, false);
+    }
+
+    private _pruneInvalidMonsters(): void {
+        this._monsters = this._monsters.filter(entry => {
+            const monster = entry.monster;
+            if (!monster || !monster.isValid || !monster.node || !monster.node.isValid || monster.isDead) {
+                this._releaseGrid(monster);
+                return false;
+            }
+            return true;
+        });
     }
 
     private _onRoomCleared(): void {
@@ -198,20 +231,20 @@ export class BattleManager extends Component {
 
     update(dt: number): void {
         BattleClock.instance.tick(dt);
-
         if (this._phase !== BattlePhase.InProgress) return;
+
+        this._pruneInvalidMonsters();
 
         if (this._player) {
             for (const entry of this._monsters) {
-                if (!entry.monster.isDead) {
-                    entry.monster.updateAI(dt, this._player);
-                    entry.monster.updateStatusTimers(dt);
-                }
+                entry.monster.updateAI(dt, this._player);
+                entry.monster.updateStatusTimers(dt);
             }
         }
     }
 
     onDestroy(): void {
+        this._clearMonsters();
         eventBus.offTarget(this);
     }
 
@@ -219,12 +252,10 @@ export class BattleManager extends Component {
     get isRoomCleared(): boolean { return this._isRoomCleared; }
     get killCount(): number { return this._killCount; }
     get totalMonsters(): number { return this._totalMonsters; }
-    get aliveMonsters(): MonsterEntry[] { return this._monsters.filter(e => !e.monster.isDead); }
-    get monsterCount(): number { return this._monsters.filter(e => !e.monster.isDead).length; }
+    get aliveMonsters(): MonsterEntry[] { return this._monsters.filter(e => e.monster?.isValid && !e.monster.isDead); }
+    get monsterCount(): number { return this.aliveMonsters.length; }
 
     getAllMonsters(): MonsterController[] {
-        return this._monsters
-            .filter(e => !e.monster.isDead)
-            .map(e => e.monster);
+        return this.aliveMonsters.map(e => e.monster);
     }
 }

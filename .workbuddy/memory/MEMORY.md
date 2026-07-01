@@ -51,6 +51,7 @@
 | RESOURCE_STATUS | `topics/RESOURCE_STATUS.md` — 418 资源三状态（存在/映射/接入） |
 | DESIGN | `topics/DESIGN_MILESTONES.md` — 设计里程碑、文件结构 |
 | DEV_PROGRESS | `topics/DEV_PROGRESS.md` — Phase 2-3 开发进度 |
+| ENCODING_AUDIT | `inbox/2026-07-01_1050_encoding_audit_completed.md` — 编码质量审计规则、乱码检测、UTF-8/LF 强制（待合并） |
 
 ## 最近高优先级记忆
 
@@ -59,3 +60,4 @@
 - **RUNTIME_ASSEMBLY — 2026-06-30**：资源必须通过 `AssetBundleService`/`RenderAssetService` 接入，不得在 Cocos 编辑器中手动拖 SpriteFrame。
 - **RUNTIME_ASSEMBLY — 2026-06-30**：当前只完成主战斗渲染链（约 112 张），不得宣称全部 418 个资源已接入画面。
 - **RESOURCE_STATUS — 2026-06-30**：资源存在 ≠ assets.json 有映射 ≠ 画面已接入，三个状态完全不同。详见 `topics/RESOURCE_STATUS.md`。
+- **ENCODING_AUDIT — 2026-07-01**：编码质量专项治理完成。新增 `tools/encoding_audit.py`（支持扫描乱码特征词/注释吞代码/未闭合块注释/字符串乱码）、`.editorconfig`（强制 UTF-8/LF）。`check_all.py` 已接入编码审计门禁。验收标准：`python tools/encoding_audit.py --ci` → issues=0, p0=0。
