@@ -6,11 +6,18 @@
  *
  * Flow states:
  *   BOOT -> AUTH_CHECK -> PROFILE_CHECK -> MAIN_HUB -> AREA_SELECT -> DUNGEON -> SETTLEMENT -> MAIN_HUB (loop)
+ *
+ * Scene mapping:
+ *   splash: BOOT only
+ *   main:   AUTH_CHECK, PROFILE_CHECK, MAIN_HUB, AREA_SELECT, SETTLEMENT
+ *   dungeon: DUNGEON
  */
 
 import { _decorator, Component } from 'cc';
 import { SceneFlowService, SceneId } from './SceneFlowService';
 import { eventBus } from '../core/EventBus';
+import { PlatformService } from '../platform/PlatformService';
+import { PlayerDataManager } from '../core/PlayerDataManager';
 
 const { ccclass } = _decorator;
 
@@ -45,10 +52,34 @@ export class AppFlowController extends Component {
         return this._currentState;
     }
 
-    /** Start the flow machine from boot */
+    /** Start the flow machine from boot. Called by SplashUI after loading. */
     start(): void {
-        console.log('[AppFlow] start from BOOT');
-        this._currentState = AppFlowState.AUTH_CHECK;
+        console.log('[AppFlow] start flow');
+
+        // ---- auth check ----
+        const platform = PlatformService.instance;
+        if (platform.isWX) {
+            const loggedIn = false; // TODO: ProfileService.isLoggedIn() sync check
+            if (!loggedIn) {
+                console.log('[AppFlow] need login, goto main + login panel');
+                this._currentState = AppFlowState.AUTH_CHECK;
+                this._route();
+                return;
+            }
+        }
+
+        // ---- profile check ----
+        const pdm = PlayerDataManager.getInstance();
+        if (pdm.isFirstTime()) {
+            console.log('[AppFlow] first time player, goto main + create panel');
+            this._currentState = AppFlowState.PROFILE_CHECK;
+            this._route();
+            return;
+        }
+
+        // ---- normal entry ----
+        console.log('[AppFlow] returning player, goto main hub');
+        this._currentState = AppFlowState.MAIN_HUB;
         this._route();
     }
 
@@ -70,9 +101,9 @@ export class AppFlowController extends Component {
     getTargetScene(): SceneId | null {
         switch (this._currentState) {
             case AppFlowState.BOOT:
+                return 'splash';
             case AppFlowState.AUTH_CHECK:
             case AppFlowState.PROFILE_CHECK:
-                return 'splash';
             case AppFlowState.MAIN_HUB:
             case AppFlowState.AREA_SELECT:
             case AppFlowState.SETTLEMENT:

@@ -4,6 +4,7 @@ import { eventBus } from './core/EventBus';
 import { GameEvent, GameManager } from './core/GameManager';
 import { ConfigManager } from './core/ConfigManager';
 import { ConfigService } from './config/ConfigService';
+import { RunCoordinator } from './run/RunCoordinator';
 import { GridManager } from './dungeon/GridManager';
 import { DungeonManager } from './dungeon/DungeonManager';
 import { RoomTransition } from './dungeon/RoomTransition';
@@ -127,9 +128,14 @@ export class DungeonSceneController extends Component {
         }
 
         const gm = GameManager.ensure(this.node.scene);
-        if (gm.zoneRoute.length === 0 || !gm.currentStageId) {
-            gm.initNewRun();
-        } else {
+        const rc = RunCoordinator.instance;
+
+        // Ensure run state is initialized from RunCoordinator
+        if (!rc.state || !rc.state.isActive) {
+            // If RunCoordinator has no active run, use legacy GameManager init as fallback
+            if (gm.zoneRoute.length === 0 || !gm.currentStageId) {
+                gm.initNewRun();
+            }
             gm.setPhase(GamePhase.Dungeon);
         }
 
@@ -137,7 +143,7 @@ export class DungeonSceneController extends Component {
             await this._installer.loadInitialArt(
                 this._installedRefs,
                 PlayerDataManager.getInstance().selectedCharacter,
-                gm.currentZone,
+                rc.state ? rc.getCurrentZone() : gm.currentZone,
             );
         }
 

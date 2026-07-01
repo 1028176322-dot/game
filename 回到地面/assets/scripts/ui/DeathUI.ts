@@ -143,6 +143,12 @@ export class DeathUI extends Component {
             gm.setPhase(GamePhase.MainMenu);
             eventBus.emit(GameEvent.DUNGEON_EXIT);
         }
+
+        // Return to main city via AppFlowController (P0 Architecture Rule)
+        const { AppFlowController } = require('../app/AppFlowController');
+        if (AppFlowController.instance) {
+            AppFlowController.instance.returnToMainHub();
+        }
     }
 
     /** 魂石结算公式 (来自 GameConfig 配置，含天赋增益) */

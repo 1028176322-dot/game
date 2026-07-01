@@ -1,49 +1,44 @@
 /**
- * SplashUI - 启动屏 UI
- * 2 秒自动跳转 + 点击跳过
- * 启动图加载异常时直接跳过
+ * SplashUI - Splash screen
+ *
+ * 2-second minimum display, click to skip.
+ * After loading completes, delegates to AppFlowController.start()
+ * instead of directly calling loadScene.
  */
 
 import { _decorator, Component, Node, Label, tween, UIOpacity } from 'cc';
 import { GameConfig } from '../core/GameConfig';
-import { GamePhase } from '../core/Constants';
 import { GameManager } from '../core/GameManager';
-import { eventBus } from '../core/EventBus';
 import { GameBootstrap } from '../core/GameBootstrap';
-import { SceneFlowService } from '../app/SceneFlowService';
+import { AppFlowController } from '../app/AppFlowController';
 
 const { ccclass, property } = _decorator;
 
 @ccclass('SplashUI')
 export class SplashUI extends Component {
     @property(Label)
-    skipLabel: Label | null = null;   // "点击跳过" 文本
-    @property(Node)
-    splashImage: Node | null = null;  // 启动图节点
+    skipLabel: Label | null = null;
 
-    private _elapsed: number = 0;
-    private _hasSkipped: boolean = false;
+    @property(Node)
+    splashImage: Node | null = null;
+
+    private _elapsed = 0;
+    private _hasSkipped = false;
     private _bootstrap: GameBootstrap | null = null;
+    private _loadingDone = false;
 
     onLoad(): void {
-        this._ensureGameManager();
+        GameManager.ensure(this.node.scene);
         this._bootstrap = GameBootstrap.ensure(this.node.scene ?? this.node);
-        // 点击任意位置跳过
         this.node.on(Node.EventType.TOUCH_END, this._onSkip, this);
     }
 
-    private _ensureGameManager(): void {
-        GameManager.ensure(this.node.scene);
-    }
-
     start(): void {
-        // 启动图存在性检查（缺失时直接跳转）
         if (!this.splashImage || !this.splashImage.active) {
-            this._goToMain();
+            this._tryProceed();
             return;
         }
 
-        // 启动图淡入
         const opacity = this.splashImage.getComponent(UIOpacity);
         if (opacity) {
             opacity.opacity = 0;
@@ -56,12 +51,17 @@ export class SplashUI extends Component {
 
         this._elapsed += dt;
 
-        // 2 秒自动跳转
-        if (this._elapsed >= GameConfig.SPLASH_MIN_DURATION) {
-            this._goToMain();
+        // Check if bootstrap is ready
+        if (!this._loadingDone && this._bootstrap?.ready) {
+            this._loadingDone = true;
         }
 
-        // "点击跳过" 在 1 秒后显示
+        // Auto proceed after minimum duration + loading done
+        if (this._elapsed >= GameConfig.SPLASH_MIN_DURATION && this._loadingDone) {
+            this._proceed();
+        }
+
+        // Show skip label after 1s
         if (this.skipLabel && this._elapsed > 1.0) {
             this.skipLabel.node.active = true;
         }
@@ -69,38 +69,36 @@ export class SplashUI extends Component {
 
     private _onSkip(): void {
         if (this._hasSkipped) return;
-        if (this._elapsed < 0.5) return; // 至少展示 0.5 秒
-        this._goToMain();
+        if (this._elapsed < 0.5) return;
+
+        if (this._loadingDone) {
+            this._proceed();
+        }
     }
 
-    private _goToMain(): void {
+    private _tryProceed(): void {
+        if (this._bootstrap?.ready || this._bootstrap?.error) {
+            this._proceed();
+        } else {
+            this.scheduleOnce(() => this._tryProceed(), 0.2);
+        }
+    }
+
+    private _proceed(): void {
         if (this._hasSkipped) return;
-
         if (this._bootstrap?.error) {
-            console.error('[SplashUI] cannot enter main scene:', this._bootstrap.error);
+            console.error('[SplashUI] bootstrap error:', this._bootstrap.error);
             return;
         }
-        if (this._bootstrap && !this._bootstrap.ready) {
-            this.scheduleOnce(() => this._goToMain(), 0.2);
-            return;
-        }
-
         this._hasSkipped = true;
 
-        eventBus.emit('scene:transition', 'main');
-
-        const gm = GameManager.instance;
-        if (gm) {
-            gm.setPhase(GamePhase.MainMenu);
-        }
-        if (this._bootstrap) {
-            this._bootstrap.goToMain();
-        } else {
-            SceneFlowService.instance.goToMain();
-        }
+        // Delegate to AppFlowController state machine
+        console.log('[SplashUI] loading done, starting flow');
+        AppFlowController.ensure().start();
     }
 
     onDestroy(): void {
         this.node.off(Node.EventType.TOUCH_END, this._onSkip, this);
+        this.unscheduleAllCallbacks();
     }
 }
