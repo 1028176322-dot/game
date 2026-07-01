@@ -133,12 +133,9 @@ export class DungeonSceneController extends Component {
 
         // Ensure run state is initialized from RunCoordinator
         if (!rc.state || !rc.state.isActive) {
-            // If RunCoordinator has no active run, use legacy GameManager init as fallback
             if (gm.zoneRoute.length === 0 || !gm.currentStageId) {
                 gm.initNewRun();
             }
-            gm.setPhase(GamePhase.Dungeon);
-        }
 
         if (this._installedRefs) {
             await this._installer.loadInitialArt(

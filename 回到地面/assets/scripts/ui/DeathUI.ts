@@ -140,7 +140,6 @@ export class DeathUI extends Component {
 
         const gm = GameManager.instance;
         if (gm) {
-            gm.setPhase(GamePhase.MainMenu);
             eventBus.emit(GameEvent.DUNGEON_EXIT);
         }
 

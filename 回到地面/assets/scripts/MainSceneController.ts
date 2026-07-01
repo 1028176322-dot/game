@@ -45,7 +45,8 @@ export class MainSceneController extends Component {
         ];
 
         for (const name of candidates) {
-            const node = this.node.getChildByName(name);
+            // Recursive search: panel may be nested under UIRoot/ or MainUI/
+            const node = this._findChildRecursive(this.node, name);
             if (!node) continue;
             const comp = node.getComponent(name) as unknown as UIPanel;
             if (comp && typeof comp.open === 'function' && typeof comp.close === 'function') {
@@ -53,6 +54,15 @@ export class MainSceneController extends Component {
                 console.log(`[MainScene] registered panel: ${name}`);
             }
         }
+    }
+
+    private _findChildRecursive(parent: Node, name: string): Node | null {
+        if (parent.name === name) return parent;
+        for (const child of parent.children) {
+            const found = this._findChildRecursive(child, name);
+            if (found) return found;
+        }
+        return null;
     }
 
     private _onFlowState(state: string): void {

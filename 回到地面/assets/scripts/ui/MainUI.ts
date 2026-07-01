@@ -34,15 +34,13 @@ export class MainUI extends Component {
         WXAdapter.getInstance().showBanner();
     }
 
-    /** 点击"开始游戏"（从编辑器 Button.onClick 绑定） */
+    /** 点击"开始游戏"（旧版，由新的 MainHubUI + AreaSelectPanel 替代） */
     onStartClick(): void {
         const gm = GameManager.instance;
         if (gm) {
-            // 隐藏 Banner（进入地牢时）
             WXAdapter.getInstance().hideBanner();
-            gm.resetGame();
-            gm.setPhase(GamePhase.Dungeon);
-            eventBus.emit(GameEvent.DUNGEON_ENTER, gm.currentFloor);
+            // Delegate to AreaSelectPanel via event (new flow)
+            eventBus.emit('ui:open_area_select');
         }
     }
 
