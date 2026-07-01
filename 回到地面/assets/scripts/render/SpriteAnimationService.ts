@@ -196,7 +196,7 @@ export class SpriteAnimationService {
         try {
             const data = await AssetBundleService.instance.loadAsset(
                 'config/animations',
-                cc.JsonAsset
+                JsonAsset
             ) as any;
             return data?.json ?? null;
         } catch {
