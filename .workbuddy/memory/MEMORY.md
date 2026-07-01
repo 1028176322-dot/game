@@ -51,8 +51,8 @@ Patch workflow:
 
 ## Current Validation Gates
 
-- Run `npm.cmd run validate:all` after source/config/doc changes.
+- Run `npm.cmd run validate:all` after source/config/doc changes. Runs 4 gates: config, bundle, encoding, architecture.
 - Encoding gate: `python tools/encoding_audit.py --ci` must pass with issues=0 and p0=0.
-- Architecture gate: `rg "director\\.loadScene" assets/scripts/ --type ts | grep -v SceneFlowService` must be empty (only SceneFlowService.ts allowed). See `docs/游戏流程总览.md` P0 Architecture Rules.
-- Existing bundle warnings may remain as optimization work, but config, encoding, and architecture gates must pass.
+- Architecture gate: automated in `validate:all` — `python tools/config_pipeline/check_architecture.py`. Only `SceneFlowService.ts` may call `director.loadScene()`.
+- Existing bundle warnings may remain as optimization work, but all 4 gates must pass.
 - **Skill available**: `encoding-pipeline-guard` — any file create/modify must route through its 4-phase workflow. Load via: `Skill({ skill: "encoding-pipeline-guard" })`.
