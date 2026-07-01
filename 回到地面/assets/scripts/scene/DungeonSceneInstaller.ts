@@ -21,6 +21,7 @@ import { SkillUI } from '../ui/SkillUI';
 import { UpgradeUI } from '../ui/UpgradeUI';
 import { VirtualJoystick } from '../ui/VirtualJoystick';
 import { SceneNodeFactory as F } from './SceneNodeFactory';
+import { RuntimeLayerService, LayerType } from '../render/RuntimeLayerService';
 
 export interface DungeonSceneRefs {
     canvas: Node;
@@ -93,11 +94,11 @@ export class DungeonSceneInstaller {
         F.ensureTransform(uiRoot, 1280, 720);
         uiRoot.layer = Layers.Enum.UI_2D;
 
-        const backgroundLayer = this._ensureLayer(world, 'BackgroundLayer', 0);
-        const tileLayer = this._ensureLayer(world, 'TileLayer', 1);
-        const actorLayer = this._ensureLayer(world, 'ActorLayer', 2);
-        const effectLayer = this._ensureLayer(world, 'EffectLayer', 3);
-        const doorLayer = this._ensureLayer(world, 'DoorLayer', 4);
+        const backgroundLayer = layerService.getLayer(LayerType.Background)!;
+        const tileLayer = layerService.getLayer(LayerType.Tile)!;
+        const actorLayer = layerService.getLayer(LayerType.Actor)!;
+        const effectLayer = layerService.getLayer(LayerType.Effect)!;
+        const doorLayer = layerService.getLayer(LayerType.Door)!;
 
         const backgroundNode = this._ensureChild(backgroundLayer, 'Background');
         backgroundNode.setSiblingIndex(0);
@@ -238,7 +239,7 @@ export class DungeonSceneInstaller {
         return child;
     }
 
-    private _normalizeActorNode(node: Node, parent: Node, name: string, siblingIndex: number): void {
+    private _normalizeActorNode(node: Node, parent: Node, name: string, gridY: number): void {
         if (node.parent !== parent) {
             node.removeFromParent();
             parent.addChild(node);
@@ -246,7 +247,9 @@ export class DungeonSceneInstaller {
         node.name = name;
         node.active = true;
         node.layer = Layers.Enum.UI_2D;
-        node.setSiblingIndex(siblingIndex);
+        // Use RuntimeLayerService for Y-axis sort order
+        const sortIndex = RuntimeLayerService.instance.getSortOrder(gridY);
+        node.setSiblingIndex(sortIndex);
         node.setScale(1, 1, 1);
         F.ensureTransform(node, 96, 96);
     }
