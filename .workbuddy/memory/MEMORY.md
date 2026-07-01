@@ -54,3 +54,4 @@ Patch workflow:
 - Run `npm.cmd run validate:all` after source/config/doc changes.
 - Encoding gate: `python tools/encoding_audit.py --ci` must pass with issues=0 and p0=0.
 - Existing bundle warnings may remain as optimization work, but config and encoding gates must pass.
+- **Skill available**: `encoding-pipeline-guard` — any file create/modify must route through its 4-phase workflow. Load via: `Skill({ skill: "encoding-pipeline-guard" })`.
