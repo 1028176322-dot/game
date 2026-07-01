@@ -1,18 +1,22 @@
 /**
- * SplashUI - Splash screen
+ * SplashUI - Splash screen with loading progress bar
  *
  * 2-second minimum display, click to skip.
- * After loading completes, delegates to AppFlowController.start()
- * instead of directly calling loadScene.
+ * Shows a progress bar while loading.
+ * After loading completes, delegates to AppFlowController.start().
  */
 
-import { _decorator, Component, Node, Label, tween, UIOpacity } from 'cc';
+import { _decorator, Component, Node, Label, Graphics, Color, tween, UIOpacity } from 'cc';
 import { GameConfig } from '../core/GameConfig';
 import { GameManager } from '../core/GameManager';
 import { GameBootstrap } from '../core/GameBootstrap';
 import { AppFlowController } from '../app/AppFlowController';
 
 const { ccclass, property } = _decorator;
+
+const BAR_WIDTH = 380;
+const BAR_HEIGHT = 24;
+const BAR_RADIUS = 6;
 
 @ccclass('SplashUI')
 export class SplashUI extends Component {
@@ -22,15 +26,80 @@ export class SplashUI extends Component {
     @property(Node)
     splashImage: Node | null = null;
 
+    @property(Label)
+    loadingLabel: Label | null = null;
+
     private _elapsed = 0;
     private _hasSkipped = false;
     private _bootstrap: GameBootstrap | null = null;
     private _loadingDone = false;
+    private _progressPct = 0;
+
+    // Progress bar nodes (created in code)
+    private _barBg: Graphics | null = null;
+    private _barFill: Graphics | null = null;
 
     onLoad(): void {
         GameManager.ensure(this.node.scene);
         this._bootstrap = GameBootstrap.ensure(this.node.scene ?? this.node);
+
+        // Create progress bar nodes
+        this._createProgressBar();
+
+        // Bind bootstrap progress
+        if (this._bootstrap) {
+            this._bootstrap.onProgress = (pct, msg) => {
+                this._progressPct = pct;
+                this._updateBar(pct);
+                if (this.loadingLabel) {
+                    this.loadingLabel.string = msg;
+                }
+            };
+        }
+
         this.node.on(Node.EventType.TOUCH_END, this._onSkip, this);
+    }
+
+    private _createProgressBar(): void {
+        // Container for the bar
+        const container = new Node('LoadingBar');
+        container.setPosition(0, -100);
+        this.node.addChild(container);
+
+        // Background bar (dark gray)
+        const bgNode = new Node('Bg');
+        this._barBg = bgNode.addComponent(Graphics);
+        this._barBg.fillColor = new Color(0x33, 0x33, 0x33, 0xFF);
+        this._drawBarBg(0);
+        container.addChild(bgNode);
+
+        // Fill bar (blue)
+        const fillNode = new Node('Fill');
+        this._barFill = fillNode.addComponent(Graphics);
+        this._barFill.fillColor = new Color(0x4A, 0x9E, 0xFF, 0xFF);
+        this._drawBarFill(0);
+        container.addChild(fillNode);
+    }
+
+    private _drawBarBg(pct: number): void {
+        if (!this._barBg) return;
+        this._barBg.clear();
+        this._barBg.roundRect(-BAR_WIDTH / 2, -BAR_HEIGHT / 2, BAR_WIDTH, BAR_HEIGHT, BAR_RADIUS);
+        this._barBg.fill();
+    }
+
+    private _drawBarFill(pct: number): void {
+        if (!this._barFill) return;
+        const fillW = Math.max(BAR_WIDTH * (pct / 100), 0);
+        this._barFill.clear();
+        if (fillW > 0) {
+            this._barFill.roundRect(-BAR_WIDTH / 2, -BAR_HEIGHT / 2, fillW, BAR_HEIGHT, BAR_RADIUS);
+            this._barFill.fill();
+        }
+    }
+
+    private _updateBar(pct: number): void {
+        this._drawBarFill(pct);
     }
 
     start(): void {
@@ -51,17 +120,14 @@ export class SplashUI extends Component {
 
         this._elapsed += dt;
 
-        // Check if bootstrap is ready
         if (!this._loadingDone && this._bootstrap?.ready) {
             this._loadingDone = true;
         }
 
-        // Auto proceed after minimum duration + loading done
         if (this._elapsed >= GameConfig.SPLASH_MIN_DURATION && this._loadingDone) {
             this._proceed();
         }
 
-        // Show skip label after 1s
         if (this.skipLabel && this._elapsed > 1.0) {
             this.skipLabel.node.active = true;
         }
@@ -70,7 +136,6 @@ export class SplashUI extends Component {
     private _onSkip(): void {
         if (this._hasSkipped) return;
         if (this._elapsed < 0.5) return;
-
         if (this._loadingDone) {
             this._proceed();
         }
@@ -91,8 +156,6 @@ export class SplashUI extends Component {
             return;
         }
         this._hasSkipped = true;
-
-        // Delegate to AppFlowController state machine
         console.log('[SplashUI] loading done, starting flow');
         AppFlowController.ensure().start();
     }

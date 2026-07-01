@@ -12,6 +12,9 @@ export class GameBootstrap extends Component {
     @property(Label)
     statusLabel: Label | null = null;
 
+    /** Optional callback: (progressPercent, statusMessage) */
+    onProgress: ((pct: number, msg: string) => void) | null = null;
+
     private _ready = false;
     private _error: string | null = null;
 
@@ -32,20 +35,34 @@ export class GameBootstrap extends Component {
         if (this._ready || this._error) return;
 
         try {
+            this._emitProgress(5, 'Starting...');
             this._setStatus('正在加载配置...');
+            this._emitProgress(10, 'Loading config...');
             await ConfigService.instance.loadAll();
+
+            this._emitProgress(50, 'Loading local config...');
             ConfigManager.getInstance().loadAll();
 
-            this._setStatus('正在加载资源映射...');
+            this._emitProgress(70, 'Loading asset map...');
             await AssetBundleService.instance.loadAssetMapFromResources();
 
+            this._emitProgress(95, 'Finalizing...');
+
             this._ready = true;
+            this._emitProgress(100, 'Done');
             this._setStatus('加载完成');
             console.log('[GameBootstrap] startup complete');
         } catch (err) {
             this._error = err instanceof Error ? err.message : String(err);
+            this._emitProgress(100, `Failed: ${this._error}`);
             this._setStatus(`启动失败：${this._error}`);
             console.error('[GameBootstrap] startup failed:', err);
+        }
+    }
+
+    private _emitProgress(pct: number, msg: string): void {
+        if (this.onProgress) {
+            this.onProgress(pct, msg);
         }
     }
 
