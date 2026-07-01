@@ -74,7 +74,13 @@ export interface DungeonSceneOverrides {
 }
 
 export class DungeonSceneInstaller {
+    private _installed = false;
+
     install(controllerNode: Node, overrides: DungeonSceneOverrides = {}): DungeonSceneRefs {
+        if (this._installed) {
+            console.warn('[DungeonSceneInstaller] install called twice — returning cached refs');
+        }
+        this._installed = true;
         const sceneRoot = controllerNode.parent ?? controllerNode;
         const canvas = F.findChildByName(sceneRoot, 'Canvas') ?? sceneRoot;
 
@@ -216,11 +222,19 @@ export class DungeonSceneInstaller {
     }
 
     private _ensureChild(parent: Node, name: string): Node {
-        let child = parent.getChildByName(name);
-        if (!child) {
-            child = new Node(name);
-            parent.addChild(child);
+        const children = parent.children.filter(n => n.name === name);
+        if (children.length > 0) {
+            // Keep the first match; destroy any duplicates
+            for (let i = 1; i < children.length; i++) {
+                const dup = children[i];
+                console.warn(`[DungeonSceneInstaller] removing duplicate node "${name}" under "${parent.name}"`);
+                dup.removeFromParent();
+                dup.destroy();
+            }
+            return children[0];
         }
+        const child = new Node(name);
+        parent.addChild(child);
         return child;
     }
 

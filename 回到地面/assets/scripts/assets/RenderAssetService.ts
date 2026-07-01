@@ -2,6 +2,7 @@ import { Component, Graphics, Node, Sprite, SpriteFrame, Texture2D, UITransform 
 import { TerrainType } from '../core/Constants';
 import { AssetBundleService } from './AssetBundleService';
 import { ArtResourceResolver, CharacterAction, MonsterAction } from './ArtResourceResolver';
+import { getSheetInfo, createFrameFromSheet } from './SpriteSheetUtil';
 
 export class RenderAssetService {
     static async applySpriteById(node: Node, resourceId: string): Promise<SpriteFrame | null> {
@@ -16,7 +17,42 @@ export class RenderAssetService {
     }
 
     static async applyCharacterSprite(node: Node, characterId: string, action: CharacterAction = 'idle'): Promise<SpriteFrame | null> {
-        return this.applySpriteById(node, ArtResourceResolver.character(characterId, action));
+        const resourceId = ArtResourceResolver.character(characterId, action);
+        const sheetInfo = getSheetInfo(resourceId);
+
+        if (sheetInfo) {
+            // Multi-frame sprite sheet: load the first frame
+            return this._applySpriteSheetFrame(node, resourceId, sheetInfo, 0);
+        }
+
+        // Normal single-frame path
+        return this.applySpriteById(node, resourceId);
+    }
+
+    /**
+     * Load a multi-frame sprite sheet and apply only one frame.
+     */
+    private static async _applySpriteSheetFrame(
+        node: Node,
+        resourceId: string,
+        sheetInfo: { frameWidth: number; frameHeight: number; frameCount: number },
+        frameIndex: number,
+    ): Promise<SpriteFrame | null> {
+        const sprite = this._ensureSprite(node);
+        const fullFrame = await AssetBundleService.instance.tryLoadSpriteFrame(resourceId);
+        if (!fullFrame || !node.isValid) return null;
+
+        const texture = fullFrame.texture;
+        if (!texture) {
+            console.warn(`[RenderAssetService] sprite sheet has no texture: ${resourceId}`);
+            return null;
+        }
+
+        const sliced = createFrameFromSheet(texture, sheetInfo.frameWidth, sheetInfo.frameHeight, frameIndex);
+        sprite.spriteFrame = sliced;
+        const graphics = node.getComponent(Graphics);
+        if (graphics) graphics.enabled = false;
+        return sliced;
     }
 
     static async applyMonsterSprite(node: Node, zoneId: string, monsterId: string, action: MonsterAction = 'idle'): Promise<SpriteFrame | null> {
