@@ -5,15 +5,13 @@
  *   1. Listen for flow state changes
  *   2. Register and initialize all main-scene panels with UiRouter
  *   3. No longer manages dungeon entry directly
- *
- * Dungeon entry goes through: AreaSelectPanel -> RunCoordinator -> AppFlowController
  */
 
 import { _decorator, Component } from 'cc';
 import { PlayerDataManager } from './core/PlayerDataManager';
 import { ShopUI } from './ui/ShopUI';
 import { WXAdapter } from './utils/WXAdapter';
-import { UiRouter } from './ui/UiRouter';
+import { UiRouter, UIPanel } from './ui/UiRouter';
 import { AppFlowController, AppFlowState } from './app/AppFlowController';
 import { eventBus } from './core/EventBus';
 
@@ -33,41 +31,41 @@ export class MainSceneController extends Component {
             day: new Date().getDate(),
         });
 
-        // Register all main-scene panels with UiRouter
         this._registerPanels();
-
-        // Listen for flow state changes
         eventBus.on('appflow:state_changed', this._onFlowState, this);
         eventBus.on('ui:open_shop', this._onOpenShop, this);
     }
 
     private _registerPanels(): void {
-        const panels = [
-            { id: 'area_select' as const, nodeName: 'AreaSelectPanel' },
-            { id: 'character' as const, nodeName: 'CharacterPanel' },
-            { id: 'settlement' as const, nodeName: 'SettlementPanel' },
-            { id: 'settings' as const, nodeName: 'SettingsPanel' },
-            { id: 'adventure_log' as const, nodeName: 'AdventureLogPanel' },
+        const router = UiRouter.instance;
+        const candidates = [
+            'LoginPanel', 'CreatePanel', 'CharacterPanel',
+            'AreaSelectPanel', 'SettlementPanel',
+            'SettingsPanel', 'AdventureLogPanel',
         ];
 
-        for (const p of panels) {
-            const node = this.node.getChildByName(p.nodeName);
-            if (!node) {
-                console.warn(`[MainScene] panel node not found: ${p.nodeName}`);
-                continue;
-            }
-            const comp = node.getComponent(p.id as any) as any;
-            if (comp && typeof comp.open === 'function') {
-                UiRouter.instance.register(comp);
-                console.log(`[MainScene] registered panel: ${p.id}`);
+        for (const name of candidates) {
+            const node = this.node.getChildByName(name);
+            if (!node) continue;
+            const comp = node.getComponent(name) as unknown as UIPanel;
+            if (comp && typeof comp.open === 'function' && typeof comp.close === 'function') {
+                router.register(comp);
+                console.log(`[MainScene] registered panel: ${name}`);
             }
         }
     }
 
     private _onFlowState(state: string): void {
+        const router = UiRouter.instance;
         switch (state) {
+            case AppFlowState.AUTH_CHECK:
+                router.open('login');
+                break;
+            case AppFlowState.PROFILE_CHECK:
+                router.open('create_character');
+                break;
             case AppFlowState.SETTLEMENT:
-                UiRouter.instance.open('settlement');
+                router.open('settlement');
                 break;
             default:
                 break;

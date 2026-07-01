@@ -124,6 +124,75 @@ export class PlayerDataManager {
         return this._data.selectedTalent === talentId;
     }
 
+    // ======== 额外 Reader 方法 ========
+
+    /** 获取魂石数 */
+    getSoulStones(): number { return this._data.soulStones; }
+
+    /** 获取角色名 (扩展字段, 从存档的额外数据读取) */
+    getCharacterName(): string {
+        return (this._data as any).characterName ?? '';
+    }
+
+    /** 获取角色等级 (预留, 当前固定 1) */
+    getCharacterLevel(): number { return 1; }
+
+    /** 获取已解锁角色ID列表 */
+    getUnlockedCharacterIds(): string[] { return [...this._data.unlockedCharacters]; }
+
+    /** 获取历史最高层 */
+    getBestFloor(): number { return this._data.bestFloor; }
+
+    /** 获取总局数 */
+    getTotalRuns(): number { return this._data.totalRuns; }
+
+    /** 设置历史最高层 */
+    setBestFloor(floor: number): void {
+        if (floor > this._data.bestFloor) {
+            this._data.bestFloor = floor;
+            this._save();
+        }
+    }
+
+    /** 累加击杀数 */
+    addTotalKills(kills: number): void {
+        if (kills <= 0) return;
+        this._data.totalKills += kills;
+        this._save();
+    }
+
+    /** 总冒险次数 +1 */
+    addTotalRun(): void {
+        this._data.totalRuns++;
+        this._save();
+    }
+
+    /** 创建角色并初始化存档 (首次使用) */
+    createCharacter(name: string, charType: string): void {
+        this._data = {
+            soulStones: 0,
+            unlockedCharacters: ['warrior'],
+            selectedCharacter: charType,
+            selectedTalent: null,
+            unlockedRelicPoolExtras: [],
+            bestFloor: 0,
+            totalKills: 0,
+            totalRuns: 0,
+            version: 1,
+        };
+        (this._data as any).characterName = name;
+        (this._data as any).createdAt = Date.now();
+        this._save();
+        console.log('[PlayerData] character created:', name, charType);
+    }
+
+    /** 是否为首次启动 */
+    isFirstTime(): boolean {
+        return this._data.totalRuns === 0
+            && this._data.soulStones === 0
+            && this._data.totalKills === 0;
+    }
+
     // ======== 写操作 (单一写入口) ========
 
     /** 增加魂石 (正向) */
