@@ -28,3 +28,4 @@
 ### 标准化专题文件格式
 - 全部 9 个 topics/*.md 改为：状态/强制规则/当前实现/禁止事项/验收命令/最近变更
 - 2026-07-01: Merged ENCODING_WRITE_POLICY into MEMORY.md and topics/ENGINEERING_STANDARDS.md. Explicit UTF-8 writes and `npm.cmd run validate:all` are now mandatory after edits.
+- 2026-07-01: Added ASCII_SOURCE_POLICY to main memory and rewrote ENGINEERING_STANDARDS.md as clean ASCII/UTF-8 rules.

@@ -1,104 +1,62 @@
-# 工程规范
+# Engineering Standards
 
-## 状态
-✅ 已完成 — 持续遵守。
+## Status
 
-## 强制规则
+Active. These rules are mandatory for all conversations and tools working in this workspace.
 
-### 分层职责
-| 层 | 职责 | 禁止 |
-|----|------|------|
-| 业务逻辑 | 玩法规则、状态流转、数值结算 | 不直接依赖 UI 节点名/资源路径 |
-| UI 层 | 展示、输入、动画、转发操作 | 不直接修改核心数据 |
-| 数据配置 | 配置表有默认值/类型/范围 | 缺失不可崩，新增必须兼容旧存档 |
-| 资源层 | 统一接口加载，禁止硬编码路径 | 必须有缺失兜底 |
+## Layering Rules
 
-### 编码规则
-- 状态字段集中定义：可选值列表/初始/转移/终止/回退
-- 单一写入口：存档/背包/魂石/天赋各自只有一个
-- 副作用方法显式命名：`useItem`、`grantReward`、`saveProgress`
-- 异步回调须可取消或跳过已销毁对象
-- 配置加载时拦截：主键重复/外键缺失/数值越界/空字符串/非法枚举
-- 布尔值以 `is/has/can/should` 开头，不使用 `data/info/temp` 作为变量名
+| Layer | Owns | Must Not Do |
+| --- | --- | --- |
+| Gameplay logic | Rules, state transitions, formulas, persistence triggers | Depend on UI node names or hardcoded asset paths |
+| UI | Display, input, animations, operation forwarding | Mutate core gameplay state directly |
+| Config | Defaults, validation ranges, enum values, compatibility | Crash silently when keys are missing |
+| Assets | Loading, fallback, resource mapping | Bypass `AssetBundleService` / `RenderAssetService` |
+| Runtime assembly | Creating scene layers and runtime nodes | Require manual SpriteFrame binding in Cocos as the production path |
 
-## 开发流程
-**开发前**：明确需求+验收标准 → 列出影响模块 → 查现有实现
-**开发中**：小步提交验证 → 先核心逻辑再UI → 同步补校验 → 修bug补防复发
-**自测**：主流程/失败恢复/重复点击/快速开闭UI/微信环境资源缺失不崩
-**提交前**：git status → git diff → 最小回归 → 清临时文件 → 写清 commit message
+## Naming And Code Style
 
-## 关键风险自查
-- [ ] 空引用风险？（getComponent/find 判空）
-- [ ] 异步回调访问已销毁对象？
-- [ ] 配置缺失兜底？
-- [ ] 重复发奖/扣费？
-- [ ] 影响旧存档数据？
-
-## 编码规则（Encoding Rules）
-
-所有源码、配置、文档、记忆文件**必须为 UTF-8 编码**，禁止使用 GBK/ANSI 等非 Unicode 编码。
-
-### AI 协作规则
-
-1. **修改前确认编码**：任何 .ts/.json/.md/.csv 修改前，必须确认文件按 UTF-8 读取。
-2. **禁止保留乱码**：发现乱码注释，不允许沿用或复制，必须修复或删除。
-3. **修改后必审计**：修改后必须运行 `python tools/encoding_audit.py`。
-4. **禁止默认编码覆写**：不允许用 PowerShell/cmd 的默认编码重写源码。
-5. **显式 UTF-8 写文件**：写入文件必须显式指定 `encoding="utf-8"`。
-6. **注释可删不可留乱码**：无法理解的乱码注释，宁可删除也不保留。
-7. **文本来自 text.json**：运行时中文文本必须从 `assets/resources/config/text.json` 读取，禁止硬编码到 UI 资源或源码中。
-
-### 提交前检查清单
-
-修改任何代码或配置后，运行：
-
-```bash
-python tools/encoding_audit.py --ci
-```
-
-禁止行为：
-- 保留乱码注释（含 MOJIBAKE_U951B/MOJIBAKE_U935A/MOJIBAKE_U9354/MOJIBAKE_U95B0/MOJIBAKE_U6D93/[corrupt-text] 等特征词）
-- 用未指定的 shell 编码重写文件
-- 保留可能吞掉大括号的注释
-- 在 text.json 外部硬编码运行时 UI 文本
-
-发现乱码时的处理流程：
-1. 判断位置：注释/日志/运行时文本/配置文本
-2. 注释乱码 → 手动修复或删除
-3. 运行时文本乱码 → 从 text.json 或原意图文案修复
-4. 重新运行编码审计确认修复
-
-### 验收标准
-
-```
-python tools/encoding_audit.py --ci
-```
-
-输出必须满足：
-- **P0 = 0**（assets/scripts/**/*.ts 和 assets/resources/config 零乱码）
-- **P1 = 0**（工具脚本零乱码）
-- 不允许存在：注释吞 }、未闭合 /*、字符串运行时乱码
-
-## 最近变更
-- 2026-07-01：新增编码规则（Encoding Rules）章节
-- 2026-07-01：新增 encoding_audit.py 编码审计脚本
-- 2026-07-01：新增 .editorconfig 强制 UTF-8/LF
+- State fields and enum-like values must have a single source of truth.
+- Side-effect methods must have explicit names such as `useItem`, `grantReward`, or `saveProgress`.
+- Boolean values should start with `is`, `has`, `can`, or `should`.
+- Avoid generic names such as `data`, `info`, or `temp` when the domain meaning is known.
+- Async callbacks must tolerate destroyed nodes and stale references.
+- Validate config keys, foreign-key references, numeric ranges, empty strings, and invalid enum values.
 
 ## Encoding Write Policy
 
 All source, config, docs, memory, and pipeline files must be UTF-8. Do not rely on OS/editor/tool default encodings.
 
-### Required Patterns
+### ASCII Source Policy
+
+Default to English/ASCII for:
+- source code comments
+- TypeScript and Python tool logs
+- engineering docs
+- memory files
+- temporary handoff notes
+- commit messages and changelog entries
+
+Player-facing Chinese text belongs in:
+- `assets/resources/config/text.json`
+
+Chinese is allowed in design/product docs only when needed for communication. Those files still must pass `encoding_audit`.
+
+Do not hardcode runtime UI Chinese in source files. UI text must be loaded from `text.json` through the text/config service.
+
+### Required Write Patterns
 
 ```python
 from pathlib import Path
 text = Path(path).read_text(encoding="utf-8")
-Path(path).write_text(text, encoding="utf-8", newline="\n")
+Path(path).write_text(text, encoding="utf-8", newline="
+")
 ```
 
 ```python
 open(path, "r", encoding="utf-8")
-open(path, "w", encoding="utf-8", newline="\n")
+open(path, "w", encoding="utf-8", newline="
+")
 ```
 
 ```powershell
@@ -111,11 +69,13 @@ await fs.writeFile(path, content, { encoding: "utf8" });
 
 ### Forbidden
 
-- Python `open(path, "w")` / `open(path, "r")` without encoding.
+- Python `open(path, "w")` or `open(path, "r")` without encoding.
 - PowerShell `Set-Content` without `-Encoding utf8`.
-- Preserving mojibake tokens such as `MOJIBAKE_U951B`, `MOJIBAKE_U935A`, and other tokens defined in `tools/encoding_audit.py`.
+- Any AI/editor/tool write that depends on GBK/ANSI/default encoding.
+- Preserving mojibake tokens or U+FFFD replacement characters.
 - Keeping comments that may swallow code.
 - Editing from mojibake as if it were valid source text.
+- Adding Chinese comments to source code when an English/ASCII comment would be sufficient.
 
 ### Known Failure Chain
 
@@ -128,7 +88,7 @@ default GBK/ANSI write
 -> Cocos compile/runtime failures
 ```
 
-### Mandatory Verification
+## Validation Gates
 
 After any source/config/doc/memory edit, run:
 
@@ -136,11 +96,52 @@ After any source/config/doc/memory edit, run:
 npm.cmd run validate:all
 ```
 
-Acceptance:
+Encoding acceptance:
 - `encoding-audit` issues=0.
-- P0=0.
+- P0=0 and P1=0.
 - No U+FFFD replacement characters.
-- No mojibake tokens in `assets/scripts` or `assets/resources/config`.
-- No dangerous `// ... const/let/return/}/...` comment swallowing patterns.
+- No mojibake tokens in `assets/scripts`, `assets/resources/config`, `tools`, docs, or memory.
+- No dangerous comment swallowing patterns.
 
-Evidence: corrupted comments in `DungeonSceneInstaller.ts` previously swallowed declarations such as `const playerNode` and `const battleManager`, breaking dungeon scene assembly after clicking Start.
+## Development Workflow
+
+Before development:
+- Clarify the requirement and acceptance criteria.
+- List affected modules.
+- Read the existing implementation before changing code.
+
+During development:
+- Prefer small, verifiable changes.
+- Implement core logic before visual polish.
+- Add or update validation when a bug can recur.
+- Preserve unrelated user changes.
+
+Self-test:
+- Main flow.
+- Failure recovery.
+- Repeated clicks.
+- Fast open/close UI flows.
+- WeChat resource-missing behavior.
+
+Before handoff:
+- Run validation gates.
+- Review `git diff`.
+- Report known warnings separately from failures.
+
+## Risk Checklist
+
+- Null reference from `getComponent`, `find`, async load, or stale node?
+- Async callback touching a destroyed node?
+- Missing config fallback or missing explicit error?
+- Duplicate reward, payment, save, or event listener?
+- Old save data compatibility affected?
+- Resource exists but mapping or runtime visual wiring missing?
+- Text hardcoded outside `text.json`?
+- Any file write lacking explicit UTF-8?
+
+## Recent Changes
+
+- 2026-07-01: Encoding audit added to `validate:all`.
+- 2026-07-01: Memory files are included in encoding audit.
+- 2026-07-01: `MEMORY.md` rewritten as stable ASCII/UTF-8 index.
+- 2026-07-01: ASCII source policy added: source/tools/memory default to English/ASCII; player-facing Chinese stays in `text.json`.
