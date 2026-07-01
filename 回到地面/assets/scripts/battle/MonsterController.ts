@@ -14,7 +14,7 @@
  * Phase 7: 从 667 行精简到 ≤200 行
  */
 
-import { _decorator, Component, Node, tween, Sprite, Animation, Vec3 } from 'cc';
+import { _decorator, Component, Node, tween, Sprite, Vec3 } from 'cc';
 import { GameConfig } from '../core/GameConfig';
 import { MonsterState, MonsterAIType } from '../core/Constants';
 import { eventBus } from '../core/EventBus';
@@ -22,6 +22,7 @@ import { PlayerController } from './PlayerController';
 import { GridManager } from '../dungeon/GridManager';
 import { MonsterAgent, AgentState } from './entity/MonsterAgent';
 import { MonsterRuntimeView } from './MonsterRuntimeView';
+import { SpriteAnimationService } from '../render/SpriteAnimationService';
 
 const { ccclass, property } = _decorator;
 
@@ -48,7 +49,7 @@ export class MonsterController extends Component {
     private _agent: MonsterAgent | null = null;
     private _gridManager: GridManager | null = null;
     private _sprite: Sprite | null = null;
-    private _animation: Animation | null = null;
+    private _animService: SpriteAnimationService | null = null;
     private _player: PlayerController | null = null;
     private _battleManagerRef: any = null;
     private _view: MonsterRuntimeView | null = null;
@@ -56,7 +57,7 @@ export class MonsterController extends Component {
     onLoad(): void {
         this._view = this.getComponent(MonsterRuntimeView);
         this._sprite = this._view?.bodySprite ?? this.getComponent(Sprite) ?? this.node.getChildByName('Body')?.getComponent(Sprite) ?? null;
-        this._animation = this.getComponent(Animation);
+        this._animService = SpriteAnimationService.instance;
         this._agent = new MonsterAgent({
             onAttackAnimation: () => this._playAnim('attack'),
             onDieAnimation: () => this._playAnim('die'),
@@ -132,8 +133,11 @@ export class MonsterController extends Component {
     }
 
     private _playAnim(name: string): void {
-        if (this._animation) {
-            try { this._animation.play(name); } catch { /* 动画缺失 */ }
+        if (!this._animService) return;
+        // Try monster-specific anim first, fallback to generic
+        const animId = `monster_${name}`;
+        if (this._animService.getConfig(animId)) {
+            this._animService.play(this.node, animId);
         }
     }
 

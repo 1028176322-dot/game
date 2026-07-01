@@ -5,6 +5,7 @@ import { GameEvent, GameManager } from './core/GameManager';
 import { ConfigManager } from './core/ConfigManager';
 import { ConfigService } from './config/ConfigService';
 import { RunCoordinator } from './run/RunCoordinator';
+import { SpriteAnimationService } from './render/SpriteAnimationService';
 import { GridManager } from './dungeon/GridManager';
 import { DungeonManager } from './dungeon/DungeonManager';
 import { RoomTransition } from './dungeon/RoomTransition';
@@ -286,5 +287,6 @@ export class DungeonSceneController extends Component {
 
     update(dt: number): void {
         this._mutationRuntime?.update(dt);
+        SpriteAnimationService.instance.tick(dt);
     }
 }
