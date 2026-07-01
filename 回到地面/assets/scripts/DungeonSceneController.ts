@@ -141,10 +141,16 @@ export class DungeonSceneController extends Component {
             );
         }
 
+        // [Phase 10] 打印场景节点树供调试
+        this._logSceneTree();
+
         this._wireSystems();
         this._wireServices();
         this._wireUI();
         this._wireEvents();
+
+        // [Phase 10] 打印场景节点树供调试
+        this._logSceneTree();
     }
 
     private async _ensureStartupReady(): Promise<void> {
@@ -156,6 +162,12 @@ export class DungeonSceneController extends Component {
     }
 
     private _wireSystems(): void {
+        const refs = this._installedRefs;
+        if (!refs) {
+            console.error('[DungeonSceneController] scene refs are not installed.');
+            return;
+        }
+
         const player = this.player!;
         const gridManager = this.gridManager!;
         const battleManager = this.battleManager!;
@@ -164,7 +176,7 @@ export class DungeonSceneController extends Component {
 
         player.init(gridManager);
         skillSystem.init(player);
-        battleManager.init(player, gridManager);
+        battleManager.init(player, gridManager, refs.actorLayer);
         this.upgradeManager?.init(player, skillSystem, autoAttack, battleManager);
         this.elementSystem?.init(player, battleManager);
         this.equipmentSystem?.init(player);
@@ -244,8 +256,26 @@ export class DungeonSceneController extends Component {
         WXAdapter.getInstance().hideBanner();
     }
 
-    onDestroy(): void {
+    protected onDestroy(): void {
         eventBus.offTarget(this);
+    }
+
+    /** 调试用：打印场景节点树 */
+    private _logSceneTree(): void {
+        const refs = this._installedRefs;
+        if (!refs) return;
+        console.log('[SceneTree]', {
+            background: refs.backgroundLayer.children.map(n => n.name),
+            tiles: refs.tileLayer.children.length,
+            actors: refs.actorLayer.children.map(n => ({
+                name: n.name,
+                active: n.active,
+                pos: n.position.toString(),
+                layer: n.layer,
+                sibling: n.getSiblingIndex(),
+            })),
+            effects: refs.effectLayer.children.length,
+        });
     }
 
     update(dt: number): void {

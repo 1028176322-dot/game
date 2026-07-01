@@ -57,7 +57,7 @@ python tools/encoding_audit.py --ci
 ```
 
 禁止行为：
-- 保留乱码注释（含 锛/鍚/鍔/閰/涓/� 等特征词）
+- 保留乱码注释（含 MOJIBAKE_U951B/MOJIBAKE_U935A/MOJIBAKE_U9354/MOJIBAKE_U95B0/MOJIBAKE_U6D93/[corrupt-text] 等特征词）
 - 用未指定的 shell 编码重写文件
 - 保留可能吞掉大括号的注释
 - 在 text.json 外部硬编码运行时 UI 文本
@@ -83,3 +83,64 @@ python tools/encoding_audit.py --ci
 - 2026-07-01：新增编码规则（Encoding Rules）章节
 - 2026-07-01：新增 encoding_audit.py 编码审计脚本
 - 2026-07-01：新增 .editorconfig 强制 UTF-8/LF
+
+## Encoding Write Policy
+
+All source, config, docs, memory, and pipeline files must be UTF-8. Do not rely on OS/editor/tool default encodings.
+
+### Required Patterns
+
+```python
+from pathlib import Path
+text = Path(path).read_text(encoding="utf-8")
+Path(path).write_text(text, encoding="utf-8", newline="\n")
+```
+
+```python
+open(path, "r", encoding="utf-8")
+open(path, "w", encoding="utf-8", newline="\n")
+```
+
+```powershell
+Set-Content -LiteralPath $path -Value $content -Encoding utf8
+```
+
+```js
+await fs.writeFile(path, content, { encoding: "utf8" });
+```
+
+### Forbidden
+
+- Python `open(path, "w")` / `open(path, "r")` without encoding.
+- PowerShell `Set-Content` without `-Encoding utf8`.
+- Preserving mojibake tokens such as `MOJIBAKE_U951B`, `MOJIBAKE_U935A`, and other tokens defined in `tools/encoding_audit.py`.
+- Keeping comments that may swallow code.
+- Editing from mojibake as if it were valid source text.
+
+### Known Failure Chain
+
+```text
+default GBK/ANSI write
+-> UTF-8 source text is re-encoded incorrectly
+-> Chinese comments/strings become mojibake or U+FFFD
+-> some // comment lines are truncated or merge with code
+-> code boundaries change
+-> Cocos compile/runtime failures
+```
+
+### Mandatory Verification
+
+After any source/config/doc/memory edit, run:
+
+```bash
+npm.cmd run validate:all
+```
+
+Acceptance:
+- `encoding-audit` issues=0.
+- P0=0.
+- No U+FFFD replacement characters.
+- No mojibake tokens in `assets/scripts` or `assets/resources/config`.
+- No dangerous `// ... const/let/return/}/...` comment swallowing patterns.
+
+Evidence: corrupted comments in `DungeonSceneInstaller.ts` previously swallowed declarations such as `const playerNode` and `const battleManager`, breaking dungeon scene assembly after clicking Start.

@@ -10,7 +10,7 @@
 - **变更**: 新增 encoding_audit.py 编码审计脚本、.editorconfig、CI 门禁接入、AI 协作编码规则
 - **源补丁**: `inbox/2026-07-01_1050_encoding_audit_completed.md`
 - **影响**: 所有 .ts/.json/.md/.csv/.py 文件必须为 UTF-8；修改后必须运行 `encoding_audit.py --ci`
-- **修复**: 2 个 docs 文件中的真实乱码（装�备UI→装备UI, 地牢地图→地牢地图）
+- **修复**: 2 个 docs 文件中的真实乱码（装[corrupt-text]备UI→装备UI, 地牢地图→地牢地图）
 
 ## 2026-06-30
 
@@ -27,3 +27,4 @@
 
 ### 标准化专题文件格式
 - 全部 9 个 topics/*.md 改为：状态/强制规则/当前实现/禁止事项/验收命令/最近变更
+- 2026-07-01: Merged ENCODING_WRITE_POLICY into MEMORY.md and topics/ENGINEERING_STANDARDS.md. Explicit UTF-8 writes and `npm.cmd run validate:all` are now mandatory after edits.

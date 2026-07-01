@@ -29,15 +29,17 @@ export class BattleManager extends Component {
     private _player: PlayerController | null = null;
     private _autoAttack: AutoAttack | null = null;
     private _gridManager: GridManager | null = null;
+    private _actorLayer: Node | null = null;
     private _monsters: MonsterEntry[] = [];
     private _roomMonsterCount = 0;
     private _totalMonsters = 0;
     private _killCount = 0;
     private _isRoomCleared = false;
 
-    init(player: PlayerController, gridManager: GridManager): void {
+    init(player: PlayerController, gridManager: GridManager, actorLayer?: Node): void {
         this._player = player;
         this._gridManager = gridManager;
+        this._actorLayer = actorLayer ?? null;
         this._autoAttack = player.getComponent(AutoAttack);
         this._autoAttack?.init(this);
         this._setPhase(BattlePhase.Init);
@@ -74,20 +76,29 @@ export class BattleManager extends Component {
     }
 
     private _spawnMonster(config: MonsterConfig, gridX: number, gridY: number, isSummon = false): void {
+        if (!this._actorLayer || !this._gridManager) {
+            console.warn('[BattleManager] actorLayer/gridManager not ready');
+            return;
+        }
+
         const prefab = !isSummon ? this.monsterPrefab : null;
         const runtime = prefab
             ? this._createFromPrefab(config, gridX, gridY, prefab)
             : MonsterRuntimeFactory.create(`monster_${gridX}_${gridY}`);
 
         const monsterNode = runtime.root;
-        this.node.addChild(monsterNode);
+        this._actorLayer.addChild(monsterNode);
+
+        const pos = this._gridManager.gridToWorld(gridX, gridY);
+        monsterNode.setPosition(pos);
+        monsterNode.setSiblingIndex(100 + gridY);
 
         runtime.controller.init(config, gridX, gridY, this._gridManager!, this);
         if (this._player) {
             runtime.controller.setTarget(this._player);
         }
 
-        this._gridManager?.setOccupied(gridX, gridY, true);
+        this._gridManager.setOccupied(gridX, gridY, true);
         this._monsters.push({ monster: runtime.controller, config });
         void this._applyMonsterVisual(monsterNode, config);
 

@@ -24,6 +24,12 @@ export class GridManager extends Component {
     private _tileSize: number = GameConfig.TILE_SIZE;
     private _gridSize: number = GameConfig.GRID_SIZE;
     private _zoneId: string = 'forest';
+    private _tileContainer: Node | null = null;
+
+    /** 设置瓦片渲染父节点（TileLayer），不设则挂到 this.node */
+    setTileContainer(container: Node): void {
+        this._tileContainer = container;
+    }
 
     onLoad(): void {
         this._initGrid();
@@ -54,7 +60,7 @@ export class GridManager extends Component {
         if (tileNode) {
             cell.node = tileNode;
             tileNode.setPosition(this.gridToWorld(x, y));
-            this.node.addChild(tileNode);
+            (this._tileContainer ?? this.node).addChild(tileNode);
         }
 
         return cell;

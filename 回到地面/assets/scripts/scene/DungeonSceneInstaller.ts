@@ -1,4 +1,6 @@
-import { Color, Graphics, Label, Node, ProgressBar, Sprite, UIOpacity, Vec3 } from 'cc';
+import { Color, Graphics, Label, Layers, Node, ProgressBar, Sprite, UITransform, Vec3 } from 'cc';
+import { ArtResourceResolver } from '../assets/ArtResourceResolver';
+import { RenderAssetService } from '../assets/RenderAssetService';
 import { AutoAttack } from '../battle/AutoAttack';
 import { BattleManager } from '../battle/BattleManager';
 import { ElementSystem } from '../battle/ElementSystem';
@@ -18,11 +20,18 @@ import { InventoryUI } from '../ui/InventoryUI';
 import { SkillUI } from '../ui/SkillUI';
 import { UpgradeUI } from '../ui/UpgradeUI';
 import { VirtualJoystick } from '../ui/VirtualJoystick';
-import { ArtResourceResolver } from '../assets/ArtResourceResolver';
-import { RenderAssetService } from '../assets/RenderAssetService';
 import { SceneNodeFactory as F } from './SceneNodeFactory';
 
 export interface DungeonSceneRefs {
+    canvas: Node;
+    world: Node;
+    backgroundLayer: Node;
+    tileLayer: Node;
+    actorLayer: Node;
+    effectLayer: Node;
+    doorLayer: Node;
+    systems: Node;
+    uiRoot: Node;
     backgroundNode: Node;
     gridManager: GridManager;
     player: PlayerController;
@@ -71,30 +80,34 @@ export class DungeonSceneInstaller {
 
         const world = F.ensureChild(canvas, 'World');
         world.setPosition(Vec3.ZERO);
-        F.ensureTransform(world, 1280, 720);
-        F.ensureComponent<UIOpacity>(world, UIOpacity);
-        const backgroundNode = F.ensureChild(world, 'Background');
-        backgroundNode.setSiblingIndex(0);
-        F.ensureTransform(backgroundNode, 1280, 720);
-        F.ensureComponent<Sprite>(backgroundNode, Sprite);
+        world.layer = Layers.Enum.UI_2D;
 
         const systems = F.ensureChild(canvas, 'Systems');
         const uiRoot = F.ensureChild(canvas, 'UIRoot');
         F.ensureTransform(uiRoot, 1280, 720);
+        uiRoot.layer = Layers.Enum.UI_2D;
 
-        const gridNode = F.ensureChild(world, 'Grid');
-        gridNode.setPosition(0, 0, 0);
+        const backgroundLayer = this._ensureLayer(world, 'BackgroundLayer', 0);
+        const tileLayer = this._ensureLayer(world, 'TileLayer', 1);
+        const actorLayer = this._ensureLayer(world, 'ActorLayer', 2);
+        const effectLayer = this._ensureLayer(world, 'EffectLayer', 3);
+        const doorLayer = this._ensureLayer(world, 'DoorLayer', 4);
+
+        const backgroundNode = this._ensureChild(backgroundLayer, 'Background');
+        backgroundNode.setSiblingIndex(0);
+        backgroundNode.setPosition(0, 0, -10);
+        backgroundNode.layer = Layers.Enum.UI_2D;
+
         const gridManager = overrides.gridManager
             ?? F.findComponentInChildren<GridManager>(sceneRoot, GridManager)
-            ?? F.ensureComponent<GridManager>(gridNode, GridManager);
+            ?? F.ensureComponent<GridManager>(F.ensureChild(systems, 'GridManager'), GridManager);
+        gridManager.setTileContainer(tileLayer);
 
-        const playerNode = F.ensureChild(world, 'Player');
-        F.ensureTransform(playerNode, 96, 96);
+        const playerNode = overrides.player?.node ?? this._ensureChild(actorLayer, 'Player');
+        this._normalizeActorNode(playerNode, actorLayer, 'Player', 50);
         F.ensureComponent<Sprite>(playerNode, Sprite);
         F.ensureComponent<AutoAttack>(playerNode, AutoAttack);
-        const player = overrides.player
-            ?? F.findComponentInChildren<PlayerController>(sceneRoot, PlayerController)
-            ?? F.ensureComponent<PlayerController>(playerNode, PlayerController);
+        const player = overrides.player ?? F.ensureComponent<PlayerController>(playerNode, PlayerController);
 
         const battleManager = overrides.battleManager
             ?? F.findComponentInChildren<BattleManager>(sceneRoot, BattleManager)
@@ -110,7 +123,7 @@ export class DungeonSceneInstaller {
         dungeonManager.battleManager = battleManager;
         dungeonManager.roomTransition = roomTransition;
         roomTransition.roomContainer = world;
-        roomTransition.doorNode = this._ensureDoor(world);
+        roomTransition.doorNode = this._ensureDoor(doorLayer);
 
         const skillSystem = overrides.skillSystem
             ?? F.findComponentInChildren<SkillSystem>(sceneRoot, SkillSystem)
@@ -153,6 +166,15 @@ export class DungeonSceneInstaller {
             ?? F.ensureComponent<InventoryUI>(F.ensureChild(uiRoot, 'InventoryUI'), InventoryUI);
 
         return {
+            canvas,
+            world,
+            backgroundLayer,
+            tileLayer,
+            actorLayer,
+            effectLayer,
+            doorLayer,
+            systems,
+            uiRoot,
             backgroundNode,
             gridManager,
             player,
@@ -177,14 +199,47 @@ export class DungeonSceneInstaller {
 
     async loadInitialArt(refs: DungeonSceneRefs, characterId: string = 'warrior', zoneId: string = 'forest'): Promise<void> {
         await RenderAssetService.applyTextureAsSprite(refs.backgroundNode, ArtResourceResolver.backgroundCombat(zoneId));
-        const playerSprite = refs.player.getComponent(Sprite);
-        if (playerSprite) {
-            await RenderAssetService.applyCharacterSprite(refs.player.node, characterId, 'idle');
+        const frame = await RenderAssetService.applyCharacterSprite(refs.player.node, characterId, 'idle');
+        if (!frame) {
+            console.warn('[DungeonSceneInstaller] player sprite missing', characterId);
         }
     }
 
-    private _ensureDoor(world: Node): Node {
-        const node = F.ensureChild(world, 'ExitDoor');
+    private _ensureLayer(parent: Node, name: string, index: number): Node {
+        const node = this._ensureChild(parent, name);
+        node.setPosition(0, 0, 0);
+        node.setScale(1, 1, 1);
+        node.setSiblingIndex(index);
+        node.layer = Layers.Enum.UI_2D;
+        F.ensureTransform(node, 1280, 720);
+        return node;
+    }
+
+    private _ensureChild(parent: Node, name: string): Node {
+        let child = parent.getChildByName(name);
+        if (!child) {
+            child = new Node(name);
+            parent.addChild(child);
+        }
+        return child;
+    }
+
+    private _normalizeActorNode(node: Node, parent: Node, name: string, siblingIndex: number): void {
+        if (node.parent !== parent) {
+            node.removeFromParent();
+            parent.addChild(node);
+        }
+        node.name = name;
+        node.active = true;
+        node.layer = Layers.Enum.UI_2D;
+        node.setSiblingIndex(siblingIndex);
+        node.setScale(1, 1, 1);
+        F.ensureTransform(node, 96, 96);
+    }
+
+    private _ensureDoor(parent: Node): Node {
+        const node = this._ensureChild(parent, 'ExitDoor');
+        node.layer = Layers.Enum.UI_2D;
         F.ensureTransform(node, 56, 80);
         const graphics = F.ensureComponent<Graphics>(node, Graphics);
         graphics.clear();
@@ -195,16 +250,17 @@ export class DungeonSceneInstaller {
     }
 
     private _ensureJoystick(parent: Node): VirtualJoystick {
-        const node = F.ensureChild(parent, 'VirtualJoystick');
+        const node = this._ensureChild(parent, 'VirtualJoystick');
         node.setPosition(-470, -250, 0);
+        node.layer = Layers.Enum.UI_2D;
         F.ensureTransform(node, 160, 160);
         const joystick = F.ensureComponent<VirtualJoystick>(node, VirtualJoystick);
 
-        const bg = F.ensureChild(node, 'JoystickBg');
+        const bg = this._ensureChild(node, 'JoystickBg');
         F.ensureTransform(bg, 120, 120);
         this._fillRect(bg, 120, 120, new Color(80, 120, 180, 120));
 
-        const thumb = F.ensureChild(bg, 'JoystickThumb');
+        const thumb = this._ensureChild(bg, 'JoystickThumb');
         F.ensureTransform(thumb, 48, 48);
         this._fillRect(thumb, 48, 48, new Color(180, 220, 255, 180));
 
@@ -214,14 +270,15 @@ export class DungeonSceneInstaller {
     }
 
     private _ensureBattleHUD(parent: Node): BattleHUD {
-        const node = F.ensureChild(parent, 'BattleHUD');
+        const node = this._ensureChild(parent, 'BattleHUD');
         node.setPosition(-560, 315, 0);
+        node.layer = Layers.Enum.UI_2D;
         const hud = F.ensureComponent<BattleHUD>(node, BattleHUD);
         hud.hpLabel = this._ensureLabel(F.ensureChild(node, 'HPLabel'), 'HP');
         hud.floorLabel = this._ensureLabel(F.ensureChild(node, 'FloorLabel'), '1F');
         hud.killLabel = this._ensureLabel(F.ensureChild(node, 'KillLabel'), '0');
 
-        const hpBarNode = F.ensureChild(node, 'HPBar');
+        const hpBarNode = this._ensureChild(node, 'HPBar');
         F.ensureTransform(hpBarNode, 220, 16);
         this._fillRect(hpBarNode, 220, 16, new Color(80, 180, 90, 220));
         hud.hpBar = F.ensureComponent<ProgressBar>(hpBarNode, ProgressBar);
@@ -229,20 +286,23 @@ export class DungeonSceneInstaller {
     }
 
     private _ensureDungeonMapUI(parent: Node): DungeonMapUI {
-        const node = F.ensureChild(parent, 'DungeonMapUI');
+        const node = this._ensureChild(parent, 'DungeonMapUI');
         node.setPosition(320, 160, 0);
+        node.layer = Layers.Enum.UI_2D;
         const map = F.ensureComponent<DungeonMapUI>(node, DungeonMapUI);
         map.mapContainer = F.ensureChild(node, 'MapContainer');
         return map;
     }
 
     private _ensureSkillUI(parent: Node): SkillUI {
-        const node = F.ensureChild(parent, 'SkillUI');
+        const node = this._ensureChild(parent, 'SkillUI');
         node.setPosition(390, -265, 0);
+        node.layer = Layers.Enum.UI_2D;
         return F.ensureComponent<SkillUI>(node, SkillUI);
     }
 
     private _ensureLabel(node: Node, text: string): Label {
+        node.layer = Layers.Enum.UI_2D;
         const label = F.ensureComponent<Label>(node, Label);
         label.string = text;
         label.fontSize = 18;
@@ -251,11 +311,11 @@ export class DungeonSceneInstaller {
     }
 
     private _fillRect(node: Node, width: number, height: number, color: Color): void {
+        node.layer = Layers.Enum.UI_2D;
         const graphics = F.ensureComponent<Graphics>(node, Graphics);
         graphics.clear();
         graphics.fillColor = color;
         graphics.rect(-width / 2, -height / 2, width, height);
         graphics.fill();
     }
-
 }
