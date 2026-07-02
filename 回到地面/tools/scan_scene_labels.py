@@ -118,6 +118,29 @@ def suggest_key(text: str, node_path: str) -> str:
     if 'settlementpanel' in path:
         if 'double' in path:
             return 'ui.settlementDouble'
+        if 'back' in path and 'btn' in path:
+            return 'ui.settlementBack'
+
+    # 角色管理面板
+    if 'characterpanel' in path:
+        if 'title' in path:
+            return 'ui.charTitle'
+        if 'close' in path:
+            return 'ui.close'
+
+    # 设置面板
+    if 'settingspanel' in path:
+        if 'reset' in path:
+            return 'ui.settingsReset'
+        if 'close' in path:
+            return 'ui.close'
+
+    # 冒险日志面板
+    if 'adventurelogpanel' in path:
+        if 'title' in path:
+            return 'ui.logTitle'
+        if 'close' in path:
+            return 'ui.close'
 
     # 特殊区域优先（AreaSelectPanel 的 StartBtn 不是 mainStart）
     if 'areaselectpanel' in path and 'start' in path:
