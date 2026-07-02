@@ -76,7 +76,8 @@ def generate_migration_guide():
 
     with open(GUIDE_PATH, 'w', encoding='utf-8') as f:
         f.write('# 场景文本迁移操作清单\n\n')
-        f.write('> 在 Cocos Creator 编辑器中逐项操作\n\n')
+        f.write('> 所有固定 Label 都需要挂 LocalizedLabel 组件\n')
+        f.write('> 动态文本节点（StatusLabel、PlayerInfo）由代码刷新，不需要挂\n\n')
         f.write('## 操作说明\n\n')
         f.write('1. 打开对应场景文件\n')
         f.write('2. 在层级管理器找到节点路径\n')
@@ -84,13 +85,20 @@ def generate_migration_guide():
         f.write('4. 在 textKey 字段填入对应的 key\n\n')
         f.write('---\n\n')
 
-        for r in pending:
-            sk = r['suggested_key']
+        for r in rows:
             np = r['node_path']
             txt = r['current_text']
-            st = r['status']
+            sk = r['suggested_key']
+            cs = r['component_status']
+            ts = r['text_key_status']
             
-            tag = '✅ 已有' if st == 'already_migrated' else '📦 待迁移'
+            if cs == 'dynamic':
+                tag = '⏭️ 动态文本（代码刷新，不挂组件）'
+            elif ts == 'exists':
+                tag = '📦 需挂 LocalizedLabel（key 已存在）'
+            else:
+                tag = '🚨 需挂 LocalizedLabel（key 也缺失，请确认）'
+
             f.write(f'### {np}  {tag}\n\n')
             f.write(f'| 字段 | 值 |\n')
             f.write(f'|------|-----|\n')
@@ -98,7 +106,7 @@ def generate_migration_guide():
             f.write(f'| 节点路径 | `{np}` |\n')
             f.write(f'| 当前文本 | `{txt}` |\n')
             f.write(f'| textKey | `{sk}` |\n')
-            f.write(f'| 状态 | {st} |\n\n')
+            f.write(f'| 操作 | {"跳过（代码刷新）" if cs == "dynamic" else f"添加组件→LocalizedLabel→填入{sk}"} |\n\n')
 
         f.write('---\n\n')
         f.write('## 验证\n\n')

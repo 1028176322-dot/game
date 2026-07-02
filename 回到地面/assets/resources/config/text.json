@@ -56,7 +56,6 @@
         "createTitle": "创建冒险者",
         "createNamePlaceholder": "输入名字 (6字以内)",
         "createConfirm": "确认",
-        "createSkip": "跳过",
         "createErrorEmpty": "请输入名字",
         "createErrorLong": "名字太长 (最多6个字)",
         "createErrorSensitive": "名字包含不当文字",

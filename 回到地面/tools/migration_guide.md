@@ -1,6 +1,7 @@
 # 场景文本迁移操作清单
 
-> 在 Cocos Creator 编辑器中逐项操作
+> 所有固定 Label 都需要挂 LocalizedLabel 组件
+> 动态文本节点（StatusLabel、PlayerInfo）由代码刷新，不需要挂
 
 ## 操作说明
 
@@ -11,17 +12,17 @@
 
 ---
 
-### Canvas/SplashUI/SkipButton/Label  ✅ 已有
+### Canvas/SplashUI/SkipButton/Label  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
 | 场景 | `assets/scenes/splash.scene` |
 | 节点路径 | `Canvas/SplashUI/SkipButton/Label` |
 | 当前文本 | `跳过` |
-| textKey | `ui.createSkip` |
-| 状态 | already_migrated |
+| textKey | `ui.skip` |
+| 操作 | 添加组件→LocalizedLabel→填入ui.skip |
 
-### Canvas/SplashUI/LoadingLabel  ✅ 已有
+### Canvas/SplashUI/LoadingLabel  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
@@ -29,9 +30,19 @@
 | 节点路径 | `Canvas/SplashUI/LoadingLabel` |
 | 当前文本 | `正在加载...` |
 | textKey | `ui.loading` |
-| 状态 | already_migrated |
+| 操作 | 添加组件→LocalizedLabel→填入ui.loading |
 
-### Canvas/MainUI/StartButton/Label  📦 待迁移
+### Canvas/SplashUI/GameBootstrap/StatusLabel  ⏭️ 动态文本（代码刷新，不挂组件）
+
+| 字段 | 值 |
+|------|-----|
+| 场景 | `assets/scenes/splash.scene` |
+| 节点路径 | `Canvas/SplashUI/GameBootstrap/StatusLabel` |
+| 当前文本 | `label` |
+| textKey | `scene.label` |
+| 操作 | 跳过（代码刷新） |
+
+### Canvas/MainUI/StartButton/Label  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
@@ -39,9 +50,9 @@
 | 节点路径 | `Canvas/MainUI/StartButton/Label` |
 | 当前文本 | `开始游戏` |
 | textKey | `ui.mainStart` |
-| 状态 | pending |
+| 操作 | 添加组件→LocalizedLabel→填入ui.mainStart |
 
-### Canvas/MainUI/characterBtn/Label  ✅ 已有
+### Canvas/MainUI/characterBtn/Label  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
@@ -49,9 +60,9 @@
 | 节点路径 | `Canvas/MainUI/characterBtn/Label` |
 | 当前文本 | `角色` |
 | textKey | `ui.mainCharacter` |
-| 状态 | already_migrated |
+| 操作 | 添加组件→LocalizedLabel→填入ui.mainCharacter |
 
-### Canvas/MainUI/ShopBtn/Label  ✅ 已有
+### Canvas/MainUI/ShopBtn/Label  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
@@ -59,9 +70,9 @@
 | 节点路径 | `Canvas/MainUI/ShopBtn/Label` |
 | 当前文本 | `商店` |
 | textKey | `ui.mainShop` |
-| 状态 | already_migrated |
+| 操作 | 添加组件→LocalizedLabel→填入ui.mainShop |
 
-### Canvas/MainUI/LogBtn/Label  ✅ 已有
+### Canvas/MainUI/LogBtn/Label  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
@@ -69,9 +80,9 @@
 | 节点路径 | `Canvas/MainUI/LogBtn/Label` |
 | 当前文本 | `日志` |
 | textKey | `ui.mainLog` |
-| 状态 | already_migrated |
+| 操作 | 添加组件→LocalizedLabel→填入ui.mainLog |
 
-### Canvas/MainUI/SettingsBtn/Label  ✅ 已有
+### Canvas/MainUI/SettingsBtn/Label  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
@@ -79,9 +90,9 @@
 | 节点路径 | `Canvas/MainUI/SettingsBtn/Label` |
 | 当前文本 | `设置` |
 | textKey | `ui.mainSettings` |
-| 状态 | already_migrated |
+| 操作 | 添加组件→LocalizedLabel→填入ui.mainSettings |
 
-### Canvas/MainUI/CharNameLabel  📦 待迁移
+### Canvas/MainUI/CharNameLabel  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
@@ -89,9 +100,9 @@
 | 节点路径 | `Canvas/MainUI/CharNameLabel` |
 | 当前文本 | `Adventurer` |
 | textKey | `ui.charName` |
-| 状态 | pending |
+| 操作 | 添加组件→LocalizedLabel→填入ui.charName |
 
-### Canvas/MainUI/CharClassLabel  📦 待迁移
+### Canvas/MainUI/CharClassLabel  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
@@ -99,9 +110,9 @@
 | 节点路径 | `Canvas/MainUI/CharClassLabel` |
 | 当前文本 | `Bear Warrior` |
 | textKey | `ui.charClass` |
-| 状态 | pending |
+| 操作 | 添加组件→LocalizedLabel→填入ui.charClass |
 
-### Canvas/MainUI/LevelLabel  📦 待迁移
+### Canvas/MainUI/LevelLabel  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
@@ -109,9 +120,9 @@
 | 节点路径 | `Canvas/MainUI/LevelLabel` |
 | 当前文本 | `Lv1` |
 | textKey | `ui.charLevel` |
-| 状态 | pending |
+| 操作 | 添加组件→LocalizedLabel→填入ui.charLevel |
 
-### Canvas/MainUI/SoulStoneLabel  📦 待迁移
+### Canvas/MainUI/SoulStoneLabel  🚨 需挂 LocalizedLabel（key 也缺失，请确认）
 
 | 字段 | 值 |
 |------|-----|
@@ -119,9 +130,9 @@
 | 节点路径 | `Canvas/MainUI/SoulStoneLabel` |
 | 当前文本 | `Soul Stones: 0` |
 | textKey | `ui.soulStones` |
-| 状态 | pending |
+| 操作 | 添加组件→LocalizedLabel→填入ui.soulStones |
 
-### Canvas/MainUI/VersionLabel  ✅ 已有
+### Canvas/MainUI/VersionLabel  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
@@ -129,19 +140,29 @@
 | 节点路径 | `Canvas/MainUI/VersionLabel` |
 | 当前文本 | `v0.1.0` |
 | textKey | `ui.appVersion` |
-| 状态 | already_migrated |
+| 操作 | 添加组件→LocalizedLabel→填入ui.appVersion |
 
-### Canvas/AreaSelectPanel/PanelRoot/StartBtn/Label  ✅ 已有
+### Canvas/AreaSelectPanel/PanelRoot/PlayerInfo  ⏭️ 动态文本（代码刷新，不挂组件）
+
+| 字段 | 值 |
+|------|-----|
+| 场景 | `assets/scenes/main.scene` |
+| 节点路径 | `Canvas/AreaSelectPanel/PanelRoot/PlayerInfo` |
+| 当前文本 | `label` |
+| textKey | `ui.areaPlayerInfo` |
+| 操作 | 跳过（代码刷新） |
+
+### Canvas/AreaSelectPanel/PanelRoot/StartBtn/Label  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
 | 场景 | `assets/scenes/main.scene` |
 | 节点路径 | `Canvas/AreaSelectPanel/PanelRoot/StartBtn/Label` |
 | 当前文本 | `开始冒险` |
-| textKey | `ui.areaStart` |
-| 状态 | already_migrated |
+| textKey | `ui.mainStart` |
+| 操作 | 添加组件→LocalizedLabel→填入ui.mainStart |
 
-### Canvas/AreaSelectPanel/PanelRoot/BackBtn/Label  ✅ 已有
+### Canvas/AreaSelectPanel/PanelRoot/BackBtn/Label  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
@@ -149,7 +170,7 @@
 | 节点路径 | `Canvas/AreaSelectPanel/PanelRoot/BackBtn/Label` |
 | 当前文本 | `返回` |
 | textKey | `ui.areaBack` |
-| 状态 | already_migrated |
+| 操作 | 添加组件→LocalizedLabel→填入ui.areaBack |
 
 ---
 
