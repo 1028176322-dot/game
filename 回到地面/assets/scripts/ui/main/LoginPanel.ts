@@ -10,6 +10,7 @@ import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { AppFlowController, AppFlowState } from '../../app/AppFlowController';
 import { PlatformService } from '../../platform/PlatformService';
 import { StorageService } from '../../platform/StorageService';
+import { T } from '../../core/TextManager';
 
 const { ccclass, property } = _decorator;
 
@@ -79,7 +80,7 @@ export class LoginPanel extends Component implements UIPanel {
     // ── Handlers ──
 
     private async _onWxLogin(): Promise<void> {
-        this._setStatus('Logging in...');
+        this._setStatus(T('ui.loading'));
         this._setButtonsEnabled(false);
 
         try {
@@ -90,15 +91,15 @@ export class LoginPanel extends Component implements UIPanel {
             } else {
                 this._retryCount++;
                 if (this._retryCount >= 3) {
-                    this._setStatus('Network error, please try again later');
+                    this._setStatus(T('ui.loginFailed'));
                 } else {
-                    this._setStatus(`Login failed, retry (${this._retryCount}/3)`);
+                    this._setStatus(T('ui.loginRetry', { n: this._retryCount }));
                 }
                 this._setButtonsEnabled(true);
             }
         } catch (err) {
             console.error('[LoginPanel] wx login error:', err);
-            this._setStatus('Network error');
+            this._setStatus(T('ui.loginFailed'));
             this._setButtonsEnabled(true);
         }
     }

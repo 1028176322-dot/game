@@ -12,6 +12,7 @@
 import { _decorator, Component, Node, Button, Label, tween, UITransform, Vec3, Color, Prefab } from 'cc';
 import { GameConfig } from '../core/GameConfig';
 import { eventBus } from '../core/EventBus';
+import { T } from '../core/TextManager';
 import { GameManager } from '../core/GameManager';
 import { EventSystem, GeneratedEvent } from '../battle/EventSystem';
 import { PlayerController } from '../battle/PlayerController';
@@ -250,7 +251,7 @@ export class EventUI extends Component {
     private _updateTimerDisplay(): void {
         if (this._timerLabel) {
             const secs = Math.ceil(this._autoSelectTimer);
-            this._timerLabel.string = `自动选择: ${secs}s`;
+            this._timerLabel.string = T('ui.autoSelect', { secs });
         }
     }
 

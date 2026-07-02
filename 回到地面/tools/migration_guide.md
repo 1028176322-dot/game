@@ -92,7 +92,7 @@
 | textKey | `ui.mainSettings` |
 | 操作 | 添加组件→LocalizedLabel→填入ui.mainSettings |
 
-### Canvas/MainUI/CharNameLabel  📦 需挂 LocalizedLabel（key 已存在）
+### Canvas/MainUI/CharNameLabel  ⏭️ 动态文本（代码刷新，不挂组件）
 
 | 字段 | 值 |
 |------|-----|
@@ -100,9 +100,9 @@
 | 节点路径 | `Canvas/MainUI/CharNameLabel` |
 | 当前文本 | `Adventurer` |
 | textKey | `ui.charName` |
-| 操作 | 添加组件→LocalizedLabel→填入ui.charName |
+| 操作 | 跳过（代码刷新） |
 
-### Canvas/MainUI/CharClassLabel  📦 需挂 LocalizedLabel（key 已存在）
+### Canvas/MainUI/CharClassLabel  ⏭️ 动态文本（代码刷新，不挂组件）
 
 | 字段 | 值 |
 |------|-----|
@@ -110,9 +110,9 @@
 | 节点路径 | `Canvas/MainUI/CharClassLabel` |
 | 当前文本 | `Bear Warrior` |
 | textKey | `ui.charClass` |
-| 操作 | 添加组件→LocalizedLabel→填入ui.charClass |
+| 操作 | 跳过（代码刷新） |
 
-### Canvas/MainUI/LevelLabel  📦 需挂 LocalizedLabel（key 已存在）
+### Canvas/MainUI/LevelLabel  ⏭️ 动态文本（代码刷新，不挂组件）
 
 | 字段 | 值 |
 |------|-----|
@@ -120,9 +120,9 @@
 | 节点路径 | `Canvas/MainUI/LevelLabel` |
 | 当前文本 | `Lv1` |
 | textKey | `ui.charLevel` |
-| 操作 | 添加组件→LocalizedLabel→填入ui.charLevel |
+| 操作 | 跳过（代码刷新） |
 
-### Canvas/MainUI/SoulStoneLabel  📦 需挂 LocalizedLabel（key 已存在）
+### Canvas/MainUI/SoulStoneLabel  ⏭️ 动态文本（代码刷新，不挂组件）
 
 | 字段 | 值 |
 |------|-----|
@@ -130,7 +130,7 @@
 | 节点路径 | `Canvas/MainUI/SoulStoneLabel` |
 | 当前文本 | `Soul Stones: 0` |
 | textKey | `ui.soulStones` |
-| 操作 | 添加组件→LocalizedLabel→填入ui.soulStones |
+| 操作 | 跳过（代码刷新） |
 
 ### Canvas/MainUI/VersionLabel  📦 需挂 LocalizedLabel（key 已存在）
 
@@ -141,6 +141,16 @@
 | 当前文本 | `v0.1.0` |
 | textKey | `ui.appVersion` |
 | 操作 | 添加组件→LocalizedLabel→填入ui.appVersion |
+
+### Canvas/LoginPanel/PanelRoot/AgreementLabel  📦 需挂 LocalizedLabel（key 已存在）
+
+| 字段 | 值 |
+|------|-----|
+| 场景 | `assets/scenes/main.scene` |
+| 节点路径 | `Canvas/LoginPanel/PanelRoot/AgreementLabel` |
+| 当前文本 | `用户协议和隐私政策` |
+| textKey | `ui.loginAgreement` |
+| 操作 | 添加组件→LocalizedLabel→填入ui.loginAgreement |
 
 ### Canvas/AreaSelectPanel/PanelRoot/PlayerInfo  ⏭️ 动态文本（代码刷新，不挂组件）
 

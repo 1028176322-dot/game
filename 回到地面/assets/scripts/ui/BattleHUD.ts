@@ -104,7 +104,7 @@ export class BattleHUD extends Component {
         this.node.addChild(labelNode);
 
         const label = labelNode.addComponent(Label);
-        label.string = `${result.isCrit ? '暴击 ' : ''}${result.damage}`;
+        label.string = `${result.isCrit ? T('ui.crit') : ''}${result.damage}`;
         label.fontSize = result.isCrit ? 30 : 24;
         label.lineHeight = result.isCrit ? 34 : 28;
         label.color = result.isCrit ? new Color(255, 210, 70) : new Color(255, 255, 255);
