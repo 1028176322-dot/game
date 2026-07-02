@@ -1,7 +1,7 @@
 scene_path,node_path,current_text,suggested_key,text_key_status,component_status
 assets/scenes/splash.scene,Canvas/SplashUI/SkipButton/Label,跳过,ui.skip,exists,pending
 assets/scenes/splash.scene,Canvas/SplashUI/LoadingLabel,正在加载...,ui.loading,exists,pending
-assets/scenes/splash.scene,Canvas/SplashUI/GameBootstrap/StatusLabel,label,scene.label,unknown,dynamic
+assets/scenes/splash.scene,Canvas/SplashUI/GameBootstrap/StatusLabel,label,scene.label,missing,dynamic
 assets/scenes/main.scene,Canvas/MainUI/StartButton/Label,开始游戏,ui.mainStart,exists,pending
 assets/scenes/main.scene,Canvas/MainUI/characterBtn/Label,角色,ui.mainCharacter,exists,pending
 assets/scenes/main.scene,Canvas/MainUI/ShopBtn/Label,商店,ui.mainShop,exists,pending
@@ -10,8 +10,8 @@ assets/scenes/main.scene,Canvas/MainUI/SettingsBtn/Label,设置,ui.mainSettings,
 assets/scenes/main.scene,Canvas/MainUI/CharNameLabel,Adventurer,ui.charName,exists,pending
 assets/scenes/main.scene,Canvas/MainUI/CharClassLabel,Bear Warrior,ui.charClass,exists,pending
 assets/scenes/main.scene,Canvas/MainUI/LevelLabel,Lv1,ui.charLevel,exists,pending
-assets/scenes/main.scene,Canvas/MainUI/SoulStoneLabel,Soul Stones: 0,ui.soulStones,unknown,pending
+assets/scenes/main.scene,Canvas/MainUI/SoulStoneLabel,Soul Stones: 0,ui.soulStones,exists,pending
 assets/scenes/main.scene,Canvas/MainUI/VersionLabel,v0.1.0,ui.appVersion,exists,pending
 assets/scenes/main.scene,Canvas/AreaSelectPanel/PanelRoot/PlayerInfo,label,ui.areaPlayerInfo,exists,dynamic
-assets/scenes/main.scene,Canvas/AreaSelectPanel/PanelRoot/StartBtn/Label,开始冒险,ui.mainStart,exists,pending
+assets/scenes/main.scene,Canvas/AreaSelectPanel/PanelRoot/StartBtn/Label,开始冒险,ui.areaStart,exists,pending
 assets/scenes/main.scene,Canvas/AreaSelectPanel/PanelRoot/BackBtn/Label,返回,ui.areaBack,exists,pending

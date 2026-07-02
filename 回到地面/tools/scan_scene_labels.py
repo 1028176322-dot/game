@@ -37,13 +37,14 @@ DYNAMIC_NODES = {
 
 
 def load_text_json():
-    """读取已有的 text.json 返回 {value: key} 反向映射"""
+    """读取 text.json 返回 {value: key} 反向映射, 附带 _raw 原始字典"""
     try:
         with open(TEXT_JSON_PATH, 'r', encoding='utf-8') as f:
             data = json.load(f)
     except:
-        return {}
-    rev = {}
+        return {'_raw': {}}
+
+    rev = {'_raw': data}
     def walk(obj, prefix=''):
         if isinstance(obj, dict):
             for k, v in obj.items():
@@ -61,11 +62,25 @@ def is_ignorable(text: str) -> bool:
     return False
 
 
+def key_exists(data: dict, key: str) -> bool:
+    """检查点号分隔的 key 是否存在于 text.json 字典中"""
+    cur = data
+    for part in key.split('.'):
+        if not isinstance(cur, dict) or part not in cur:
+            return False
+        cur = cur[part]
+    return isinstance(cur, str)
+
+
 def suggest_key(text: str, node_path: str) -> str:
     """根据节点路径优先、文本值兜底，推测 text key"""
     path = node_path.lower()
 
     # ===== 优先级 1：节点路径规则 =====
+    # 特殊区域优先（AreaSelectPanel 的 StartBtn 不是 mainStart）
+    if 'areaselectpanel' in path and 'start' in path:
+        return 'ui.areaStart'
+    
     # 按钮类
     if 'startbutton' in path or ('start' in path and '/label' in path):
         return 'ui.mainStart'
@@ -171,13 +186,8 @@ def scan_scene(filepath: str, text_rev: dict) -> list:
                 # 先算 key（路径优先，不依赖 text.json 反向映射）
                 suggested = suggest_key(text, node_path)
 
-                # 再查 text.json 是否存在此 key
-                text_key_status = 'exists' if text_rev.get(text) else 'unknown'
-                # 如果 path 规则给的 key 在 text.json 中也存在，标记为 exists
-                for tv, tk in text_rev.items():
-                    if tk == suggested:
-                        text_key_status = 'exists'
-                        break
+                # 由 key 本身判断是否存在（不依赖文本值匹配）
+                text_key_status = 'exists' if key_exists(text_rev.get('_raw'), suggested) else 'missing'
 
                 results.append((node_path, text, suggested, text_key_status))
 

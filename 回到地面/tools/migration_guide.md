@@ -122,7 +122,7 @@
 | textKey | `ui.charLevel` |
 | 操作 | 添加组件→LocalizedLabel→填入ui.charLevel |
 
-### Canvas/MainUI/SoulStoneLabel  🚨 需挂 LocalizedLabel（key 也缺失，请确认）
+### Canvas/MainUI/SoulStoneLabel  📦 需挂 LocalizedLabel（key 已存在）
 
 | 字段 | 值 |
 |------|-----|
@@ -159,8 +159,8 @@
 | 场景 | `assets/scenes/main.scene` |
 | 节点路径 | `Canvas/AreaSelectPanel/PanelRoot/StartBtn/Label` |
 | 当前文本 | `开始冒险` |
-| textKey | `ui.mainStart` |
-| 操作 | 添加组件→LocalizedLabel→填入ui.mainStart |
+| textKey | `ui.areaStart` |
+| 操作 | 添加组件→LocalizedLabel→填入ui.areaStart |
 
 ### Canvas/AreaSelectPanel/PanelRoot/BackBtn/Label  📦 需挂 LocalizedLabel（key 已存在）
 
