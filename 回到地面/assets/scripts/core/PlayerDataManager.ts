@@ -28,6 +28,8 @@ export interface PlayerSaveData {
     totalKills: number;
     /** 总游戏局数 */
     totalRuns: number;
+    /** 各区域通关次数 */
+    zoneClearCounts: Record<string, number>;
     /** 数据版本号 (用于迁移) */
     version: number;
 }
@@ -79,6 +81,7 @@ function createDefaultSave(): PlayerSaveData {
         bestFloor: 0,
         totalKills: 0,
         totalRuns: 0,
+        zoneClearCounts: {},
         version: 1,
     };
 }
@@ -146,8 +149,24 @@ export class PlayerDataManager {
     /** 获取已解锁角色ID列表 */
     getUnlockedCharacterIds(): string[] { return [...this._data.unlockedCharacters]; }
 
-    /** 获取历史最高层 */
-    getBestFloor(): number { return this._data.bestFloor; }
+    /** 获取历史最高层 (可传区域ID) */
+    getBestFloor(zoneId?: string): number {
+        if (zoneId) {
+            return this._data.zoneClearCounts[zoneId] ?? 0;
+        }
+        return this._data.bestFloor;
+    }
+
+    /** 获取某区域通关次数 */
+    getZoneClearCount(zoneId: string): number {
+        return this._data.zoneClearCounts[zoneId] ?? 0;
+    }
+
+    /** 记录区域通关 */
+    recordZoneClear(zoneId: string): void {
+        this._data.zoneClearCounts[zoneId] = (this._data.zoneClearCounts[zoneId] ?? 0) + 1;
+        this._save();
+    }
 
     /** 获取总局数 */
     getTotalRuns(): number { return this._data.totalRuns; }
@@ -184,6 +203,7 @@ export class PlayerDataManager {
             bestFloor: 0,
             totalKills: 0,
             totalRuns: 0,
+            zoneClearCounts: {},
             version: 1,
         };
         (this._data as any).characterName = name;

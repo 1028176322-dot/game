@@ -17,45 +17,66 @@ import { T } from '../../core/TextManager';
 
 const { ccclass, property } = _decorator;
 
+// ── Unlock condition type ──
+
+export type UnlockCondition =
+    | { type: 'none' }
+    | { type: 'clear_zone'; zoneId: string; count: number }
+    | { type: 'reach_floor'; zoneId?: string; floor: number }
+    | { type: 'player_level'; level: number };
+
+// ── Zone metadata (not player-facing) ──
+
 interface ZoneInfo {
     id: string;
-    name: string;
     difficulty: string;
     stars: number;
 }
 
-interface RouteEntry {
-    zones: ZoneInfo[];
-    unlockCondition: string;
-    isUnlocked: () => boolean;
-}
-
 const ZONE_DATA: Record<string, ZoneInfo> = {
-    forest:    { id: 'forest',    name: 'Emerald Forest',    difficulty: 'Easy',    stars: 1 },
-    catacombs: { id: 'catacombs', name: 'Underground Crypt', difficulty: 'Medium',  stars: 3 },
-    volcano:   { id: 'volcano',   name: 'Lava Volcano',      difficulty: 'Hard',    stars: 5 },
-    swamp:     { id: 'swamp',     name: 'Toxic Swamp',       difficulty: 'Medium',  stars: 3 },
-    tundra:    { id: 'tundra',    name: 'Frozen Tundra',     difficulty: 'Hard',    stars: 4 },
-    abyss:     { id: 'abyss',     name: 'Void Abyss',        difficulty: 'Extreme', stars: 5 },
+    forest:    { id: 'forest',    difficulty: 'Easy',    stars: 1 },
+    catacombs: { id: 'catacombs', difficulty: 'Medium',  stars: 3 },
+    volcano:   { id: 'volcano',   difficulty: 'Hard',    stars: 5 },
+    swamp:     { id: 'swamp',     difficulty: 'Medium',  stars: 3 },
+    tundra:    { id: 'tundra',    difficulty: 'Hard',    stars: 4 },
+    abyss:     { id: 'abyss',     difficulty: 'Extreme', stars: 5 },
 };
+
+// ── Route config ──
+
+interface RouteEntry {
+    id: string;
+    zoneIds: string[];
+    unlock: UnlockCondition;
+    unlockTextKey: string;
+    difficultyKey: string;
+}
 
 const ROUTES: RouteEntry[] = [
     {
-        zones: [ZONE_DATA.forest, ZONE_DATA.catacombs, ZONE_DATA.volcano],
-        unlockCondition: '',
-        isUnlocked: () => true,
+        id: 'forest',
+        zoneIds: ['forest', 'catacombs', 'volcano'],
+        unlock: { type: 'none' },
+        unlockTextKey: 'ui.unlockNone',
+        difficultyKey: 'difficulty.easy',
     },
     {
-        zones: [ZONE_DATA.forest, ZONE_DATA.swamp, ZONE_DATA.tundra],
-        unlockCondition: 'Clear Emerald Forest 1 time',
-        isUnlocked: () => (PlayerDataManager.getInstance() as any).getZoneClearCount?.('forest') > 0 ?? false,
+        id: 'swamp',
+        zoneIds: ['forest', 'swamp', 'tundra'],
+        unlock: { type: 'clear_zone', zoneId: 'forest', count: 1 },
+        unlockTextKey: 'ui.unlockClearZone',
+        difficultyKey: 'difficulty.medium',
     },
     {
-        zones: [ZONE_DATA.catacombs, ZONE_DATA.abyss, ZONE_DATA.volcano],
-        unlockCondition: 'Clear Underground Crypt 1 time',
-        isUnlocked: () => (PlayerDataManager.getInstance() as any).getZoneClearCount?.('catacombs') > 0 ?? false,
+        id: 'abyss',
+        zoneIds: ['catacombs', 'abyss', 'volcano'],
+        unlock: { type: 'clear_zone', zoneId: 'catacombs', count: 1 },
+        unlockTextKey: 'ui.unlockClearZone',
+        difficultyKey: 'difficulty.hard',
     },
 ];
+
+// ── Panel ──
 
 @ccclass('AreaSelectPanel')
 export class AreaSelectPanel extends Component implements UIPanel {
@@ -110,7 +131,51 @@ export class AreaSelectPanel extends Component implements UIPanel {
         }
     }
 
-    // ── Internal ──
+    // ── Unlock / Display helpers ──
+
+    private _isRouteUnlocked(route: RouteEntry): boolean {
+        const pdm = PlayerDataManager.getInstance();
+        const c = route.unlock;
+
+        switch (c.type) {
+            case 'none':
+                return true;
+            case 'clear_zone':
+                return pdm.getZoneClearCount(c.zoneId) >= c.count;
+            case 'reach_floor':
+                return pdm.getBestFloor(c.zoneId) >= c.floor;
+            case 'player_level':
+                return pdm.getCharacterLevel() >= c.level;
+            default:
+                return false;
+        }
+    }
+
+    private _getUnlockText(route: RouteEntry): string {
+        const c = route.unlock;
+
+        switch (c.type) {
+            case 'none':
+                return T('ui.unlockNone');
+            case 'clear_zone':
+                return T(route.unlockTextKey, {
+                    zone: T(`zone.${c.zoneId}`),
+                    count: c.count,
+                });
+            case 'reach_floor':
+                return T(route.unlockTextKey, {
+                    floor: c.floor,
+                });
+            case 'player_level':
+                return T(route.unlockTextKey, {
+                    level: c.level,
+                });
+            default:
+                return '';
+        }
+    }
+
+    // ── Render ──
 
     private _refresh(): void {
         const pdm = PlayerDataManager.getInstance();
@@ -123,7 +188,6 @@ export class AreaSelectPanel extends Component implements UIPanel {
             });
         }
 
-        // Default route
         this._selectedRouteIndex = 0;
         this._renderRoute();
         this._renderLocked();
@@ -132,7 +196,7 @@ export class AreaSelectPanel extends Component implements UIPanel {
     private _zoneDisplayName(zoneId: string): string {
         const key = `zone.${zoneId}`;
         if (T(key) !== key) return T(key);
-        return ZONE_DATA[zoneId]?.name ?? zoneId;
+        return zoneId;
     }
 
     private _difficultyDisplay(diff: string): string {
@@ -146,7 +210,10 @@ export class AreaSelectPanel extends Component implements UIPanel {
         if (!route || !this.routeContainer) return;
         this.routeContainer.removeAllChildren();
 
-        route.zones.forEach((zone, i) => {
+        route.zoneIds.forEach((zoneId, i) => {
+            const zone = ZONE_DATA[zoneId];
+            if (!zone) return;
+
             const card = new Node(`zone_${i}`);
             card.setPosition((i - 1) * 180, 0);
             const uiTransform = card.addComponent(UITransform);
@@ -173,7 +240,7 @@ export class AreaSelectPanel extends Component implements UIPanel {
 
             this.routeContainer!.addChild(card);
 
-            if (i < route.zones.length - 1) {
+            if (i < route.zoneIds.length - 1) {
                 const arrow = new Node('arrow');
                 arrow.setPosition(90, 0);
                 const a = arrow.addComponent(Label);
@@ -190,25 +257,27 @@ export class AreaSelectPanel extends Component implements UIPanel {
         this.lockedContainer.removeAllChildren();
 
         ROUTES.forEach((route, i) => {
-            if (i === this._selectedRouteIndex || route.isUnlocked()) return;
+            if (i === this._selectedRouteIndex || this._isRouteUnlocked(route)) return;
             const node = new Node(`locked_${i}`);
             const label = node.addComponent(Label);
-            label.string = `${route.zones.map(z => this._zoneDisplayName(z.id)).join(T('ui.routeArrow'))}    [${T('ui.routeUnlock')}]`;
+            label.string = `${route.zoneIds.map(zId => this._zoneDisplayName(zId)).join(T('ui.routeArrow'))}    [${this._getUnlockText(route)}]`;
             label.fontSize = 14;
             label.color = new Color(0xAA, 0xAA, 0xAA, 0xFF);
             this.lockedContainer!.addChild(node);
         });
     }
 
+    // ── Actions ──
+
     private _onStartRun(): void {
         const pdm = PlayerDataManager.getInstance();
         const route = ROUTES[this._selectedRouteIndex];
-        if (!route || !route.isUnlocked()) return;
+        if (!route || !this._isRouteUnlocked(route)) return;
 
         const config: RunStartConfig = {
             characterId: pdm.getSelectedCharacterId(),
             characterName: pdm.getCharacterName() || 'Adventurer',
-            zoneRoute: route.zones.map(z => z.id),
+            zoneRoute: [...route.zoneIds],
             seed: Date.now(),
             difficulty: 1,
             startedAt: Date.now(),
@@ -217,7 +286,6 @@ export class AreaSelectPanel extends Component implements UIPanel {
 
         console.log('[AreaSelect] starting run:', config);
 
-        // Close panel, then start run
         this.close();
         RunCoordinator.instance.startRun(config);
     }
