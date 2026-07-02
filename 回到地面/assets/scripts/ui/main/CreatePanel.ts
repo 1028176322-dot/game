@@ -9,25 +9,24 @@ import { _decorator, Component, Node, Label, Button, EditBox, Sprite, Color, Vec
 import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { AppFlowController, AppFlowState } from '../../app/AppFlowController';
 import { PlayerDataManager } from '../../core/PlayerDataManager';
+import { T } from '../../core/TextManager';
 
 const { ccclass, property } = _decorator;
 
 interface CharOption {
     id: string;
-    animal: string;
-    className: string;
-    desc: string;
+    animalKey: string;
+    classKey: string;
+    descKey: string;
 }
 
 const CHAR_OPTIONS: CharOption[] = [
-    { id: 'warrior',   animal: 'Bear',   className: 'Warrior',   desc: 'Solid shield, reliable defense' },
-    { id: 'archer',    animal: 'Deer',   className: 'Archer',    desc: 'Swift and agile' },
-    { id: 'assassin',  animal: 'Fox',    className: 'Assassin',  desc: 'Shadow strike, one hit' },
-    { id: 'mage',      animal: 'Rabbit', className: 'Mage',      desc: 'Elemental resonance' },
-    { id: 'berserker', animal: 'Boar',   className: 'Berserker', desc: 'Roar and charge' },
+    { id: 'warrior',   animalKey: 'classAnimal.bear',   classKey: 'class.bearWarrior',   descKey: 'classDesc.bearWarrior' },
+    { id: 'archer',    animalKey: 'classAnimal.deer',   classKey: 'class.deerArcher',    descKey: 'classDesc.deerArcher' },
+    { id: 'assassin',  animalKey: 'classAnimal.fox',    classKey: 'class.foxAssassin',   descKey: 'classDesc.foxAssassin' },
+    { id: 'mage',      animalKey: 'classAnimal.rabbit', classKey: 'class.rabbitMage',    descKey: 'classDesc.rabbitMage' },
+    { id: 'berserker', animalKey: 'classAnimal.boar',   classKey: 'class.boarBerserker', descKey: 'classDesc.boarBerserker' },
 ];
-
-const SENSITIVE_WORDS = ['admin', 'test', 'root', 'fuck', 'shit'];
 
 @ccclass('CreatePanel')
 export class CreatePanel extends Component implements UIPanel {
@@ -108,7 +107,7 @@ export class CreatePanel extends Component implements UIPanel {
             const animalNode = new Node('Animal');
             animalNode.setPosition(0, 20);
             const animalLbl = animalNode.addComponent(Label);
-            animalLbl.string = opt.animal;
+            animalLbl.string = T(opt.animalKey);
             animalLbl.fontSize = 16;
             animalLbl.color = new Color(0x33, 0x33, 0x33, 0xFF);
             card.addChild(animalNode);
@@ -116,7 +115,7 @@ export class CreatePanel extends Component implements UIPanel {
             const classNode = new Node('Class');
             classNode.setPosition(0, -5);
             const classLbl = classNode.addComponent(Label);
-            classLbl.string = opt.className;
+            classLbl.string = T(opt.classKey);
             classLbl.fontSize = 13;
             classLbl.color = new Color(0x88, 0x88, 0x88, 0xFF);
             classLbl.position = new Vec3(0, -5, 0);
@@ -130,15 +129,19 @@ export class CreatePanel extends Component implements UIPanel {
 
     private _selectCharacter(id: string): void {
         if (id !== 'warrior') {
-            this._showError('Only Bear Warrior available on first creation.\nUnlock others in shop.');
+            this._showError(T('ui.createOnlyWarrior'));
             return;
         }
 
         this._selectedId = id;
         const opt = CHAR_OPTIONS.find(c => c.id === id)!;
 
-        if (this.selectedInfo) this.selectedInfo.string = `${opt.animal} ${opt.className}`;
-        if (this.selectedDesc) this.selectedDesc.string = `"${opt.desc}"`;
+        if (this.selectedInfo) {
+            this.selectedInfo.string = `${T(opt.animalKey)} ${T(opt.classKey)}`;
+        }
+        if (this.selectedDesc) {
+            this.selectedDesc.string = T(opt.descKey);
+        }
 
         this._cards.forEach((card, i) => {
             const bg = card.getComponent(Sprite);
@@ -156,9 +159,9 @@ export class CreatePanel extends Component implements UIPanel {
 
     private _onConfirm(): void {
         const name = this.nameInput?.string.trim() ?? '';
-        if (!name) { this._showError('Enter a name for your adventurer'); return; }
-        if (name.length > 6) { this._showError('Name too long (max 6 characters)'); return; }
-        if (this._hasSensitiveWords(name)) { this._showError('Name contains inappropriate words'); return; }
+        if (!name) { this._showError(T('ui.createNameRequired')); return; }
+        if (name.length > 6) { this._showError(T('ui.createNameTooLong')); return; }
+        if (this._hasReservedWords(name)) { this._showError(T('ui.createNameBlocked')); return; }
 
         const pdm = PlayerDataManager.getInstance();
         pdm.createCharacter(name, this._selectedId);
@@ -170,7 +173,6 @@ export class CreatePanel extends Component implements UIPanel {
     }
 
     private _onSkip(): void {
-        // Create default character and proceed
         const pdm = PlayerDataManager.getInstance();
         pdm.createCharacter('Adventurer', 'warrior');
         console.log('[CreatePanel] skipped, default character created');
@@ -186,8 +188,9 @@ export class CreatePanel extends Component implements UIPanel {
         }
     }
 
-    private _hasSensitiveWords(name: string): boolean {
-        return SENSITIVE_WORDS.some(w => name.toLowerCase().includes(w));
+    private _hasReservedWords(name: string): boolean {
+        const reserved = ['admin', 'test', 'root', 'fuck', 'shit'];
+        return reserved.some(w => name.toLowerCase().includes(w));
     }
 
     private _showError(msg: string): void {

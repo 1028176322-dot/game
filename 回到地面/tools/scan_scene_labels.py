@@ -33,6 +33,11 @@ IGNORE_PATTERNS = [
 DYNAMIC_NODES = {
     'Canvas/SplashUI/GameBootstrap/StatusLabel',
     'Canvas/AreaSelectPanel/PanelRoot/PlayerInfo',
+    'Canvas/MainUI/CharNameLabel',
+    'Canvas/MainUI/CharClassLabel',
+    'Canvas/MainUI/LevelLabel',
+    'Canvas/MainUI/SoulStoneLabel',
+    'Canvas/LoginPanel/PanelRoot/StatusLabel',
 }
 
 
@@ -77,6 +82,43 @@ def suggest_key(text: str, node_path: str) -> str:
     path = node_path.lower()
 
     # ===== 优先级 1：节点路径规则 =====
+    # 登录面板
+    if 'loginpanel' in path:
+        if 'title' in path and 'subtitle' not in path:
+            return 'ui.loginTitle'
+        if 'subtitle' in path:
+            return 'ui.loginSubtitle'
+        if 'wechat' in path:
+            return 'ui.loginWechat'
+        if 'guest' in path:
+            return 'ui.loginGuest'
+        if 'agreement' in path:
+            return 'ui.loginAgreement'
+
+    # 创建角色面板
+    if 'createpanel' in path:
+        if 'title' in path:
+            return 'ui.createTitle'
+        if 'placeholder' in path:
+            return 'ui.createNamePlaceholder'
+        if 'confirm' in path:
+            return 'ui.createConfirm'
+        if 'skip' in path:
+            return 'ui.createSkip'
+        if 'cardroot' in path:
+            return 'scene.cardRoot'
+        if 'selectedinfo' in path:
+            return 'scene.createSelectedInfo'
+        if 'selecteddesc' in path:
+            return 'scene.createSelectedDesc'
+        if 'error' in path:
+            return 'scene.createError'
+
+    # 结算面板
+    if 'settlementpanel' in path:
+        if 'double' in path:
+            return 'ui.settlementDouble'
+
     # 特殊区域优先（AreaSelectPanel 的 StartBtn 不是 mainStart）
     if 'areaselectpanel' in path and 'start' in path:
         return 'ui.areaStart'
@@ -134,6 +176,13 @@ def suggest_key(text: str, node_path: str) -> str:
         'Lv': 'ui.charLevel',
         'Soul Stones': 'ui.soulStones',
         'v0.1.0': 'ui.appVersion',
+        '欢迎回来': 'ui.loginTitle',
+        '登录以保存': 'ui.loginSubtitle',
+        '微信登录': 'ui.loginWechat',
+        '游客登录': 'ui.loginGuest',
+        '用户协议': 'ui.loginAgreement',
+        '创建冒险者': 'ui.createTitle',
+        '确认': 'ui.createConfirm',
     }
     for val, key in cn_map.items():
         if text.startswith(val):

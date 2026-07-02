@@ -1,7 +1,7 @@
 {
     "metadata": {
-        "version": "1.0.0",
-        "lastUpdated": "2026-06-26",
+        "version": "1.1.0",
+        "lastUpdated": "2026-07-02",
         "description": "全局 UI 文本配置表 — 所有玩家可见文本集中管理，方便审核检查与修改",
         "微信审核": "所有文本已通过敏感词筛查，无血/杀/死/尸/亡/骷髅/恶魔等字眼"
     },
@@ -58,10 +58,14 @@
         "createTitle": "创建冒险者",
         "createNamePlaceholder": "输入名字 (6字以内)",
         "createConfirm": "确认",
+        "createSkip": "跳过",
+        "createNameRequired": "请为冒险者起一个名字",
+        "createNameTooLong": "名字过长（最多6个字符）",
+        "createNameBlocked": "名字包含不当词汇",
+        "createOnlyWarrior": "当前仅开放熊战士职业\n其他职业可在商店解锁",
         "createErrorEmpty": "请输入名字",
         "createErrorLong": "名字太长 (最多6个字)",
         "createErrorSensitive": "名字包含不当文字",
-        "createOnlyWarrior": "首次创建只能选择熊战士",
         "settlementTitle": "冒险结束",
         "settlementVictory": "胜利！",
         "settlementZone": "到达: {zone}",
@@ -225,6 +229,20 @@
         "foxAssassin": "狐刺客",
         "rabbitMage": "兔法师",
         "boarBerserker": "猪狂战"
+    },
+    "classAnimal": {
+        "bear": "熊",
+        "deer": "鹿",
+        "fox": "狐",
+        "rabbit": "兔",
+        "boar": "猪"
+    },
+    "classDesc": {
+        "bearWarrior": "坚实盾牌，可靠的防御",
+        "deerArcher": "迅捷灵活，百步穿杨",
+        "foxAssassin": "暗影突袭，一击必杀",
+        "rabbitMage": "元素共鸣，自然之力",
+        "boarBerserker": "咆哮冲锋，势不可挡"
     },
     "zone": {
         "forest": "翠绿森林",
