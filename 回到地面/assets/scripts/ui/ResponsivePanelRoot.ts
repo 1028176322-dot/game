@@ -4,17 +4,16 @@
  * 作用：
  *   让 UIPanel 的 PanelRoot 在不同分辨率下自动适配。
  *   DimMask 铺满全屏，PanelFrame 按比例缩放并限制最大/最小值。
+ *   布局后触发 ResponsivePanelContent 刷新内容区尺寸。
  *
  * 用法：
  *   挂到每个 UIPanel 的 PanelRoot 节点上。
  *   拖入 DimMask 和 PanelFrame 引用。
  *   不同面板调整 frameWidthRatio / frameHeightRatio 等参数。
- *
- * Cocos 3.x 兼容：
- *   监听 canvas-resize 事件，响应窗口变化和屏幕旋转。
  */
 
 import { _decorator, Component, Node, UITransform, view, Vec3, clamp } from 'cc';
+import { ResponsivePanelContent } from './ResponsivePanelContent';
 
 const { ccclass, property, menu } = _decorator;
 
@@ -51,23 +50,25 @@ export class ResponsivePanelRoot extends Component {
         view.on('design-resolution-changed', this.applyLayout, this);
     }
 
+    onEnable(): void {
+        this.applyLayout();
+    }
+
     onDestroy(): void {
         view.off('canvas-resize', this.applyLayout, this);
         view.off('design-resolution-changed', this.applyLayout, this);
     }
 
     applyLayout(): void {
-        // PanelRoot = parent (Canvas) 的完整尺寸
-        const parent = this.node.parent;
-        let canvasW = 1280;
-        let canvasH = 720;
+        const visible = view.getVisibleSize();
+        let canvasW = visible.width;
+        let canvasH = visible.height;
 
-        if (parent) {
-            const parentTrans = parent.getComponent(UITransform);
-            if (parentTrans) {
-                canvasW = parentTrans.width;
-                canvasH = parentTrans.height;
-            }
+        const parent = this.node.parent;
+        const parentTrans = parent?.getComponent(UITransform);
+        if (parentTrans && parentTrans.width > 0 && parentTrans.height > 0) {
+            canvasW = parentTrans.width;
+            canvasH = parentTrans.height;
         }
 
         const rootTrans = this.node.getComponent(UITransform);
@@ -94,6 +95,15 @@ export class ResponsivePanelRoot extends Component {
                 frameTrans.setContentSize(w, h);
             }
             this.panelFrame.setPosition(Vec3.ZERO);
+
+            // 触发 ContentRoot 重新布局
+            const content = this.panelFrame.getChildByName('ContentRoot');
+            if (content) {
+                const contentComp = content.getComponent(ResponsivePanelContent);
+                if (contentComp) {
+                    contentComp.applyLayout();
+                }
+            }
         }
     }
 }
