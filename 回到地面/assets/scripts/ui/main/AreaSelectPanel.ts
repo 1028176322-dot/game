@@ -177,7 +177,7 @@ export class AreaSelectPanel extends Component implements UIPanel {
                 const arrow = new Node('arrow');
                 arrow.setPosition(90, 0);
                 const a = arrow.addComponent(Label);
-                a.string = '>>>';
+                a.string = T('ui.routeArrow');
                 a.fontSize = 16;
                 a.color = new Color(0xCC, 0xCC, 0xCC, 0xFF);
                 this.routeContainer!.addChild(arrow);
@@ -193,7 +193,7 @@ export class AreaSelectPanel extends Component implements UIPanel {
             if (i === this._selectedRouteIndex || route.isUnlocked()) return;
             const node = new Node(`locked_${i}`);
             const label = node.addComponent(Label);
-            label.string = `${route.zones.map(z => this._zoneDisplayName(z.id)).join(' >>> ')}    [${route.unlockCondition}]`;
+            label.string = `${route.zones.map(z => this._zoneDisplayName(z.id)).join(T('ui.routeArrow'))}    [${T('ui.routeUnlock')}]`;
             label.fontSize = 14;
             label.color = new Color(0xAA, 0xAA, 0xAA, 0xFF);
             this.lockedContainer!.addChild(node);

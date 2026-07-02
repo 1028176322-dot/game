@@ -12,6 +12,7 @@ import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { RunCoordinator } from '../../run/RunCoordinator';
 import { PlayerDataManager } from '../../core/PlayerDataManager';
 import { AppFlowController, AppFlowState } from '../../app/AppFlowController';
+import { T } from '../../core/TextManager';
 
 const { ccclass, property } = _decorator;
 
@@ -80,32 +81,35 @@ export class SettlementPanel extends Component implements UIPanel {
     private _refresh(): void {
         const result = RunCoordinator.instance.getRunResult();
         if (!result) {
-            // No run data - probably coming from elsewhere
-            if (this.titleLabel) this.titleLabel.string = 'Adventure Complete';
+            if (this.titleLabel) this.titleLabel.string = T('ui.settlementTitle');
             return;
         }
 
         this._soulStones = result.soulStones;
 
         if (this.titleLabel) {
-            this.titleLabel.string = result.isVictory ? 'Victory!' : 'Adventure Complete';
+            this.titleLabel.string = result.isVictory
+                ? T('ui.settlementVictory')
+                : T('ui.settlementTitle');
         }
         if (this.zoneLabel) {
-            this.zoneLabel.string = `Reached: ${result.zoneName}`;
+            this.zoneLabel.string = T('ui.settlementZone', { zone: result.zoneName });
         }
         if (this.floorLabel) {
-            this.floorLabel.string = `Floor: ${result.floorReached}`;
+            this.floorLabel.string = T('ui.settlementFloor', { floor: result.floorReached });
         }
         if (this.killLabel) {
-            this.killLabel.string = `Defeated: ${result.kills}`;
+            this.killLabel.string = T('ui.settlementKill', { count: result.kills });
         }
         if (this.soulStoneLabel) {
-            this.soulStoneLabel.string = `Soul Stones: +${this._soulStones}`;
+            this.soulStoneLabel.string = T('ui.settlementSoulStone', { count: this._soulStones });
         }
         if (this.timeLabel) {
             const mins = Math.floor(result.elapsed / 60);
             const secs = Math.floor(result.elapsed % 60);
-            this.timeLabel.string = `Time: ${mins}:${secs.toString().padStart(2, '0')}`;
+            this.timeLabel.string = T('ui.settlementTime', {
+                time: `${mins}:${secs.toString().padStart(2, '0')}`,
+            });
         }
     }
 
@@ -114,7 +118,7 @@ export class SettlementPanel extends Component implements UIPanel {
         this._soulStones *= 2;
         this._doubled = true;
         if (this.soulStoneLabel) {
-            this.soulStoneLabel.string = `Soul Stones: +${this._soulStones}`;
+            this.soulStoneLabel.string = T('ui.settlementSoulStone', { count: this._soulStones });
         }
         if (this.doubleBtn) {
             this.doubleBtn.interactable = false;
@@ -123,7 +127,6 @@ export class SettlementPanel extends Component implements UIPanel {
     }
 
     private _onBackToHub(): void {
-        // Commit result to permanent storage
         const result = RunCoordinator.instance.getRunResult();
         if (result) {
             const pdm = PlayerDataManager.getInstance();

@@ -1,13 +1,13 @@
 /**
- * AdventureLogPanel - Adventure history and statistics panel
+ * AdventureLogPanel - Adventure records panel
  *
- * UIPanel implementation. Shows player's historical stats,
- * best records, and achievements.
+ * UIPanel implementation. Shows total runs, best floor, total kills, soul stones.
  */
 
 import { _decorator, Component, Node, Label, Button } from 'cc';
 import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { PlayerDataManager } from '../../core/PlayerDataManager';
+import { T } from '../../core/TextManager';
 
 const { ccclass, property } = _decorator;
 
@@ -36,6 +36,8 @@ export class AdventureLogPanel extends Component implements UIPanel {
     @property(Button)
     closeBtn: Button | null = null;
 
+    // ── UIPanel ──
+
     open(_params?: unknown): void {
         if (this.panelRoot) this.panelRoot.active = true;
         this._refresh();
@@ -49,23 +51,23 @@ export class AdventureLogPanel extends Component implements UIPanel {
         this._refresh();
     }
 
+    // ── Lifecycle ──
+
     onLoad(): void {
         if (this.closeBtn) {
             this.closeBtn.node.on(Button.EventType.CLICK, () => this.close(), this);
         }
     }
 
+    // ── Internal ──
+
     private _refresh(): void {
         const pdm = PlayerDataManager.getInstance();
 
-        if (this.titleLabel) this.titleLabel.string = 'Adventure Log';
-        if (this.totalRunsLabel) this.totalRunsLabel.string = `Total Runs: ${pdm.getTotalRuns()}`;
-        if (this.bestFloorLabel) this.bestFloorLabel.string = `Best Floor: ${pdm.getBestFloor()}`;
-        if (this.totalKillsLabel) this.totalKillsLabel.string = `Total Defeated: ${pdm.totalKills}`;
-        if (this.soulStonesLabel) this.soulStonesLabel.string = `Soul Stones: ${pdm.getSoulStones()}`;
-    }
-
-    onDestroy(): void {
-        // cleanup if needed
+        if (this.titleLabel) this.titleLabel.string = T('ui.logTitle');
+        if (this.totalRunsLabel) this.totalRunsLabel.string = T('ui.logTotalRuns', { count: pdm.getTotalRuns() });
+        if (this.bestFloorLabel) this.bestFloorLabel.string = T('ui.logBestFloor', { floor: pdm.getBestFloor() });
+        if (this.totalKillsLabel) this.totalKillsLabel.string = T('ui.logTotalKills', { count: pdm.totalKills });
+        if (this.soulStonesLabel) this.soulStonesLabel.string = T('ui.logSoulStones', { count: pdm.getSoulStones() });
     }
 }

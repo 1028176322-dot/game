@@ -5,7 +5,7 @@
  * Player chooses a name and selects a character class.
  */
 
-import { _decorator, Component, Node, Label, Button, EditBox, Sprite, Color, Vec3, UITransform } from 'cc';
+import { _decorator, Component, Node, Label, Button, EditBox, Sprite, Color, UITransform } from 'cc';
 import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { AppFlowController, AppFlowState } from '../../app/AppFlowController';
 import { PlayerDataManager } from '../../core/PlayerDataManager';
@@ -118,7 +118,7 @@ export class CreatePanel extends Component implements UIPanel {
             classLbl.string = T(opt.classKey);
             classLbl.fontSize = 13;
             classLbl.color = new Color(0x88, 0x88, 0x88, 0xFF);
-            classLbl.position = new Vec3(0, -5, 0);
+            card.addChild(classNode);
 
             card.on(Node.EventType.TOUCH_END, () => this._selectCharacter(opt.id));
 
@@ -174,7 +174,7 @@ export class CreatePanel extends Component implements UIPanel {
 
     private _onSkip(): void {
         const pdm = PlayerDataManager.getInstance();
-        pdm.createCharacter('Adventurer', 'warrior');
+        pdm.createCharacter(T('ui.defaultName'), 'warrior');
         console.log('[CreatePanel] skipped, default character created');
 
         this.close();

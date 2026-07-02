@@ -8,21 +8,22 @@
 import { _decorator, Component, Node, Label, Button, Sprite, Color, Vec3 } from 'cc';
 import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { PlayerDataManager } from '../../core/PlayerDataManager';
+import { T } from '../../core/TextManager';
 
 const { ccclass, property } = _decorator;
 
 interface CharSlot {
     id: string;
-    label: string;
+    classKey: string;
     unlockCost: number;
 }
 
 const CHAR_SLOTS: CharSlot[] = [
-    { id: 'warrior',   label: 'Bear Warrior',   unlockCost: 500 },
-    { id: 'archer',    label: 'Deer Archer',    unlockCost: 500 },
-    { id: 'assassin',  label: 'Fox Assassin',   unlockCost: 800 },
-    { id: 'mage',      label: 'Rabbit Mage',    unlockCost: 1000 },
-    { id: 'berserker', label: 'Boar Berserker', unlockCost: 1200 },
+    { id: 'warrior',   classKey: 'class.bearWarrior',   unlockCost: 500 },
+    { id: 'archer',    classKey: 'class.deerArcher',    unlockCost: 500 },
+    { id: 'assassin',  classKey: 'class.foxAssassin',   unlockCost: 800 },
+    { id: 'mage',      classKey: 'class.rabbitMage',    unlockCost: 1000 },
+    { id: 'berserker', classKey: 'class.boarBerserker', unlockCost: 1200 },
 ];
 
 @ccclass('CharacterPanel')
@@ -83,20 +84,25 @@ export class CharacterPanel extends Component implements UIPanel {
 
         // Soul stones
         if (this.soulStoneLabel) {
-            this.soulStoneLabel.string = `Soul Stones: ${pdm.getSoulStones()}`;
+            this.soulStoneLabel.string = T('ui.charSoulStones', { count: pdm.getSoulStones() });
         }
 
         // Current character card
         const selectedId = pdm.getSelectedCharacterId();
         const slot = CHAR_SLOTS.find(s => s.id === selectedId);
+        const className = slot ? T(slot.classKey) : T('ui.unknown');
+
         if (this.currentName) {
-            this.currentName.string = slot?.label ?? 'Unknown';
+            this.currentName.string = className;
         }
         if (this.currentInfo) {
-            this.currentInfo.string = `${pdm.getCharacterName() || 'Adventurer'} | Best: Floor ${pdm.getBestFloor()}`;
+            this.currentInfo.string = T('ui.charInfo', {
+                name: pdm.getCharacterName() || T('ui.defaultName'),
+                floor: pdm.getBestFloor(),
+            });
         }
         if (this.currentStats) {
-            this.currentStats.string = `Total runs: ${pdm.getTotalRuns()}`;
+            this.currentStats.string = T('ui.charStats', { count: pdm.getTotalRuns() });
         }
 
         // Other character slots
@@ -115,28 +121,26 @@ export class CharacterPanel extends Component implements UIPanel {
             const isUnlocked = unlocked.includes(slot.id);
             const isDefault = slot.id === 'warrior';
             const canAfford = pdm.getSoulStones() >= slot.unlockCost;
+            const className = T(slot.classKey);
 
             const row = new Node(slot.id);
             row.setPosition(0, 0);
 
             if (isUnlocked) {
-                // Already unlocked: show [Select] button
-                this._addRowLabel(row, slot.label + ' (Unlocked)', -150, 0);
-                this._addRowButton(row, 'Select', 160, 0, () => {
+                this._addRowLabel(row, T('ui.charUnlocked', { class: className }), -150, 0);
+                this._addRowButton(row, T('ui.charSelect'), 160, 0, () => {
                     pdm.selectCharacter(slot.id);
                     this._refresh();
                 });
             } else if (isDefault) {
-                // Default character: always unlocked
-                this._addRowLabel(row, slot.label + ' (Default)', -150, 0);
-                this._addRowButton(row, 'Select', 160, 0, () => {
+                this._addRowLabel(row, T('ui.charDefault', { class: className }), -150, 0);
+                this._addRowButton(row, T('ui.charSelect'), 160, 0, () => {
                     pdm.selectCharacter(slot.id);
                     this._refresh();
                 });
             } else {
-                // Locked: show price and [Unlock] button
-                this._addRowLabel(row, `${slot.label} [Cost: ${slot.unlockCost}]`, -150, 0);
-                this._addRowButton(row, 'Unlock', 160, 0, () => {
+                this._addRowLabel(row, T('ui.charLocked', { class: className, cost: slot.unlockCost }), -150, 0);
+                this._addRowButton(row, T('ui.charUnlock'), 160, 0, () => {
                     if (canAfford) {
                         pdm.unlockCharacter(slot.id);
                         this._refresh();

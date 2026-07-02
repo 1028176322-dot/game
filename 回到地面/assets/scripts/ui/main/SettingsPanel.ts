@@ -1,14 +1,13 @@
 /**
- * SettingsPanel - Settings and account management panel
+ * SettingsPanel - Settings panel
  *
- * UIPanel implementation. Allows toggling audio, viewing version info,
- * and account management.
+ * UIPanel implementation. Shows account info, version, reset button.
  */
 
 import { _decorator, Component, Node, Label, Button } from 'cc';
 import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
-import { StorageService } from '../../platform/StorageService';
 import { PlatformService } from '../../platform/PlatformService';
+import { T } from '../../core/TextManager';
 
 const { ccclass, property } = _decorator;
 
@@ -31,6 +30,8 @@ export class SettingsPanel extends Component implements UIPanel {
     @property(Button)
     closeBtn: Button | null = null;
 
+    // ── UIPanel ──
+
     open(_params?: unknown): void {
         if (this.panelRoot) this.panelRoot.active = true;
         this._refresh();
@@ -44,35 +45,35 @@ export class SettingsPanel extends Component implements UIPanel {
         this._refresh();
     }
 
+    // ── Lifecycle ──
+
     onLoad(): void {
         if (this.closeBtn) {
             this.closeBtn.node.on(Button.EventType.CLICK, () => this.close(), this);
         }
         if (this.resetBtn) {
-            this.resetBtn.node.on(Button.EventType.CLICK, this._onResetData, this);
+            this.resetBtn.node.on(Button.EventType.CLICK, this._onReset, this);
         }
     }
+
+    // ── Internal ──
 
     private _refresh(): void {
         if (this.versionLabel) {
-            this.versionLabel.string = 'Version 0.1.0';
+            this.versionLabel.string = T('ui.settingsVersion', { ver: '0.1.0' });
         }
+
         if (this.accountLabel) {
-            const isGuest = StorageService.instance.get('is_guest', 'false') === 'true';
-            const openid = StorageService.instance.get('wx_openid', 'none');
-            this.accountLabel.string = `Account: ${isGuest ? 'Guest' : 'WeChat'} (${openid.slice(0, 8)}...)`;
+            const platform = PlatformService.instance;
+            const openid = platform.getOpenId() ?? '';
+            const isGuest = platform.isGuest();
+            const type = isGuest ? T('ui.settingsGuest') : T('ui.settingsWeChat');
+            this.accountLabel.string = T('ui.settingsAccount', { type, id: openid.slice(0, 8) + '...' });
         }
     }
 
-    private _onResetData(): void {
-        // TODO: confirm dialog
-        const { PlayerDataManager } = require('../../core/PlayerDataManager');
-        PlayerDataManager.getInstance().resetAll();
-        console.log('[Settings] data reset');
-        this.close();
-    }
-
-    onDestroy(): void {
-        // cleanup if needed
+    private _onReset(): void {
+        // TODO: confirm dialog before reset
+        console.log('[SettingsPanel] reset requested');
     }
 }
