@@ -39,6 +39,8 @@
         "emptySlot": "[{slot}]",
         "charName": "{name}",
         "charClass": "{class}",
+        "defaultName": "冒险者",
+        "defaultClass": "熊战士",
         "charLevel": "Lv{level}",
         "soulStones": "魂石: {count}",
         "appVersion": "v0.1.0",

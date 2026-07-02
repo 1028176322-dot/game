@@ -90,7 +90,8 @@ export class MainHubUI extends Component {
         const pdm = PlayerDataManager.getInstance();
 
         if (this.charNameLabel) {
-            this.charNameLabel.string = pdm.getCharacterName() || 'Adventurer';
+            this.charNameLabel.string = pdm.getCharacterName()
+                || T('ui.defaultName');
         }
         if (this.charClassLabel) {
             const type = pdm.getSelectedCharacterId();
@@ -99,7 +100,7 @@ export class MainHubUI extends Component {
                 assassin: T('class.foxAssassin'), mage: T('class.rabbitMage'),
                 berserker: T('class.boarBerserker'),
             };
-            this.charClassLabel.string = names[type] ?? 'Adventurer';
+            this.charClassLabel.string = names[type] ?? T('ui.defaultClass');
         }
         if (this.levelLabel) {
             this.levelLabel.string = T('ui.charLevel', { level: pdm.getCharacterLevel() });
