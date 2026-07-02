@@ -13,6 +13,7 @@ import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { RunCoordinator } from '../../run/RunCoordinator';
 import { RunStartConfig, createDefaultRunConfig } from '../../run/RunStartConfig';
 import { PlayerDataManager } from '../../core/PlayerDataManager';
+import { T } from '../../core/TextManager';
 
 const { ccclass, property } = _decorator;
 
@@ -115,13 +116,29 @@ export class AreaSelectPanel extends Component implements UIPanel {
         const pdm = PlayerDataManager.getInstance();
         if (this.playerInfo) {
             const type = pdm.getSelectedCharacterId();
-            this.playerInfo.string = `Character: ${type}  |  Lv${pdm.getCharacterLevel()}  Stones: ${pdm.getSoulStones()}`;
+            this.playerInfo.string = T('ui.areaPlayerInfo', {
+                character: type,
+                level: pdm.getCharacterLevel(),
+                stones: pdm.getSoulStones(),
+            });
         }
 
         // Default route
         this._selectedRouteIndex = 0;
         this._renderRoute();
         this._renderLocked();
+    }
+
+    private _zoneDisplayName(zoneId: string): string {
+        const key = `zone.${zoneId}`;
+        if (T(key) !== key) return T(key);
+        return ZONE_DATA[zoneId]?.name ?? zoneId;
+    }
+
+    private _difficultyDisplay(diff: string): string {
+        const key = `difficulty.${diff.toLowerCase()}`;
+        if (T(key) !== key) return T(key);
+        return diff;
     }
 
     private _renderRoute(): void {
@@ -141,7 +158,7 @@ export class AreaSelectPanel extends Component implements UIPanel {
             const nameNode = new Node('Name');
             nameNode.setPosition(0, 15);
             const nameLabel = nameNode.addComponent(Label);
-            nameLabel.string = zone.name;
+            nameLabel.string = this._zoneDisplayName(zone.id);
             nameLabel.fontSize = 16;
             nameLabel.color = new Color(0x33, 0x33, 0x33, 0xFF);
             card.addChild(nameNode);
@@ -149,7 +166,7 @@ export class AreaSelectPanel extends Component implements UIPanel {
             const diffNode = new Node('Difficulty');
             diffNode.setPosition(0, -10);
             const diffLabel = diffNode.addComponent(Label);
-            diffLabel.string = zone.difficulty;
+            diffLabel.string = this._difficultyDisplay(zone.difficulty);
             diffLabel.fontSize = 13;
             diffLabel.color = new Color(0x88, 0x88, 0x88, 0xFF);
             card.addChild(diffNode);
@@ -176,7 +193,7 @@ export class AreaSelectPanel extends Component implements UIPanel {
             if (i === this._selectedRouteIndex || route.isUnlocked()) return;
             const node = new Node(`locked_${i}`);
             const label = node.addComponent(Label);
-            label.string = `${route.zones.map(z => z.name).join(' >>> ')}    [${route.unlockCondition}]`;
+            label.string = `${route.zones.map(z => this._zoneDisplayName(z.id)).join(' >>> ')}    [${route.unlockCondition}]`;
             label.fontSize = 14;
             label.color = new Color(0xAA, 0xAA, 0xAA, 0xFF);
             this.lockedContainer!.addChild(node);

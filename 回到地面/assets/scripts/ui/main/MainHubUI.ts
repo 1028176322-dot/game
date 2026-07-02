@@ -11,6 +11,7 @@ import { PlayerDataManager } from '../../core/PlayerDataManager';
 import { WXAdapter } from '../../utils/WXAdapter';
 import { AppFlowController, AppFlowState } from '../../app/AppFlowController';
 import { eventBus } from '../../core/EventBus';
+import { T } from '../../core/TextManager';
 
 const { ccclass, property } = _decorator;
 
@@ -94,20 +95,20 @@ export class MainHubUI extends Component {
         if (this.charClassLabel) {
             const type = pdm.getSelectedCharacterId();
             const names: Record<string, string> = {
-                warrior: 'Bear Warrior', archer: 'Deer Archer',
-                assassin: 'Fox Assassin', mage: 'Rabbit Mage',
-                berserker: 'Boar Berserker',
+                warrior: T('class.bearWarrior'), archer: T('class.deerArcher'),
+                assassin: T('class.foxAssassin'), mage: T('class.rabbitMage'),
+                berserker: T('class.boarBerserker'),
             };
             this.charClassLabel.string = names[type] ?? 'Adventurer';
         }
         if (this.levelLabel) {
-            this.levelLabel.string = `Lv${pdm.getCharacterLevel()}`;
+            this.levelLabel.string = T('ui.charLevel', { level: pdm.getCharacterLevel() });
         }
         if (this.soulStoneLabel) {
-            this.soulStoneLabel.string = `Soul Stones: ${pdm.getSoulStones()}`;
+            this.soulStoneLabel.string = T('ui.soulStones', { count: pdm.getSoulStones() });
         }
         if (this.versionLabel) {
-            this.versionLabel.string = 'v0.1.0';
+            this.versionLabel.string = T('ui.appVersion');
         }
     }
 
