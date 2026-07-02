@@ -48,10 +48,12 @@ export class ResponsivePanelRoot extends Component {
     onLoad(): void {
         this.applyLayout();
         view.on('canvas-resize', this.applyLayout, this);
+        view.on('design-resolution-changed', this.applyLayout, this);
     }
 
     onDestroy(): void {
         view.off('canvas-resize', this.applyLayout, this);
+        view.off('design-resolution-changed', this.applyLayout, this);
     }
 
     applyLayout(): void {

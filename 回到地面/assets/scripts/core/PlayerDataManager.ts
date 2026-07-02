@@ -30,6 +30,8 @@ export interface PlayerSaveData {
     totalRuns: number;
     /** 各区域通关次数 */
     zoneClearCounts: Record<string, number>;
+    /** 各区域最高到达层数 */
+    zoneBestFloors: Record<string, number>;
     /** 数据版本号 (用于迁移) */
     version: number;
 }
@@ -82,6 +84,7 @@ function createDefaultSave(): PlayerSaveData {
         totalKills: 0,
         totalRuns: 0,
         zoneClearCounts: {},
+        zoneBestFloors: {},
         version: 1,
     };
 }
@@ -149,12 +152,20 @@ export class PlayerDataManager {
     /** 获取已解锁角色ID列表 */
     getUnlockedCharacterIds(): string[] { return [...this._data.unlockedCharacters]; }
 
-    /** 获取历史最高层 (可传区域ID) */
-    getBestFloor(zoneId?: string): number {
-        if (zoneId) {
-            return this._data.zoneClearCounts[zoneId] ?? 0;
+    /** 获取历史最高层 (全局) */
+    getBestFloor(): number { return this._data.bestFloor; }
+
+    /** 获取某区域最高到达层数 */
+    getZoneBestFloor(zoneId: string): number {
+        return this._data.zoneBestFloors[zoneId] ?? 0;
+    }
+
+    /** 记录某区域最高层数 */
+    recordZoneBestFloor(zoneId: string, floor: number): void {
+        if (floor > (this._data.zoneBestFloors[zoneId] ?? 0)) {
+            this._data.zoneBestFloors[zoneId] = floor;
+            this._save();
         }
-        return this._data.bestFloor;
     }
 
     /** 获取某区域通关次数 */
@@ -204,6 +215,7 @@ export class PlayerDataManager {
             totalKills: 0,
             totalRuns: 0,
             zoneClearCounts: {},
+            zoneBestFloors: {},
             version: 1,
         };
         (this._data as any).characterName = name;

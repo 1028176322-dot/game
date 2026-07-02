@@ -276,7 +276,7 @@ export class AreaSelectPanel extends Component implements UIPanel {
 
         const config: RunStartConfig = {
             characterId: pdm.getSelectedCharacterId(),
-            characterName: pdm.getCharacterName() || 'Adventurer',
+            characterName: pdm.getCharacterName() || T('ui.defaultCharacterName'),
             zoneRoute: [...route.zoneIds],
             seed: Date.now(),
             difficulty: 1,

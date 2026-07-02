@@ -44,6 +44,7 @@
         "charName": "{name}",
         "charClass": "{class}",
         "defaultName": "冒险者",
+        "defaultCharacterName": "冒险者",
         "defaultClass": "熊战士",
         "charLevel": "Lv{level}",
         "soulStones": "魂石: {count}",
