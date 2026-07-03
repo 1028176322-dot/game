@@ -1,8 +1,11 @@
 /**
  * CreatePanel - First-time character creation panel
  *
- * UIPanel implementation. Opened by AppFlowController when PROFILE_CHECK detects first-time player.
- * Player chooses a name and selects a character class.
+ * Two-phase flow:
+ *   1. SELECT: player picks a character class from cards
+ *   2. NAMING: player enters a name, then confirms to create character
+ *
+ * Skip button always creates a default-named character immediately.
  */
 
 import { _decorator, Component, Node, Label, Button, EditBox, Sprite, Color, UITransform } from 'cc';
@@ -61,13 +64,18 @@ export class CreatePanel extends Component implements UIPanel {
 
     private _selectedId = 'warrior';
     private _cards: Node[] = [];
+    private _isNaming = false;
 
     // ── UIPanel ──
 
     open(_params?: unknown): void {
         if (this.panelRoot) this.panelRoot.active = true;
+        this._isNaming = false;
+        this._clearError();
+        this._applyPhase();
         this._buildCards();
         this._selectCharacter('warrior');
+        this.scheduleOnce(() => this._reLayout(), 0);
     }
 
     close(): void {
@@ -88,6 +96,25 @@ export class CreatePanel extends Component implements UIPanel {
         }
     }
 
+    // ── Phase Management ──
+
+    private _applyPhase(): void {
+        if (this.cardRoot) this.cardRoot.active = !this._isNaming;
+        if (this.selectedInfo) this.selectedInfo.node.active = !this._isNaming;
+        if (this.selectedDesc) this.selectedDesc.node.active = !this._isNaming;
+        if (this.skipBtn) this.skipBtn.node.active = !this._isNaming;
+        if (this.nameInput) this.nameInput.node.active = this._isNaming;
+        if (this.titleLabel) {
+            this.titleLabel.string = this._isNaming ? T('ui.createNamePrompt') : T('ui.createTitle');
+        }
+        if (this.confirmBtn) {
+            const btnLabel = this.confirmBtn.getComponentInChildren(Label);
+            if (btnLabel) {
+                btnLabel.string = this._isNaming ? T('ui.createConfirmName') : T('ui.createConfirm');
+            }
+        }
+    }
+
     // ── Cards ──
 
     private _buildCards(): void {
@@ -95,9 +122,12 @@ export class CreatePanel extends Component implements UIPanel {
         this.cardRoot.removeAllChildren();
         this._cards = [];
 
+        const rootWidth = this.cardRoot.getComponent(UITransform)?.width ?? 620;
+        const gap = Math.min(120, rootWidth / CHAR_OPTIONS.length);
+
         CHAR_OPTIONS.forEach((opt, i) => {
             const card = new Node(opt.id);
-            card.setPosition((i - 2) * 110, 0);
+            card.setPosition((i - (CHAR_OPTIONS.length - 1) / 2) * gap, 0);
             const uiTransform = card.addComponent(UITransform);
             uiTransform.setContentSize(96, 112);
 
@@ -125,6 +155,21 @@ export class CreatePanel extends Component implements UIPanel {
             this.cardRoot.addChild(card);
             this._cards.push(card);
         });
+    }
+
+    /** Re-trigger layout after dynamic content is built */
+    private _reLayout(): void {
+        let node: Node | null = this.panelRoot;
+        if (!node) return;
+        node = node.getChildByName('PanelFrame');
+        if (!node) return;
+        node = node.getChildByName('ContentRoot');
+        if (!node) return;
+        for (const comp of node.components) {
+            if (typeof (comp as any).applyLayout === 'function') {
+                (comp as any).applyLayout();
+            }
+        }
     }
 
     private _selectCharacter(id: string): void {
@@ -158,6 +203,19 @@ export class CreatePanel extends Component implements UIPanel {
     // ── Confirm ──
 
     private _onConfirm(): void {
+        // Phase 1 → 2: enter naming
+        if (!this._isNaming) {
+            this._isNaming = true;
+            this._clearError();
+            this._applyPhase();
+            if (this.nameInput) {
+                this.nameInput.node.active = true;
+            }
+            this._reLayout();
+            return;
+        }
+
+        // Phase 2: validate name and create character
         const name = this.nameInput?.string.trim() ?? '';
         if (!name) { this._showError(T('ui.createNameRequired')); return; }
         if (name.length > 6) { this._showError(T('ui.createNameTooLong')); return; }

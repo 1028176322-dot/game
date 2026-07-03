@@ -52,11 +52,14 @@ export class ResponsivePanelRoot extends Component {
 
     onEnable(): void {
         this.applyLayout();
+        // Delayed re-apply in case view size is not ready during the first frame
+        this.scheduleOnce(() => this.applyLayout(), 0);
     }
 
     onDestroy(): void {
         view.off('canvas-resize', this.applyLayout, this);
         view.off('design-resolution-changed', this.applyLayout, this);
+        this.unscheduleAllCallbacks();
     }
 
     applyLayout(): void {
@@ -66,9 +69,15 @@ export class ResponsivePanelRoot extends Component {
 
         const parent = this.node.parent;
         const parentTrans = parent?.getComponent(UITransform);
-        if (parentTrans && parentTrans.width > 0 && parentTrans.height > 0) {
+        if (parentTrans && parentTrans.width > 100 && parentTrans.height > 100) {
             canvasW = parentTrans.width;
             canvasH = parentTrans.height;
+        }
+
+        // Fallback: if view is not ready, use design resolution baseline
+        if (canvasW < 100 || canvasH < 100) {
+            canvasW = 1280;
+            canvasH = 720;
         }
 
         const rootTrans = this.node.getComponent(UITransform);

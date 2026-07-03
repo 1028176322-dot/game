@@ -45,5 +45,14 @@ export class ResponsivePanelContent extends Component {
 
         contentTrans.setContentSize(width, height);
         this.node.setPosition(Vec3.ZERO);
+
+        // Trigger child layout components on the same node
+        const components = this.node.components;
+        for (const comp of components) {
+            if (comp === this) continue;
+            if (typeof (comp as any).applyLayout === 'function') {
+                (comp as any).applyLayout();
+            }
+        }
     }
 }

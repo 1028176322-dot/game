@@ -6,7 +6,7 @@
 
 import { _decorator, Component, Node, Label, Button } from 'cc';
 import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
-import { PlatformService } from '../../platform/PlatformService';
+import { StorageService } from '../../platform/StorageService';
 import { T } from '../../core/TextManager';
 
 const { ccclass, property } = _decorator;
@@ -64,9 +64,9 @@ export class SettingsPanel extends Component implements UIPanel {
         }
 
         if (this.accountLabel) {
-            const platform = PlatformService.instance;
-            const openid = platform.getOpenId() ?? '';
-            const isGuest = platform.isGuest();
+            const storage = StorageService.instance;
+            const openid = storage.get('wx_openid', '');
+            const isGuest = storage.get('is_guest', 'false') === 'true';
             const type = isGuest ? T('ui.settingsGuest') : T('ui.settingsWeChat');
             this.accountLabel.string = T('ui.settingsAccount', { type, id: openid.slice(0, 8) + '...' });
         }

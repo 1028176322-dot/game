@@ -11,6 +11,9 @@
 - **ART_STYLE - 2026-06-30**: The art style is cartoon animal fantasy, not pixel art and not dark/gory style. Prompts and generated assets must avoid text, skulls, blood, organs, horror, and review-risk imagery.
 - **RUNTIME_ASSEMBLY - 2026-06-30**: Assets must be wired through `AssetBundleService` and `RenderAssetService`. Do not manually bind SpriteFrames in the Cocos editor as the primary production path.
 - **ARCH_FOUNDATION - 2026-07-01**: P0 architecture foundation is now live: 3-scene principle, AppFlowController state machine, RunCoordinator for dungeon entry, UiRouter v2 with UIPanel lifecycle, RuntimeLayerService for 5-layer rendering, SpriteAnimationService for config-driven animation. All `director.loadScene()` calls restricted to SceneFlowService only. Design docs updated to v1.2 with P0 Architecture Rules. Full details in `docs/游戏流程总览.md`.
+- **TEXT_MIGRATION - 2026-07-02**: All player-visible text centralized in `assets/resources/config/text.json`. All 7 panels + splash + AreaSelectPanel migrated to `T()` calls. LocalizedLabel component for editor-fixed labels. `tools/scan_scene_labels.py` handles per-panel key suggestion. See `docs/场景编辑器搭建手册.md` 文本配置化规则 section.
+- **RESPONSIVE_LAYOUT - 2026-07-02**: All PanelRoots use `ResponsivePanelRoot` component instead of fixed 1280x720. DimMask (semi-transparent) + PanelFrame (panel base) with dynamic ratio/min-max sizing. Panel size parameters in docs table. Never hardcode UITransform sizes.
+- **ROUTE_UNLOCK - 2026-07-02**: AreaSelectPanel routes use structured `UnlockCondition` type (none/clear_zone/reach_floor/player_level) instead of hardcoded English unlock strings. Display text from text.json keys (unlockNone/unlockClearZone/unlockReachFloor/unlockPlayerLevel). PlayerDataManager has `zoneClearCounts` tracking.
 
 ## Memory Write Workflow
 
@@ -32,8 +35,9 @@ Patch workflow:
 ## Startup Reading Order
 
 1. Read this file.
-2. Read task-relevant files under `topics/`.
-3. If saving memory, read `README.md` and follow the patch workflow.
+2. Read `daily/2026-07-02.md` for today's change history.
+3. Read task-relevant files under `topics/`.
+4. If saving memory, read `README.md` and follow the patch workflow.
 
 ## Topic Index
 

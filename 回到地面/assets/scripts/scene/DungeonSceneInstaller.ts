@@ -20,6 +20,8 @@ import { InventoryUI } from '../ui/InventoryUI';
 import { SkillUI } from '../ui/SkillUI';
 import { UpgradeUI } from '../ui/UpgradeUI';
 import { VirtualJoystick } from '../ui/VirtualJoystick';
+import { ResponsiveUIRoot } from '../ui/ResponsiveUIRoot';
+import { DungeonHudLayout } from '../ui/layout/DungeonHudLayout';
 import { SceneNodeFactory as F } from './SceneNodeFactory';
 import { RuntimeLayerService, LayerType } from '../render/RuntimeLayerService';
 
@@ -91,7 +93,7 @@ export class DungeonSceneInstaller {
 
         const systems = F.ensureChild(canvas, 'Systems');
         const uiRoot = F.ensureChild(canvas, 'UIRoot');
-        F.ensureTransform(uiRoot, 1280, 720);
+        F.ensureComponent<ResponsiveUIRoot>(uiRoot, ResponsiveUIRoot);
         uiRoot.layer = Layers.Enum.UI_2D;
 
         // Initialize RuntimeLayerService for standardized 5-layer rendering
@@ -167,6 +169,7 @@ export class DungeonSceneInstaller {
             ?? this._ensureDungeonMapUI(uiRoot);
         const skillUI = F.findComponentInChildren<SkillUI>(sceneRoot, SkillUI)
             ?? this._ensureSkillUI(uiRoot);
+
         const upgradeUI = overrides.upgradeUI
             ?? F.findComponentInChildren<UpgradeUI>(sceneRoot, UpgradeUI)
             ?? F.ensureComponent<UpgradeUI>(F.ensureChild(uiRoot, 'UpgradeUI'), UpgradeUI);
@@ -179,6 +182,27 @@ export class DungeonSceneInstaller {
         const inventoryUI = overrides.inventoryUI
             ?? F.findComponentInChildren<InventoryUI>(sceneRoot, InventoryUI)
             ?? F.ensureComponent<InventoryUI>(F.ensureChild(uiRoot, 'InventoryUI'), InventoryUI);
+
+        // Reparent all pre-placed UI nodes to UIRoot for consistent layout management
+        this._reparentToUIRoot(
+            uiRoot,
+            joystick?.node,
+            battleHUD?.node,
+            dungeonMapUI?.node,
+            skillUI?.node,
+            upgradeUI?.node,
+            deathUI?.node,
+            equipmentUI?.node,
+            inventoryUI?.node
+        );
+
+        // Bind DungeonHudLayout to auto-position HUD elements
+        const dungeonHUD = F.ensureComponent<DungeonHudLayout>(uiRoot, DungeonHudLayout);
+        dungeonHUD.battleHUD = battleHUD.node;
+        dungeonHUD.joystick = joystick.node;
+        dungeonHUD.skillUI = skillUI.node;
+        dungeonHUD.dungeonMapUI = dungeonMapUI.node;
+        dungeonHUD.applyLayout();
 
         return {
             canvas,
@@ -276,7 +300,6 @@ export class DungeonSceneInstaller {
 
     private _ensureJoystick(parent: Node): VirtualJoystick {
         const node = this._ensureChild(parent, 'VirtualJoystick');
-        node.setPosition(-470, -250, 0);
         node.layer = Layers.Enum.UI_2D;
         F.ensureTransform(node, 160, 160);
         const joystick = F.ensureComponent<VirtualJoystick>(node, VirtualJoystick);
@@ -296,7 +319,6 @@ export class DungeonSceneInstaller {
 
     private _ensureBattleHUD(parent: Node): BattleHUD {
         const node = this._ensureChild(parent, 'BattleHUD');
-        node.setPosition(-560, 315, 0);
         node.layer = Layers.Enum.UI_2D;
         const hud = F.ensureComponent<BattleHUD>(node, BattleHUD);
         hud.hpLabel = this._ensureLabel(F.ensureChild(node, 'HPLabel'), 'HP');
@@ -312,7 +334,6 @@ export class DungeonSceneInstaller {
 
     private _ensureDungeonMapUI(parent: Node): DungeonMapUI {
         const node = this._ensureChild(parent, 'DungeonMapUI');
-        node.setPosition(320, 160, 0);
         node.layer = Layers.Enum.UI_2D;
         const map = F.ensureComponent<DungeonMapUI>(node, DungeonMapUI);
         map.mapContainer = F.ensureChild(node, 'MapContainer');
@@ -321,9 +342,16 @@ export class DungeonSceneInstaller {
 
     private _ensureSkillUI(parent: Node): SkillUI {
         const node = this._ensureChild(parent, 'SkillUI');
-        node.setPosition(390, -265, 0);
         node.layer = Layers.Enum.UI_2D;
         return F.ensureComponent<SkillUI>(node, SkillUI);
+    }
+
+    private _reparentToUIRoot(uiRoot: Node, ...nodes: (Node | undefined)[]): void {
+        for (const node of nodes) {
+            if (!node || node.parent === uiRoot) continue;
+            node.removeFromParent();
+            uiRoot.addChild(node);
+        }
     }
 
     private _ensureLabel(node: Node, text: string): Label {

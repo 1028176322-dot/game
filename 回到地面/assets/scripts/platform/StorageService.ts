@@ -101,6 +101,38 @@ export class StorageService {
         }
     }
 
+    /** 读取原始字符串 */
+    get(key: string, fallback: string = ''): string {
+        try {
+            let raw: string | null = null;
+            if (this._platform.isWX) {
+                raw = wx.getStorageSync(key);
+            } else {
+                raw = localStorage.getItem(key);
+            }
+            if (raw === null || raw === undefined) return fallback;
+            return raw;
+        } catch (err) {
+            console.warn(`[StorageService] read failed: ${key}`, err);
+            return fallback;
+        }
+    }
+
+    /** 写入原始字符串 */
+    set(key: string, value: string): boolean {
+        try {
+            if (this._platform.isWX) {
+                wx.setStorageSync(key, value);
+            } else {
+                localStorage.setItem(key, value);
+            }
+            return true;
+        } catch (err) {
+            console.warn(`[StorageService] write failed: ${key}`, err);
+            return false;
+        }
+    }
+
     /** 删除指定 key */
     remove(key: string): void {
         try {

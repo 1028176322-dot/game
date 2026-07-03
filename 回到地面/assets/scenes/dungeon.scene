@@ -135,7 +135,7 @@
     "_illuminanceLDR": 1.69,
     "_shadowEnabled": false,
     "_shadowPcf": 0,
-    "_shadowBias": 1e-05,
+    "_shadowBias": 0.00001,
     "_shadowNormalBias": 0,
     "_shadowSaturation": 1,
     "_shadowDistance": 50,
@@ -176,8 +176,8 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
+      "x": 640,
+      "y": 360,
       "z": 1000
     },
     "_lrot": {
@@ -274,8 +274,8 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
+      "x": 640,
+      "y": 360,
       "z": 0
     },
     "_lrot": {

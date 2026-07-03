@@ -29,6 +29,9 @@ export class SplashUI extends Component {
     @property(Label)
     loadingLabel: Label | null = null;
 
+    @property(Node)
+    loadingBar: Node | null = null;
+
     private _elapsed = 0;
     private _hasSkipped = false;
     private _bootstrap: GameBootstrap | null = null;
@@ -62,9 +65,10 @@ export class SplashUI extends Component {
 
     private _createProgressBar(): void {
         // Container for the bar
-        const container = new Node('LoadingBar');
-        container.setPosition(0, -100);
-        this.node.addChild(container);
+        const container = this.loadingBar ?? new Node('LoadingBar');
+        if (!container.parent) this.node.addChild(container);
+        // Position handled by SplashLayout — no hardcoded setPosition
+        this.loadingBar = container;
 
         // Background bar (dark gray)
         const bgNode = new Node('Bg');
