@@ -2,8 +2,10 @@
  * CreatePanel - First-time character creation panel
  *
  * Two-phase flow:
- *   1. SELECT: player picks a character class from cards
+ *   1. SELECT: player picks a character class from simple buttons
+ *      - title / model display / class buttons / class description / confirm+skip
  *   2. NAMING: player enters a name, then confirms to create character
+ *      - title / name input / confirm
  *
  * Skip button always creates a default-named character immediately.
  */
@@ -35,35 +37,19 @@ const CHAR_OPTIONS: CharOption[] = [
 export class CreatePanel extends Component implements UIPanel {
     id: UiPanelId = 'create_character';
 
-    @property(Node)
-    panelRoot: Node | null = null;
-
-    @property(Label)
-    titleLabel: Label | null = null;
-
-    @property(EditBox)
-    nameInput: EditBox | null = null;
-
-    @property(Node)
-    cardRoot: Node | null = null;
-
-    @property(Label)
-    selectedInfo: Label | null = null;
-
-    @property(Label)
-    selectedDesc: Label | null = null;
-
-    @property(Button)
-    confirmBtn: Button | null = null;
-
-    @property(Label)
-    errorLabel: Label | null = null;
-
-    @property(Label)
-    skipBtn: Label | null = null;
+    @property(Node) panelRoot: Node | null = null;
+    @property(Label) titleLabel: Label | null = null;
+    @property(Node) modelDisplay: Node | null = null;
+    @property(Node) cardRoot: Node | null = null;
+    @property(Label) selectedInfo: Label | null = null;
+    @property(Label) selectedDesc: Label | null = null;
+    @property(Button) confirmBtn: Button | null = null;
+    @property(Label) errorLabel: Label | null = null;
+    @property(Label) skipBtn: Label | null = null;
+    @property(EditBox) nameInput: EditBox | null = null;
 
     private _selectedId = 'warrior';
-    private _cards: Node[] = [];
+    private _classButtons: Node[] = [];
     private _isNaming = false;
 
     // ── UIPanel ──
@@ -73,7 +59,7 @@ export class CreatePanel extends Component implements UIPanel {
         this._isNaming = false;
         this._clearError();
         this._applyPhase();
-        this._buildCards();
+        this._buildClassButtons();
         this._selectCharacter('warrior');
         this.scheduleOnce(() => this._reLayout(), 0);
     }
@@ -99,10 +85,12 @@ export class CreatePanel extends Component implements UIPanel {
     // ── Phase Management ──
 
     private _applyPhase(): void {
-        if (this.cardRoot) this.cardRoot.active = !this._isNaming;
-        if (this.selectedInfo) this.selectedInfo.node.active = !this._isNaming;
-        if (this.selectedDesc) this.selectedDesc.node.active = !this._isNaming;
-        if (this.skipBtn) this.skipBtn.node.active = !this._isNaming;
+        const selectPhase = !this._isNaming;
+        if (this.modelDisplay) this.modelDisplay.active = selectPhase;
+        if (this.cardRoot) this.cardRoot.active = selectPhase;
+        if (this.selectedInfo) this.selectedInfo.node.active = selectPhase;
+        if (this.selectedDesc) this.selectedDesc.node.active = selectPhase;
+        if (this.skipBtn) this.skipBtn.node.active = selectPhase;
         if (this.nameInput) this.nameInput.node.active = this._isNaming;
         if (this.titleLabel) {
             this.titleLabel.string = this._isNaming ? T('ui.createNamePrompt') : T('ui.createTitle');
@@ -115,45 +103,38 @@ export class CreatePanel extends Component implements UIPanel {
         }
     }
 
-    // ── Cards ──
+    // ── Class Buttons ──
 
-    private _buildCards(): void {
+    private _buildClassButtons(): void {
         if (!this.cardRoot) return;
         this.cardRoot.removeAllChildren();
-        this._cards = [];
+        this._classButtons = [];
 
-        const rootWidth = this.cardRoot.getComponent(UITransform)?.width ?? 620;
-        const gap = Math.min(120, rootWidth / CHAR_OPTIONS.length);
+        const rootWidth = this.cardRoot.getComponent(UITransform)?.width ?? 600;
+        const gap = Math.min(110, rootWidth / CHAR_OPTIONS.length);
+        const btnW = 80;
+        const btnH = 40;
 
         CHAR_OPTIONS.forEach((opt, i) => {
-            const card = new Node(opt.id);
-            card.setPosition((i - (CHAR_OPTIONS.length - 1) / 2) * gap, 0);
-            const uiTransform = card.addComponent(UITransform);
-            uiTransform.setContentSize(96, 112);
+            const btn = new Node(opt.id);
+            btn.setPosition((i - (CHAR_OPTIONS.length - 1) / 2) * gap, 0);
+            const uiTrans = btn.addComponent(UITransform);
+            uiTrans.setContentSize(btnW, btnH);
 
-            const bg = card.addComponent(Sprite);
-            bg.color = new Color(0xF0, 0xF0, 0xF0, 0xFF);
+            const bg = btn.addComponent(Sprite);
+            bg.color = new Color(0x4A, 0x9E, 0xFF, 0xFF);
 
-            const animalNode = new Node('Animal');
-            animalNode.setPosition(0, 20);
-            const animalLbl = animalNode.addComponent(Label);
-            animalLbl.string = T(opt.animalKey);
-            animalLbl.fontSize = 16;
-            animalLbl.color = new Color(0x33, 0x33, 0x33, 0xFF);
-            card.addChild(animalNode);
+            const labelNode = new Node('Label');
+            const label = labelNode.addComponent(Label);
+            label.string = T(opt.animalKey);
+            label.fontSize = 16;
+            label.color = Color.WHITE;
+            btn.addChild(labelNode);
 
-            const classNode = new Node('Class');
-            classNode.setPosition(0, -5);
-            const classLbl = classNode.addComponent(Label);
-            classLbl.string = T(opt.classKey);
-            classLbl.fontSize = 13;
-            classLbl.color = new Color(0x88, 0x88, 0x88, 0xFF);
-            card.addChild(classNode);
+            btn.on(Node.EventType.TOUCH_END, () => this._selectCharacter(opt.id));
 
-            card.on(Node.EventType.TOUCH_END, () => this._selectCharacter(opt.id));
-
-            this.cardRoot.addChild(card);
-            this._cards.push(card);
+            this.cardRoot.addChild(btn);
+            this._classButtons.push(btn);
         });
     }
 
@@ -181,6 +162,35 @@ export class CreatePanel extends Component implements UIPanel {
         this._selectedId = id;
         const opt = CHAR_OPTIONS.find(c => c.id === id)!;
 
+        // Update model display placeholder (replace with real model later)
+        if (this.modelDisplay) {
+            // Remove old placeholder
+            const oldChild = this.modelDisplay.getChildByName('ModelPlaceholder');
+            if (oldChild) oldChild.destroy();
+
+            // Create placeholder label showing class info
+            const phNode = new Node('ModelPlaceholder');
+            const phLabel = phNode.addComponent(Label);
+            phLabel.string = `${T(opt.animalKey)}\n${T(opt.classKey)}`;
+            phLabel.fontSize = 24;
+            phLabel.color = Color.WHITE;
+            phLabel.lineHeight = 36;
+            this.modelDisplay.addChild(phNode);
+
+            // Tint background per class
+            const bg = this.modelDisplay.getComponent(Sprite);
+            if (bg) {
+                const tints: Record<string, Color> = {
+                    warrior:   new Color(0x4A, 0x9E, 0xFF, 0x50),
+                    archer:    new Color(0x5B, 0xD6, 0x6B, 0x50),
+                    assassin:  new Color(0xA8, 0x5F, 0xE0, 0x50),
+                    mage:      new Color(0xFF, 0x8C, 0x00, 0x50),
+                    berserker: new Color(0xE0, 0x4E, 0x4E, 0x50),
+                };
+                bg.color = tints[id] ?? new Color(0xFF, 0xFF, 0xFF, 0x50);
+            }
+        }
+
         if (this.selectedInfo) {
             this.selectedInfo.string = `${T(opt.animalKey)} ${T(opt.classKey)}`;
         }
@@ -188,12 +198,13 @@ export class CreatePanel extends Component implements UIPanel {
             this.selectedDesc.string = T(opt.descKey);
         }
 
-        this._cards.forEach((card, i) => {
-            const bg = card.getComponent(Sprite);
+        // Highlight selected button
+        this._classButtons.forEach((btn, i) => {
+            const bg = btn.getComponent(Sprite);
             if (bg) {
                 bg.color = CHAR_OPTIONS[i].id === id
                     ? new Color(0x4A, 0x9E, 0xFF, 0xFF)
-                    : new Color(0xF0, 0xF0, 0xF0, 0xFF);
+                    : new Color(0x80, 0x80, 0x80, 0xFF);
             }
         });
 
