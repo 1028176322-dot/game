@@ -14,6 +14,8 @@ import { eventBus } from '../core/EventBus';
 import { AdPlacement } from '../core/Constants';
 import { WXAdapter } from '../utils/WXAdapter';
 import { StorageService } from '../platform/StorageService';
+import { SaveService } from '../core/save/SaveService';
+import { SAVE_KEYS, LEGACY_KEYS } from '../core/save/SaveTypes';
 import { MarqueeVM, MarqueeLightVM } from './viewmodel/MarqueeViewModel';
 import { T } from '../core/TextManager';
 
@@ -216,7 +218,7 @@ export class MarqueeUI extends Component {
     /** 保存进度（跨层保留） */
     private _saveProgress(): void {
         try {
-            StorageService.instance.setJson('marquee_progress', this._lights);
+            SaveService.instance.storage.setJson(LEGACY_KEYS.MARQUEE_PROGRESS, this._lights);
         } catch (err) {
             console.warn('[MarqueeUI] 保存进度失败');
         }
@@ -225,9 +227,9 @@ export class MarqueeUI extends Component {
     /** 加载进度 */
     private _loadProgress(): void {
         try {
-            const loaded = StorageService.instance.getJson<boolean[]>('marquee_progress', []);
-            if (Array.isArray(loaded) && loaded.length === MAX_LIGHTS) {
-                this._lights = loaded;
+            const loaded = SaveService.instance.storage.getJson<boolean[]>(LEGACY_KEYS.MARQUEE_PROGRESS, []);
+            if (Array.isArray(loaded.value) && loaded.value.length === MAX_LIGHTS) {
+                this._lights = loaded.value;
             }
         } catch (err) {
             console.warn('[MarqueeUI] 加载进度失败');

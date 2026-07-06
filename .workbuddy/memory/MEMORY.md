@@ -16,6 +16,7 @@
 - **RESPONSIVE_LAYOUT - 2026-07-02**: All PanelRoots use `ResponsivePanelRoot` component instead of fixed 1280x720. DimMask (semi-transparent) + PanelFrame (panel base) with dynamic ratio/min-max sizing. Panel size parameters in docs table. Never hardcode UITransform sizes.
 - **ROUTE_UNLOCK - 2026-07-02**: AreaSelectPanel routes use structured `UnlockCondition` type (none/clear_zone/reach_floor/player_level) instead of hardcoded English unlock strings. Display text from text.json keys (unlockNone/unlockClearZone/unlockReachFloor/unlockPlayerLevel). PlayerDataManager has `zoneClearCounts` tracking.
 - **SCENE_TREE_DOC_SYNC - 2026-07-06**: Any modification to scene structure trees (add/remove/rename nodes or components in `splash.scene` / `main.scene` / `dungeon.scene`) must immediately update `docs/三场景完整结构树.md`. Failure to sync causes UI binder keys, skin bindings, and layout components to reference stale paths. Validate by running `npm.cmd run validate:all` after each scene change.
+- **PROGRESS_REPORT_SYNC - 2026-07-06**: `docs/项目方案实施状态跟踪报告.md` is the single source of truth for tracking scheme document and feature implementation status. When a new scheme file is added to `docs/`, or when any feature implementation status changes, the progress report must be updated accordingly — covering all related fields, tables, and notes to keep it consistent with actual scheme and feature state.
 
 ## Memory Write Workflow
 

@@ -1,15 +1,14 @@
 /**
- * StorageService - 跨平台本地存储
+ * StorageService (v1 -> v2 proxy)
  *
- * 统一封装 localStorage（浏览器）和 wx.setStorageSync（微信小游戏）
- * 支持 getJson / setJson / remove / migrate 等操作
- *
- * Phase 6: 从 WXAdapter + PlayerDataManager 提取存储逻辑
+ * DEPRECATED: Use core/save/SaveService or core/storage/StorageService instead.
+ * This file now delegates to core/storage/StorageService v2 for backward compat.
  */
 
-import { PlatformService } from './PlatformService';
+import { StorageService as StorageServiceV2 } from '../core/storage/StorageService';
 
-/** 存档格式规范 */
+type Migration = (oldData: any) => any;
+
 export interface SaveDataSchema {
     schemaVersion: number;
     updatedAt: number;
@@ -29,8 +28,6 @@ export interface SaveDataSchema {
         vibration: boolean;
     };
 }
-
-type Migration = (oldData: any) => any;
 
 const DEFAULT_SAVE: SaveDataSchema = {
     schemaVersion: 1,
@@ -54,7 +51,7 @@ const DEFAULT_SAVE: SaveDataSchema = {
 
 export class StorageService {
     private static _instance: StorageService | null = null;
-    private readonly _platform: PlatformService;
+    private readonly _v2: StorageServiceV2;
 
     static get instance(): StorageService {
         if (!this._instance) this._instance = new StorageService();
@@ -62,110 +59,34 @@ export class StorageService {
     }
 
     private constructor() {
-        this._platform = PlatformService.instance;
+        this._v2 = StorageServiceV2.instance;
     }
 
-    /** 读取 JSON 数据（缺失返回默认值） */
     getJson<T>(key: string, fallback: T): T {
-        try {
-            let raw: string | null = null;
-            if (this._platform.isWX) {
-                raw = wx.getStorageSync(key);
-            } else {
-                raw = localStorage.getItem(key);
-            }
-            if (raw === null || raw === undefined || raw === '') return fallback;
-            return JSON.parse(raw) as T;
-        } catch (err) {
-            console.warn(`[StorageService] read failed: ${key}`, err);
-            return fallback;
-        }
+        const result = this._v2.getJson(key, fallback);
+        return result.value;
     }
 
-    /** 写入 JSON 数据 */
     setJson<T>(key: string, value: T): boolean {
-        try {
-            const raw = JSON.stringify(value);
-            if (raw.length > 1024 * 200) {
-                console.warn(`[StorageService] large value: ${key}, ${raw.length} bytes`);
-            }
-            if (this._platform.isWX) {
-                wx.setStorageSync(key, raw);
-            } else {
-                localStorage.setItem(key, raw);
-            }
-            return true;
-        } catch (err) {
-            console.warn(`[StorageService] write failed: ${key}`, err);
-            return false;
-        }
+        return this._v2.setJson(key, value);
     }
 
-    /** 读取原始字符串 */
     get(key: string, fallback: string = ''): string {
-        try {
-            let raw: string | null = null;
-            if (this._platform.isWX) {
-                raw = wx.getStorageSync(key);
-            } else {
-                raw = localStorage.getItem(key);
-            }
-            if (raw === null || raw === undefined) return fallback;
-            return raw;
-        } catch (err) {
-            console.warn(`[StorageService] read failed: ${key}`, err);
-            return fallback;
-        }
+        return this._v2.getString(key) ?? fallback;
     }
 
-    /** 写入原始字符串 */
     set(key: string, value: string): boolean {
-        try {
-            if (this._platform.isWX) {
-                wx.setStorageSync(key, value);
-            } else {
-                localStorage.setItem(key, value);
-            }
-            return true;
-        } catch (err) {
-            console.warn(`[StorageService] write failed: ${key}`, err);
-            return false;
-        }
+        return this._v2.setString(key, value);
     }
 
-    /** 删除指定 key */
     remove(key: string): void {
-        try {
-            if (this._platform.isWX) {
-                wx.removeStorageSync(key);
-            } else {
-                localStorage.removeItem(key);
-            }
-        } catch {
-            // 忽略删除失败
-        }
+        this._v2.remove(key);
     }
 
-    /** 读取存档（带版本迁移） */
     getSave<T>(key: string, migrations: Record<number, Migration>): T {
-        const raw = this.getJson<any>(key, null);
-        if (raw === null) return DEFAULT_SAVE as unknown as T;
-
-        let current = raw;
-        const version = current.schemaVersion ?? 1;
-        const sortedMigrations = Object.keys(migrations)
-            .map(Number)
-            .sort((a, b) => a - b);
-
-        for (const v of sortedMigrations) {
-            if (v > version) {
-                current = migrations[v](current);
-            }
-        }
-        return current as T;
+        return this._v2.readWithMigration<T>(key, DEFAULT_SAVE as unknown as T, migrations);
     }
 
-    /** 获取默认存档 */
     get defaultSave(): SaveDataSchema {
         return { ...DEFAULT_SAVE, updatedAt: Date.now() };
     }

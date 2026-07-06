@@ -1,13 +1,17 @@
 /**
  * PlayerDataManager - 永久存档管理器 (M2.4)
- * 
- * 单一写入口: 所有魂石/角色/天赋的存档操作必须通过此模块
- * Phase 6: 改用 StorageService 替代直接 wx/localStorage
+ *
+ * Single write entry: all soulStone/character/talent operations go through this module.
+ * Phase 1: uses SaveService instead of direct StorageService access.
  */
 
 import { GameConfig } from './GameConfig';
 import { eventBus } from './EventBus';
-import { StorageService } from '../platform/StorageService';
+import { SaveService } from './save/SaveService';
+import {
+    PlayerProfileSave,
+    SAVE_KEYS,
+} from './save/SaveTypes';
 
 // ======== 存档数据结构 ========
 
@@ -92,6 +96,55 @@ function createDefaultSave(): PlayerSaveData {
 // ======== 存储密钥 ========
 
 const SAVE_KEY = 'player_data';
+
+/** Convert new PlayerProfileSave -> legacy PlayerSaveData for backward compat. */
+function profileToSaveData(profile: PlayerProfileSave): PlayerSaveData {
+    return {
+        soulStones: profile.profile.soulStones,
+        unlockedCharacters: profile.profile.unlockedCharacters,
+        selectedCharacter: profile.profile.selectedCharacter,
+        selectedTalent: profile.profile.selectedTalent,
+        unlockedRelicPoolExtras: profile.profile.unlockedRelicPoolExtras,
+        bestFloor: profile.stats.bestFloor,
+        totalKills: profile.stats.totalKills,
+        totalRuns: profile.stats.totalRuns,
+        zoneClearCounts: profile.zoneClearCounts,
+        zoneBestFloors: profile.zoneBestFloors,
+        version: profile.schemaVersion,
+    };
+}
+
+/** Convert legacy PlayerSaveData -> PlayerProfileSave */
+function saveDataToProfile(data: PlayerSaveData): PlayerProfileSave {
+    const now = Date.now();
+    return {
+        schemaVersion: data.version ?? 1,
+        playerId: 'local_' + String(now),
+        updatedAt: now,
+        createdAt: now,
+        profile: {
+            soulStones: data.soulStones,
+            unlockedCharacters: data.unlockedCharacters,
+            selectedCharacter: data.selectedCharacter,
+            selectedTalent: data.selectedTalent,
+            unlockedRelicPoolExtras: data.unlockedRelicPoolExtras,
+        },
+        stats: {
+            bestFloor: data.bestFloor,
+            totalKills: data.totalKills,
+            totalRuns: data.totalRuns,
+            totalRevives: 0,
+            totalAdsWatched: 0,
+        },
+        flags: {
+            tutorialFinished: false,
+            privacyAccepted: false,
+            characterCreated: data.totalRuns > 0 || data.soulStones > 0,
+        },
+        zoneClearCounts: data.zoneClearCounts,
+        zoneBestFloors: data.zoneBestFloors,
+    };
+}
 
 // ======== 管理器 ========
 
@@ -312,14 +365,13 @@ export class PlayerDataManager {
         eventBus.emit('playerdata:reset');
     }
 
-    // ======== 读写存储（Phase 6: 使用 StorageService） ========
+    // ======== 读写存储（Phase 1: 使用 SaveService） ========
 
     private _load(): PlayerSaveData {
         try {
-            const raw = StorageService.instance.getJson<PlayerSaveData>(SAVE_KEY, null);
-            if (raw) {
-                return { ...createDefaultSave(), ...raw };
-            }
+            const saveService = SaveService.instance;
+            const profile = saveService.loadProfile();
+            return profileToSaveData(profile);
         } catch (err) {
             console.warn('[PlayerDataManager] 读档失败，使用默认', err);
         }
@@ -328,7 +380,8 @@ export class PlayerDataManager {
 
     private _save(): void {
         try {
-            StorageService.instance.setJson(SAVE_KEY, this._data);
+            const profile = saveDataToProfile(this._data);
+            SaveService.instance.saveProfile(profile);
         } catch (err) {
             console.warn('[PlayerDataManager] 存档失败', err);
         }
