@@ -1,0 +1,527 @@
+{
+    "metadata": {
+        "version": "1.0.0",
+        "lastUpdated": "2026-07-06",
+        "description": "UI 资源语义注册表 — key = 业务语义，assetId = assets.json 可加载资源 ID"
+    },
+    "ui.main.bg": {
+        "assetId": "textures/ui/main/main_bg",
+        "type": "sprite",
+        "usage": "background"
+    },
+    "ui.main.titledeco": {
+        "assetId": "textures/ui/main/main_titledeco",
+        "type": "sprite",
+        "usage": "decoration"
+    },
+    "ui.main.start_button": {
+        "assetId": "textures/ui/common/btn_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.main.character_button": {
+        "assetId": "textures/ui/common/btn_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.main.shop_button": {
+        "assetId": "textures/ui/common/btn_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.main.log_button": {
+        "assetId": "textures/ui/common/btn_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.main.settings_button": {
+        "assetId": "textures/ui/common/btn_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.panel.frame": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "nine_slice",
+        "usage": "panel_frame"
+    },
+    "ui.panel.mask": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "mask"
+    },
+    "ui.login.title": {
+        "assetId": "textures/ui/main/main_titledeco",
+        "type": "sprite",
+        "usage": "decoration"
+    },
+    "ui.login.wechat_btn": {
+        "assetId": "textures/ui/common/btn_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.login.guest_btn": {
+        "assetId": "textures/ui/common/btn_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.create.model_area": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "model_display"
+    },
+    "ui.create.confirm_btn": {
+        "assetId": "textures/ui/common/btn_active",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.create.skip_btn": {
+        "assetId": "textures/ui/common/btn_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.character.close_btn": {
+        "assetId": "textures/ui/common/btn_close",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.area.start_btn": {
+        "assetId": "textures/ui/common/btn_active",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.area.back_btn": {
+        "assetId": "textures/ui/common/btn_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.settlement.double_btn": {
+        "assetId": "textures/ui/death/btn_settle_active",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.settlement.back_btn": {
+        "assetId": "textures/ui/death/btn_settle_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.settlement.bg": {
+        "assetId": "textures/ui/death/death_bg",
+        "type": "sprite",
+        "usage": "background"
+    },
+    "ui.settlement.result_panel": {
+        "assetId": "textures/ui/death/result_panel",
+        "type": "sprite",
+        "usage": "panel_frame"
+    },
+    "ui.settlement.soulstone_icon": {
+        "assetId": "textures/ui/death/icon_soulstone",
+        "type": "sprite",
+        "usage": "icon"
+    },
+    "ui.settings.close_btn": {
+        "assetId": "textures/ui/common/btn_close",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.settings.reset_btn": {
+        "assetId": "textures/ui/common/btn_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.log.close_btn": {
+        "assetId": "textures/ui/common/btn_close",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.shop.bg": {
+        "assetId": "textures/ui/shop/shop_bg",
+        "type": "sprite",
+        "usage": "background"
+    },
+    "ui.shop.slot": {
+        "assetId": "textures/ui/shop/shop_slot",
+        "type": "sprite",
+        "usage": "slot"
+    },
+    "ui.shop.coin_icon": {
+        "assetId": "textures/ui/shop/icon_coin",
+        "type": "sprite",
+        "usage": "icon"
+    },
+    "ui.hud.hpbar_bg": {
+        "assetId": "textures/ui/hud/hud_hpbar_bg",
+        "type": "sprite",
+        "usage": "hud"
+    },
+    "ui.hud.hpbar_fill": {
+        "assetId": "textures/ui/hud/hud_hpbar_fill",
+        "type": "sprite",
+        "usage": "hud"
+    },
+    "ui.hud.hpbar_frame": {
+        "assetId": "textures/ui/hud/hud_hpbar_frame",
+        "type": "sprite",
+        "usage": "hud"
+    },
+    "ui.hud.skillslot": {
+        "assetId": "textures/ui/hud/hud_skillslot",
+        "type": "sprite",
+        "usage": "hud"
+    },
+    "ui.hud.cdmask": {
+        "assetId": "textures/ui/hud/hud_cdmask",
+        "type": "sprite",
+        "usage": "hud"
+    },
+    "ui.hud.rollbtn": {
+        "assetId": "textures/ui/hud/hud_rollbtn",
+        "type": "sprite",
+        "usage": "hud"
+    },
+    "ui.joystick.base": {
+        "assetId": "textures/ui/hud/joystick_base",
+        "type": "sprite",
+        "usage": "hud"
+    },
+    "ui.joystick.dot": {
+        "assetId": "textures/ui/hud/joystick_dot",
+        "type": "sprite",
+        "usage": "hud"
+    },
+    "ui.splash.bg": {
+        "assetId": "textures/ui/splash/splash_bg",
+        "type": "sprite",
+        "usage": "background"
+    },
+    "ui.splash.logo": {
+        "assetId": "textures/ui/splash/splash_logo",
+        "type": "sprite",
+        "usage": "decoration"
+    },
+    "ui.map.room_combat": {
+        "assetId": "textures/ui/map/icon_room_combat",
+        "type": "sprite",
+        "usage": "map"
+    },
+    "ui.map.room_boss": {
+        "assetId": "textures/ui/map/icon_room_boss",
+        "type": "sprite",
+        "usage": "map"
+    },
+    "ui.map.room_event": {
+        "assetId": "textures/ui/map/icon_room_event",
+        "type": "sprite",
+        "usage": "map"
+    },
+    "ui.map.room_healing": {
+        "assetId": "textures/ui/map/icon_room_healing",
+        "type": "sprite",
+        "usage": "map"
+    },
+    "ui.map.room_shop": {
+        "assetId": "textures/ui/map/icon_room_shop",
+        "type": "sprite",
+        "usage": "map"
+    },
+    "ui.map.room_treasure": {
+        "assetId": "textures/ui/map/icon_room_treasure",
+        "type": "sprite",
+        "usage": "map"
+    },
+    "ui.map.room_upgrade": {
+        "assetId": "textures/ui/map/icon_room_upgrade",
+        "type": "sprite",
+        "usage": "map"
+    },
+    "ui.map.node_current": {
+        "assetId": "textures/ui/map/map_node_current",
+        "type": "sprite",
+        "usage": "map"
+    },
+    "ui.map.node_unknown": {
+        "assetId": "textures/ui/map/map_node_unknown",
+        "type": "sprite",
+        "usage": "map"
+    },
+    "ui.map.node_visited": {
+        "assetId": "textures/ui/map/map_node_visited",
+        "type": "sprite",
+        "usage": "map"
+    },
+    "ui.map.line": {
+        "assetId": "textures/ui/map/map_line",
+        "type": "sprite",
+        "usage": "map"
+    },
+    "ui.death.revive_btn_active": {
+        "assetId": "textures/ui/death/btn_revive_active",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.death.revive_btn_default": {
+        "assetId": "textures/ui/death/btn_revive_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.death.settle_btn_active": {
+        "assetId": "textures/ui/death/btn_settle_active",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.death.settle_btn_default": {
+        "assetId": "textures/ui/death/btn_settle_default",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.death.bg": {
+        "assetId": "textures/ui/death/death_bg",
+        "type": "sprite",
+        "usage": "background"
+    },
+    "ui.death.soulstone_icon": {
+        "assetId": "textures/ui/death/icon_soulstone",
+        "type": "sprite",
+        "usage": "icon"
+    },
+    "ui.death.result_panel": {
+        "assetId": "textures/ui/death/result_panel",
+        "type": "sprite",
+        "usage": "panel_frame"
+    },
+    "ui.equipment.body_frame": {
+        "assetId": "textures/ui/equipment/equip_body_frame",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.slot_chest": {
+        "assetId": "textures/ui/equipment/equip_slot_chest",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.slot_gloves": {
+        "assetId": "textures/ui/equipment/equip_slot_gloves",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.slot_helmet": {
+        "assetId": "textures/ui/equipment/equip_slot_helmet",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.slot_legs": {
+        "assetId": "textures/ui/equipment/equip_slot_legs",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.slot_necklace": {
+        "assetId": "textures/ui/equipment/equip_slot_necklace",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.slot_ring": {
+        "assetId": "textures/ui/equipment/equip_slot_ring",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.slot_shoes": {
+        "assetId": "textures/ui/equipment/equip_slot_shoes",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.slot_weapon": {
+        "assetId": "textures/ui/equipment/equip_slot_weapon",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.inventory_slot": {
+        "assetId": "textures/ui/equipment/inventory_slot",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.item_slot": {
+        "assetId": "textures/ui/equipment/item_slot",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.rarity_common": {
+        "assetId": "textures/ui/equipment/rarity_common",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.rarity_magic": {
+        "assetId": "textures/ui/equipment/rarity_magic",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.rarity_rare": {
+        "assetId": "textures/ui/equipment/rarity_rare",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.rarity_legendary": {
+        "assetId": "textures/ui/equipment/rarity_legendary",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.equipment.set_counter_bg": {
+        "assetId": "textures/ui/equipment/set_counter_bg",
+        "type": "sprite",
+        "usage": "equipment"
+    },
+    "ui.upgrade.card_common": {
+        "assetId": "textures/ui/upgrade/card_frame_common",
+        "type": "sprite",
+        "usage": "upgrade"
+    },
+    "ui.upgrade.card_rare": {
+        "assetId": "textures/ui/upgrade/card_frame_rare",
+        "type": "sprite",
+        "usage": "upgrade"
+    },
+    "ui.upgrade.card_epic": {
+        "assetId": "textures/ui/upgrade/card_frame_epic",
+        "type": "sprite",
+        "usage": "upgrade"
+    },
+    "icon.skill.dash": {
+        "assetId": "textures/icons/skills/icon_skill_dash",
+        "type": "icon",
+        "usage": "skill_icon"
+    },
+    "icon.skill.elementburst": {
+        "assetId": "textures/icons/skills/icon_skill_elementburst",
+        "type": "icon",
+        "usage": "skill_icon"
+    },
+    "icon.skill.healwave": {
+        "assetId": "textures/icons/skills/icon_skill_healwave",
+        "type": "icon",
+        "usage": "skill_icon"
+    },
+    "icon.skill.shield": {
+        "assetId": "textures/icons/skills/icon_skill_shield",
+        "type": "icon",
+        "usage": "skill_icon"
+    },
+    "icon.skill.slowfield": {
+        "assetId": "textures/icons/skills/icon_skill_slowfield",
+        "type": "icon",
+        "usage": "skill_icon"
+    },
+    "icon.skill.snapshot": {
+        "assetId": "textures/icons/skills/icon_skill_snapshot",
+        "type": "icon",
+        "usage": "skill_icon"
+    },
+    "icon.element.fire": {
+        "assetId": "textures/icons/elements/icon_element_fire",
+        "type": "icon",
+        "usage": "element_icon"
+    },
+    "icon.element.frost": {
+        "assetId": "textures/icons/elements/icon_element_frost",
+        "type": "icon",
+        "usage": "element_icon"
+    },
+    "icon.element.lightning": {
+        "assetId": "textures/icons/elements/icon_element_lightning",
+        "type": "icon",
+        "usage": "element_icon"
+    },
+    "icon.element.poison": {
+        "assetId": "textures/icons/elements/icon_element_poison",
+        "type": "icon",
+        "usage": "element_icon"
+    },
+    "icon.element.shadow": {
+        "assetId": "textures/icons/elements/icon_element_shadow",
+        "type": "icon",
+        "usage": "element_icon"
+    },
+    "icon.element.holy": {
+        "assetId": "textures/icons/elements/icon_element_holy",
+        "type": "icon",
+        "usage": "element_icon"
+    },
+    "character.preview.warrior": {
+        "assetId": "textures/characters/warrior/warrior_idle",
+        "type": "sprite",
+        "usage": "character_preview"
+    },
+    "character.preview.archer": {
+        "assetId": "textures/characters/archer/archer_idle",
+        "type": "sprite",
+        "usage": "character_preview"
+    },
+    "character.preview.assassin": {
+        "assetId": "textures/characters/assassin/assassin_idle",
+        "type": "sprite",
+        "usage": "character_preview"
+    },
+    "character.preview.mage": {
+        "assetId": "textures/characters/mage/mage_idle",
+        "type": "sprite",
+        "usage": "character_preview"
+    },
+    "character.preview.berserker": {
+        "assetId": "textures/characters/berserker/berserker_idle",
+        "type": "sprite",
+        "usage": "character_preview"
+    },
+    "character.avatar.warrior": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "avatar"
+    },
+    "character.avatar.archer": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "avatar"
+    },
+    "character.avatar.assassin": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "avatar"
+    },
+    "character.avatar.mage": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "avatar"
+    },
+    "character.avatar.berserker": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "avatar"
+    },
+    "character.card.warrior": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "character_card"
+    },
+    "character.card.archer": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "character_card"
+    },
+    "character.card.assassin": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "character_card"
+    },
+    "character.card.mage": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "character_card"
+    },
+    "character.card.berserker": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "character_card"
+    },
+    "ui.placeholder.avatar": {
+        "assetId": "textures/ui/common/panel_bg",
+        "type": "sprite",
+        "usage": "placeholder"
+    }
+}

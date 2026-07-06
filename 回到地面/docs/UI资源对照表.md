@@ -494,4 +494,45 @@ Step 5 — 如果 assets.json 缺少条目，手动补入后运行 validate:all
 ---
 
 > 最后更新: 2026-07-06  
-> 对应 commit: `adfa332`
+> 对应 commit: `5ea8c81`
+
+---
+
+# 附录：UI 皮肤架构设计方案
+
+## 三层架构
+
+```
+┌──────────────────────────────┐
+│  ui_assets.json              │  ← Layer 1: 语义注册表
+│  语义 key → assetId 映射      │      key = ui.main.start_button
+└─────────────────┬────────────┘
+                  │ 查表
+┌─────────────────▼────────────┐
+│  UISkinService               │  ← Layer 2: 运行时服务
+│  apply(node, key)            │     调用 RenderAssetService
+└─────────────────┬────────────┘
+                  │ 装配
+┌─────────────────▼────────────┐
+│  UISkinBinder (Component)    │  ← Layer 3: 编辑器装配器
+│  assetKey = "ui.main..."     │     挂在节点上自动加载
+└──────────────────────────────┘
+```
+
+## 新文件清单
+
+| 文件 | 路径 | 用途 |
+|------|------|------|
+| 语义注册表 | `assets/resources/config/ui_assets.json` | 104 条语义 key → assetId |
+| 皮肤服务 | `assets/scripts/ui/UISkinService.ts` | apply(node, key) 统一入口 |
+| 皮肤绑定器 | `assets/scripts/ui/UISkinBinder.ts` | 编辑器组件，填 key 自动加图 |
+| 注册门禁 | `tools/check_assets_registry.py` | 检查磁盘/ assets.json / ui_assets.json 一致性 |
+
+## 接入后维护流程
+
+```
+新增/替换 UI 图 → 放 textures/ → 更新 assets.json → 更新 ui_assets.json
+→ 节点上配 UISkinBinder.assetKey → 跑 validate:all
+```
+
+代码里永远只写语义 key，不写文件路径。

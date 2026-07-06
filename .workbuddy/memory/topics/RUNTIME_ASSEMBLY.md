@@ -51,3 +51,4 @@ npm run validate:all
 
 ## 最近变更
 - 2026-06-30：新增 RenderAssetService，完成主战斗渲染链接入。
+- 2026-07-06：新增三层 UI 皮肤架构（ui_assets.json + UISkinService + UISkinBinder），UI 资源从"编辑器手动绑"正式迁移到"语义 key 配置化加载"。新增 `tools/check_assets_registry.py` 门禁（磁盘 × assets.json × ui_assets.json 三向一致性），已加入 `validate:all`。

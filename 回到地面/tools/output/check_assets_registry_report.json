@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "tool": "check_assets_registry.py",
+    "version": "1.0.0",
+    "timestamp": "2026-07-06T10:04:50.299887"
+  },
+  "registry": {
+    "disk_exists_but_not_registered": [],
+    "registered_but_missing_file": [],
+    "total_disk": 418,
+    "total_registered": 418,
+    "total_matched": 418
+  },
+  "ui_assets_cross_ref": {
+    "ui_assets_total": 104,
+    "ui_assets_assetId_not_in_assets_json": []
+  }
+}
