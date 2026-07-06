@@ -38,6 +38,7 @@ import { MutationRuntimeService } from './run/MutationRuntimeService';
 import { AssetBundleService } from './assets/AssetBundleService';
 import { DungeonSceneInstaller, DungeonSceneRefs } from './scene/DungeonSceneInstaller';
 import { PlayerDataManager } from './core/PlayerDataManager';
+import { UISkinSceneApplier } from './ui/UISkinSceneApplier';
 
 const { ccclass, property } = _decorator;
 
@@ -145,6 +146,8 @@ export class DungeonSceneController extends Component {
                 rc.state ? rc.getCurrentZone() : gm.currentZone,
             );
         }
+
+        await UISkinSceneApplier.applyScene(this.node.scene ?? this.node, 'dungeon');
 
         // [Phase 10] 打印场景节点树供调试
         this._logSceneTree();

@@ -11,6 +11,7 @@ import { GameConfig } from '../core/GameConfig';
 import { GameManager } from '../core/GameManager';
 import { GameBootstrap } from '../core/GameBootstrap';
 import { AppFlowController } from '../app/AppFlowController';
+import { UISkinSceneApplier } from './UISkinSceneApplier';
 
 const { ccclass, property } = _decorator;
 
@@ -45,6 +46,7 @@ export class SplashUI extends Component {
     onLoad(): void {
         GameManager.ensure(this.node.scene);
         this._bootstrap = GameBootstrap.ensure(this.node.scene ?? this.node);
+        void UISkinSceneApplier.applyScene(this.node.scene ?? this.node, 'splash');
 
         // Create progress bar nodes
         this._createProgressBar();

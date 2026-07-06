@@ -14,6 +14,7 @@ import { WXAdapter } from './utils/WXAdapter';
 import { UiRouter, UIPanel } from './ui/UiRouter';
 import { AppFlowController, AppFlowState } from './app/AppFlowController';
 import { eventBus } from './core/EventBus';
+import { UISkinSceneApplier } from './ui/UISkinSceneApplier';
 
 const { ccclass, property } = _decorator;
 
@@ -27,6 +28,8 @@ export class MainSceneController extends Component {
     onLoad(): void {
         PlayerDataManager.getInstance();
         this.shopUI?.init();
+
+        void UISkinSceneApplier.applyScene(this.node.scene ?? this.node, 'main');
 
         WXAdapter.getInstance().showBanner();
         WXAdapter.getInstance().reportAnalytics('game_start', {

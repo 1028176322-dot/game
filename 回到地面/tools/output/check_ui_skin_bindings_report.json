@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "tool": "check_ui_skin_bindings.py",
+    "version": "1.0.0"
+  },
+  "errors": [],
+  "warnings": [
+    "node path segment(s) may be missing: scene=dungeon, path=Canvas/UIRoot/BattleHUD, missing=['UIRoot']",
+    "node path segment(s) may be missing: scene=dungeon, path=Canvas/UIRoot/SkillUI, missing=['UIRoot']",
+    "node path segment(s) may be missing: scene=dungeon, path=Canvas/UIRoot/VirtualJoystick, missing=['UIRoot']",
+    "node path segment(s) may be missing: scene=dungeon, path=Canvas/UIRoot/DungeonMapUI, missing=['UIRoot']",
+    "ui_assets key not bound by any scene: character.avatar.archer",
+    "ui_assets key not bound by any scene: character.avatar.assassin",
+    "ui_assets key not bound by any scene: character.avatar.berserker",
+    "ui_assets key not bound by any scene: character.avatar.mage",
+    "ui_assets key not bound by any scene: character.avatar.warrior",
+    "ui_assets key not bound by any scene: character.card.archer",
+    "ui_assets key not bound by any scene: character.card.assassin",
+    "ui_assets key not bound by any scene: character.card.berserker",
+    "ui_assets key not bound by any scene: character.card.mage",
+    "ui_assets key not bound by any scene: character.card.warrior",
+    "ui_assets key not bound by any scene: character.preview.archer",
+    "ui_assets key not bound by any scene: character.preview.assassin",
+    "ui_assets key not bound by any scene: character.preview.berserker",
+    "ui_assets key not bound by any scene: character.preview.mage",
+    "ui_assets key not bound by any scene: character.preview.warrior",
+    "ui_assets key not bound by any scene: icon.element.fire",
+    "ui_assets key not bound by any scene: icon.element.frost",
+    "ui_assets key not bound by any scene: icon.element.holy",
+    "ui_assets key not bound by any scene: icon.element.lightning",
+    "ui_assets key not bound by any scene: icon.element.poison",
+    "... and 63 more unbound keys"
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 25
+  }
+}

@@ -25,6 +25,7 @@ CHECKS = [
     ("架构门禁", ["python", "tools/config_pipeline/check_architecture.py"]),
     ("TS静态检查", ["python", "tools/config_pipeline/check_ts_static.py"]),
     ("资源注册", ["python", "tools/check_assets_registry.py", "--ci"]),
+    ("UI皮肤绑定", ["python", "tools/check_ui_skin_bindings.py"]),
 ]
 
 
