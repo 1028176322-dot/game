@@ -4,7 +4,14 @@
         "lastUpdated": "2026-06-25",
         "description": "关卡配置表 - 6大区域、27小关、Boss配置、场景权重"
     },
-    "zonePool": ["forest", "catacombs", "volcano", "tundra", "swamp", "abyss"],
+    "zonePool": [
+        "forest",
+        "catacombs",
+        "volcano",
+        "tundra",
+        "swamp",
+        "abyss"
+    ],
     "runsPerGame": 3,
     "$comment": "runsPerGame: 每局随机选取的区域数, 范围2~4",
     "zones": {
@@ -13,13 +20,59 @@
             "difficulty": 1,
             "visualTheme": "翠绿+苔藓",
             "stageCount": 4,
-            "monsterPool": ["slime","mushroom","treant","boar","elfArcher","deerElite"],
+            "monsterPool": [
+                "slime",
+                "mushroom",
+                "treant",
+                "boar",
+                "elfArcher",
+                "deerElite"
+            ],
             "drops": "forest",
             "stages": {
-                "F1-1": { "rooms": 4, "combatRooms": 2, "specialTypes": ["treasure"], "miniBoss": "stagBeetle", "miniBossHP": 8, "teaching": "移动+攻击" },
-                "F1-2": { "rooms": 5, "combatRooms": 2, "specialTypes": ["treasure","healing"], "miniBoss": "porcupineKing", "miniBossHP": 10, "teaching": "翻滚+技能" },
-                "F1-3": { "rooms": 5, "combatRooms": 3, "specialTypes": ["event","shop"], "miniBoss": "boarChief", "miniBossHP": 12, "teaching": "金币使用" },
-                "F1-4": { "rooms": 5, "combatRooms": 3, "specialTypes": ["treasure","upgrade"], "miniBoss": "poisonFlower", "miniBossHP": 14, "teaching": "强化选择" }
+                "F1-1": {
+                    "rooms": 4,
+                    "combatRooms": 2,
+                    "specialTypes": [
+                        "treasure"
+                    ],
+                    "miniBoss": "stagBeetle",
+                    "miniBossHP": 8,
+                    "teaching": "移动+攻击"
+                },
+                "F1-2": {
+                    "rooms": 5,
+                    "combatRooms": 2,
+                    "specialTypes": [
+                        "treasure",
+                        "healing"
+                    ],
+                    "miniBoss": "porcupineKing",
+                    "miniBossHP": 10,
+                    "teaching": "翻滚+技能"
+                },
+                "F1-3": {
+                    "rooms": 5,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "event",
+                        "shop"
+                    ],
+                    "miniBoss": "boarChief",
+                    "miniBossHP": 12,
+                    "teaching": "金币使用"
+                },
+                "F1-4": {
+                    "rooms": 5,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "treasure",
+                        "upgrade"
+                    ],
+                    "miniBoss": "poisonFlower",
+                    "miniBossHP": 14,
+                    "teaching": "强化选择"
+                }
             },
             "finalBoss": {
                 "id": "forestGuardian",
@@ -28,8 +81,21 @@
                 "atk": 6,
                 "def": 2,
                 "phases": 3,
-                "phaseTrigger": [0.5, 0.25],
+                "phaseTrigger": [
+                    0.5,
+                    0.25
+                ],
                 "unlockReward": "catacombs"
+            },
+            "backgrounds": {
+                "combat": "background.bg_combat_forest",
+                "event": "background.bg_event_forest"
+            },
+            "tileset": {
+                "floor": "tile.forest.floor",
+                "wall": "tile.forest.wall",
+                "highground": "tile.forest.highground",
+                "hazard": "tile.forest.hazard"
             }
         },
         "catacombs": {
@@ -37,18 +103,79 @@
             "difficulty": 2,
             "visualTheme": "灰紫+石棺",
             "stageCount": 4,
-            "monsterPool": ["skeleton","ghost","skeletonArcher","ghoul","batSwarm","deathKnight"],
+            "monsterPool": [
+                "skeleton",
+                "ghost",
+                "skeletonArcher",
+                "ghoul",
+                "batSwarm",
+                "deathKnight"
+            ],
             "drops": "catacombs",
             "stages": {
-                "C1-1": { "rooms": 5, "combatRooms": 2, "specialTypes": ["treasure","event"], "miniBoss": "giantSkeleton", "miniBossHP": 16 },
-                "C1-2": { "rooms": 5, "combatRooms": 3, "specialTypes": ["healing","shop"], "miniBoss": "gargoyle", "miniBossHP": 18 },
-                "C1-3": { "rooms": 6, "combatRooms": 3, "specialTypes": ["treasure","upgrade"], "miniBoss": "lich", "miniBossHP": 20 },
-                "C1-4": { "rooms": 6, "combatRooms": 3, "specialTypes": ["healing","event"], "miniBoss": "blackKnight", "miniBossHP": 22 }
+                "C1-1": {
+                    "rooms": 5,
+                    "combatRooms": 2,
+                    "specialTypes": [
+                        "treasure",
+                        "event"
+                    ],
+                    "miniBoss": "giantSkeleton",
+                    "miniBossHP": 16
+                },
+                "C1-2": {
+                    "rooms": 5,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "healing",
+                        "shop"
+                    ],
+                    "miniBoss": "gargoyle",
+                    "miniBossHP": 18
+                },
+                "C1-3": {
+                    "rooms": 6,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "treasure",
+                        "upgrade"
+                    ],
+                    "miniBoss": "lich",
+                    "miniBossHP": 20
+                },
+                "C1-4": {
+                    "rooms": 6,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "healing",
+                        "event"
+                    ],
+                    "miniBoss": "blackKnight",
+                    "miniBossHP": 22
+                }
             },
             "finalBoss": {
                 "id": "skeletonLord",
-                "name": "白骨君主", "hp": 35, "atk": 9, "def": 3, "phases": 3, "phaseTrigger": [0.5, 0.25],
+                "name": "白骨君主",
+                "hp": 35,
+                "atk": 9,
+                "def": 3,
+                "phases": 3,
+                "phaseTrigger": [
+                    0.5,
+                    0.25
+                ],
                 "unlockReward": "volcano"
+            },
+            "backgrounds": {
+                "combat": "background.bg_combat_catacombs",
+                "event": "background.bg_event_catacombs"
+            },
+            "tileset": {
+                "floor": "tile.catacombs.floor",
+                "wall": "tile.catacombs.wall",
+                "highground": "tile.catacombs.highground",
+                "hazard": "tile.catacombs.hazard"
             }
         },
         "volcano": {
@@ -56,63 +183,351 @@
             "difficulty": 3,
             "visualTheme": "红黑+岩浆",
             "stageCount": 4,
-            "monsterPool": ["demon","lavaSpider","fireElemental","ashWraith","suicideGolem","infernoElite"],
+            "monsterPool": [
+                "demon",
+                "lavaSpider",
+                "fireElemental",
+                "ashWraith",
+                "suicideGolem",
+                "infernoElite"
+            ],
             "drops": "volcano",
             "stages": {
-                "V1-1": { "rooms": 5, "combatRooms": 3, "specialTypes": ["treasure"], "miniBoss": "lavaWorm", "miniBossHP": 20 },
-                "V1-2": { "rooms": 6, "combatRooms": 3, "specialTypes": ["event","shop"], "miniBoss": "volcanoGiant", "miniBossHP": 24 },
-                "V1-3": { "rooms": 6, "combatRooms": 3, "specialTypes": ["healing","upgrade"], "miniBoss": "fireGolem", "miniBossHP": 26 },
-                "V1-4": { "rooms": 7, "combatRooms": 4, "specialTypes": ["treasure","healing"], "miniBoss": "inferno", "miniBossHP": 30 }
+                "V1-1": {
+                    "rooms": 5,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "treasure"
+                    ],
+                    "miniBoss": "lavaWorm",
+                    "miniBossHP": 20
+                },
+                "V1-2": {
+                    "rooms": 6,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "event",
+                        "shop"
+                    ],
+                    "miniBoss": "volcanoGiant",
+                    "miniBossHP": 24
+                },
+                "V1-3": {
+                    "rooms": 6,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "healing",
+                        "upgrade"
+                    ],
+                    "miniBoss": "fireGolem",
+                    "miniBossHP": 26
+                },
+                "V1-4": {
+                    "rooms": 7,
+                    "combatRooms": 4,
+                    "specialTypes": [
+                        "treasure",
+                        "healing"
+                    ],
+                    "miniBoss": "inferno",
+                    "miniBossHP": 30
+                }
             },
-            "finalBoss": { "id": "fireLord", "name": "火焰领主", "hp": 45, "atk": 12, "def": 4, "phases": 3, "phaseTrigger": [0.5, 0.25], "unlockReward": "tundra" }
+            "finalBoss": {
+                "id": "fireLord",
+                "name": "火焰领主",
+                "hp": 45,
+                "atk": 12,
+                "def": 4,
+                "phases": 3,
+                "phaseTrigger": [
+                    0.5,
+                    0.25
+                ],
+                "unlockReward": "tundra"
+            },
+            "backgrounds": {
+                "combat": "background.bg_combat_volcano",
+                "event": "background.bg_event_volcano"
+            },
+            "tileset": {
+                "floor": "tile.volcano.floor",
+                "wall": "tile.volcano.wall",
+                "highground": "tile.volcano.highground",
+                "hazard": "tile.volcano.hazard"
+            }
         },
         "tundra": {
             "name": "冰封雪原",
             "difficulty": 4,
             "visualTheme": "蓝白+冰晶",
             "stageCount": 5,
-            "monsterPool": ["iceSkeleton","snowWolf","frostMage","penguinSoldier","snowman","frostGiant"],
+            "monsterPool": [
+                "iceSkeleton",
+                "snowWolf",
+                "frostMage",
+                "penguinSoldier",
+                "snowman",
+                "frostGiant"
+            ],
             "drops": "tundra",
             "stages": {
-                "T1-1": { "rooms": 5, "combatRooms": 2, "specialTypes": ["treasure","healing"], "miniBoss": "iceScorpion", "miniBossHP": 22 },
-                "T1-2": { "rooms": 5, "combatRooms": 3, "specialTypes": ["event","shop"], "miniBoss": "snowApe", "miniBossHP": 24 },
-                "T1-3": { "rooms": 6, "combatRooms": 3, "specialTypes": ["treasure","upgrade"], "miniBoss": "frostElemental", "miniBossHP": 26 },
-                "T1-4": { "rooms": 6, "combatRooms": 3, "specialTypes": ["healing","event"], "miniBoss": "iceGiant", "miniBossHP": 28 },
-                "T1-5": { "rooms": 7, "combatRooms": 4, "specialTypes": ["treasure","upgrade"], "miniBoss": "polarBearKing", "miniBossHP": 30 }
+                "T1-1": {
+                    "rooms": 5,
+                    "combatRooms": 2,
+                    "specialTypes": [
+                        "treasure",
+                        "healing"
+                    ],
+                    "miniBoss": "iceScorpion",
+                    "miniBossHP": 22
+                },
+                "T1-2": {
+                    "rooms": 5,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "event",
+                        "shop"
+                    ],
+                    "miniBoss": "snowApe",
+                    "miniBossHP": 24
+                },
+                "T1-3": {
+                    "rooms": 6,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "treasure",
+                        "upgrade"
+                    ],
+                    "miniBoss": "frostElemental",
+                    "miniBossHP": 26
+                },
+                "T1-4": {
+                    "rooms": 6,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "healing",
+                        "event"
+                    ],
+                    "miniBoss": "iceGiant",
+                    "miniBossHP": 28
+                },
+                "T1-5": {
+                    "rooms": 7,
+                    "combatRooms": 4,
+                    "specialTypes": [
+                        "treasure",
+                        "upgrade"
+                    ],
+                    "miniBoss": "polarBearKing",
+                    "miniBossHP": 30
+                }
             },
-            "finalBoss": { "id": "frostQueen", "name": "冰霜女王", "hp": 52, "atk": 14, "def": 5, "phases": 3, "phaseTrigger": [0.5, 0.25], "unlockReward": "swamp" }
+            "finalBoss": {
+                "id": "frostQueen",
+                "name": "冰霜女王",
+                "hp": 52,
+                "atk": 14,
+                "def": 5,
+                "phases": 3,
+                "phaseTrigger": [
+                    0.5,
+                    0.25
+                ],
+                "unlockReward": "swamp"
+            },
+            "backgrounds": {
+                "combat": "background.bg_combat_tundra",
+                "event": "background.bg_event_tundra"
+            },
+            "tileset": {
+                "floor": "tile.tundra.floor",
+                "wall": "tile.tundra.wall",
+                "highground": "tile.tundra.highground",
+                "hazard": "tile.tundra.hazard"
+            }
         },
         "swamp": {
             "name": "翠毒沼泽",
             "difficulty": 5,
             "visualTheme": "墨绿+毒雾",
             "stageCount": 5,
-            "monsterPool": ["slimePoison","viper","swampSpider","rotTreant","giantToad","swampDragon"],
+            "monsterPool": [
+                "slimePoison",
+                "viper",
+                "swampSpider",
+                "rotTreant",
+                "giantToad",
+                "swampDragon"
+            ],
             "drops": "swamp",
             "stages": {
-                "S1-1": { "rooms": 5, "combatRooms": 2, "specialTypes": ["treasure","event"], "miniBoss": "poisonScorpion", "miniBossHP": 24 },
-                "S1-2": { "rooms": 5, "combatRooms": 3, "specialTypes": ["healing","shop"], "miniBoss": "swampFrog", "miniBossHP": 26 },
-                "S1-3": { "rooms": 6, "combatRooms": 3, "specialTypes": ["treasure","upgrade"], "miniBoss": "rotTreantElite", "miniBossHP": 28 },
-                "S1-4": { "rooms": 6, "combatRooms": 3, "specialTypes": ["event","healing"], "miniBoss": "serpentQueen", "miniBossHP": 30 },
-                "S1-5": { "rooms": 7, "combatRooms": 4, "specialTypes": ["treasure","upgrade","healing"], "miniBoss": "swampCrocodile", "miniBossHP": 34 }
+                "S1-1": {
+                    "rooms": 5,
+                    "combatRooms": 2,
+                    "specialTypes": [
+                        "treasure",
+                        "event"
+                    ],
+                    "miniBoss": "poisonScorpion",
+                    "miniBossHP": 24
+                },
+                "S1-2": {
+                    "rooms": 5,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "healing",
+                        "shop"
+                    ],
+                    "miniBoss": "swampFrog",
+                    "miniBossHP": 26
+                },
+                "S1-3": {
+                    "rooms": 6,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "treasure",
+                        "upgrade"
+                    ],
+                    "miniBoss": "rotTreantElite",
+                    "miniBossHP": 28
+                },
+                "S1-4": {
+                    "rooms": 6,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "event",
+                        "healing"
+                    ],
+                    "miniBoss": "serpentQueen",
+                    "miniBossHP": 30
+                },
+                "S1-5": {
+                    "rooms": 7,
+                    "combatRooms": 4,
+                    "specialTypes": [
+                        "treasure",
+                        "upgrade",
+                        "healing"
+                    ],
+                    "miniBoss": "swampCrocodile",
+                    "miniBossHP": 34
+                }
             },
-            "finalBoss": { "id": "swampBehemoth", "name": "翠毒巨兽", "hp": 58, "atk": 16, "def": 5, "phases": 3, "phaseTrigger": [0.5, 0.25], "unlockReward": "abyss" }
+            "finalBoss": {
+                "id": "swampBehemoth",
+                "name": "翠毒巨兽",
+                "hp": 58,
+                "atk": 16,
+                "def": 5,
+                "phases": 3,
+                "phaseTrigger": [
+                    0.5,
+                    0.25
+                ],
+                "unlockReward": "abyss"
+            },
+            "backgrounds": {
+                "combat": "background.bg_combat_swamp",
+                "event": "background.bg_event_swamp"
+            },
+            "tileset": {
+                "floor": "tile.swamp.floor",
+                "wall": "tile.swamp.wall",
+                "highground": "tile.swamp.highground",
+                "hazard": "tile.swamp.hazard"
+            }
         },
         "abyss": {
             "name": "暗影深渊",
             "difficulty": 6,
             "visualTheme": "紫黑+虚空",
             "stageCount": 5,
-            "monsterPool": ["shadowDemon","voidWraith","abyssArcher","shadowGolem","voidRift","abyssLordElite"],
+            "monsterPool": [
+                "shadowDemon",
+                "voidWraith",
+                "abyssArcher",
+                "shadowGolem",
+                "voidRift",
+                "abyssLordElite"
+            ],
             "drops": "abyss",
             "stages": {
-                "A1-1": { "rooms": 5, "combatRooms": 3, "specialTypes": ["treasure"], "miniBoss": "voidHunter", "miniBossHP": 28 },
-                "A1-2": { "rooms": 6, "combatRooms": 3, "specialTypes": ["event","shop"], "miniBoss": "abyssSentinel", "miniBossHP": 30 },
-                "A1-3": { "rooms": 6, "combatRooms": 3, "specialTypes": ["healing","upgrade"], "miniBoss": "nightmareKnight", "miniBossHP": 34 },
-                "A1-4": { "rooms": 7, "combatRooms": 4, "specialTypes": ["treasure","event"], "miniBoss": "voidLord", "miniBossHP": 38 },
-                "A1-5": { "rooms": 7, "combatRooms": 4, "specialTypes": ["healing","upgrade","treasure"], "miniBoss": "shadowDragon", "miniBossHP": 42 }
+                "A1-1": {
+                    "rooms": 5,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "treasure"
+                    ],
+                    "miniBoss": "voidHunter",
+                    "miniBossHP": 28
+                },
+                "A1-2": {
+                    "rooms": 6,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "event",
+                        "shop"
+                    ],
+                    "miniBoss": "abyssSentinel",
+                    "miniBossHP": 30
+                },
+                "A1-3": {
+                    "rooms": 6,
+                    "combatRooms": 3,
+                    "specialTypes": [
+                        "healing",
+                        "upgrade"
+                    ],
+                    "miniBoss": "nightmareKnight",
+                    "miniBossHP": 34
+                },
+                "A1-4": {
+                    "rooms": 7,
+                    "combatRooms": 4,
+                    "specialTypes": [
+                        "treasure",
+                        "event"
+                    ],
+                    "miniBoss": "voidLord",
+                    "miniBossHP": 38
+                },
+                "A1-5": {
+                    "rooms": 7,
+                    "combatRooms": 4,
+                    "specialTypes": [
+                        "healing",
+                        "upgrade",
+                        "treasure"
+                    ],
+                    "miniBoss": "shadowDragon",
+                    "miniBossHP": 42
+                }
             },
-            "finalBoss": { "id": "abyssOverlord", "name": "深渊霸主", "hp": 72, "atk": 18, "def": 6, "phases": 4, "phaseTrigger": [0.65, 0.3, 0.1], "isFinalBoss": true }
+            "finalBoss": {
+                "id": "abyssOverlord",
+                "name": "深渊霸主",
+                "hp": 72,
+                "atk": 18,
+                "def": 6,
+                "phases": 4,
+                "phaseTrigger": [
+                    0.65,
+                    0.3,
+                    0.1
+                ],
+                "isFinalBoss": true
+            },
+            "backgrounds": {
+                "combat": "background.bg_combat_abyss",
+                "event": "background.bg_event_abyss"
+            },
+            "tileset": {
+                "floor": "tile.abyss.floor",
+                "wall": "tile.abyss.wall",
+                "highground": "tile.abyss.highground",
+                "hazard": "tile.abyss.hazard"
+            }
         }
     },
     "roomTypeWeights": {

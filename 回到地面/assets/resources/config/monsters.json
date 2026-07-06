@@ -5,52 +5,412 @@
         "description": "怪物属性表 - 按区域分组的怪物配置 (已适配微信合规: 移除亡/尸/骷髅/死/杀/腐等敏感词)"
     },
     "forest": {
-        "slime": { "name": "森林史莱姆", "hp": 12, "atk": 3, "def": 0, "speed": 50, "ai": "charger", "exp": 3, "appearanceWeight": 30 },
-        "mushroom": { "name": "毒蘑菇", "hp": 10, "atk": 2, "def": 1, "speed": 30, "ai": "defender", "exp": 4, "appearanceWeight": 20 },
-        "treant": { "name": "树苗精", "hp": 18, "atk": 4, "def": 2, "speed": 40, "ai": "charger", "exp": 5, "appearanceWeight": 20 },
-        "boar": { "name": "尖刺野猪", "hp": 8, "atk": 5, "def": 0, "speed": 80, "ai": "charger", "exp": 4, "appearanceWeight": 15 },
-        "elfArcher": { "name": "精灵射手", "hp": 8, "atk": 5, "def": 0, "speed": 60, "ai": "ranged", "exp": 6, "appearanceWeight": 10 },
-        "deerElite": { "name": "鹿角兽(精英)", "hp": 24, "atk": 7, "def": 1, "speed": 70, "ai": "elite", "exp": 15, "appearanceWeight": 5 }
+        "slime": {
+            "name": "森林史莱姆",
+            "hp": 12,
+            "atk": 3,
+            "def": 0,
+            "speed": 50,
+            "ai": "charger",
+            "exp": 3,
+            "appearanceWeight": 30,
+            "visual": "monster.forest.slime"
+        },
+        "mushroom": {
+            "name": "毒蘑菇",
+            "hp": 10,
+            "atk": 2,
+            "def": 1,
+            "speed": 30,
+            "ai": "defender",
+            "exp": 4,
+            "appearanceWeight": 20,
+            "visual": "monster.forest.mushroom"
+        },
+        "treant": {
+            "name": "树苗精",
+            "hp": 18,
+            "atk": 4,
+            "def": 2,
+            "speed": 40,
+            "ai": "charger",
+            "exp": 5,
+            "appearanceWeight": 20,
+            "visual": "monster.forest.treant"
+        },
+        "boar": {
+            "name": "尖刺野猪",
+            "hp": 8,
+            "atk": 5,
+            "def": 0,
+            "speed": 80,
+            "ai": "charger",
+            "exp": 4,
+            "appearanceWeight": 15,
+            "visual": "monster.forest.boar"
+        },
+        "elfArcher": {
+            "name": "精灵射手",
+            "hp": 8,
+            "atk": 5,
+            "def": 0,
+            "speed": 60,
+            "ai": "ranged",
+            "exp": 6,
+            "appearanceWeight": 10,
+            "visual": "monster.forest.elfarcher"
+        },
+        "deerElite": {
+            "name": "鹿角兽(精英)",
+            "hp": 24,
+            "atk": 7,
+            "def": 1,
+            "speed": 70,
+            "ai": "elite",
+            "exp": 15,
+            "appearanceWeight": 5,
+            "visual": "monster.forest.deerelite"
+        }
     },
     "catacombs": {
-        "skeleton": { "name": "骨兵", "hp": 16, "atk": 5, "def": 1, "speed": 70, "ai": "charger", "exp": 5, "appearanceWeight": 25 },
-        "ghost": { "name": "幽灵", "hp": 10, "atk": 4, "def": 0, "speed": 100, "ai": "charger", "exp": 6, "appearanceWeight": 20 },
-        "skeletonArcher": { "name": "暗影射手", "hp": 12, "atk": 6, "def": 0, "speed": 50, "ai": "ranged", "exp": 7, "appearanceWeight": 15 },
-        "ghoul": { "name": "掘地行者", "hp": 14, "atk": 6, "def": 1, "speed": 80, "ai": "charger", "exp": 6, "appearanceWeight": 15 },
-        "batSwarm": { "name": "蝙蝠群", "hp": 6, "atk": 3, "def": 0, "speed": 120, "ai": "charger", "exp": 3, "appearanceWeight": 15 },
-        "deathKnight": { "name": "暗影骑士(精英)", "hp": 34, "atk": 10, "def": 3, "speed": 60, "ai": "elite", "exp": 18, "appearanceWeight": 10 }
+        "skeleton": {
+            "name": "骨兵",
+            "hp": 16,
+            "atk": 5,
+            "def": 1,
+            "speed": 70,
+            "ai": "charger",
+            "exp": 5,
+            "appearanceWeight": 25,
+            "visual": "monster.catacombs.skeleton"
+        },
+        "ghost": {
+            "name": "幽灵",
+            "hp": 10,
+            "atk": 4,
+            "def": 0,
+            "speed": 100,
+            "ai": "charger",
+            "exp": 6,
+            "appearanceWeight": 20,
+            "visual": "monster.catacombs.ghost"
+        },
+        "skeletonArcher": {
+            "name": "暗影射手",
+            "hp": 12,
+            "atk": 6,
+            "def": 0,
+            "speed": 50,
+            "ai": "ranged",
+            "exp": 7,
+            "appearanceWeight": 15,
+            "visual": "monster.catacombs.skeletonarcher"
+        },
+        "ghoul": {
+            "name": "掘地行者",
+            "hp": 14,
+            "atk": 6,
+            "def": 1,
+            "speed": 80,
+            "ai": "charger",
+            "exp": 6,
+            "appearanceWeight": 15,
+            "visual": "monster.catacombs.ghoul"
+        },
+        "batSwarm": {
+            "name": "蝙蝠群",
+            "hp": 6,
+            "atk": 3,
+            "def": 0,
+            "speed": 120,
+            "ai": "charger",
+            "exp": 3,
+            "appearanceWeight": 15,
+            "visual": "monster.catacombs.batswarm"
+        },
+        "deathKnight": {
+            "name": "暗影骑士(精英)",
+            "hp": 34,
+            "atk": 10,
+            "def": 3,
+            "speed": 60,
+            "ai": "elite",
+            "exp": 18,
+            "appearanceWeight": 10,
+            "visual": "monster.catacombs.deathknight"
+        }
     },
     "volcano": {
-        "demon": { "name": "炎魔步兵", "hp": 20, "atk": 7, "def": 1, "speed": 60, "ai": "charger", "exp": 7, "appearanceWeight": 25 },
-        "lavaSpider": { "name": "熔岩蜘蛛", "hp": 16, "atk": 8, "def": 1, "speed": 55, "ai": "ranged", "exp": 8, "appearanceWeight": 20 },
-        "fireElemental": { "name": "火元素", "hp": 14, "atk": 6, "def": 0, "speed": 70, "ai": "charger", "exp": 7, "appearanceWeight": 15 },
-        "ashWraith": { "name": "灰烬魔", "hp": 12, "atk": 7, "def": 0, "speed": 90, "ai": "charger", "exp": 8, "appearanceWeight": 15 },
-        "suicideGolem": { "name": "爆裂魔像", "hp": 10, "atk": 0, "def": 2, "speed": 50, "ai": "suicider", "exp": 5, "appearanceWeight": 15 },
-        "infernoElite": { "name": "炎魔(精英)", "hp": 38, "atk": 12, "def": 2, "speed": 55, "ai": "elite", "exp": 20, "appearanceWeight": 10 }
+        "demon": {
+            "name": "炎魔步兵",
+            "hp": 20,
+            "atk": 7,
+            "def": 1,
+            "speed": 60,
+            "ai": "charger",
+            "exp": 7,
+            "appearanceWeight": 25,
+            "visual": "monster.volcano.demon"
+        },
+        "lavaSpider": {
+            "name": "熔岩蜘蛛",
+            "hp": 16,
+            "atk": 8,
+            "def": 1,
+            "speed": 55,
+            "ai": "ranged",
+            "exp": 8,
+            "appearanceWeight": 20,
+            "visual": "monster.volcano.lavaspider"
+        },
+        "fireElemental": {
+            "name": "火元素",
+            "hp": 14,
+            "atk": 6,
+            "def": 0,
+            "speed": 70,
+            "ai": "charger",
+            "exp": 7,
+            "appearanceWeight": 15,
+            "visual": "monster.volcano.fireelemental"
+        },
+        "ashWraith": {
+            "name": "灰烬魔",
+            "hp": 12,
+            "atk": 7,
+            "def": 0,
+            "speed": 90,
+            "ai": "charger",
+            "exp": 8,
+            "appearanceWeight": 15,
+            "visual": "monster.volcano.ashwraith"
+        },
+        "suicideGolem": {
+            "name": "爆裂魔像",
+            "hp": 10,
+            "atk": 0,
+            "def": 2,
+            "speed": 50,
+            "ai": "suicider",
+            "exp": 5,
+            "appearanceWeight": 15,
+            "visual": "monster.volcano.suicidegolem"
+        },
+        "infernoElite": {
+            "name": "炎魔(精英)",
+            "hp": 38,
+            "atk": 12,
+            "def": 2,
+            "speed": 55,
+            "ai": "elite",
+            "exp": 20,
+            "appearanceWeight": 10,
+            "visual": "monster.volcano.infernoelite"
+        }
     },
     "tundra": {
-        "iceSkeleton": { "name": "冰晶兵", "hp": 20, "atk": 7, "def": 2, "speed": 60, "ai": "charger", "exp": 8, "appearanceWeight": 25 },
-        "snowWolf": { "name": "雪狼", "hp": 14, "atk": 8, "def": 1, "speed": 90, "ai": "charger", "exp": 8, "appearanceWeight": 20 },
-        "frostMage": { "name": "冰霜法师", "hp": 16, "atk": 9, "def": 1, "speed": 50, "ai": "ranged", "exp": 10, "appearanceWeight": 15 },
-        "penguinSoldier": { "name": "企鹅兵", "hp": 18, "atk": 7, "def": 2, "speed": 80, "ai": "charger", "exp": 7, "appearanceWeight": 15 },
-        "snowman": { "name": "雪人", "hp": 30, "atk": 5, "def": 4, "speed": 30, "ai": "defender", "exp": 9, "appearanceWeight": 15 },
-        "frostGiant": { "name": "冰霜巨人(精英)", "hp": 44, "atk": 13, "def": 4, "speed": 45, "ai": "elite", "exp": 22, "appearanceWeight": 10 }
+        "iceSkeleton": {
+            "name": "冰晶兵",
+            "hp": 20,
+            "atk": 7,
+            "def": 2,
+            "speed": 60,
+            "ai": "charger",
+            "exp": 8,
+            "appearanceWeight": 25,
+            "visual": "monster.tundra.iceskeleton"
+        },
+        "snowWolf": {
+            "name": "雪狼",
+            "hp": 14,
+            "atk": 8,
+            "def": 1,
+            "speed": 90,
+            "ai": "charger",
+            "exp": 8,
+            "appearanceWeight": 20,
+            "visual": "monster.tundra.snowwolf"
+        },
+        "frostMage": {
+            "name": "冰霜法师",
+            "hp": 16,
+            "atk": 9,
+            "def": 1,
+            "speed": 50,
+            "ai": "ranged",
+            "exp": 10,
+            "appearanceWeight": 15,
+            "visual": "monster.tundra.frostmage"
+        },
+        "penguinSoldier": {
+            "name": "企鹅兵",
+            "hp": 18,
+            "atk": 7,
+            "def": 2,
+            "speed": 80,
+            "ai": "charger",
+            "exp": 7,
+            "appearanceWeight": 15,
+            "visual": "monster.tundra.penguinsoldier"
+        },
+        "snowman": {
+            "name": "雪人",
+            "hp": 30,
+            "atk": 5,
+            "def": 4,
+            "speed": 30,
+            "ai": "defender",
+            "exp": 9,
+            "appearanceWeight": 15,
+            "visual": "monster.tundra.snowman"
+        },
+        "frostGiant": {
+            "name": "冰霜巨人(精英)",
+            "hp": 44,
+            "atk": 13,
+            "def": 4,
+            "speed": 45,
+            "ai": "elite",
+            "exp": 22,
+            "appearanceWeight": 10,
+            "visual": "monster.tundra.frostgiant"
+        }
     },
     "swamp": {
-        "slimePoison": { "name": "沼泽史莱姆", "hp": 18, "atk": 5, "def": 1, "speed": 45, "ai": "charger", "exp": 7, "appearanceWeight": 25 },
-        "viper": { "name": "毒蛇", "hp": 12, "atk": 7, "def": 0, "speed": 95, "ai": "charger", "exp": 8, "appearanceWeight": 20 },
-        "swampSpider": { "name": "沼泽蜘蛛", "hp": 16, "atk": 6, "def": 1, "speed": 65, "ai": "ranged", "exp": 8, "appearanceWeight": 15 },
-        "rotTreant": { "name": "枯木精", "hp": 32, "atk": 5, "def": 3, "speed": 30, "ai": "defender", "exp": 10, "appearanceWeight": 15 },
-        "giantToad": { "name": "巨型蟾蜍", "hp": 20, "atk": 8, "def": 2, "speed": 50, "ai": "ranged", "exp": 9, "appearanceWeight": 15 },
-        "swampDragon": { "name": "毒沼龙(精英)", "hp": 48, "atk": 14, "def": 3, "speed": 55, "ai": "elite", "exp": 24, "appearanceWeight": 10 }
+        "slimePoison": {
+            "name": "沼泽史莱姆",
+            "hp": 18,
+            "atk": 5,
+            "def": 1,
+            "speed": 45,
+            "ai": "charger",
+            "exp": 7,
+            "appearanceWeight": 25,
+            "visual": "monster.swamp.slimepoison"
+        },
+        "viper": {
+            "name": "毒蛇",
+            "hp": 12,
+            "atk": 7,
+            "def": 0,
+            "speed": 95,
+            "ai": "charger",
+            "exp": 8,
+            "appearanceWeight": 20,
+            "visual": "monster.swamp.viper"
+        },
+        "swampSpider": {
+            "name": "沼泽蜘蛛",
+            "hp": 16,
+            "atk": 6,
+            "def": 1,
+            "speed": 65,
+            "ai": "ranged",
+            "exp": 8,
+            "appearanceWeight": 15,
+            "visual": "monster.swamp.swampspider"
+        },
+        "rotTreant": {
+            "name": "枯木精",
+            "hp": 32,
+            "atk": 5,
+            "def": 3,
+            "speed": 30,
+            "ai": "defender",
+            "exp": 10,
+            "appearanceWeight": 15,
+            "visual": "monster.swamp.rottreant"
+        },
+        "giantToad": {
+            "name": "巨型蟾蜍",
+            "hp": 20,
+            "atk": 8,
+            "def": 2,
+            "speed": 50,
+            "ai": "ranged",
+            "exp": 9,
+            "appearanceWeight": 15,
+            "visual": "monster.swamp.gianttoad"
+        },
+        "swampDragon": {
+            "name": "毒沼龙(精英)",
+            "hp": 48,
+            "atk": 14,
+            "def": 3,
+            "speed": 55,
+            "ai": "elite",
+            "exp": 24,
+            "appearanceWeight": 10,
+            "visual": "monster.swamp.swampdragon"
+        }
     },
     "abyss": {
-        "shadowDemon": { "name": "暗影魔", "hp": 24, "atk": 9, "def": 2, "speed": 65, "ai": "charger", "exp": 10, "appearanceWeight": 25 },
-        "voidWraith": { "name": "虚空幽魂", "hp": 18, "atk": 8, "def": 0, "speed": 100, "ai": "charger", "exp": 11, "appearanceWeight": 20 },
-        "abyssArcher": { "name": "深渊射手", "hp": 20, "atk": 10, "def": 1, "speed": 55, "ai": "ranged", "exp": 12, "appearanceWeight": 15 },
-        "shadowGolem": { "name": "暗影魔像", "hp": 36, "atk": 7, "def": 5, "speed": 35, "ai": "defender", "exp": 13, "appearanceWeight": 15 },
-        "voidRift": { "name": "虚空裂隙", "hp": 14, "atk": 6, "def": 0, "speed": 60, "ai": "summoner", "exp": 10, "appearanceWeight": 15 },
-        "abyssLordElite": { "name": "深渊领主(精英)", "hp": 52, "atk": 16, "def": 4, "speed": 55, "ai": "elite", "exp": 28, "appearanceWeight": 10 }
+        "shadowDemon": {
+            "name": "暗影魔",
+            "hp": 24,
+            "atk": 9,
+            "def": 2,
+            "speed": 65,
+            "ai": "charger",
+            "exp": 10,
+            "appearanceWeight": 25,
+            "visual": "monster.abyss.shadowdemon"
+        },
+        "voidWraith": {
+            "name": "虚空幽魂",
+            "hp": 18,
+            "atk": 8,
+            "def": 0,
+            "speed": 100,
+            "ai": "charger",
+            "exp": 11,
+            "appearanceWeight": 20,
+            "visual": "monster.abyss.voidwraith"
+        },
+        "abyssArcher": {
+            "name": "深渊射手",
+            "hp": 20,
+            "atk": 10,
+            "def": 1,
+            "speed": 55,
+            "ai": "ranged",
+            "exp": 12,
+            "appearanceWeight": 15,
+            "visual": "monster.abyss.abyssarcher"
+        },
+        "shadowGolem": {
+            "name": "暗影魔像",
+            "hp": 36,
+            "atk": 7,
+            "def": 5,
+            "speed": 35,
+            "ai": "defender",
+            "exp": 13,
+            "appearanceWeight": 15,
+            "visual": "monster.abyss.shadowgolem"
+        },
+        "voidRift": {
+            "name": "虚空裂隙",
+            "hp": 14,
+            "atk": 6,
+            "def": 0,
+            "speed": 60,
+            "ai": "summoner",
+            "exp": 10,
+            "appearanceWeight": 15,
+            "visual": "monster.abyss.voidrift"
+        },
+        "abyssLordElite": {
+            "name": "深渊领主(精英)",
+            "hp": 52,
+            "atk": 16,
+            "def": 4,
+            "speed": 55,
+            "ai": "elite",
+            "exp": 28,
+            "appearanceWeight": 10,
+            "visual": "monster.abyss.abysslordelite"
+        }
     },
     "monsterScale": {
         "eliteHpMultiplier": 1.8,

@@ -1,34 +1,190 @@
 {
-    "metadata": { "version": "1.0.0", "lastUpdated": "2026-06-25", "description": "道具系统配置表 - 消耗品掉落/效果/叠加规则" },
+    "metadata": {
+        "version": "1.0.0",
+        "lastUpdated": "2026-06-25",
+        "description": "道具系统配置表 - 消耗品掉落/效果/叠加规则"
+    },
     "dropRates": {
-        "normalMonster": { "chance": 0.12, "pool": ["healingPotion","furyPotion","ironPotion","flameBomb","iceBomb"] },
-        "eliteMonster": { "chance": 0.40, "pool": ["bigHealingPotion","purifyPotion","flameBomb"] },
-        "boss": { "chance": 1.0, "pool": ["bigHealingPotion","purifyPotion"] }
+        "normalMonster": {
+            "chance": 0.12,
+            "pool": [
+                "healingPotion",
+                "furyPotion",
+                "ironPotion",
+                "flameBomb",
+                "iceBomb"
+            ]
+        },
+        "eliteMonster": {
+            "chance": 0.4,
+            "pool": [
+                "bigHealingPotion",
+                "purifyPotion",
+                "flameBomb"
+            ]
+        },
+        "boss": {
+            "chance": 1.0,
+            "pool": [
+                "bigHealingPotion",
+                "purifyPotion"
+            ]
+        }
     },
     "itemPool": {
-        "healingPotion": { "name": "回复药水", "rarity": "common", "effect": "heal", "healAmount": 10, "stackMax": 5 },
-        "bigHealingPotion": { "name": "大回复药水", "rarity": "magic", "effect": "heal", "healAmount": 25, "stackMax": 3 },
-        "furyPotion": { "name": "狂暴药水", "rarity": "common", "effect": "buff", "buffStat": "atk", "buffAmount": 4, "buffDuration": "combat", "stackMax": 3 },
-        "ironPotion": { "name": "铁壁药水", "rarity": "common", "effect": "buff", "buffStat": "def", "buffAmount": 3, "buffDuration": "combat", "stackMax": 3 },
-        "speedPotion": { "name": "疾速药水", "rarity": "common", "effect": "buff", "buffStat": "moveSpeed", "buffPercent": 0.2, "buffDuration": "combat", "stackMax": 3 },
-        "purifyPotion": { "name": "净化药水", "rarity": "magic", "effect": "purify", "healAmount": 5, "stackMax": 3 },
-        "flameBomb": { "name": "火焰瓶", "rarity": "common", "effect": "aoe", "aoeRange": 2, "damage": 8, "element": "fire", "stackMax": 3 },
-        "iceBomb": { "name": "冰霜瓶", "rarity": "common", "effect": "aoe", "aoeRange": 2, "freezeDuration": 2.0, "element": "frost", "stackMax": 3 }
+        "healingPotion": {
+            "name": "回复药水",
+            "rarity": "common",
+            "effect": "heal",
+            "healAmount": 10,
+            "stackMax": 5,
+            "icon": "icon.items.icon_item_healingpotion"
+        },
+        "bigHealingPotion": {
+            "name": "大回复药水",
+            "rarity": "magic",
+            "effect": "heal",
+            "healAmount": 25,
+            "stackMax": 3,
+            "icon": "icon.items.icon_item_bighealingpotion"
+        },
+        "furyPotion": {
+            "name": "狂暴药水",
+            "rarity": "common",
+            "effect": "buff",
+            "buffStat": "atk",
+            "buffAmount": 4,
+            "buffDuration": "combat",
+            "stackMax": 3,
+            "icon": "icon.items.icon_item_furypotion"
+        },
+        "ironPotion": {
+            "name": "铁壁药水",
+            "rarity": "common",
+            "effect": "buff",
+            "buffStat": "def",
+            "buffAmount": 3,
+            "buffDuration": "combat",
+            "stackMax": 3,
+            "icon": "icon.items.icon_item_ironpotion"
+        },
+        "speedPotion": {
+            "name": "疾速药水",
+            "rarity": "common",
+            "effect": "buff",
+            "buffStat": "moveSpeed",
+            "buffPercent": 0.2,
+            "buffDuration": "combat",
+            "stackMax": 3,
+            "icon": "icon.items.icon_item_speedpotion"
+        },
+        "purifyPotion": {
+            "name": "净化药水",
+            "rarity": "magic",
+            "effect": "purify",
+            "healAmount": 5,
+            "stackMax": 3,
+            "icon": "icon.items.icon_item_purifypotion"
+        },
+        "flameBomb": {
+            "name": "火焰瓶",
+            "rarity": "common",
+            "effect": "aoe",
+            "aoeRange": 2,
+            "damage": 8,
+            "element": "fire",
+            "stackMax": 3,
+            "icon": "icon.items.icon_item_flamebomb"
+        },
+        "iceBomb": {
+            "name": "冰霜瓶",
+            "rarity": "common",
+            "effect": "aoe",
+            "aoeRange": 2,
+            "freezeDuration": 2.0,
+            "element": "frost",
+            "stackMax": 3,
+            "icon": "icon.items.icon_item_icebomb"
+        }
     },
     "elementScrolls": [
-        { "id": "scrollFire", "name": "元素卷轴·火", "element": "fire", "shopPrice": 10, "effect": "攻击附加火焰" },
-        { "id": "scrollIce", "name": "元素卷轴·冰", "element": "frost", "shopPrice": 10, "effect": "攻击附加冰霜" },
-        { "id": "scrollThunder", "name": "元素卷轴·雷", "element": "lightning", "shopPrice": 10, "effect": "攻击附加闪电" },
-        { "id": "scrollPoison", "name": "元素卷轴·毒", "element": "poison", "shopPrice": 10, "effect": "攻击附加毒素" },
-        { "id": "scrollShadow", "name": "元素卷轴·暗影", "element": "shadow", "shopPrice": 10, "effect": "攻击附加暗影" },
-        { "id": "scrollHoly", "name": "元素卷轴·神圣", "element": "holy", "shopPrice": 10, "effect": "攻击附加神圣" }
+        {
+            "id": "scrollFire",
+            "name": "元素卷轴·火",
+            "element": "fire",
+            "shopPrice": 10,
+            "effect": "攻击附加火焰"
+        },
+        {
+            "id": "scrollIce",
+            "name": "元素卷轴·冰",
+            "element": "frost",
+            "shopPrice": 10,
+            "effect": "攻击附加冰霜"
+        },
+        {
+            "id": "scrollThunder",
+            "name": "元素卷轴·雷",
+            "element": "lightning",
+            "shopPrice": 10,
+            "effect": "攻击附加闪电"
+        },
+        {
+            "id": "scrollPoison",
+            "name": "元素卷轴·毒",
+            "element": "poison",
+            "shopPrice": 10,
+            "effect": "攻击附加毒素"
+        },
+        {
+            "id": "scrollShadow",
+            "name": "元素卷轴·暗影",
+            "element": "shadow",
+            "shopPrice": 10,
+            "effect": "攻击附加暗影"
+        },
+        {
+            "id": "scrollHoly",
+            "name": "元素卷轴·神圣",
+            "element": "holy",
+            "shopPrice": 10,
+            "effect": "攻击附加神圣"
+        }
     ],
     "functionalItems": [
-        { "id": "key", "name": "钥匙", "shopPrice": 10, "effect": "开宝箱", "stackMax": 3 },
-        { "id": "advancedKey", "name": "高级钥匙", "shopPrice": 15, "effect": "开金箱(保底橙装)", "stackMax": 3 },
-        { "id": "rerollScroll", "name": "洗点券", "shopPrice": 12, "effect": "重置本层强化" },
-        { "id": "reviveCoin", "name": "复活币", "shopPrice": 20, "effect": "战败自动复活(不消耗广告)", "stackMax": 1 },
-        { "id": "mapScroll", "name": "地图卷轴", "shopPrice": 8, "effect": "显示本层全部房间" }
+        {
+            "id": "key",
+            "name": "钥匙",
+            "shopPrice": 10,
+            "effect": "开宝箱",
+            "stackMax": 3
+        },
+        {
+            "id": "advancedKey",
+            "name": "高级钥匙",
+            "shopPrice": 15,
+            "effect": "开金箱(保底橙装)",
+            "stackMax": 3
+        },
+        {
+            "id": "rerollScroll",
+            "name": "洗点券",
+            "shopPrice": 12,
+            "effect": "重置本层强化"
+        },
+        {
+            "id": "reviveCoin",
+            "name": "复活币",
+            "shopPrice": 20,
+            "effect": "战败自动复活(不消耗广告)",
+            "stackMax": 1
+        },
+        {
+            "id": "mapScroll",
+            "name": "地图卷轴",
+            "shopPrice": 8,
+            "effect": "显示本层全部房间"
+        }
     ],
     "bagLimits": {
         "itemSlots": 5,
