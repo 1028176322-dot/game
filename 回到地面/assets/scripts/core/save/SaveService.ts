@@ -9,6 +9,7 @@
 
 import { StorageService } from '../storage/StorageService';
 import { SaveMigrator } from './SaveMigrator';
+import { SaveValidator } from './SaveValidator';
 import {
     PlayerProfileSave,
     RunSave,
@@ -83,10 +84,48 @@ export class SaveService {
     // ── Profile ──
 
     loadProfile(): PlayerProfileSave {
-        return this._migrator.loadProfile(defaultProfile());
+        const defaults = defaultProfile();
+        let profile = this._migrator.loadProfile(defaults);
+
+        // Validate and auto-repair
+        const result = SaveValidator.validateProfile(profile);
+        if (!result.ok) {
+            console.warn('[SaveService] profile validation issues:');
+            for (const err of result.errors) {
+                console.warn('  ', err);
+            }
+
+            const repair = SaveValidator.repairProfile(profile);
+            if (repair.fixed) {
+                console.warn('[SaveService] auto-repairs applied:');
+                for (const change of repair.changes) {
+                    console.warn('  ', change);
+                }
+                this.saveProfile(profile);
+            }
+
+            // If still invalid after repair, use defaults
+            const retry = SaveValidator.validateProfile(profile);
+            if (!retry.ok) {
+                console.error('[SaveService] profile could not be repaired — using defaults');
+                profile = defaults;
+            }
+        }
+
+        return profile;
     }
 
     saveProfile(profile: PlayerProfileSave): boolean {
+        // Reject obviously bad data before writing
+        const check = SaveValidator.validateBeforeSave(profile);
+        if (!check.ok) {
+            console.error('[SaveService] saveProfile rejected — validation failed:');
+            for (const err of check.errors) {
+                console.error('  ', err);
+            }
+            return false;
+        }
+
         profile.updatedAt = Date.now();
         this._storage.backup(SAVE_KEYS.PROFILE);
         return this._storage.setJson(SAVE_KEYS.PROFILE, profile);
