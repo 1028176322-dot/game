@@ -34,10 +34,14 @@ Patch workflow:
 
 ## Startup Reading Order
 
-1. Read this file.
-2. Read `daily/2026-07-02.md` for today's change history.
-3. Read task-relevant files under `topics/`.
-4. If saving memory, read `README.md` and follow the patch workflow.
+**Mandatory — must follow EVERY time a new turn begins (including after context compression / summarization).**
+
+1. **This file.** Always read first.
+2. **Latest daily log.** Read `daily/<today's date>.md`. If it doesn't exist, read the most recent one.
+3. **Task-relevant topics.** Based on user intent, read matching files in `topics/`.
+4. **If saving memory**, read `README.md` and follow the patch workflow.
+
+After context compression: the system preserves `<working_memory_content>` (this file's content), but daily log details may be summarized away. **Always re-read the latest daily log** after detecting a context compression / summarization boundary to restore granular context.
 
 ## Topic Index
 
