@@ -24,6 +24,12 @@
 | monsters | 36 | 6区域 idle 图接入 |
 | tiles | 24 | 6区域 × 4类 tile 接入 |
 
+### UI 文本配置化（✅）
+- `TextManager.ts`: `T()` 函数 + `hasTextKey()` 正常工作
+- `text.json`: 新增 15 个 `ui.*` 键，覆盖 shop/marquee/equipment 等缺少项
+- `tools/scan_hardcoded_ui_text.py`: **0 处硬编码玩家可见文本**
+- 被修改文件：MarqueeUI/ShopUI/ShopView/DungeonMapUI/MainUI/EquipmentView/InventoryView + text.json
+
 ### 待接入（⏳ 仅在 assets.json 有映射）
 | 类型 | 条目数 | 待接入系统 |
 |------|:------:|-----------|
@@ -50,5 +56,6 @@ npm run validate:all
 ```
 
 ## 最近变更
+- 2026-07-06：UI 文本配置化状态更新至 topic（0 处硬编码文本，15 个新增 ui.* 键）。所有旧 inbox patches 归档至 archive/。新增 Cocos Editor Binding Rules 到 ENGINEERING_STANDARDS。
 - 2026-06-30：新增 RenderAssetService，完成主战斗渲染链接入。
 - 2026-07-06：新增三层 UI 皮肤架构（ui_assets.json + UISkinService + UISkinBinder），UI 资源从"编辑器手动绑"正式迁移到"语义 key 配置化加载"。新增 `tools/check_assets_registry.py` 门禁（磁盘 × assets.json × ui_assets.json 三向一致性），已加入 `validate:all`。

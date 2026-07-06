@@ -5,7 +5,7 @@
  * removes @ccclass (plain service, not Component).
  */
 
-import { Node, Sprite, SpriteFrame, Texture2D, Rect, JsonAsset, resources } from 'cc';
+import { Node, Sprite, SpriteFrame, Rect, JsonAsset, resources } from 'cc';
 import { AssetBundleService } from '../assets/AssetBundleService';
 import { GameAssetDef } from '../assets/GameAssetService';
 
@@ -142,6 +142,76 @@ export class SpriteAnimationService {
         return true;
     }
 
+    /**
+     * Apply a single frame from a sprite sheet by GameAssetDef without starting animation.
+     * Used for preview/static display of a specific frame (typically frame 0).
+     *
+     * Loading path: tryLoadSpriteFrame(assetId) -> SpriteFrame -> .texture -> slice.
+     * Non-sprite-sheet (type !== sprite_sheet/effect_sheet) -> return full SpriteFrame as-is.
+     */
+    async applyFrameByAssetDef(node: Node, def: GameAssetDef, frameIndex = 0): Promise<boolean> {
+        if (!def.assetId) {
+            console.warn('[SpriteAnimationService] applyFrameByAssetDef: no assetId', def);
+            return false;
+        }
+
+        let sprite = node.getComponent(Sprite);
+        if (!sprite) sprite = node.addComponent(Sprite);
+
+        // Not a sprite sheet — load SpriteFrame directly and display full
+        if (def.type !== 'sprite_sheet' && def.type !== 'effect_sheet') {
+            try {
+                const fullFrame = await AssetBundleService.instance.tryLoadSpriteFrame(def.assetId);
+                if (!fullFrame) return false;
+                sprite.spriteFrame = fullFrame;
+                return true;
+            } catch (err) {
+                console.warn(`[SpriteAnimationService] applyFrameByAssetDef fallback failed for ${def.assetId}:`, err);
+                return false;
+            }
+        }
+
+        // Strict validation: sprite sheet must have frame metadata
+        if (!def.frameWidth || !def.frameHeight || !def.frames) {
+            console.warn(`[SpriteAnimationService] applyFrameByAssetDef: ${def.assetId} is sprite_sheet but missing frame metadata`);
+            return false;
+        }
+
+        const key = `${def.assetId}:f${frameIndex}`;
+        const cached = this._frameCache.get(key);
+        if (cached) {
+            sprite.spriteFrame = cached;
+            sprite.sizeMode = Sprite.SizeMode.CUSTOM;
+            return true;
+        }
+
+        try {
+            // Load as SpriteFrame (not Texture2D), then slice from .texture
+            const fullFrame = await AssetBundleService.instance.tryLoadSpriteFrame(def.assetId);
+            if (!fullFrame || !fullFrame.texture) return false;
+
+            const texture = fullFrame.texture;
+            let x = 0, y = 0;
+            const layout = def.layout ?? 'vertical';
+            if (layout === 'vertical') {
+                y = texture.height - (frameIndex + 1) * def.frameHeight;
+            } else {
+                x = frameIndex * def.frameWidth;
+            }
+
+            const frame = new SpriteFrame();
+            frame.texture = texture;
+            frame.rect = new Rect(x, y, def.frameWidth, def.frameHeight);
+            this._frameCache.set(key, frame);
+            sprite.spriteFrame = frame;
+            sprite.sizeMode = Sprite.SizeMode.CUSTOM;
+            return true;
+        } catch (err) {
+            console.warn(`[SpriteAnimationService] applyFrameByAssetDef failed for ${def.assetId}:`, err);
+            return false;
+        }
+    }
+
     tick(dt: number): void {
         for (const [node, anim] of this._active) {
             if (anim.done) { this._active.delete(node); continue; }
@@ -178,9 +248,11 @@ export class SpriteAnimationService {
         if (cached) return cached;
 
         try {
-            const texture = await AssetBundleService.instance.loadById<Texture2D>(config.resource);
-            if (!texture) return null;
+            // Load SpriteFrame (not Texture2D) — assets.json stores these as SpriteFrame type
+            const fullFrame = await AssetBundleService.instance.tryLoadSpriteFrame(config.resource);
+            if (!fullFrame || !fullFrame.texture) return null;
 
+            const texture = fullFrame.texture;
             let x = 0, y = 0;
             if (config.layout === 'vertical') {
                 y = texture.height - (frameIndex + 1) * config.frameHeight;

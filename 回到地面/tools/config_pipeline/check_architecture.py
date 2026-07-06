@@ -3,12 +3,12 @@
 check_architecture.py - Extended architecture rule gate.
 
 Checks:
-1. director.loadScene() only allowed in SceneFlowService.ts
-2. No raw `new SomeComponent()` on known Cocos Component subclasses
-3. No direct GameManager.setPhase() outside app/AppFlowController.ts
-4. AssetBundleService.loadAsset() usage — warns about deprecated API
+1. director.loadScene() is allowed only in SceneFlowService.ts.
+2. Warn about raw `new SomeComponent()` on known Cocos Component subclasses.
+3. GameManager.setPhase() is allowed only in AppFlowController.ts.
+4. Warn about editor-exposed Component fields that should be Node + NodeRef.
 
-Exit code 0 = pass, 1 = fail
+Exit code 0 = pass, 1 = fail.
 """
 
 import re
@@ -29,13 +29,15 @@ KNOWN_COMPONENTS = {
 }
 
 
-def find_illegal_load_scene() -> list:
-    """Only SceneFlowService.ts may call director.loadScene()"""
+def read_ts(path: Path) -> list[str]:
+    return path.read_text(encoding="utf-8", errors="replace").splitlines()
+
+
+def find_illegal_load_scene() -> list[str]:
     violations = []
     for ts_file in sorted(SCRIPTS_DIR.rglob("*.ts")):
         rel = ts_file.relative_to(SCRIPTS_DIR)
-        text = ts_file.read_text(encoding="utf-8", errors="replace")
-        for lineno, line in enumerate(text.splitlines(), 1):
+        for lineno, line in enumerate(read_ts(ts_file), 1):
             stripped = line.strip()
             if not stripped or stripped.startswith(("//", "*", "/*")):
                 continue
@@ -47,12 +49,10 @@ def find_illegal_load_scene() -> list:
     return violations
 
 
-def find_illegal_new_component() -> list:
-    """Warn about `new SomeComponent()` for known Cocos Components"""
+def find_illegal_new_component() -> list[str]:
     violations = []
     for ts_file in sorted(SCRIPTS_DIR.rglob("*.ts")):
-        text = ts_file.read_text(encoding="utf-8", errors="replace")
-        for lineno, line in enumerate(text.splitlines(), 1):
+        for lineno, line in enumerate(read_ts(ts_file), 1):
             stripped = line.strip()
             for comp in KNOWN_COMPONENTS:
                 pattern = f"new {comp}("
@@ -63,24 +63,63 @@ def find_illegal_new_component() -> list:
     return violations
 
 
-def find_illegal_set_phase() -> list:
-    """GameManager.setPhase() should only appear in AppFlowController"""
+def find_illegal_set_phase() -> list[str]:
     violations = []
     for ts_file in sorted(SCRIPTS_DIR.rglob("*.ts")):
         rel = ts_file.relative_to(SCRIPTS_DIR)
-        if str(rel) == "app/AppFlowController.ts":
+        if str(rel).replace("\\", "/") == "app/AppFlowController.ts":
             continue
-        text = ts_file.read_text(encoding="utf-8", errors="replace")
-        for lineno, line in enumerate(text.splitlines(), 1):
+        for lineno, line in enumerate(read_ts(ts_file), 1):
             if ".setPhase(" in line and not line.strip().startswith(("//", "*")):
                 violations.append(f"  {rel}:{lineno}  {line.strip()[:80]}")
     return violations
 
 
-def main():
+def find_risky_editor_component_fields() -> list[str]:
+    """Warn about @property(ComponentType) fields in UI scripts.
+
+    Project rule: expose Node fields in the editor, then resolve components
+    with NodeRef.component() at runtime. This prevents stale scene bindings
+    and Node-vs-Component drag mistakes from breaking panels.
+    """
+    risky_types = {"Label", "Button", "EditBox", "Sprite"}
+    warnings = []
+
+    for ts_file in sorted(SCRIPTS_DIR.rglob("*.ts")):
+        rel = ts_file.relative_to(SCRIPTS_DIR)
+        rel_text = str(rel).replace("\\", "/")
+        if not (rel_text.startswith("ui/") or rel_text in {"MainSceneController.ts"}):
+            continue
+
+        pending_type = None
+        pending_line = 0
+        for lineno, line in enumerate(read_ts(ts_file), 1):
+            stripped = line.strip()
+            match = re.search(r"@property\s*\(\s*([A-Za-z0-9_]+)\s*\)", stripped)
+            if match and match.group(1) in risky_types:
+                pending_type = match.group(1)
+                pending_line = lineno
+                continue
+
+            if pending_type:
+                if not stripped or stripped.startswith("//"):
+                    continue
+                field_match = re.search(r"([A-Za-z0-9_]+)\s*:", stripped)
+                field_name = field_match.group(1) if field_match else "<unknown>"
+                warnings.append(
+                    f"  {rel}:{pending_line}  @property({pending_type}) {field_name} -> prefer @property(Node) + NodeRef"
+                )
+                pending_type = None
+                pending_line = 0
+
+    return warnings
+
+
+def main() -> int:
     load_scene_issues = find_illegal_load_scene()
     new_comp_issues = find_illegal_new_component()
     set_phase_issues = find_illegal_set_phase()
+    editor_field_warnings = find_risky_editor_component_fields()
 
     print("=" * 50)
     print("  [Architecture] P0 + P1 Rule Check")
@@ -94,7 +133,7 @@ def main():
             print(f"  {v}")
         failed += 1
     else:
-        print("\n[OK] director.loadScene() — only in SceneFlowService.ts")
+        print("\n[OK] director.loadScene() only in SceneFlowService.ts")
 
     if new_comp_issues:
         print("\n[WARN] Possible illegal `new Component()` calls (review each):")
@@ -107,14 +146,23 @@ def main():
             print(f"  {v}")
         failed += 1
     else:
-        print("\n[OK] setPhase() — only in AppFlowController.ts")
+        print("\n[OK] setPhase() only in AppFlowController.ts")
+
+    if editor_field_warnings:
+        print("\n[WARN] Risky editor Component fields (prefer Node + NodeRef):")
+        for v in editor_field_warnings[:40]:
+            print(f"  {v}")
+        if len(editor_field_warnings) > 40:
+            print(f"  ... and {len(editor_field_warnings) - 40} more")
+    else:
+        print("\n[OK] editor-exposed UI fields use Node-safe binding")
 
     if failed:
         print(f"\n  [FAIL] {failed} check(s) failed")
         return 1
-    else:
-        print("\n  [OK] All architecture checks passed")
-        return 0
+
+    print("\n  [OK] All architecture checks passed")
+    return 0
 
 
 if __name__ == "__main__":

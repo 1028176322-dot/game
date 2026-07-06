@@ -2,29 +2,47 @@
  * CreatePanel - First-time character creation panel
  *
  * Two-phase flow:
- *   1. SELECT: player picks a character class from visual cards
- *      - title / model display (character idle animation) / class cards / class description / confirm+skip
+ *   1. SELECT: player picks a character class from class buttons
+ *      - title / model display (current character attack animation) / class buttons / class info / confirm+skip
  *   2. NAMING: player enters a name, then confirms to create character
  *      - title / name input / confirm
  *
- * Card structure:
- *   CardRoot
- *   ├── CharacterCard_{id}
- *   │   ├── CardBg    (ui.panel.frame style bg, tinted per class)
- *   │   ├── Preview   (character.warrior.idle via CharacterVisualService)
- *   │   ├── NameLabel (animal name from text.json)
- *   │   └── SelectedMark (blue highlight border when selected)
+ * Layout:
+ *   ContentRoot [VerticalPanelLayout, CreatePanelLayout]
+ *   ├── HeaderZone
+ *   │   └── TitleLabel              "创建冒险者"
+ *   ├── PreviewZone
+ *   │   └── ModelDisplay            shows selected character looping attack animation
+ *   │       └── CharacterPreview    (128x128 sprite, scale 0.75)
+ *   ├── ChoiceZone
+ *   │   └── CardRoot                5 class buttons
+ *   │       ├── Btn_warrior
+ *   │       ├── Btn_archer
+ *   │       ├── Btn_assassin
+ *   │       ├── Btn_mage
+ *   │       └── Btn_berserker
+ *   ├── InfoZone
+ *   │   ├── SelectedInfo            "熊 熊战士"
+ *   │   └── SelectedDesc            "坚实盾牌，可靠的防御"
+ *   ├── ActionZone
+ *   │   ├── ConfirmBtn
+ *   │   ├── SkipBtn
+ *   │   └── ErrorLabel
+ *   └── NameInput                   (naming phase, direct child of ContentRoot)
  *
- * Skin keys used: character.card.{id}, character.preview.{id} (via game_assets)
+ * Skin keys used: ui.main.character_button
  */
 
-import { _decorator, Component, Node, Label, Button, EditBox, Sprite, Color, UITransform } from 'cc';
+import { _decorator, Component, Node, Label, Button, EditBox, Sprite, Color, UITransform, HorizontalTextAlignment, VerticalTextAlignment } from 'cc';
 import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { AppFlowController, AppFlowState } from '../../app/AppFlowController';
 import { PlayerDataManager } from '../../core/PlayerDataManager';
 import { T } from '../../core/TextManager';
 import { UISkinService } from '../UISkinService';
 import { CharacterVisualService } from '../../render/CharacterVisualService';
+import { VerticalPanelLayout } from '../layout/VerticalPanelLayout';
+import { CreatePanelLayout } from '../layout/CreatePanelLayout';
+import { NodeRef } from '../../utils/NodeRef';
 
 const { ccclass, property } = _decorator;
 
@@ -43,36 +61,25 @@ const CHAR_OPTIONS: CharOption[] = [
     { id: 'berserker', animalKey: 'classAnimal.boar',   classKey: 'class.boarBerserker', descKey: 'classDesc.boarBerserker' },
 ];
 
-/** Per-class card tint for bg */
-const CARD_TINTS: Record<string, Color> = {
-    warrior:   new Color(0x4A, 0x9E, 0xFF, 0x30),
-    archer:    new Color(0x5B, 0xD6, 0x6B, 0x30),
-    assassin:  new Color(0xA8, 0x5F, 0xE0, 0x30),
-    mage:      new Color(0xFF, 0x8C, 0x00, 0x30),
-    berserker: new Color(0xE0, 0x4E, 0x4E, 0x30),
-};
-
-const SELECTED_TINT = new Color(0x4A, 0x9E, 0xFF, 0xFF);
-const UNSELECTED_TINT = new Color(0x80, 0x80, 0x80, 0xFF);
-
-const CARD_WIDTH = 100;
-const CARD_HEIGHT = 150;
-const CARD_GAP = 14;
+const CARD_WIDTH = 104;
+const BUTTON_HEIGHT = 48;
+const CARD_GAP = 12;
 
 @ccclass('CreatePanel')
 export class CreatePanel extends Component implements UIPanel {
     id: UiPanelId = 'create_character';
 
     @property(Node) panelRoot: Node | null = null;
-    @property(Label) titleLabel: Label | null = null;
+    @property(Node) contentRoot: Node | null = null;
+    @property(Node) titleLabel: Node | null = null;
     @property(Node) modelDisplay: Node | null = null;
     @property(Node) cardRoot: Node | null = null;
-    @property(Label) selectedInfo: Label | null = null;
-    @property(Label) selectedDesc: Label | null = null;
-    @property(Button) confirmBtn: Button | null = null;
-    @property(Label) errorLabel: Label | null = null;
-    @property(Label) skipBtn: Label | null = null;
-    @property(EditBox) nameInput: EditBox | null = null;
+    @property(Node) selectedInfo: Node | null = null;
+    @property(Node) selectedDesc: Node | null = null;
+    @property(Node) confirmBtn: Node | null = null;
+    @property(Node) errorLabel: Node | null = null;
+    @property(Node) skipBtnRef: Node | null = null;
+    @property(Node) nameInput: Node | null = null;
 
     private _selectedId = 'warrior';
     private _classCards: Node[] = [];
@@ -82,12 +89,21 @@ export class CreatePanel extends Component implements UIPanel {
 
     open(_params?: unknown): void {
         if (this.panelRoot) this.panelRoot.active = true;
+
         this._isNaming = false;
         this._clearError();
         this._applyPhase();
+
+        // Ensure layout is applied first so ModelDisplay/CardRoot have correct sizes
+        this._reLayout();
         this._buildCards();
         this._selectCharacter('warrior');
-        this.scheduleOnce(() => this._reLayout(), 0);
+
+        // Next frame: re-apply layout after dynamic nodes are built, then start animation
+        this.scheduleOnce(() => {
+            this._reLayout();
+            this._updateModelDisplay(this._selectedId);
+        }, 0);
     }
 
     close(): void {
@@ -97,14 +113,34 @@ export class CreatePanel extends Component implements UIPanel {
     // ── Lifecycle ──
 
     onLoad(): void {
-        if (this.confirmBtn) {
-            this.confirmBtn.node.on(Button.EventType.CLICK, this._onConfirm, this);
+        if (this.node.name !== 'CreatePanel') {
+            console.warn(`[CreatePanel] disabled unexpected duplicate component on ${this.node.name}`);
+            this.enabled = false;
+            return;
         }
-        if (this.skipBtn) {
-            this.skipBtn.node.on(Node.EventType.TOUCH_END, this._onSkip, this);
+
+        // Mount VerticalPanelLayout on ContentRoot. Cocos cannot serialize
+        // new script class IDs in scene files, so mount at runtime here.
+        this._ensureVerticalPanelLayout();
+        
+        const confirmButton = this._confirmButton();
+        if (confirmButton) {
+            confirmButton.node.on(Button.EventType.CLICK, this._onConfirm, this);
         }
-        if (this.nameInput) {
-            this.nameInput.node.on('editing-did-ended', this._onNameEdited, this);
+        // Find skip btn by editor binding or fallback (handles stale scene bindings)
+        if (!this.skipBtnRef) {
+            const cr = this._getContentRoot();
+            const actionZone = cr?.getChildByName('ActionZone');
+            if (actionZone) {
+                this.skipBtnRef = actionZone.getChildByName('SkipBtn');
+            }
+        }
+        if (this.skipBtnRef) {
+            this.skipBtnRef.on(Node.EventType.TOUCH_END, this._onSkip, this);
+        }
+        const editBox = this._nameEditBox();
+        if (editBox) {
+            editBox.node.on('editing-did-ended', this._onNameEdited, this);
         }
     }
 
@@ -114,15 +150,20 @@ export class CreatePanel extends Component implements UIPanel {
         const selectPhase = !this._isNaming;
         if (this.modelDisplay) this.modelDisplay.active = selectPhase;
         if (this.cardRoot) this.cardRoot.active = selectPhase;
-        if (this.selectedInfo) this.selectedInfo.node.active = selectPhase;
-        if (this.selectedDesc) this.selectedDesc.node.active = selectPhase;
-        if (this.skipBtn) this.skipBtn.node.active = selectPhase;
-        if (this.nameInput) this.nameInput.node.active = this._isNaming;
-        if (this.titleLabel) {
-            this.titleLabel.string = this._isNaming ? T('ui.createNamePrompt') : T('ui.createTitle');
+        const selectedInfoNode = this._labelNode(this.selectedInfo, 'InfoZone/SelectedInfo');
+        const selectedDescNode = this._labelNode(this.selectedDesc, 'InfoZone/SelectedDesc');
+        if (selectedInfoNode) selectedInfoNode.active = selectPhase;
+        if (selectedDescNode) selectedDescNode.active = selectPhase;
+        if (this.skipBtnRef) this.skipBtnRef.active = selectPhase;
+        const nameInputNode = this._nodeFromRef(this.nameInput) ?? this._findInContent('NameInput');
+        if (nameInputNode) nameInputNode.active = this._isNaming;
+        const title = this._label(this.titleLabel, 'HeaderZone/TitleLabel');
+        if (title) {
+            title.string = this._isNaming ? T('ui.createNamePrompt') : T('ui.createTitle');
         }
-        if (this.confirmBtn) {
-            const btnLabel = this.confirmBtn.getComponentInChildren(Label);
+        const confirmButton = this._confirmButton();
+        if (confirmButton) {
+            const btnLabel = confirmButton.getComponentInChildren(Label);
             if (btnLabel) {
                 btnLabel.string = this._isNaming ? T('ui.createConfirmName') : T('ui.createConfirm');
             }
@@ -132,13 +173,12 @@ export class CreatePanel extends Component implements UIPanel {
     // ── Character Cards ──
 
     /**
-     * Build visual character cards with bg, preview sprite, name, and selection highlight.
+     * Build 5 class selection buttons (no full character models).
      *
-     * Structure per card:
-     *   CharacterCard_{id} (CARD_WIDTH x CARD_HEIGHT)
-     *   ├── CardBg (Sprite, tinted per class, ui.panel.frame skin)
-     *   ├── Preview (Sprite, character idle via CharacterVisualService)
-     *   └── NameLabel (16px Label, centered below preview)
+     * Structure per button:
+     *   Btn_{id} (CARD_WIDTH x BUTTON_HEIGHT)
+     *   ├── Sprite (ui.main.character_button skin, tinted on selection)
+     *   └── Label (class name from text.json)
      */
     private _buildCards(): void {
         if (!this.cardRoot) return;
@@ -151,114 +191,152 @@ export class CreatePanel extends Component implements UIPanel {
 
         for (let i = 0; i < CHAR_OPTIONS.length; i++) {
             const opt = CHAR_OPTIONS[i];
-            const card = new Node(`Card_${opt.id}`);
-            card.setPosition(startX + i * (CARD_WIDTH + CARD_GAP), 0);
 
-            const cardTrans = card.addComponent(UITransform);
-            cardTrans.setContentSize(CARD_WIDTH, CARD_HEIGHT);
+            const btnNode = new Node(`Btn_${opt.id}`);
+            btnNode.setPosition(startX + i * (CARD_WIDTH + CARD_GAP), 0);
 
-            // Card background (tinted)
-            const bg = card.addComponent(Sprite);
-            bg.color = CARD_TINTS[opt.id] ?? new Color(0xFF, 0xFF, 0xFF, 0x30);
+            const trans = btnNode.addComponent(UITransform);
+            trans.setContentSize(CARD_WIDTH, BUTTON_HEIGHT);
 
-            // Try to apply card skin
-            UISkinService.instance.applyOptional(card, `character.card.${opt.id}`);
+            const sprite = btnNode.addComponent(Sprite);
+            sprite.color = new Color(0xFF, 0xFF, 0xFF, 0x30);
+            void UISkinService.instance.applyOptional(btnNode, 'ui.main.character_button');
 
-            // Preview area (top portion of card)
-            const previewNode = new Node('Preview');
-            const previewTrans = previewNode.addComponent(UITransform);
-            previewTrans.setContentSize(CARD_WIDTH - 16, CARD_HEIGHT - 50);
-            previewNode.setPosition(0, 15);
-            previewNode.addComponent(Sprite);
-            card.addChild(previewNode);
+            btnNode.addComponent(Button);
 
-            // Load character preview sprite
-            CharacterVisualService.instance.applyStatic(previewNode, `character.${opt.id}.idle`);
+            const labelNode = new Node('Label');
+            labelNode.setPosition(0, 0);
+            const label = labelNode.addComponent(Label);
+            label.string = T(opt.classKey);
+            label.fontSize = 16;
+            label.lineHeight = 20;
+            label.overflow = Label.Overflow.SHRINK;
+            label.color = Color.WHITE;
+            label.horizontalAlign = HorizontalTextAlignment.CENTER;
+            label.verticalAlign = VerticalTextAlignment.CENTER;
+            btnNode.addChild(labelNode);
 
-            // Name label below preview
-            const nameNode = new Node('Name');
-            const nameLabel = nameNode.addComponent(Label);
-            nameLabel.string = T(opt.animalKey);
-            nameLabel.fontSize = 14;
-            nameLabel.color = new Color(0x33, 0x33, 0x33, 0xFF);
-            nameNode.setPosition(0, -CARD_HEIGHT / 2 + 18);
-            card.addChild(nameNode);
+            btnNode.on(Button.EventType.CLICK, () => this._selectCharacter(opt.id), this);
 
-            // Click handler
-            card.on(Node.EventType.TOUCH_END, () => this._selectCharacter(opt.id));
-
-            this.cardRoot.addChild(card);
-            this._classCards.push(card);
+            this.cardRoot.addChild(btnNode);
+            this._classCards.push(btnNode);
         }
     }
 
-    /** Re-trigger layout after dynamic content is built */
-    private _reLayout(): void {
-        let node: Node | null = this.panelRoot;
-        if (!node) return;
-        node = node.getChildByName('PanelFrame');
-        if (!node) return;
-        node = node.getChildByName('ContentRoot');
-        if (!node) return;
-        for (const comp of node.components) {
-            if (typeof (comp as any).applyLayout === 'function') {
-                (comp as any).applyLayout();
-            }
+    /**
+     * Mount VerticalPanelLayout on ContentRoot at startup.
+     * Cocos cannot serialize new script class IDs in scene files, so we mount at runtime.
+     * Called once from onLoad().
+     */
+    private _ensureVerticalPanelLayout(): void {
+        const cr = this._getContentRoot();
+        if (!cr) return;
+        const existing = cr.getComponent(VerticalPanelLayout);
+        if (existing) return;
+
+        const vpl = cr.addComponent(VerticalPanelLayout);
+        const zoneNames = ['HeaderZone', 'PreviewZone', 'ChoiceZone', 'InfoZone', 'ActionZone'];
+        const zoneHeights = [52, 150, 58, 76, 58];
+        const zones: Node[] = [];
+        const heights: number[] = [];
+        for (let i = 0; i < zoneNames.length; i++) {
+            const zone = cr.getChildByName(zoneNames[i]);
+            if (zone) { zones.push(zone); heights.push(zoneHeights[i]); }
         }
+        if (zones.length > 0) {
+            vpl.zones = zones;
+            vpl.heights = heights;
+            vpl.gap = 18;
+            vpl.paddingTop = 18;
+            vpl.paddingBottom = 18;
+        }
+        console.log(`[CreatePanel] VerticalPanelLayout mounted with ${zones.length} zones`);
+    }
+
+    /** Re-trigger layout: zones first (VerticalPanelLayout), then internal (CreatePanelLayout). */
+    private _reLayout(): void {
+        const contentRoot = this._getContentRoot();
+        if (!contentRoot) {
+            console.warn('[CreatePanel] ContentRoot not found');
+            return;
+        }
+
+        const verticalLayout = contentRoot.getComponent(VerticalPanelLayout);
+        if (!verticalLayout) {
+            console.warn('[CreatePanel] VerticalPanelLayout missing on ContentRoot');
+            return;
+        }
+        verticalLayout.applyLayout();
+
+        const internalLayout = contentRoot.getComponent(CreatePanelLayout);
+        if (internalLayout) internalLayout.applyLayout();
+    }
+
+    /** Get ContentRoot node from editor binding or fallback path traversal. */
+    private _getContentRoot(): Node | null {
+        if (this.contentRoot?.isValid) return this.contentRoot;
+        // Fallback: traverse from panelRoot
+        return this.panelRoot
+            ?.getChildByName('PanelFrame')
+            ?.getChildByName('ContentRoot') ?? null;
     }
 
     // ── Character Selection ──
 
     private _selectCharacter(id: string): void {
-        if (id !== 'warrior') {
-            this._showError(T('ui.createOnlyWarrior'));
-            return;
-        }
-
         this._selectedId = id;
-        const opt = CHAR_OPTIONS.find(c => c.id === id)!;
+        const opt = CHAR_OPTIONS.find(c => c.id === id);
+        if (!opt) return;
 
-        // Update model display with character preview
-        if (this.modelDisplay) {
-            // Remove old placeholder
-            const oldChild = this.modelDisplay.getChildByName('ModelPlaceholder');
-            if (oldChild) oldChild.destroy();
+        // Update model display to selected character looping attack animation
+        void this._updateModelDisplay(id);
 
-            // Create preview node for character idle
-            const previewNode = new Node('ModelPlaceholder');
-            const previewTrans = previewNode.addComponent(UITransform);
-            previewTrans.setContentSize(192, 192);
-            previewNode.addComponent(Sprite);
-            this.modelDisplay.addChild(previewNode);
-
-            // Load character idle sprite via semantic key
-            CharacterVisualService.instance.applyStatic(previewNode, `character.${id}.idle`);
-
-            // Tint background per class
-            const bg = this.modelDisplay.getComponent(Sprite);
-            if (bg) {
-                bg.color = CARD_TINTS[id] ?? new Color(0xFF, 0xFF, 0xFF, 0x50);
-            }
+        const selectedInfo = this._label(this.selectedInfo, 'InfoZone/SelectedInfo');
+        const selectedDesc = this._label(this.selectedDesc, 'InfoZone/SelectedDesc');
+        if (selectedInfo) {
+            selectedInfo.string = `${T(opt.animalKey)} ${T(opt.classKey)}`;
+        }
+        if (selectedDesc) {
+            selectedDesc.string = T(opt.descKey);
         }
 
-        if (this.selectedInfo) {
-            this.selectedInfo.string = `${T(opt.animalKey)} ${T(opt.classKey)}`;
-        }
-        if (this.selectedDesc) {
-            this.selectedDesc.string = T(opt.descKey);
-        }
-
-        // Highlight selected card
-        this._classCards.forEach((card, i) => {
-            const bg = card.getComponent(Sprite);
-            if (bg) {
-                bg.color = CHAR_OPTIONS[i].id === id
-                    ? SELECTED_TINT
-                    : UNSELECTED_TINT;
-            }
-        });
-
+        this._refreshSelectedButtonState();
         this._clearError();
+    }
+
+    /** Update the top model display to show selected character's attack animation, scaled to fit PreviewZone. */
+    private async _updateModelDisplay(id: string): Promise<void> {
+        if (!this.modelDisplay) return;
+
+        this.modelDisplay.removeAllChildren();
+
+        const previewNode = new Node('CharacterPreview');
+        const trans = previewNode.addComponent(UITransform);
+        trans.setContentSize(128, 128);
+        previewNode.setPosition(0, 0);
+
+        // Scale down to fit within PreviewZone (max 140h) without overflowing
+        previewNode.setScale(0.75, 0.75, 1);
+
+        this.modelDisplay.addChild(previewNode);
+
+        await CharacterVisualService.instance.play(previewNode, `character.${id}.attack`, 8);
+    }
+
+    /** Refresh button visual state based on current selection. */
+    private _refreshSelectedButtonState(): void {
+        for (const card of this._classCards) {
+            const selected = card.name === `Btn_${this._selectedId}`;
+            const sprite = card.getComponent(Sprite);
+
+            if (sprite) {
+                sprite.color = selected
+                    ? new Color(255, 255, 255, 255)
+                    : new Color(180, 180, 180, 255);
+            }
+
+            card.setScale(selected ? 1.06 : 1, selected ? 1.06 : 1, 1);
+        }
     }
 
     // ── Confirm ──
@@ -268,14 +346,15 @@ export class CreatePanel extends Component implements UIPanel {
             this._isNaming = true;
             this._clearError();
             this._applyPhase();
-            if (this.nameInput) {
-                this.nameInput.node.active = true;
+            const nameInputNode = this._nodeFromRef(this.nameInput) ?? this._findInContent('NameInput');
+            if (nameInputNode) {
+                nameInputNode.active = true;
             }
             this._reLayout();
             return;
         }
 
-        const name = this.nameInput?.string.trim() ?? '';
+        const name = this._nameEditBox()?.string.trim() ?? '';
         if (!name) { this._showError(T('ui.createNameRequired')); return; }
         if (name.length > 6) { this._showError(T('ui.createNameTooLong')); return; }
         if (this._hasReservedWords(name)) { this._showError(T('ui.createNameBlocked')); return; }
@@ -311,12 +390,40 @@ export class CreatePanel extends Component implements UIPanel {
     }
 
     private _showError(msg: string): void {
-        if (this.errorLabel) { this.errorLabel.string = msg; this.errorLabel.node.active = true; }
-        if (this.confirmBtn) this.confirmBtn.interactable = false;
+        const error = this._label(this.errorLabel, 'ActionZone/ErrorLabel');
+        if (error) { error.string = msg; error.node.active = true; }
+        const confirmButton = this._confirmButton();
+        if (confirmButton) confirmButton.interactable = false;
     }
 
     private _clearError(): void {
-        if (this.errorLabel) this.errorLabel.node.active = false;
-        if (this.confirmBtn) this.confirmBtn.interactable = true;
+        const errorNode = this._labelNode(this.errorLabel, 'ActionZone/ErrorLabel');
+        if (errorNode) errorNode.active = false;
+        const confirmButton = this._confirmButton();
+        if (confirmButton) confirmButton.interactable = true;
+    }
+
+    private _confirmButton(): Button | null {
+        return NodeRef.component(this.confirmBtn, Button, this._getContentRoot(), 'ActionZone/ConfirmBtn');
+    }
+
+    private _nameEditBox(): EditBox | null {
+        return NodeRef.component(this.nameInput, EditBox, this._getContentRoot(), 'NameInput');
+    }
+
+    private _label(ref: unknown, path: string): Label | null {
+        return NodeRef.component(ref as any, Label, this._getContentRoot(), path);
+    }
+
+    private _labelNode(ref: unknown, path: string): Node | null {
+        return NodeRef.node(ref as any) ?? this._findInContent(path);
+    }
+
+    private _nodeFromRef(ref: unknown): Node | null {
+        return NodeRef.node(ref as any);
+    }
+
+    private _findInContent(path: string): Node | null {
+        return NodeRef.find(this._getContentRoot(), path);
     }
 }

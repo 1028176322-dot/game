@@ -48,6 +48,18 @@ AI 生成 → art_source/textures_master/ → 导出到 art_source/textures_expo
 - `art_source/textures_audit_manifest.csv` — 资源审计清单
 - `tools/gen_missing_179.py` — 通用资源生成脚本（支持按 category/only 分批）
 
+### 资源管线完成度
+- `assets/resources/textures/`: **401/418** 张 PNG（17 张 backgrounds 缺失）
+- `art_source/textures_review/master_review.csv`: **35 项需要重做**（安全/结构问题）
+  - backgrounds ×5（blood-like/skull 安全）
+  - tiles ×8（生成了徽章而非无缝纹理）
+  - icons ×2（key/frenzyaxe 安全）
+  - archer ×1（magenta 残留）
+  - berserker ×7 / warrior ×7 / mage ×7（安全重写需 regenerate）
+- `art_source/textures_review/rejected/`: **60 张被拒绝**（未计入正式目录）
+- `art_source/textures_review/approved/`: **0 张正式批准**
+- 接管提醒：另一 AI 对话生成完毕后未完成最终替换审批。
+
 ### 已完成的生成批次
 - 全量 418 条 prompts 生成（素材阶段）
 - 179 张重做为"明亮卡通像素风"（当前风格）
@@ -68,4 +80,5 @@ AI 生成 → art_source/textures_master/ → 导出到 art_source/textures_expo
 - `docs/runtime_replace补齐与整体替换方案.md`
 
 ## 最近变更
+- 2026-07-06：资源审计数据更新至 topic（401/418 PNGs，35 项待重做，60 张被拒）。所有旧 inbox patches 归档至 archive/。
 - 2026-06-30：风格从"明亮卡通像素"变更为"卡通动物风"。

@@ -136,11 +136,18 @@ def main() -> int:
             if field not in item or item[field] is None:
                 errors.append(f"missing field '{field}' for {typ}: key={key}")
 
-        # Check 5: sprite sheet layout validation
+        # Check 4b: sprite sheet layout validation
         if typ in SHEET_TYPES:
             layout = item.get("layout", "")
             if layout not in ("vertical", "horizontal", "grid"):
                 errors.append(f"invalid layout '{layout}' for sheet: key={key}")
+
+        # Check 4c: file-based type consistency — verify that actual disk image
+        # dimensions match the declared type. This prevents the root cause where
+        # sprite sheets are declared as 'sprite' (missing frame metadata) or
+        # single images are declared as 'sprite_sheet'.
+        if fpath.exists():
+            _check_type_vs_file(fpath, key, typ, item, errors)
 
         # Check 6: safeReview boolean
         if "safeReview" in item and not isinstance(item["safeReview"], bool):
@@ -216,6 +223,64 @@ def main() -> int:
         json.dump(report, f, ensure_ascii=False, indent=2)
 
     return 1 if errors else 0
+
+
+# ---- Type-vs-File consistency check ----
+
+def _check_type_vs_file(fpath, key, typ, item, errors):
+    """
+    Verify that the declared type matches the actual file:
+    - If file is a multi-frame sprite sheet (height >= 2x width, clean division),
+      type MUST be sprite_sheet or effect_sheet, and frame metadata must be present.
+    - If file is single image, type MUST NOT be sprite_sheet or effect_sheet.
+    """
+    try:
+        img = Image.open(fpath)
+    except Exception:
+        return  # Can't check, skip
+
+    w, h = img.size
+    is_multi_frame = False
+    frames = 0
+    if h >= w * 2 and h % w == 0:
+        is_multi_frame = True
+        frames = h // w
+    elif w >= h * 2 and w % h == 0:
+        is_multi_frame = True
+        frames = w // h
+
+    if is_multi_frame:
+        # File IS a sprite sheet — type must match
+        if typ not in SHEET_TYPES:
+            errors.append(
+                f"type mismatch: {key} declared as '{typ}' but file is a {frames}-frame sprite sheet "
+                f"({w}x{h}). Must be one of {SHEET_TYPES} with frameWidth/frameHeight/frames/layout."
+            )
+        else:
+            # Verify frame metadata dimensions match actual file
+            fw = item.get("frameWidth", 0)
+            fh = item.get("frameHeight", 0)
+            declared_frames = item.get("frames", 0)
+            layout = item.get("layout", "vertical")
+            if layout == "vertical" and (w != fw or h != fh * declared_frames):
+                errors.append(
+                    f"sheet metadata mismatch: {key}, "
+                    f"declared={fw}x{fh}×{declared_frames} {layout}"
+                    f", actual file={w}x{h} ({h // max(w,1)} frames)"
+                )
+            elif layout == "horizontal" and (w != fw * declared_frames or h != fh):
+                errors.append(
+                    f"sheet metadata mismatch: {key}, "
+                    f"declared={fw}x{fh}×{declared_frames} {layout}"
+                    f", actual file={w}x{h} ({w // max(h,1)} frames)"
+                )
+    else:
+        # File is single image — type must not be sprite_sheet
+        if typ in SHEET_TYPES:
+            errors.append(
+                f"type mismatch: {key} declared as '{typ}' but file is a single image "
+                f"({w}x{h}). Change type to 'sprite' and remove sheet metadata."
+            )
 
 
 # ---- Image-level quality check helpers (Pillow required) ----

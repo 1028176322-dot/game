@@ -12,7 +12,7 @@
  *   不同面板调整 frameWidthRatio / frameHeightRatio 等参数。
  */
 
-import { _decorator, Component, Node, UITransform, view, Vec3, clamp } from 'cc';
+import { _decorator, Component, Node, UITransform, view, Vec3, clamp, Sprite } from 'cc';
 import { ResponsivePanelContent } from './ResponsivePanelContent';
 
 const { ccclass, property, menu } = _decorator;
@@ -51,6 +51,18 @@ export class ResponsivePanelRoot extends Component {
     }
 
     onEnable(): void {
+        // Enable DimMask and PanelFrame Sprites disabled in scene file
+        // (disabled to avoid white triangle placeholder in editor when spriteFrame is null).
+        // Engine renders correctly at runtime with default white texture + color tint.
+        if (this.dimMask) {
+            const sprite = this.dimMask.getComponent(Sprite);
+            if (sprite && !sprite.enabled) sprite.enabled = true;
+        }
+        if (this.panelFrame) {
+            const sprite = this.panelFrame.getComponent(Sprite);
+            if (sprite && !sprite.enabled) sprite.enabled = true;
+        }
+
         this.applyLayout();
         // Delayed re-apply in case view size is not ready during the first frame
         this.scheduleOnce(() => this.applyLayout(), 0);

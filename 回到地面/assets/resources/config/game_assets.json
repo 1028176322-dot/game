@@ -510,9 +510,13 @@
   },
   "boss.abyssoverlord_7": {
     "assetId": "textures/bosses/finalboss/abyss/boss_abyssoverlord_death",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "bosses",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frames": 4,
+    "layout": "vertical"
   },
   "boss.abyssoverlord_8": {
     "assetId": "textures/bosses/finalboss/abyss/boss_abyssoverlord_idle",
@@ -522,9 +526,13 @@
   },
   "boss.abyssoverlord_9": {
     "assetId": "textures/bosses/finalboss/abyss/boss_abyssoverlord_phasechange",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "bosses",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frames": 4,
+    "layout": "vertical"
   },
   "boss.abyssoverlord_10": {
     "assetId": "textures/bosses/finalboss/abyss/boss_abyssoverlord_skill",
@@ -540,9 +548,13 @@
   },
   "boss.skeletonlord_7": {
     "assetId": "textures/bosses/finalboss/catacombs/boss_skeletonlord_death",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "bosses",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frames": 4,
+    "layout": "vertical"
   },
   "boss.skeletonlord_8": {
     "assetId": "textures/bosses/finalboss/catacombs/boss_skeletonlord_idle",
@@ -552,9 +564,13 @@
   },
   "boss.skeletonlord_9": {
     "assetId": "textures/bosses/finalboss/catacombs/boss_skeletonlord_phasechange",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "bosses",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frames": 4,
+    "layout": "vertical"
   },
   "boss.skeletonlord_10": {
     "assetId": "textures/bosses/finalboss/catacombs/boss_skeletonlord_skill",
@@ -570,9 +586,13 @@
   },
   "boss.forestguardian_7": {
     "assetId": "textures/bosses/finalboss/forest/boss_forestguardian_death",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "bosses",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frames": 4,
+    "layout": "vertical"
   },
   "boss.forestguardian_8": {
     "assetId": "textures/bosses/finalboss/forest/boss_forestguardian_idle",
@@ -582,9 +602,13 @@
   },
   "boss.forestguardian_9": {
     "assetId": "textures/bosses/finalboss/forest/boss_forestguardian_phasechange",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "bosses",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frames": 4,
+    "layout": "vertical"
   },
   "boss.forestguardian_10": {
     "assetId": "textures/bosses/finalboss/forest/boss_forestguardian_skill",
@@ -600,9 +624,13 @@
   },
   "boss.swampbehemoth_7": {
     "assetId": "textures/bosses/finalboss/swamp/boss_swampbehemoth_death",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "bosses",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frames": 4,
+    "layout": "vertical"
   },
   "boss.swampbehemoth_8": {
     "assetId": "textures/bosses/finalboss/swamp/boss_swampbehemoth_idle",
@@ -612,9 +640,13 @@
   },
   "boss.swampbehemoth_9": {
     "assetId": "textures/bosses/finalboss/swamp/boss_swampbehemoth_phasechange",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "bosses",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frames": 4,
+    "layout": "vertical"
   },
   "boss.swampbehemoth_10": {
     "assetId": "textures/bosses/finalboss/swamp/boss_swampbehemoth_skill",
@@ -630,9 +662,13 @@
   },
   "boss.frostqueen_7": {
     "assetId": "textures/bosses/finalboss/tundra/boss_frostqueen_death",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "bosses",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frames": 4,
+    "layout": "vertical"
   },
   "boss.frostqueen_8": {
     "assetId": "textures/bosses/finalboss/tundra/boss_frostqueen_idle",
@@ -642,9 +678,13 @@
   },
   "boss.frostqueen_9": {
     "assetId": "textures/bosses/finalboss/tundra/boss_frostqueen_phasechange",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "bosses",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frames": 4,
+    "layout": "vertical"
   },
   "boss.frostqueen_10": {
     "assetId": "textures/bosses/finalboss/tundra/boss_frostqueen_skill",
@@ -660,9 +700,13 @@
   },
   "boss.firelord_7": {
     "assetId": "textures/bosses/finalboss/volcano/boss_firelord_death",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "bosses",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frames": 4,
+    "layout": "vertical"
   },
   "boss.firelord_8": {
     "assetId": "textures/bosses/finalboss/volcano/boss_firelord_idle",
@@ -672,9 +716,13 @@
   },
   "boss.firelord_9": {
     "assetId": "textures/bosses/finalboss/volcano/boss_firelord_phasechange",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "bosses",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "frames": 4,
+    "layout": "vertical"
   },
   "boss.firelord_10": {
     "assetId": "textures/bosses/finalboss/volcano/boss_firelord_skill",
@@ -684,249 +732,413 @@
   },
   "character.archer.attack": {
     "assetId": "textures/characters/archer/archer_attack",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.archer.death": {
     "assetId": "textures/characters/archer/archer_death",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.archer.dodge": {
     "assetId": "textures/characters/archer/archer_dodge",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.archer.hit": {
     "assetId": "textures/characters/archer/archer_hit",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.archer.idle": {
     "assetId": "textures/characters/archer/archer_idle",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.archer.skill": {
     "assetId": "textures/characters/archer/archer_skill",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.archer.walk": {
     "assetId": "textures/characters/archer/archer_walk",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.assassin.attack": {
     "assetId": "textures/characters/assassin/assassin_attack",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.assassin.death": {
     "assetId": "textures/characters/assassin/assassin_death",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.assassin.dodge": {
     "assetId": "textures/characters/assassin/assassin_dodge",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.assassin.hit": {
     "assetId": "textures/characters/assassin/assassin_hit",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.assassin.idle": {
     "assetId": "textures/characters/assassin/assassin_idle",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.assassin.skill": {
     "assetId": "textures/characters/assassin/assassin_skill",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.assassin.walk": {
     "assetId": "textures/characters/assassin/assassin_walk",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.berserker.attack": {
     "assetId": "textures/characters/berserker/berserker_attack",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.berserker.death": {
     "assetId": "textures/characters/berserker/berserker_death",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.berserker.dodge": {
     "assetId": "textures/characters/berserker/berserker_dodge",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.berserker.hit": {
     "assetId": "textures/characters/berserker/berserker_hit",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.berserker.idle": {
     "assetId": "textures/characters/berserker/berserker_idle",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.berserker.skill": {
     "assetId": "textures/characters/berserker/berserker_skill",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.berserker.walk": {
     "assetId": "textures/characters/berserker/berserker_walk",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.mage.attack": {
     "assetId": "textures/characters/mage/mage_attack",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.mage.death": {
     "assetId": "textures/characters/mage/mage_death",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.mage.dodge": {
     "assetId": "textures/characters/mage/mage_dodge",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.mage.hit": {
     "assetId": "textures/characters/mage/mage_hit",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.mage.idle": {
     "assetId": "textures/characters/mage/mage_idle",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.mage.skill": {
     "assetId": "textures/characters/mage/mage_skill",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.mage.walk": {
     "assetId": "textures/characters/mage/mage_walk",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.warrior.attack": {
     "assetId": "textures/characters/warrior/warrior_attack",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.warrior.death": {
     "assetId": "textures/characters/warrior/warrior_death",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.warrior.dodge": {
     "assetId": "textures/characters/warrior/warrior_dodge",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.warrior.hit": {
     "assetId": "textures/characters/warrior/warrior_hit",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.warrior.idle": {
     "assetId": "textures/characters/warrior/warrior_idle",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.warrior.skill": {
     "assetId": "textures/characters/warrior/warrior_skill",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "character.warrior.walk": {
     "assetId": "textures/characters/warrior/warrior_walk",
-    "type": "sprite",
+    "type": "sprite_sheet",
     "category": "characters",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "effect.combat.crit": {
     "assetId": "textures/effects/combat/fx_crit",
-    "type": "sprite",
+    "type": "effect_sheet",
     "category": "effect",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 6,
+    "layout": "vertical"
   },
   "effect.combat.dash": {
     "assetId": "textures/effects/combat/fx_dash",
-    "type": "sprite",
+    "type": "effect_sheet",
     "category": "effect",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "effect.combat.dodge": {
     "assetId": "textures/effects/combat/fx_dodge",
-    "type": "sprite",
+    "type": "effect_sheet",
     "category": "effect",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "effect.combat.heal": {
     "assetId": "textures/effects/combat/fx_heal",
-    "type": "sprite",
+    "type": "effect_sheet",
     "category": "effect",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 6,
+    "layout": "vertical"
   },
   "effect.combat.hit_normal": {
     "assetId": "textures/effects/combat/fx_hit_normal",
-    "type": "sprite",
+    "type": "effect_sheet",
     "category": "effect",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 4,
+    "layout": "vertical"
   },
   "effect.combat.shield": {
     "assetId": "textures/effects/combat/fx_shield",
-    "type": "sprite",
+    "type": "effect_sheet",
     "category": "effect",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 6,
+    "layout": "vertical"
   },
   "effect.reaction.burn": {
     "assetId": "textures/effects/reactions/fx_reaction_burn",
@@ -1109,15 +1321,23 @@
   },
   "effect.ui.glow": {
     "assetId": "textures/effects/ui/fx_ui_glow",
-    "type": "sprite",
+    "type": "effect_sheet",
     "category": "effect",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 3,
+    "layout": "vertical"
   },
   "effect.ui.loading": {
     "assetId": "textures/effects/ui/fx_ui_loading",
-    "type": "sprite",
+    "type": "effect_sheet",
     "category": "effect",
-    "safeReview": false
+    "safeReview": false,
+    "frameWidth": 192,
+    "frameHeight": 192,
+    "frames": 3,
+    "layout": "vertical"
   },
   "icon.buffs.icon_buff_atkup": {
     "assetId": "textures/icons/buffs/icon_buff_atkup",

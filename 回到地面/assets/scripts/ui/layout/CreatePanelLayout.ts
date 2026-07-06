@@ -1,14 +1,29 @@
 /**
- * CreatePanelLayout — Create panel internal layout component
+ * CreatePanelLayout — Zone-internal layout for CreatePanel
  *
- * Mounted on ContentRoot under CreatePanel/PanelRoot/PanelFrame/ContentRoot.
- * Sets UITransform sizes and positions for all child nodes.
+ * This component now ONLY handles positioning of elements WITHIN each zone.
+ * Zone positioning (top-to-down within ContentRoot) is handled by VerticalPanelLayout.
  *
- * Called automatically by ResponsivePanelContent.applyLayout().
- * Also triggered after dynamic card creation via _reLayout().
+ * Zone structure:
+ *   ContentRoot [VerticalPanelLayout]
+ *   ├── HeaderZone      52px
+ *   │   └── TitleLabel
+ *   ├── PreviewZone    150px
+ *   │   └── ModelDisplay
+ *   ├── ChoiceZone      58px
+ *   │   └── CardRoot
+ *   ├── InfoZone        76px
+ *   │   ├── SelectedInfo
+ *   │   └── SelectedDesc
+ *   ├── ActionZone      58px
+ *   │   ├── ConfirmBtn
+ *   │   ├── SkipBtn
+ *   │   └── ErrorLabel
+ *   └── NameInput        (naming phase, direct child of ContentRoot)
  */
 
 import { _decorator, Component, Node, UITransform } from 'cc';
+import { NodeRef } from '../../utils/NodeRef';
 
 const { ccclass, property, menu } = _decorator;
 
@@ -18,6 +33,7 @@ export class CreatePanelLayout extends Component {
     @property(Node) titleLabel: Node | null = null;
     @property(Node) modelDisplay: Node | null = null;
     @property(Node) cardRoot: Node | null = null;
+    @property(Node) selectedInfo: Node | null = null;
     @property(Node) selectedDesc: Node | null = null;
     @property(Node) confirmBtn: Node | null = null;
     @property(Node) skipBtn: Node | null = null;
@@ -29,51 +45,64 @@ export class CreatePanelLayout extends Component {
     }
 
     applyLayout(): void {
-        const trans = this.node.getComponent(UITransform);
-        if (!trans) return;
+        // === Zone-internal layout ===
+        // Each element is positioned relative to its parent zone.
+        // The zone itself is positioned by VerticalPanelLayout.
 
-        const w = trans.width;
-        const h = trans.height;
-        const halfH = h / 2;
+        // --- HeaderZone: center TitleLabel ---
+        const titleLabel = this._node(this.titleLabel, 'HeaderZone/TitleLabel');
+        this._setSize(titleLabel, this._zoneWidth('HeaderZone', 420), 42);
+        titleLabel?.setPosition(0, 0);
 
-        // --- Select phase node sizes ---
-        this._setSize(this.titleLabel, Math.min(w - 80, 500), 36);
-        this._setSize(this.modelDisplay, Math.min(w - 80, 420), Math.min(200, h * 0.35));
-        this._setSize(this.cardRoot, Math.min(w - 60, 620), 180);
-        this._setSize(this.selectedDesc, Math.min(w - 100, 520), 72);
-        this._setSize(this.confirmBtn, 180, 56);
-        this._setSize(this.skipBtn, 180, 56);
-        this._setSize(this.errorLabel, Math.min(w - 80, 400), 28);
+        // --- PreviewZone: center ModelDisplay ---
+        const modelDisplay = this._node(this.modelDisplay, 'PreviewZone/ModelDisplay');
+        this._setSize(modelDisplay, 220, 140);
+        modelDisplay?.setPosition(0, 0);
 
-        // --- Naming phase node sizes ---
-        this._setSize(this.nameInput, Math.min(w - 120, 420), 48);
+        // --- ChoiceZone: CardRoot is centered; internal button layout done by _buildCards() ---
+        const cardRoot = this._node(this.cardRoot, 'ChoiceZone/CardRoot');
+        this._setSize(cardRoot, 580, 48);
+        cardRoot?.setPosition(0, 0);
 
-        // --- Select phase positions (top-down) ---
-        // Title at top
-        this.titleLabel?.setPosition(0, halfH - 28);
+        // --- InfoZone: SelectedInfo above, SelectedDesc below ---
+        const selectedInfo = this._node(this.selectedInfo, 'InfoZone/SelectedInfo');
+        const selectedDesc = this._node(this.selectedDesc, 'InfoZone/SelectedDesc');
+        this._setSize(selectedInfo, 480, 30);
+        this._setSize(selectedDesc, 560, 44);
+        selectedInfo?.setPosition(0, 16);
+        selectedDesc?.setPosition(0, -18);
 
-        // Model display below title
-        this.modelDisplay?.setPosition(0, halfH - 60 - Math.min(100, h * 0.175));
+        // --- ActionZone: Confirm left, Skip right, Error above ---
+        const confirmBtn = this._node(this.confirmBtn, 'ActionZone/ConfirmBtn');
+        const skipBtn = this._node(this.skipBtn, 'ActionZone/SkipBtn');
+        const errorLabel = this._node(this.errorLabel, 'ActionZone/ErrorLabel');
+        this._setSize(confirmBtn, 140, 46);
+        this._setSize(skipBtn, 140, 46);
+        this._setSize(errorLabel, 480, 24);
+        confirmBtn?.setPosition(-120, 0);
+        skipBtn?.setPosition(120, 0);
+        errorLabel?.setPosition(0, 34);
 
-        // Cards centered
-        this.cardRoot?.setPosition(0, 0);
+        // --- Naming phase: NameInput centered ---
+        const nameInput = this._node(this.nameInput, 'NameInput');
+        this._setSize(nameInput, 420, 48);
+        nameInput?.setPosition(0, 0);
+    }
 
-        // Description below cards
-        this.selectedDesc?.setPosition(0, -120);
-
-        // Buttons at bottom
-        this.confirmBtn?.setPosition(-120, -halfH + 40);
-        this.skipBtn?.setPosition(120, -halfH + 40);
-
-        // Error label above buttons
-        this.errorLabel?.setPosition(0, -halfH + 90);
-
-        // --- Naming phase positions ---
-        this.nameInput?.setPosition(0, 0);
+    /** Get zone width from ContentRoot child, with a fallback. */
+    private _zoneWidth(zoneName: string, fallback: number): number {
+        // CreatePanelLayout is on ContentRoot, zones are direct children
+        const zone = this.node.getChildByName(zoneName);
+        const trans = zone?.getComponent(UITransform);
+        return trans?.width ?? fallback;
     }
 
     private _setSize(node: Node | null, width: number, height: number): void {
         const t = node?.getComponent(UITransform);
         if (t) t.setContentSize(width, height);
+    }
+
+    private _node(ref: unknown, path: string): Node | null {
+        return NodeRef.node(ref as any) ?? NodeRef.find(this.node, path);
     }
 }

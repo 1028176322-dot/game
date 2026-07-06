@@ -14,6 +14,28 @@ Active. These rules are mandatory for all conversations and tools working in thi
 | Assets | Loading, fallback, resource mapping | Bypass `AssetBundleService` / `RenderAssetService` |
 | Runtime assembly | Creating scene layers and runtime nodes | Require manual SpriteFrame binding in Cocos as the production path |
 
+## Cocos Editor Binding Rules
+
+Editor-exposed UI fields should use `@property(Node)` by default. Do not expose
+`@property(Label)`, `@property(Button)`, `@property(Sprite)`, or
+`@property(EditBox)` in new UI/panel/HUD scripts unless there is a documented
+reason.
+
+Resolve components at runtime through `NodeRef`:
+
+```ts
+const label = NodeRef.component(titleNode, Label, contentRoot, "HeaderZone/TitleLabel");
+const button = NodeRef.component(confirmNode, Button, contentRoot, "ActionZone/ConfirmBtn");
+```
+
+Reason: Cocos scene serialization can keep stale component references after
+script field type changes, and editor users can accidentally drag a Node where
+a Component was expected. The stable rule is: bind Nodes in Inspector, resolve
+Components in code, and provide path fallbacks for important nodes.
+
+Panel controller scripts belong on the panel root node. `ContentRoot` should
+hold responsive-content and layout components only.
+
 ## Naming And Code Style
 
 - State fields and enum-like values must have a single source of truth.

@@ -32,6 +32,20 @@ export class CharacterVisualService {
     }
 
     /**
+     * Apply preview frame (frame 0) from a sprite sheet — used in cards and selection UI.
+     * Unlike applyStatic() which loads the full PNG as one SpriteFrame,
+     * this slices the sprite sheet to show only the first frame.
+     */
+    async applyPreviewFrame(node: Node, visualKey: string): Promise<boolean> {
+        const def = await GameAssetService.instance.get(visualKey);
+        if (!def) {
+            console.warn(`[CharacterVisualService] applyPreviewFrame: missing key ${visualKey}`);
+            return false;
+        }
+        return SpriteAnimationService.instance.applyFrameByAssetDef(node, def, 0);
+    }
+
+    /**
      * Play a sprite sheet animation on a node.
      * Falls back to static frame if the asset is not a sprite_sheet.
      */
