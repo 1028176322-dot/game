@@ -88,10 +88,16 @@ export class RenderAssetService {
         const existing = node.getComponent(Sprite);
         if (existing) return existing;
 
-        if (!node.getComponent(Graphics)) {
+        // Check for conflicting renderer components (Label, Graphics, etc.)
+        // Cocos nodes cannot have both Label and Sprite — must use a child node.
+        const hasLabel = node.getComponent('cc.Label') ?? null;
+        const hasGraphics = node.getComponent(Graphics);
+
+        if (!hasLabel && !hasGraphics) {
             return node.addComponent(Sprite);
         }
 
+        // Create a child node to host the Sprite, keeping the original renderer intact
         let visual = node.getChildByName('SpriteVisual');
         if (!visual) {
             visual = new Node('SpriteVisual');
