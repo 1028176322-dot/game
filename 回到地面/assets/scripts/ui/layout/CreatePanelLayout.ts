@@ -1,8 +1,11 @@
 /**
- * CreatePanelLayout - 创建角色面板内部布局组件
+ * CreatePanelLayout — Create panel internal layout component
  *
- * 挂在 CreatePanel/PanelRoot/PanelFrame/ContentRoot 上。
- * 按设计稿排布：标题 → 模型展示 → 职业按钮 → 职业描述 → 确认/跳过。
+ * Mounted on ContentRoot under CreatePanel/PanelRoot/PanelFrame/ContentRoot.
+ * Sets UITransform sizes and positions for all child nodes.
+ *
+ * Called automatically by ResponsivePanelContent.applyLayout().
+ * Also triggered after dynamic card creation via _reLayout().
  */
 
 import { _decorator, Component, Node, UITransform } from 'cc';
@@ -33,26 +36,39 @@ export class CreatePanelLayout extends Component {
         const h = trans.height;
         const halfH = h / 2;
 
-        // Sizes for select phase
-        this._setSize(this.titleLabel, w, 36);
-        this._setSize(this.modelDisplay, Math.min(w - 80, 400), Math.min(200, h * 0.35));
-        this._setSize(this.cardRoot, Math.min(w - 80, 600), 50);
-        this._setSize(this.selectedDesc, w - 80, 40);
-        this._setSize(this.errorLabel, w - 80, 24);
-        this._setSize(this.confirmBtn, 160, 40);
-        this._setSize(this.skipBtn, 140, 40);
+        // --- Select phase node sizes ---
+        this._setSize(this.titleLabel, Math.min(w - 80, 500), 36);
+        this._setSize(this.modelDisplay, Math.min(w - 80, 420), Math.min(200, h * 0.35));
+        this._setSize(this.cardRoot, Math.min(w - 60, 620), 180);
+        this._setSize(this.selectedDesc, Math.min(w - 100, 520), 72);
+        this._setSize(this.confirmBtn, 180, 56);
+        this._setSize(this.skipBtn, 180, 56);
+        this._setSize(this.errorLabel, Math.min(w - 80, 400), 28);
 
-        // Select phase layout
-        this.titleLabel?.setPosition(0, halfH - 24);
+        // --- Naming phase node sizes ---
+        this._setSize(this.nameInput, Math.min(w - 120, 420), 48);
+
+        // --- Select phase positions (top-down) ---
+        // Title at top
+        this.titleLabel?.setPosition(0, halfH - 28);
+
+        // Model display below title
         this.modelDisplay?.setPosition(0, halfH - 60 - Math.min(100, h * 0.175));
-        this.cardRoot?.setPosition(0, -60);
-        this.selectedDesc?.setPosition(0, -120);
-        this.errorLabel?.setPosition(0, -halfH + 70);
-        this.confirmBtn?.setPosition(-120, -halfH + 20);
-        this.skipBtn?.setPosition(120, -halfH + 20);
 
-        // Naming phase layout (name input centered)
-        this._setSize(this.nameInput, 300, 40);
+        // Cards centered
+        this.cardRoot?.setPosition(0, 0);
+
+        // Description below cards
+        this.selectedDesc?.setPosition(0, -120);
+
+        // Buttons at bottom
+        this.confirmBtn?.setPosition(-120, -halfH + 40);
+        this.skipBtn?.setPosition(120, -halfH + 40);
+
+        // Error label above buttons
+        this.errorLabel?.setPosition(0, -halfH + 90);
+
+        // --- Naming phase positions ---
         this.nameInput?.setPosition(0, 0);
     }
 

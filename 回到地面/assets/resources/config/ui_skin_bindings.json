@@ -16,6 +16,8 @@
 
         "Canvas/LoginPanel/PanelRoot/PanelFrame": "ui.panel.frame",
         "Canvas/CreatePanel/PanelRoot/PanelFrame": "ui.panel.frame",
+        "Canvas/CreatePanel/PanelRoot/PanelFrame/ContentRoot/ConfirmBtn": "ui.create.confirm_btn",
+        "Canvas/CreatePanel/PanelRoot/PanelFrame/ContentRoot/SkipBtn": "ui.create.skip_btn",
         "Canvas/CharacterPanel/PanelRoot/PanelFrame": "ui.panel.frame",
         "Canvas/AreaSelectPanel/PanelRoot/PanelFrame": "ui.panel.frame",
         "Canvas/SettlementPanel/PanelRoot/PanelFrame": "ui.panel.frame",

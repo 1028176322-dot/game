@@ -2,7 +2,7 @@
   "metadata": {
     "tool": "check_assets_registry.py",
     "version": "2.0.0",
-    "timestamp": "2026-07-06T11:10:44.027099"
+    "timestamp": "2026-07-06T11:24:33.481099"
   },
   "registry": {
     "disk_exists_but_not_registered": [],

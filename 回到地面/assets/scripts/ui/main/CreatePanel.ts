@@ -2,12 +2,20 @@
  * CreatePanel - First-time character creation panel
  *
  * Two-phase flow:
- *   1. SELECT: player picks a character class from simple buttons
- *      - title / model display / class buttons / class description / confirm+skip
+ *   1. SELECT: player picks a character class from visual cards
+ *      - title / model display (character idle animation) / class cards / class description / confirm+skip
  *   2. NAMING: player enters a name, then confirms to create character
  *      - title / name input / confirm
  *
- * Skip button always creates a default-named character immediately.
+ * Card structure:
+ *   CardRoot
+ *   ├── CharacterCard_{id}
+ *   │   ├── CardBg    (ui.panel.frame style bg, tinted per class)
+ *   │   ├── Preview   (character.warrior.idle via CharacterVisualService)
+ *   │   ├── NameLabel (animal name from text.json)
+ *   │   └── SelectedMark (blue highlight border when selected)
+ *
+ * Skin keys used: character.card.{id}, character.preview.{id} (via game_assets)
  */
 
 import { _decorator, Component, Node, Label, Button, EditBox, Sprite, Color, UITransform } from 'cc';
@@ -15,6 +23,8 @@ import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { AppFlowController, AppFlowState } from '../../app/AppFlowController';
 import { PlayerDataManager } from '../../core/PlayerDataManager';
 import { T } from '../../core/TextManager';
+import { UISkinService } from '../UISkinService';
+import { CharacterVisualService } from '../../render/CharacterVisualService';
 
 const { ccclass, property } = _decorator;
 
@@ -33,6 +43,22 @@ const CHAR_OPTIONS: CharOption[] = [
     { id: 'berserker', animalKey: 'classAnimal.boar',   classKey: 'class.boarBerserker', descKey: 'classDesc.boarBerserker' },
 ];
 
+/** Per-class card tint for bg */
+const CARD_TINTS: Record<string, Color> = {
+    warrior:   new Color(0x4A, 0x9E, 0xFF, 0x30),
+    archer:    new Color(0x5B, 0xD6, 0x6B, 0x30),
+    assassin:  new Color(0xA8, 0x5F, 0xE0, 0x30),
+    mage:      new Color(0xFF, 0x8C, 0x00, 0x30),
+    berserker: new Color(0xE0, 0x4E, 0x4E, 0x30),
+};
+
+const SELECTED_TINT = new Color(0x4A, 0x9E, 0xFF, 0xFF);
+const UNSELECTED_TINT = new Color(0x80, 0x80, 0x80, 0xFF);
+
+const CARD_WIDTH = 100;
+const CARD_HEIGHT = 150;
+const CARD_GAP = 14;
+
 @ccclass('CreatePanel')
 export class CreatePanel extends Component implements UIPanel {
     id: UiPanelId = 'create_character';
@@ -49,7 +75,7 @@ export class CreatePanel extends Component implements UIPanel {
     @property(EditBox) nameInput: EditBox | null = null;
 
     private _selectedId = 'warrior';
-    private _classButtons: Node[] = [];
+    private _classCards: Node[] = [];
     private _isNaming = false;
 
     // ── UIPanel ──
@@ -59,7 +85,7 @@ export class CreatePanel extends Component implements UIPanel {
         this._isNaming = false;
         this._clearError();
         this._applyPhase();
-        this._buildClassButtons();
+        this._buildCards();
         this._selectCharacter('warrior');
         this.scheduleOnce(() => this._reLayout(), 0);
     }
@@ -103,39 +129,67 @@ export class CreatePanel extends Component implements UIPanel {
         }
     }
 
-    // ── Class Buttons ──
+    // ── Character Cards ──
 
-    private _buildClassButtons(): void {
+    /**
+     * Build visual character cards with bg, preview sprite, name, and selection highlight.
+     *
+     * Structure per card:
+     *   CharacterCard_{id} (CARD_WIDTH x CARD_HEIGHT)
+     *   ├── CardBg (Sprite, tinted per class, ui.panel.frame skin)
+     *   ├── Preview (Sprite, character idle via CharacterVisualService)
+     *   └── NameLabel (16px Label, centered below preview)
+     */
+    private _buildCards(): void {
         if (!this.cardRoot) return;
         this.cardRoot.removeAllChildren();
-        this._classButtons = [];
+        this._classCards = [];
 
-        const rootWidth = this.cardRoot.getComponent(UITransform)?.width ?? 600;
-        const gap = Math.min(110, rootWidth / CHAR_OPTIONS.length);
-        const btnW = 80;
-        const btnH = 40;
+        // Calculate horizontal layout
+        const totalW = CHAR_OPTIONS.length * CARD_WIDTH + (CHAR_OPTIONS.length - 1) * CARD_GAP;
+        const startX = -totalW / 2 + CARD_WIDTH / 2;
 
-        CHAR_OPTIONS.forEach((opt, i) => {
-            const btn = new Node(opt.id);
-            btn.setPosition((i - (CHAR_OPTIONS.length - 1) / 2) * gap, 0);
-            const uiTrans = btn.addComponent(UITransform);
-            uiTrans.setContentSize(btnW, btnH);
+        for (let i = 0; i < CHAR_OPTIONS.length; i++) {
+            const opt = CHAR_OPTIONS[i];
+            const card = new Node(`Card_${opt.id}`);
+            card.setPosition(startX + i * (CARD_WIDTH + CARD_GAP), 0);
 
-            const bg = btn.addComponent(Sprite);
-            bg.color = new Color(0x4A, 0x9E, 0xFF, 0xFF);
+            const cardTrans = card.addComponent(UITransform);
+            cardTrans.setContentSize(CARD_WIDTH, CARD_HEIGHT);
 
-            const labelNode = new Node('Label');
-            const label = labelNode.addComponent(Label);
-            label.string = T(opt.animalKey);
-            label.fontSize = 16;
-            label.color = Color.WHITE;
-            btn.addChild(labelNode);
+            // Card background (tinted)
+            const bg = card.addComponent(Sprite);
+            bg.color = CARD_TINTS[opt.id] ?? new Color(0xFF, 0xFF, 0xFF, 0x30);
 
-            btn.on(Node.EventType.TOUCH_END, () => this._selectCharacter(opt.id));
+            // Try to apply card skin
+            UISkinService.instance.applyOptional(card, `character.card.${opt.id}`);
 
-            this.cardRoot.addChild(btn);
-            this._classButtons.push(btn);
-        });
+            // Preview area (top portion of card)
+            const previewNode = new Node('Preview');
+            const previewTrans = previewNode.addComponent(UITransform);
+            previewTrans.setContentSize(CARD_WIDTH - 16, CARD_HEIGHT - 50);
+            previewNode.setPosition(0, 15);
+            previewNode.addComponent(Sprite);
+            card.addChild(previewNode);
+
+            // Load character preview sprite
+            CharacterVisualService.instance.applyStatic(previewNode, `character.${opt.id}.idle`);
+
+            // Name label below preview
+            const nameNode = new Node('Name');
+            const nameLabel = nameNode.addComponent(Label);
+            nameLabel.string = T(opt.animalKey);
+            nameLabel.fontSize = 14;
+            nameLabel.color = new Color(0x33, 0x33, 0x33, 0xFF);
+            nameNode.setPosition(0, -CARD_HEIGHT / 2 + 18);
+            card.addChild(nameNode);
+
+            // Click handler
+            card.on(Node.EventType.TOUCH_END, () => this._selectCharacter(opt.id));
+
+            this.cardRoot.addChild(card);
+            this._classCards.push(card);
+        }
     }
 
     /** Re-trigger layout after dynamic content is built */
@@ -153,6 +207,8 @@ export class CreatePanel extends Component implements UIPanel {
         }
     }
 
+    // ── Character Selection ──
+
     private _selectCharacter(id: string): void {
         if (id !== 'warrior') {
             this._showError(T('ui.createOnlyWarrior'));
@@ -162,32 +218,26 @@ export class CreatePanel extends Component implements UIPanel {
         this._selectedId = id;
         const opt = CHAR_OPTIONS.find(c => c.id === id)!;
 
-        // Update model display placeholder (replace with real model later)
+        // Update model display with character preview
         if (this.modelDisplay) {
             // Remove old placeholder
             const oldChild = this.modelDisplay.getChildByName('ModelPlaceholder');
             if (oldChild) oldChild.destroy();
 
-            // Create placeholder label showing class info
-            const phNode = new Node('ModelPlaceholder');
-            const phLabel = phNode.addComponent(Label);
-            phLabel.string = `${T(opt.animalKey)}\n${T(opt.classKey)}`;
-            phLabel.fontSize = 24;
-            phLabel.color = Color.WHITE;
-            phLabel.lineHeight = 36;
-            this.modelDisplay.addChild(phNode);
+            // Create preview node for character idle
+            const previewNode = new Node('ModelPlaceholder');
+            const previewTrans = previewNode.addComponent(UITransform);
+            previewTrans.setContentSize(192, 192);
+            previewNode.addComponent(Sprite);
+            this.modelDisplay.addChild(previewNode);
+
+            // Load character idle sprite via semantic key
+            CharacterVisualService.instance.applyStatic(previewNode, `character.${id}.idle`);
 
             // Tint background per class
             const bg = this.modelDisplay.getComponent(Sprite);
             if (bg) {
-                const tints: Record<string, Color> = {
-                    warrior:   new Color(0x4A, 0x9E, 0xFF, 0x50),
-                    archer:    new Color(0x5B, 0xD6, 0x6B, 0x50),
-                    assassin:  new Color(0xA8, 0x5F, 0xE0, 0x50),
-                    mage:      new Color(0xFF, 0x8C, 0x00, 0x50),
-                    berserker: new Color(0xE0, 0x4E, 0x4E, 0x50),
-                };
-                bg.color = tints[id] ?? new Color(0xFF, 0xFF, 0xFF, 0x50);
+                bg.color = CARD_TINTS[id] ?? new Color(0xFF, 0xFF, 0xFF, 0x50);
             }
         }
 
@@ -198,13 +248,13 @@ export class CreatePanel extends Component implements UIPanel {
             this.selectedDesc.string = T(opt.descKey);
         }
 
-        // Highlight selected button
-        this._classButtons.forEach((btn, i) => {
-            const bg = btn.getComponent(Sprite);
+        // Highlight selected card
+        this._classCards.forEach((card, i) => {
+            const bg = card.getComponent(Sprite);
             if (bg) {
                 bg.color = CHAR_OPTIONS[i].id === id
-                    ? new Color(0x4A, 0x9E, 0xFF, 0xFF)
-                    : new Color(0x80, 0x80, 0x80, 0xFF);
+                    ? SELECTED_TINT
+                    : UNSELECTED_TINT;
             }
         });
 
@@ -214,7 +264,6 @@ export class CreatePanel extends Component implements UIPanel {
     // ── Confirm ──
 
     private _onConfirm(): void {
-        // Phase 1 → 2: enter naming
         if (!this._isNaming) {
             this._isNaming = true;
             this._clearError();
@@ -226,7 +275,6 @@ export class CreatePanel extends Component implements UIPanel {
             return;
         }
 
-        // Phase 2: validate name and create character
         const name = this.nameInput?.string.trim() ?? '';
         if (!name) { this._showError(T('ui.createNameRequired')); return; }
         if (name.length > 6) { this._showError(T('ui.createNameTooLong')); return; }
