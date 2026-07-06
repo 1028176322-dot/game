@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "tool": "check_game_assets_registry.py",
+    "version": "1.0.0"
+  },
+  "errors": [],
+  "warnings": [
+    "unreferenced assetIds (may be orphaned): 30",
+    "  unreferenced: textures/bosses/miniboss/abyss/miniboss_abysssentinel_idle",
+    "  unreferenced: textures/bosses/miniboss/abyss/miniboss_nightmareknight_idle",
+    "  unreferenced: textures/bosses/miniboss/abyss/miniboss_shadowdragon_idle",
+    "  unreferenced: textures/bosses/miniboss/abyss/miniboss_voidhunter_idle",
+    "  unreferenced: textures/bosses/miniboss/abyss/miniboss_voidlord_idle",
+    "  unreferenced: textures/bosses/miniboss/catacombs/miniboss_blackknight_idle",
+    "  unreferenced: textures/bosses/miniboss/catacombs/miniboss_gargoyle_idle",
+    "  unreferenced: textures/bosses/miniboss/catacombs/miniboss_giantskeleton_idle",
+    "  unreferenced: textures/bosses/miniboss/catacombs/miniboss_lich_idle",
+    "  unreferenced: textures/bosses/miniboss/catacombs/miniboss_warden_catacombs_idle"
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 11
+  }
+}
