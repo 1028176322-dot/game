@@ -22,43 +22,10 @@ TEXTURES_DIR = PROJECT_DIR / "assets" / "resources" / "textures"
 # Known sprite sheet frame sizes from SpriteSheetUtil.ts + file size heuristics
 # (frameWidth, frameHeight, frames, layout)
 SHEET_METADATA: dict[str, tuple[int, int, int, str]] = {
-    # Characters: all known 192x192, 4 frames, vertical
+    # Characters: known 192x192, 4 frames, vertical
     **{f"characters/{c}/{a}": (192, 192, 4, "vertical")
        for c in ["warrior", "archer", "assassin", "berserker", "mage"]
        for a in ["idle", "walk", "attack", "hit", "dodge", "skill", "death"]},
-
-    # Monsters: 128x128, 4 frames, vertical (heuristic)
-    **{f"monsters/{z}/{m}": (128, 128, 4, "vertical")
-       for z in ["forest", "catacombs", "volcano", "swamp", "tundra", "abyss"]
-       for m in [f"monster_{z}_{mt}_idle" for mt in
-                 ["slime","mushroom","treant","boar","elfarcher","deerelite"]]},
-
-    # Bosses: 256x256, 4 frames, vertical (heuristic)
-    **{f"bosses/finalboss/{b}": (256, 256, 4, "vertical")
-       for b in [
-           "boss_abyssoverlord_idle", "boss_abyssoverlord_attack", "boss_abyssoverlord_skill",
-           "boss_abyssoverlord_death", "boss_abyssoverlord_phasechange",
-           "boss_beast_swamp_idle", "boss_beast_swamp_attack", "boss_beast_swamp_skill",
-           "boss_beast_swamp_death", "boss_beast_swamp_phasechange",
-           "boss_firelord_idle", "boss_firelord_attack", "boss_firelord_skill",
-           "boss_firelord_death", "boss_firelord_phasechange",
-           "boss_forestguardian_idle", "boss_forestguardian_attack", "boss_forestguardian_skill",
-           "boss_forestguardian_death", "boss_forestguardian_phasechange",
-           "boss_frostqueen_idle", "boss_frostqueen_attack", "boss_frostqueen_skill",
-           "boss_frostqueen_death", "boss_frostqueen_phasechange",
-           "boss_skeletonlord_idle", "boss_skeletonlord_attack", "boss_skeletonlord_skill",
-           "boss_skeletonlord_death", "boss_skeletonlord_phasechange",
-           "boss_lord_abyss_idle", "boss_lord_abyss_attack", "boss_lord_abyss_skill",
-           "boss_lord_abyss_death", "boss_lord_abyss_phasechange",
-           "boss_lord_catacombs_idle", "boss_lord_catacombs_attack", "boss_lord_catacombs_skill",
-           "boss_lord_catacombs_death", "boss_lord_catacombs_phasechange",
-           "boss_lord_volcano_idle", "boss_lord_volcano_attack", "boss_lord_volcano_skill",
-           "boss_lord_volcano_death", "boss_lord_volcano_phasechange",
-           "boss_queen_tundra_idle", "boss_queen_tundra_attack", "boss_queen_tundra_skill",
-           "boss_queen_tundra_death", "boss_queen_tundra_phasechange",
-           "boss_guardian_forest_idle", "boss_guardian_forest_attack", "boss_guardian_forest_skill",
-           "boss_guardian_forest_death", "boss_guardian_forest_phasechange",
-       ]},
 }
 
 
@@ -159,15 +126,14 @@ def generate() -> dict:
 
             entry = {"assetId": asset_id}
 
-            if stem.startswith("characters/"):
-                # All characters are 192x192x4 vertical sprite sheets
+            if stem in SHEET_METADATA:
+                fw, fh, fc, layout = SHEET_METADATA[stem]
                 entry["type"] = "sprite_sheet"
-                entry["category"] = "characters"
-                entry["frameWidth"] = 192
-                entry["frameHeight"] = 192
-                entry["frames"] = 4
-                entry["layout"] = "vertical"
-            elif stem in SHEET_METADATA:
+                entry["category"] = stem.split("/")[0]
+                entry["frameWidth"] = fw
+                entry["frameHeight"] = fh
+                entry["frames"] = fc
+                entry["layout"] = layout
                 fw, fh, fc, layout = SHEET_METADATA[stem]
                 entry["type"] = "sprite_sheet"
                 entry["category"] = stem.split("/")[0]

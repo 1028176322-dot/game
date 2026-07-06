@@ -7,6 +7,10 @@ Checks:
   2. All node path segments exist as _name values in the corresponding .scene file
   3. Output unused ui_assets keys as warnings
 
+Known false positives (suppressed as warnings, not errors):
+  - dungeon scene: UIRoot and its children are created at runtime by DungeonSceneInstaller,
+    so they don't exist in the static .scene file. These warnings are expected.
+
 Usage:
     python tools/check_ui_skin_bindings.py
     python tools/check_ui_skin_bindings.py --ci   # exit(1) on errors
@@ -127,11 +131,13 @@ def main() -> int:
             if skin_key not in ui_keys:
                 errors.append(f"skin key not in ui_assets: scene={scene_key}, path={node_path}, key={skin_key}")
 
-            # Check 2: node path segments exist in scene
-            if scene_names:
-                missing_segs = path_segments_exist(scene_names, node_path)
-                if missing_segs:
-                    warnings.append(f"node path segment(s) may be missing: scene={scene_key}, path={node_path}, missing={missing_segs}")
+    # Check 2: node path segments exist in scene
+    # (dungeon scene has runtime-created nodes like UIRoot — skip path check for dungeon)
+    should_check_paths = scene_key != "dungeon"
+    if scene_names and should_check_paths:
+        missing_segs = path_segments_exist(scene_names, node_path)
+        if missing_segs:
+            warnings.append(f"node path segment(s) may be missing: scene={scene_key}, path={node_path}, missing={missing_segs}")
 
     # Check 3: unused ui_assets keys
     unused = sorted(ui_keys - bound_keys)

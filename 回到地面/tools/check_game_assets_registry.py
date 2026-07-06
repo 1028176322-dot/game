@@ -11,6 +11,11 @@ Checks:
   6. tile tileSize is present
   7. icon width/height are present
   8. Output unused keys as warnings
+  9. Image-level quality checks (requires Pillow):
+     - sprite_sheet/effect_sheet: dimension match, alpha channel
+     - tile: size match, edge difference score
+     - icon: transparent background ratio
+     - background: format, rough file size
 
 Usage:
     python tools/check_game_assets_registry.py
@@ -20,6 +25,13 @@ Usage:
 import json
 import sys
 from pathlib import Path
+
+try:
+    from PIL import Image
+    HAS_PILLOW = True
+except Exception:
+    Image = None
+    HAS_PILLOW = False
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 CONFIG_DIR = PROJECT_DIR / "assets" / "resources" / "config"
@@ -70,6 +82,14 @@ def main() -> int:
 
     errors = []
     warnings = []
+
+    # Pillow is required for image-level quality checks
+    if not HAS_PILLOW:
+        print("\n  [WARN] Pillow not installed. Image-level checks (sheet dims, tile edges, icon alpha) will be SKIPPED.")
+        print("  Install: pip install Pillow")
+        # In CI mode, fail hard — quality gate must be operational
+        if "--ci" in sys.argv:
+            errors.append("Pillow is required for image-level asset validation in CI mode")
 
     # Load assets.json
     assets = load_json(ASSETS_JSON)
@@ -126,7 +146,28 @@ def main() -> int:
         if "safeReview" in item and not isinstance(item["safeReview"], bool):
             warnings.append(f"safeReview should be boolean: key={key}")
 
-    # Find unused assets.json entries that are not referenced by game_assets or ui_assets
+        # -- Image-level quality checks (require Pillow) --
+        if not HAS_PILLOW:
+            continue
+        if not fpath.exists():
+            continue
+
+        try:
+            img = Image.open(fpath)
+        except Exception:
+            warnings.append(f"cannot open image for inspection: key={key}")
+            continue
+
+        if typ in SHEET_TYPES:
+            _check_sheet(img, key, item, errors)
+        elif typ == "tile":
+            _check_tile(img, key, item, warnings)
+        elif typ == "icon":
+            _check_icon(img, key, warnings)
+        elif typ == "background":
+            _check_background(img, key, item, warnings)
+
+    # ---- Find unused assets.json entries ----
     used_asset_ids = set()
     for item in game_assets.values():
         if item.get("assetId"):
@@ -175,6 +216,74 @@ def main() -> int:
         json.dump(report, f, ensure_ascii=False, indent=2)
 
     return 1 if errors else 0
+
+
+# ---- Image-level quality check helpers (Pillow required) ----
+
+def _check_sheet(img, key, item, errors):
+    """Validate sprite sheet dimensions match metadata."""
+    w, h = img.size
+    fw = item.get("frameWidth", 0)
+    fh = item.get("frameHeight", 0)
+    frames = item.get("frames", 0)
+    layout = item.get("layout", "vertical")
+
+    if fw <= 0 or fh <= 0 or frames <= 0:
+        errors.append(f"invalid sheet metadata: {key}")
+        return
+
+    if layout == "vertical" and (w != fw or h != fh * frames):
+        errors.append(f"sheet size mismatch: {key}, actual={w}x{h}, expected={fw}x{fh*frames}")
+    elif layout == "horizontal" and (w != fw * frames or h != fh):
+        errors.append(f"sheet size mismatch: {key}, actual={w}x{h}, expected={fw*frames}x{fh}")
+
+    if img.mode not in ("RGBA", "LA"):
+        errors.append(f"sheet should have alpha channel: {key}, mode={img.mode}")
+
+
+def _check_tile(img, key, item, warnings):
+    """Validate tile size and edge seamlessness."""
+    w, h = img.size
+    tile_size = item.get("tileSize", 0)
+    if tile_size and (w != tile_size or h != tile_size):
+        warnings.append(f"tile size mismatch: {key}, actual={w}x{h}, expected={tile_size}x{tile_size}")
+
+    px = img.convert("RGB").load()
+    if not px:
+        return
+    score = 0
+    for y in range(h):
+        score += sum(abs(px[0, y][i] - px[w - 1, y][i]) for i in range(3))
+    for x in range(w):
+        score += sum(abs(px[x, 0][i] - px[x, h - 1][i]) for i in range(3))
+    score /= max(1, (w + h) * 3)
+
+    if score > 18:
+        warnings.append(f"tile edge score high: {key}, score={score:.2f}")
+
+
+def _check_icon(img, key, warnings):
+    """Validate icon has transparent background."""
+    img_rgba = img.convert("RGBA")
+    alpha = img_rgba.getchannel("A")
+    transparent = sum(1 for v in alpha.getdata() if v < 16)
+    ratio = transparent / max(1, img.width * img.height)
+    if ratio < 0.10:
+        warnings.append(f"icon may lack transparent background: {key}, transparent={ratio:.2%}")
+
+
+def _check_background(img, key, item, warnings):
+    """Validate background format and rough file size."""
+    fmt = item.get("format", "")
+    if fmt and fmt not in ("jpg", "jpeg", "png"):
+        warnings.append(f"background format may be suboptimal: {key}, format={fmt}")
+    try:
+        fsize = Path(img.filename).stat().st_size if hasattr(img, 'filename') and img.filename else 0
+        size_kb = fsize / 1024
+        if size_kb > 500:
+            warnings.append(f"background file may be oversized: {key}, {size_kb:.0f}KB")
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":

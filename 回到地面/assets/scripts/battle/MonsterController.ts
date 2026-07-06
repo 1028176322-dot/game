@@ -36,6 +36,8 @@ export interface MonsterConfig {
     isBoss?: boolean;
     phases?: number;
     phaseTrigger?: number[];
+    /** Semantic visual key for CharacterVisualService. If empty, falls back to auto-generated key. */
+    visual?: string;
 }
 
 @ccclass('MonsterController')

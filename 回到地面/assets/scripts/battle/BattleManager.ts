@@ -129,22 +129,32 @@ export class BattleManager extends Component {
 
         const bodyNode = MonsterRuntimeFactory.getBodyNode(monsterNode);
 
-        // Try semantic key first: monster.{zone}.{id} (idle)
+        // Priority 1: explicit config.visual (boss, miniBoss, or monster with visual override)
+        if (config.visual) {
+            const visualOk = await CharacterVisualService.instance.applyStatic(bodyNode, config.visual);
+            if (visualOk) {
+                this._scaleMonster(monsterNode, config);
+                return;
+            }
+        }
+
+        // Priority 2: auto-generated semantic key: monster.{zone}.{id}
         const visualKey = `monster.${config.zoneId}.${config.id.toLowerCase()}`;
         const visualOk = await CharacterVisualService.instance.applyStatic(bodyNode, visualKey);
         if (visualOk) {
-            const transform = monsterNode.getComponent(UITransform);
-            if (transform) transform.setContentSize(96, 96);
-            monsterNode.setScale(config.isBoss ? 1.6 : 1, config.isBoss ? 1.6 : 1, 1);
+            this._scaleMonster(monsterNode, config);
             return;
         }
 
-        // Fallback: direct path
+        // Fallback: direct path via ArtResourceResolver
         const frame = await RenderAssetService.applyMonsterSprite(bodyNode, config.zoneId, config.id, 'idle');
         if (!frame || !monsterNode.isValid) return;
+        this._scaleMonster(monsterNode, config);
+    }
 
-        const transform2 = monsterNode.getComponent(UITransform);
-        if (transform2) transform2.setContentSize(96, 96);
+    private _scaleMonster(monsterNode: Node, config: MonsterConfig): void {
+        const transform = monsterNode.getComponent(UITransform);
+        if (transform) transform.setContentSize(96, 96);
         monsterNode.setScale(config.isBoss ? 1.6 : 1, config.isBoss ? 1.6 : 1, 1);
     }
 

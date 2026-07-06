@@ -5,10 +5,6 @@
   },
   "errors": [],
   "warnings": [
-    "node path segment(s) may be missing: scene=dungeon, path=Canvas/UIRoot/BattleHUD, missing=['UIRoot']",
-    "node path segment(s) may be missing: scene=dungeon, path=Canvas/UIRoot/SkillUI, missing=['UIRoot']",
-    "node path segment(s) may be missing: scene=dungeon, path=Canvas/UIRoot/VirtualJoystick, missing=['UIRoot']",
-    "node path segment(s) may be missing: scene=dungeon, path=Canvas/UIRoot/DungeonMapUI, missing=['UIRoot']",
     "ui_assets key not bound by any scene: character.avatar.archer",
     "ui_assets key not bound by any scene: character.avatar.assassin",
     "ui_assets key not bound by any scene: character.avatar.berserker",
@@ -33,6 +29,6 @@
   ],
   "summary": {
     "errors": 0,
-    "warnings": 25
+    "warnings": 21
   }
 }

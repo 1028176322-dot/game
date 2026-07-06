@@ -38,7 +38,8 @@
                     ],
                     "miniBoss": "stagBeetle",
                     "miniBossHP": 8,
-                    "teaching": "移动+攻击"
+                    "teaching": "移动+攻击",
+                    "miniBossVisual": "boss.miniboss.forest.stag_beetle"
                 },
                 "F1-2": {
                     "rooms": 5,
@@ -49,7 +50,8 @@
                     ],
                     "miniBoss": "porcupineKing",
                     "miniBossHP": 10,
-                    "teaching": "翻滚+技能"
+                    "teaching": "翻滚+技能",
+                    "miniBossVisual": "boss.miniboss.forest.porcupine_king"
                 },
                 "F1-3": {
                     "rooms": 5,
@@ -60,7 +62,8 @@
                     ],
                     "miniBoss": "boarChief",
                     "miniBossHP": 12,
-                    "teaching": "金币使用"
+                    "teaching": "金币使用",
+                    "miniBossVisual": "boss.miniboss.forest.boar_chief"
                 },
                 "F1-4": {
                     "rooms": 5,
@@ -71,7 +74,8 @@
                     ],
                     "miniBoss": "poisonFlower",
                     "miniBossHP": 14,
-                    "teaching": "强化选择"
+                    "teaching": "强化选择",
+                    "miniBossVisual": "boss.miniboss.forest.poison_flower"
                 }
             },
             "finalBoss": {
@@ -85,7 +89,8 @@
                     0.5,
                     0.25
                 ],
-                "unlockReward": "catacombs"
+                "unlockReward": "catacombs",
+                "visual": "boss.forestguardian"
             },
             "backgrounds": {
                 "combat": "background.bg_combat_forest",
@@ -121,7 +126,8 @@
                         "event"
                     ],
                     "miniBoss": "giantSkeleton",
-                    "miniBossHP": 16
+                    "miniBossHP": 16,
+                    "miniBossVisual": "boss.miniboss.catacombs.giant_skeleton"
                 },
                 "C1-2": {
                     "rooms": 5,
@@ -131,7 +137,8 @@
                         "shop"
                     ],
                     "miniBoss": "gargoyle",
-                    "miniBossHP": 18
+                    "miniBossHP": 18,
+                    "miniBossVisual": "boss.miniboss.catacombs.gargoyle"
                 },
                 "C1-3": {
                     "rooms": 6,
@@ -141,7 +148,8 @@
                         "upgrade"
                     ],
                     "miniBoss": "lich",
-                    "miniBossHP": 20
+                    "miniBossHP": 20,
+                    "miniBossVisual": "boss.miniboss.catacombs.lich"
                 },
                 "C1-4": {
                     "rooms": 6,
@@ -151,7 +159,8 @@
                         "event"
                     ],
                     "miniBoss": "blackKnight",
-                    "miniBossHP": 22
+                    "miniBossHP": 22,
+                    "miniBossVisual": "boss.miniboss.catacombs.black_knight"
                 }
             },
             "finalBoss": {
@@ -165,7 +174,8 @@
                     0.5,
                     0.25
                 ],
-                "unlockReward": "volcano"
+                "unlockReward": "volcano",
+                "visual": "boss.skeletonlord"
             },
             "backgrounds": {
                 "combat": "background.bg_combat_catacombs",
@@ -200,7 +210,8 @@
                         "treasure"
                     ],
                     "miniBoss": "lavaWorm",
-                    "miniBossHP": 20
+                    "miniBossHP": 20,
+                    "miniBossVisual": "boss.miniboss.volcano.lava_worm"
                 },
                 "V1-2": {
                     "rooms": 6,
@@ -210,7 +221,8 @@
                         "shop"
                     ],
                     "miniBoss": "volcanoGiant",
-                    "miniBossHP": 24
+                    "miniBossHP": 24,
+                    "miniBossVisual": "boss.miniboss.volcano.volcano_giant"
                 },
                 "V1-3": {
                     "rooms": 6,
@@ -220,7 +232,8 @@
                         "upgrade"
                     ],
                     "miniBoss": "fireGolem",
-                    "miniBossHP": 26
+                    "miniBossHP": 26,
+                    "miniBossVisual": "boss.miniboss.volcano.fire_golem"
                 },
                 "V1-4": {
                     "rooms": 7,
@@ -230,7 +243,8 @@
                         "healing"
                     ],
                     "miniBoss": "inferno",
-                    "miniBossHP": 30
+                    "miniBossHP": 30,
+                    "miniBossVisual": "boss.miniboss.volcano.inferno"
                 }
             },
             "finalBoss": {
@@ -244,7 +258,8 @@
                     0.5,
                     0.25
                 ],
-                "unlockReward": "tundra"
+                "unlockReward": "tundra",
+                "visual": "boss.firelord"
             },
             "backgrounds": {
                 "combat": "background.bg_combat_volcano",
@@ -280,7 +295,8 @@
                         "healing"
                     ],
                     "miniBoss": "iceScorpion",
-                    "miniBossHP": 22
+                    "miniBossHP": 22,
+                    "miniBossVisual": "boss.miniboss.tundra.ice_scorpion"
                 },
                 "T1-2": {
                     "rooms": 5,
@@ -290,7 +306,8 @@
                         "shop"
                     ],
                     "miniBoss": "snowApe",
-                    "miniBossHP": 24
+                    "miniBossHP": 24,
+                    "miniBossVisual": "boss.miniboss.tundra.snow_ape"
                 },
                 "T1-3": {
                     "rooms": 6,
@@ -300,7 +317,8 @@
                         "upgrade"
                     ],
                     "miniBoss": "frostElemental",
-                    "miniBossHP": 26
+                    "miniBossHP": 26,
+                    "miniBossVisual": "boss.miniboss.tundra.frost_elemental"
                 },
                 "T1-4": {
                     "rooms": 6,
@@ -310,7 +328,8 @@
                         "event"
                     ],
                     "miniBoss": "iceGiant",
-                    "miniBossHP": 28
+                    "miniBossHP": 28,
+                    "miniBossVisual": "boss.miniboss.tundra.ice_giant"
                 },
                 "T1-5": {
                     "rooms": 7,
@@ -320,7 +339,8 @@
                         "upgrade"
                     ],
                     "miniBoss": "polarBearKing",
-                    "miniBossHP": 30
+                    "miniBossHP": 30,
+                    "miniBossVisual": "boss.miniboss.tundra.polar_bear_king"
                 }
             },
             "finalBoss": {
@@ -334,7 +354,8 @@
                     0.5,
                     0.25
                 ],
-                "unlockReward": "swamp"
+                "unlockReward": "swamp",
+                "visual": "boss.frostqueen"
             },
             "backgrounds": {
                 "combat": "background.bg_combat_tundra",
@@ -370,7 +391,8 @@
                         "event"
                     ],
                     "miniBoss": "poisonScorpion",
-                    "miniBossHP": 24
+                    "miniBossHP": 24,
+                    "miniBossVisual": "boss.miniboss.swamp.poison_scorpion"
                 },
                 "S1-2": {
                     "rooms": 5,
@@ -380,7 +402,8 @@
                         "shop"
                     ],
                     "miniBoss": "swampFrog",
-                    "miniBossHP": 26
+                    "miniBossHP": 26,
+                    "miniBossVisual": "boss.miniboss.swamp.swamp_frog"
                 },
                 "S1-3": {
                     "rooms": 6,
@@ -390,7 +413,8 @@
                         "upgrade"
                     ],
                     "miniBoss": "rotTreantElite",
-                    "miniBossHP": 28
+                    "miniBossHP": 28,
+                    "miniBossVisual": "boss.miniboss.swamp.rot_treant_elite"
                 },
                 "S1-4": {
                     "rooms": 6,
@@ -400,7 +424,8 @@
                         "healing"
                     ],
                     "miniBoss": "serpentQueen",
-                    "miniBossHP": 30
+                    "miniBossHP": 30,
+                    "miniBossVisual": "boss.miniboss.swamp.serpent_queen"
                 },
                 "S1-5": {
                     "rooms": 7,
@@ -411,7 +436,8 @@
                         "healing"
                     ],
                     "miniBoss": "swampCrocodile",
-                    "miniBossHP": 34
+                    "miniBossHP": 34,
+                    "miniBossVisual": "boss.miniboss.swamp.swamp_crocodile"
                 }
             },
             "finalBoss": {
@@ -425,7 +451,8 @@
                     0.5,
                     0.25
                 ],
-                "unlockReward": "abyss"
+                "unlockReward": "abyss",
+                "visual": "boss.beast_swamp"
             },
             "backgrounds": {
                 "combat": "background.bg_combat_swamp",
@@ -460,7 +487,8 @@
                         "treasure"
                     ],
                     "miniBoss": "voidHunter",
-                    "miniBossHP": 28
+                    "miniBossHP": 28,
+                    "miniBossVisual": "boss.miniboss.abyss.void_hunter"
                 },
                 "A1-2": {
                     "rooms": 6,
@@ -470,7 +498,8 @@
                         "shop"
                     ],
                     "miniBoss": "abyssSentinel",
-                    "miniBossHP": 30
+                    "miniBossHP": 30,
+                    "miniBossVisual": "boss.miniboss.abyss.abyss_sentinel"
                 },
                 "A1-3": {
                     "rooms": 6,
@@ -480,7 +509,8 @@
                         "upgrade"
                     ],
                     "miniBoss": "nightmareKnight",
-                    "miniBossHP": 34
+                    "miniBossHP": 34,
+                    "miniBossVisual": "boss.miniboss.abyss.nightmare_knight"
                 },
                 "A1-4": {
                     "rooms": 7,
@@ -490,7 +520,8 @@
                         "event"
                     ],
                     "miniBoss": "voidLord",
-                    "miniBossHP": 38
+                    "miniBossHP": 38,
+                    "miniBossVisual": "boss.miniboss.abyss.void_lord"
                 },
                 "A1-5": {
                     "rooms": 7,
@@ -501,7 +532,8 @@
                         "treasure"
                     ],
                     "miniBoss": "shadowDragon",
-                    "miniBossHP": 42
+                    "miniBossHP": 42,
+                    "miniBossVisual": "boss.miniboss.abyss.shadow_dragon"
                 }
             },
             "finalBoss": {
@@ -516,7 +548,8 @@
                     0.3,
                     0.1
                 ],
-                "isFinalBoss": true
+                "isFinalBoss": true,
+                "visual": "boss.abyssoverlord"
             },
             "backgrounds": {
                 "combat": "background.bg_combat_abyss",
