@@ -7,6 +7,7 @@
 
 import { Node, Sprite, SpriteFrame, Texture2D, Rect, JsonAsset, resources } from 'cc';
 import { AssetBundleService } from '../assets/AssetBundleService';
+import { GameAssetDef } from '../assets/GameAssetService';
 
 export interface AnimationConfig {
     id: string;
@@ -22,6 +23,12 @@ export interface AnimationConfig {
 export interface AnimationPlayOptions {
     onComplete?: () => void;
     onFrame?: (frameIndex: number) => void;
+}
+
+export interface PlayAssetDefOptions {
+    loop?: boolean;
+    fps?: number;
+    destroyOnComplete?: boolean;
 }
 
 interface ActiveAnimation {
@@ -88,6 +95,52 @@ export class SpriteAnimationService {
     isPlaying(node: Node): boolean { return this._active.has(node); }
 
     stopAll(): void { this._active.clear(); }
+
+    /**
+     * Play an animation from a GameAssetDef (used by CharacterVisualService / EffectService).
+     *
+     * Builds an AnimationConfig from the GameAssetDef and plays it.
+     * Falls back to single frame if def is not a sprite sheet.
+     */
+    async playByAssetDef(node: Node, def: GameAssetDef, options?: PlayAssetDefOptions): Promise<boolean> {
+        if (!def.assetId || !def.frameWidth || !def.frameHeight || !def.frames) {
+            console.warn('[SpriteAnimationService] playByAssetDef: invalid def', def);
+            return false;
+        }
+
+        const config: AnimationConfig = {
+            id: def.assetId,
+            resource: def.assetId,
+            frameWidth: def.frameWidth,
+            frameHeight: def.frameHeight,
+            frames: def.frames,
+            fps: options?.fps ?? 8,
+            loop: options?.loop ?? true,
+            layout: (def.layout as 'vertical' | 'horizontal') ?? 'vertical',
+        };
+
+        let sprite = node.getComponent(Sprite);
+        if (!sprite) sprite = node.addComponent(Sprite);
+
+        const frame = await this._loadSpriteFrame(config, 0);
+        if (frame) sprite.spriteFrame = frame;
+
+        // If destroyOnComplete, schedule auto-removal after animation ends
+        const destroyOnComplete = options?.destroyOnComplete ?? false;
+
+        this._active.set(node, {
+            config, node, sprite,
+            currentFrame: 0, elapsed: 0,
+            options: {
+                onComplete: destroyOnComplete ? () => {
+                    if (node.isValid) node.destroy();
+                } : undefined,
+            },
+            done: false,
+        });
+
+        return true;
+    }
 
     tick(dt: number): void {
         for (const [node, anim] of this._active) {
