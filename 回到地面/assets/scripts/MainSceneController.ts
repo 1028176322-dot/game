@@ -85,9 +85,9 @@ export class MainSceneController extends Component {
     private _onFlowState(state: string): void {
         const router = UiRouter.instance;
 
-        // Show MainUI only when in main hub states, hide during modal panels
+        // Show MainUI only when in main hub, hide during all modal panels (area select, settings, etc.)
         const mainUI = this.node.parent?.getChildByName('MainUI');
-        const showMainUI = state === AppFlowState.MAIN_HUB || state === AppFlowState.AREA_SELECT;
+        const showMainUI = state === AppFlowState.MAIN_HUB;
         if (mainUI) mainUI.active = showMainUI;
 
         // Close all panels before opening the next one to prevent stacking
