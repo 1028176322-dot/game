@@ -12,6 +12,7 @@ import { GridManager } from '../dungeon/GridManager';
 import { RenderAssetService } from '../assets/RenderAssetService';
 import { MonsterRuntimeFactory } from './MonsterRuntimeFactory';
 import { MonsterRuntimeView } from './MonsterRuntimeView';
+import { CharacterVisualService } from '../render/CharacterVisualService';
 
 const { ccclass, property } = _decorator;
 
@@ -127,11 +128,23 @@ export class BattleManager extends Component {
         if (!config.zoneId || !config.id) return;
 
         const bodyNode = MonsterRuntimeFactory.getBodyNode(monsterNode);
+
+        // Try semantic key first: monster.{zone}.{id} (idle)
+        const visualKey = `monster.${config.zoneId}.${config.id.toLowerCase()}`;
+        const visualOk = await CharacterVisualService.instance.applyStatic(bodyNode, visualKey);
+        if (visualOk) {
+            const transform = monsterNode.getComponent(UITransform);
+            if (transform) transform.setContentSize(96, 96);
+            monsterNode.setScale(config.isBoss ? 1.6 : 1, config.isBoss ? 1.6 : 1, 1);
+            return;
+        }
+
+        // Fallback: direct path
         const frame = await RenderAssetService.applyMonsterSprite(bodyNode, config.zoneId, config.id, 'idle');
         if (!frame || !monsterNode.isValid) return;
 
-        const transform = monsterNode.getComponent(UITransform);
-        if (transform) transform.setContentSize(96, 96);
+        const transform2 = monsterNode.getComponent(UITransform);
+        if (transform2) transform2.setContentSize(96, 96);
         monsterNode.setScale(config.isBoss ? 1.6 : 1, config.isBoss ? 1.6 : 1, 1);
     }
 

@@ -3,6 +3,7 @@ import { GameConfig } from '../core/GameConfig';
 import { TerrainType } from '../core/Constants';
 import { RunRng } from '../core/rng/RunRng';
 import { RenderAssetService } from '../assets/RenderAssetService';
+import { TileAssetService } from '../render/TileAssetService';
 
 const { ccclass, property } = _decorator;
 
@@ -75,7 +76,16 @@ export class GridManager extends Component {
             tileNode = new Node(`tile_${cell.x}_${cell.y}`);
             tileNode.addComponent(UITransform);
             tileNode.addComponent(Sprite);
-            void RenderAssetService.applyTileSprite(tileNode, this._zoneId, cell.terrain);
+            // Try semantic key first, fallback to direct path
+            const terrainName = TerrainType[cell.terrain]?.toLowerCase() ?? 'floor';
+            const tileKey = `tile.${this._zoneId}.${terrainName}`;
+            TileAssetService.instance.getTileAssetId(tileKey).then(assetId => {
+                if (assetId) {
+                    RenderAssetService.applySpriteById(tileNode!, assetId);
+                } else {
+                    RenderAssetService.applyTileSprite(tileNode!, this._zoneId, cell.terrain);
+                }
+            });
         }
 
         const transform = tileNode?.getComponent(UITransform);

@@ -8,6 +8,8 @@ import { EquipmentSystem } from '../battle/EquipmentSystem';
 import { ItemSystem } from '../battle/ItemSystem';
 import { PlayerController } from '../battle/PlayerController';
 import { SkillSystem } from '../battle/SkillSystem';
+import { BackgroundService } from '../render/BackgroundService';
+import { CharacterVisualService } from '../render/CharacterVisualService';
 import { UpgradeManager } from '../battle/UpgradeManager';
 import { DungeonManager } from '../dungeon/DungeonManager';
 import { GridManager } from '../dungeon/GridManager';
@@ -237,10 +239,24 @@ export class DungeonSceneInstaller {
     }
 
     async loadInitialArt(refs: DungeonSceneRefs, characterId: string = 'warrior', zoneId: string = 'forest'): Promise<void> {
-        await RenderAssetService.applyTextureAsSprite(refs.backgroundNode, ArtResourceResolver.backgroundCombat(zoneId));
-        const frame = await RenderAssetService.applyCharacterSprite(refs.player.node, characterId, 'idle');
-        if (!frame) {
-            console.warn('[DungeonSceneInstaller] player sprite missing', characterId);
+        // Background via semantic key
+        const bgKey = `background.bg_combat_${zoneId}`;
+        const bgOk = await BackgroundService.instance.apply(refs.backgroundNode, bgKey);
+        if (!bgOk) {
+            // Fallback: direct asset load
+            console.warn(`[DungeonSceneInstaller] background not found via semantic key: ${bgKey}`);
+            await RenderAssetService.applyTextureAsSprite(refs.backgroundNode, ArtResourceResolver.backgroundCombat(zoneId));
+        }
+
+        // Character via semantic key
+        const charKey = `character.${characterId}.idle`;
+        const charOk = await CharacterVisualService.instance.applyStatic(refs.player.node, charKey);
+        if (!charOk) {
+            console.warn(`[DungeonSceneInstaller] character sprite missing via semantic key: ${charKey}`);
+            const frame = await RenderAssetService.applyCharacterSprite(refs.player.node, characterId, 'idle');
+            if (!frame) {
+                console.warn('[DungeonSceneInstaller] player sprite missing', characterId);
+            }
         }
     }
 
