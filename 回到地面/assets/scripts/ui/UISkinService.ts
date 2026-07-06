@@ -1,22 +1,22 @@
 /**
- * UISkinService - UI 皮肤统一加载服务
+ * UISkinService - UI skin unified loading service
  *
- * 职责:
- *   1. 加载 ui_assets.json 注册表（语义 key → assetId）
- *   2. 提供 apply(node, key) 统一入口，将资源挂到目标节点
- *   3. apply 失败时自动 fallback 到占位图
+ * Responsibilities:
+ *   1. Load ui_assets.json registry (semantic key -> assetId)
+ *   2. Provide apply(node, key) unified entry point
+ *   3. Handle nine_slice type automatically (set Sprite.Type.SLICED)
+ *   4. Auto-load config on first apply() call
  *
- * 使用方式:
- *   await UISkinService.instance.loadConfig();
+ * Usage:
  *   await UISkinService.instance.apply(someNode, 'ui.main.start_button');
  *
- * 换图流程（不改代码）:
- *   1. assets.json 换 assetId 映射
- *   2. ui_assets.json 换 assetId 指向
- *   3. 编辑器 UISkinBinder.assetKey 不变
+ * Skin change workflow (no code change):
+ *   1. Swap image file in textures/
+ *   2. Update assetId in ui_assets.json (or in assets.json)
+ *   3. Editor UISkinBinder.assetKey stays unchanged
  */
 
-import { resources, JsonAsset, Node, Sprite } from 'cc';
+import { resources, JsonAsset, Node, Sprite, SpriteFrame } from 'cc';
 import { RenderAssetService } from '../assets/RenderAssetService';
 
 export interface UIAssetDef {
@@ -25,10 +25,13 @@ export interface UIAssetDef {
     usage?: string;
 }
 
+const VALID_TYPES = new Set(['sprite', 'nine_slice', 'icon', 'background']);
+
 export class UISkinService {
     private static _instance: UISkinService | null = null;
     private _defs: Record<string, UIAssetDef> = {};
     private _loaded = false;
+    private _loading = false;
 
     static get instance(): UISkinService {
         if (!this._instance) this._instance = new UISkinService();
@@ -40,50 +43,71 @@ export class UISkinService {
     }
 
     /**
-     * 从 resources://config/ui_assets 加载注册表
+     * Load ui_assets.json registry from resources.
+     * Safe to call multiple times (only loads once).
      */
     async loadConfig(): Promise<void> {
-        if (this._loaded) return;
+        if (this._loaded || this._loading) return;
+        this._loading = true;
 
-        const asset = await new Promise<JsonAsset>((resolve, reject) => {
-            resources.load('config/ui_assets', JsonAsset, (err, jsonAsset) => {
-                if (err || !jsonAsset) {
-                    reject(err ?? new Error('load config/ui_assets failed'));
-                    return;
-                }
-                resolve(jsonAsset);
+        try {
+            const asset = await new Promise<JsonAsset>((resolve, reject) => {
+                resources.load('config/ui_assets', JsonAsset, (err, jsonAsset) => {
+                    if (err || !jsonAsset) {
+                        reject(err ?? new Error('load config/ui_assets failed'));
+                        return;
+                    }
+                    resolve(jsonAsset);
+                });
             });
-        });
 
-        const raw = asset.json as { data?: Record<string, UIAssetDef> } | Record<string, UIAssetDef>;
-        const data = 'data' in raw && raw.data ? raw.data : raw as Record<string, UIAssetDef>;
+            const raw = asset.json as { data?: Record<string, UIAssetDef> } | Record<string, UIAssetDef>;
+            const data = 'data' in raw && raw.data ? raw.data : raw as Record<string, UIAssetDef>;
 
-        // 跳过 metadata
-        for (const key of Object.keys(data)) {
-            if (key === 'metadata') continue;
-            this._defs[key] = data[key];
+            for (const key of Object.keys(data)) {
+                if (key === 'metadata') continue;
+                const def = data[key];
+                // Validate type early
+                if (def && def.type && !VALID_TYPES.has(def.type)) {
+                    console.warn(`[UISkinService] invalid type '${def.type}' for key '${key}', treating as 'sprite'`);
+                    def.type = 'sprite';
+                }
+                this._defs[key] = def;
+            }
+
+            this._loaded = true;
+            console.log(`[UISkinService] loaded ${Object.keys(this._defs).length} ui asset defs`);
+        } catch (err) {
+            console.error('[UISkinService] loadConfig failed', err);
+        } finally {
+            this._loading = false;
         }
-
-        this._loaded = true;
-        console.log(`[UISkinService] loaded ${Object.keys(this._defs).length} ui asset defs`);
     }
 
     /**
-     * 查询语义 key 的注册定义
+     * Look up a semantic key in the registry.
      */
     get(key: string): UIAssetDef | null {
         return this._defs[key] ?? null;
     }
 
     /**
-     * 将语义 key 对应的皮肤应用到 node 上
+     * Apply the skin identified by `key` onto `node`.
      *
-     * @param node 目标节点（需有或能自动添加 Sprite 组件）
-     * @param key  语义 key，如 'ui.main.start_button'
-     * @returns    是否应用成功
+     * Automatically loads config on first call.
+     * For nine_slice type, sets Sprite.Type.SLICED for proper border scaling.
+     *
+     * @param node Target node (must have or auto-create Sprite component)
+     * @param key  Semantic key, e.g. 'ui.main.start_button'
+     * @returns    true if skin was applied successfully
      */
     async apply(node: Node | null, key: string): Promise<boolean> {
         if (!node || !node.isValid) return false;
+
+        // Auto-load config on first apply
+        if (!this._loaded) {
+            await this.loadConfig();
+        }
 
         const def = this.get(key);
         if (!def) {
@@ -91,17 +115,27 @@ export class UISkinService {
             return false;
         }
 
-        const ok = await RenderAssetService.applySpriteById(node, def.assetId);
-        if (!ok) {
+        // Apply sprite frame
+        const frame = await RenderAssetService.applySpriteById(node, def.assetId);
+        if (!frame) {
             console.warn(`[UISkinService] apply failed: key=${key}, assetId=${def.assetId}`);
-            // Fallback: try placeholder
             return this._fallback(node);
         }
+
+        // Handle nine_slice type: set Sprite mode to SLICED
+        if (def.type === 'nine_slice') {
+            const sprite = this.ensureSprite(node);
+            if (sprite) {
+                sprite.type = Sprite.Type.SLICED;
+                sprite.sizeMode = Sprite.SizeMode.CUSTOM;
+            }
+        }
+
         return true;
     }
 
     /**
-     * 合入 apply 但永不抛异常（用于可选皮肤）
+     * Apply skin but never throw (for optional skins).
      */
     async applyOptional(node: Node | null, key: string): Promise<void> {
         try {
@@ -112,39 +146,39 @@ export class UISkinService {
     }
 
     /**
-     * 确保节点有 Sprite 组件（供外部调用）
+     * Ensure node has a Sprite component.
      */
     ensureSprite(node: Node): Sprite {
         return node.getComponent(Sprite) ?? node.addComponent(Sprite);
     }
 
     /**
-     * 注册表是否包含指定 key
+     * Check if a key exists in the registry.
      */
     has(key: string): boolean {
         return key in this._defs;
     }
 
     /**
-     * 获取所有已注册的 key 列表
+     * Get all registered keys.
      */
     keys(): string[] {
         return Object.keys(this._defs);
     }
 
     /**
-     * 获取所有已注册的 assetId 列表（用于门禁交叉校验）
+     * Get all referenced assetIds (for cross-validation).
      */
     allAssetIds(): string[] {
         const ids = new Set<string>();
         for (const def of Object.values(this._defs)) {
-            ids.add(def.assetId);
+            if (def.assetId) ids.add(def.assetId);
         }
         return Array.from(ids);
     }
 
     /**
-     * 按 usage 分类获取所有 key
+     * Get all keys filtered by usage.
      */
     keysByUsage(usage: string): string[] {
         return Object.entries(this._defs)
@@ -152,10 +186,12 @@ export class UISkinService {
             .map(([key]) => key);
     }
 
-    /** 占位 fallback */
+    /** Fallback placeholder when apply fails */
     private async _fallback(node: Node): Promise<boolean> {
+        if (!this._loaded) return false;
         const def = this.get('ui.placeholder.avatar');
         if (!def) return false;
-        return RenderAssetService.applySpriteById(node, def.assetId);
+        const frame = await RenderAssetService.applySpriteById(node, def.assetId);
+        return frame !== null;
     }
 }
