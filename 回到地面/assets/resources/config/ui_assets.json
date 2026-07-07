@@ -1,12 +1,12 @@
 {
     "metadata": {
         "version": "1.0.0",
-        "lastUpdated": "2026-07-06",
-        "description": "UI 资源语义注册表 — key = 业务语义，assetId = assets.json 可加载资源 ID"
+        "lastUpdated": "2026-07-07",
+        "description": "UI asset registry with 9-slice metadata"
     },
     "ui.main.bg": {
         "assetId": "textures/ui/main/main_bg",
-        "type": "sprite",
+        "type": "background",
         "usage": "background"
     },
     "ui.main.titledeco": {
@@ -15,27 +15,27 @@
         "usage": "decoration"
     },
     "ui.main.start_button": {
-        "assetId": "textures/ui/common/btn_default",
+        "assetId": "textures/ui/main/btn_adventure",
         "type": "sprite",
         "usage": "button"
     },
     "ui.main.character_button": {
-        "assetId": "textures/ui/common/btn_default",
+        "assetId": "textures/ui/main/btn_character",
         "type": "sprite",
         "usage": "button"
     },
     "ui.main.shop_button": {
-        "assetId": "textures/ui/common/btn_default",
+        "assetId": "textures/ui/main/btn_shop",
         "type": "sprite",
         "usage": "button"
     },
     "ui.main.log_button": {
-        "assetId": "textures/ui/common/btn_default",
+        "assetId": "textures/ui/main/btn_log",
         "type": "sprite",
         "usage": "button"
     },
     "ui.main.settings_button": {
-        "assetId": "textures/ui/common/btn_default",
+        "assetId": "textures/ui/main/btn_settings",
         "type": "sprite",
         "usage": "button"
     },
@@ -55,29 +55,59 @@
         "usage": "decoration"
     },
     "ui.login.wechat_btn": {
-        "assetId": "textures/ui/common/btn_default",
+        "assetId": "textures/ui/login/btn_wechat",
         "type": "sprite",
         "usage": "button"
     },
     "ui.login.guest_btn": {
-        "assetId": "textures/ui/common/btn_default",
+        "assetId": "textures/ui/login/btn_guest",
         "type": "sprite",
         "usage": "button"
     },
-    "ui.create.model_area": {
-        "assetId": "textures/ui/common/panel_bg",
+    "ui.create.bg": {
+        "assetId": "textures/ui/create/create_bg",
+        "type": "background",
+        "usage": "create_character_background"
+    },
+    "ui.create.class_btn": {
+        "assetId": "textures/ui/create/btn_class_default",
         "type": "sprite",
-        "usage": "model_display"
+        "usage": "button"
+    },
+    "ui.create.class_btn_selected": {
+        "assetId": "textures/ui/create/btn_class_selected",
+        "type": "sprite",
+        "usage": "button"
     },
     "ui.create.confirm_btn": {
-        "assetId": "textures/ui/common/btn_active",
+        "assetId": "textures/ui/create/btn_create_confirm",
         "type": "sprite",
         "usage": "button"
     },
     "ui.create.skip_btn": {
-        "assetId": "textures/ui/common/btn_default",
+        "assetId": "textures/ui/create/btn_create_skip",
         "type": "sprite",
         "usage": "button"
+    },
+    "ui.create.name_input": {
+        "assetId": "textures/ui/create/input_name",
+        "type": "nine_slice",
+        "usage": "input"
+    },
+    "ui.create.stage_glow": {
+        "assetId": "textures/ui/create/character_stage_glow",
+        "type": "sprite",
+        "usage": "model_display"
+    },
+    "ui.create.info_panel": {
+        "assetId": "textures/ui/create/info_panel",
+        "type": "sprite",
+        "usage": "panel_frame"
+    },
+    "ui.create.model_area": {
+        "assetId": "textures/ui/create/create_model_stage",
+        "type": "sprite",
+        "usage": "model_display"
     },
     "ui.character.close_btn": {
         "assetId": "textures/ui/common/btn_close",
@@ -85,39 +115,39 @@
         "usage": "button"
     },
     "ui.area.start_btn": {
-        "assetId": "textures/ui/common/btn_active",
+        "assetId": "textures/ui/area/btn_start",
         "type": "sprite",
         "usage": "button"
     },
     "ui.area.back_btn": {
-        "assetId": "textures/ui/common/btn_default",
+        "assetId": "textures/ui/area/btn_back",
         "type": "sprite",
         "usage": "button"
     },
     "ui.settlement.double_btn": {
-        "assetId": "textures/ui/death/btn_settle_active",
+        "assetId": "textures/ui/settlement/btn_double",
         "type": "sprite",
         "usage": "button"
     },
     "ui.settlement.back_btn": {
-        "assetId": "textures/ui/death/btn_settle_default",
+        "assetId": "textures/ui/settlement/btn_back",
         "type": "sprite",
         "usage": "button"
     },
     "ui.settlement.bg": {
-        "assetId": "textures/ui/death/death_bg",
-        "type": "sprite",
-        "usage": "background"
+        "assetId": "textures/ui/settlement/settlement_bg",
+        "type": "background",
+        "usage": "settlement_background"
     },
     "ui.settlement.result_panel": {
-        "assetId": "textures/ui/death/result_panel",
+        "assetId": "textures/ui/settlement/result_panel",
         "type": "sprite",
         "usage": "panel_frame"
     },
     "ui.settlement.soulstone_icon": {
-        "assetId": "textures/ui/death/icon_soulstone",
-        "type": "sprite",
-        "usage": "icon"
+        "assetId": "textures/ui/settlement/soulstone_icon",
+        "type": "icon",
+        "usage": "reward_icon"
     },
     "ui.settings.close_btn": {
         "assetId": "textures/ui/common/btn_close",
@@ -125,24 +155,73 @@
         "usage": "button"
     },
     "ui.settings.reset_btn": {
-        "assetId": "textures/ui/common/btn_default",
+        "assetId": "textures/ui/settings/btn_reset",
         "type": "sprite",
         "usage": "button"
     },
+    "ui.settings.bg": {
+        "assetId": "textures/ui/settings/settings_bg",
+        "type": "background",
+        "usage": "settings_background"
+    },
+    "ui.settings.panel": {
+        "assetId": "textures/ui/settings/settings_panel",
+        "type": "sprite",
+        "usage": "panel_frame"
+    },
     "ui.log.close_btn": {
-        "assetId": "textures/ui/common/btn_close",
+        "assetId": "textures/ui/log/btn_close",
         "type": "sprite",
         "usage": "button"
+    },
+    "ui.log.bg": {
+        "assetId": "textures/ui/log/log_bg",
+        "type": "background",
+        "usage": "log_background"
+    },
+    "ui.log.book_panel": {
+        "assetId": "textures/ui/log/log_book_panel",
+        "type": "sprite",
+        "usage": "panel_frame"
     },
     "ui.shop.bg": {
         "assetId": "textures/ui/shop/shop_bg",
-        "type": "sprite",
-        "usage": "background"
+        "type": "background",
+        "usage": "shop_background"
     },
     "ui.shop.slot": {
         "assetId": "textures/ui/shop/shop_slot",
         "type": "sprite",
         "usage": "slot"
+    },
+    "ui.shop.shelf_panel": {
+        "assetId": "textures/ui/shop/shop_shelf_panel",
+        "type": "sprite",
+        "usage": "panel_frame"
+    },
+    "ui.shop.buy_btn": {
+        "assetId": "textures/ui/shop/btn_buy",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.shop.coin_panel": {
+        "assetId": "textures/ui/shop/coin_panel",
+        "type": "sliced",
+        "usage": "panel_frame",
+        "slice": {
+            "left": 36,
+            "right": 36,
+            "top": 16,
+            "bottom": 16
+        },
+        "minSize": {
+            "width": 220,
+            "height": 64
+        },
+        "defaultSize": {
+            "width": 260,
+            "height": 64
+        }
     },
     "ui.shop.coin_icon": {
         "assetId": "textures/ui/shop/icon_coin",
@@ -161,8 +240,22 @@
     },
     "ui.hud.hpbar_frame": {
         "assetId": "textures/ui/hud/hud_hpbar_frame",
-        "type": "sprite",
-        "usage": "hud"
+        "type": "sliced",
+        "usage": "hud",
+        "slice": {
+            "left": 32,
+            "right": 32,
+            "top": 14,
+            "bottom": 14
+        },
+        "minSize": {
+            "width": 260,
+            "height": 54
+        },
+        "defaultSize": {
+            "width": 380,
+            "height": 54
+        }
     },
     "ui.hud.skillslot": {
         "assetId": "textures/ui/hud/hud_skillslot",
@@ -191,13 +284,32 @@
     },
     "ui.splash.bg": {
         "assetId": "textures/ui/splash/splash_bg",
-        "type": "sprite",
+        "type": "background",
         "usage": "background"
     },
     "ui.splash.logo": {
         "assetId": "textures/ui/splash/splash_logo",
         "type": "sprite",
         "usage": "decoration"
+    },
+    "ui.splash.loading_bar": {
+        "assetId": "textures/ui/splash/loading_bar",
+        "type": "sliced",
+        "usage": "progress_bar",
+        "slice": {
+            "left": 28,
+            "right": 28,
+            "top": 12,
+            "bottom": 12
+        },
+        "minSize": {
+            "width": 260,
+            "height": 42
+        },
+        "defaultSize": {
+            "width": 520,
+            "height": 42
+        }
     },
     "ui.map.room_combat": {
         "assetId": "textures/ui/map/icon_room_combat",
@@ -276,8 +388,8 @@
     },
     "ui.death.bg": {
         "assetId": "textures/ui/death/death_bg",
-        "type": "sprite",
-        "usage": "background"
+        "type": "background",
+        "usage": "death_background"
     },
     "ui.death.soulstone_icon": {
         "assetId": "textures/ui/death/icon_soulstone",
@@ -366,8 +478,22 @@
     },
     "ui.equipment.set_counter_bg": {
         "assetId": "textures/ui/equipment/set_counter_bg",
-        "type": "sprite",
-        "usage": "equipment"
+        "type": "sliced",
+        "usage": "equipment",
+        "slice": {
+            "left": 36,
+            "right": 36,
+            "top": 16,
+            "bottom": 16
+        },
+        "minSize": {
+            "width": 220,
+            "height": 64
+        },
+        "defaultSize": {
+            "width": 260,
+            "height": 64
+        }
     },
     "ui.upgrade.card_common": {
         "assetId": "textures/ui/upgrade/card_frame_common",
@@ -470,52 +596,52 @@
         "usage": "character_preview"
     },
     "character.avatar.warrior": {
-        "assetId": "textures/ui/common/panel_bg",
+        "assetId": "textures/ui/character/avatar_warrior",
         "type": "sprite",
         "usage": "avatar"
     },
     "character.avatar.archer": {
-        "assetId": "textures/ui/common/panel_bg",
+        "assetId": "textures/ui/character/avatar_archer",
         "type": "sprite",
         "usage": "avatar"
     },
     "character.avatar.assassin": {
-        "assetId": "textures/ui/common/panel_bg",
+        "assetId": "textures/ui/character/avatar_assassin",
         "type": "sprite",
         "usage": "avatar"
     },
     "character.avatar.mage": {
-        "assetId": "textures/ui/common/panel_bg",
+        "assetId": "textures/ui/character/avatar_mage",
         "type": "sprite",
         "usage": "avatar"
     },
     "character.avatar.berserker": {
-        "assetId": "textures/ui/common/panel_bg",
+        "assetId": "textures/ui/character/avatar_berserker",
         "type": "sprite",
         "usage": "avatar"
     },
     "character.card.warrior": {
-        "assetId": "textures/ui/common/panel_bg",
+        "assetId": "textures/ui/character/character_card_default",
         "type": "sprite",
         "usage": "character_card"
     },
     "character.card.archer": {
-        "assetId": "textures/ui/common/panel_bg",
+        "assetId": "textures/ui/character/character_card_default",
         "type": "sprite",
         "usage": "character_card"
     },
     "character.card.assassin": {
-        "assetId": "textures/ui/common/panel_bg",
+        "assetId": "textures/ui/character/character_card_default",
         "type": "sprite",
         "usage": "character_card"
     },
     "character.card.mage": {
-        "assetId": "textures/ui/common/panel_bg",
+        "assetId": "textures/ui/character/character_card_default",
         "type": "sprite",
         "usage": "character_card"
     },
     "character.card.berserker": {
-        "assetId": "textures/ui/common/panel_bg",
+        "assetId": "textures/ui/character/character_card_default",
         "type": "sprite",
         "usage": "character_card"
     },
@@ -523,5 +649,306 @@
         "assetId": "textures/ui/common/panel_bg",
         "type": "sprite",
         "usage": "placeholder"
+    },
+    "ui.main.top_status_panel": {
+        "assetId": "textures/ui/main/top_status_panel",
+        "type": "sprite",
+        "usage": "panel_frame"
+    },
+    "ui.login.bg": {
+        "assetId": "textures/ui/login/login_bg",
+        "type": "background",
+        "usage": "background"
+    },
+    "ui.login.panel": {
+        "assetId": "textures/ui/login/login_panel",
+        "type": "sprite",
+        "usage": "panel_frame"
+    },
+    "ui.login.agreement_strip": {
+        "assetId": "textures/ui/login/agreement_strip",
+        "type": "sliced",
+        "usage": "decoration",
+        "slice": {
+            "left": 36,
+            "right": 36,
+            "top": 12,
+            "bottom": 12
+        },
+        "minSize": {
+            "width": 320,
+            "height": 44
+        },
+        "defaultSize": {
+            "width": 480,
+            "height": 44
+        }
+    },
+    "ui.character.bg": {
+        "assetId": "textures/ui/character/character_bg",
+        "type": "background",
+        "usage": "character_background"
+    },
+    "ui.character.detail_panel": {
+        "assetId": "textures/ui/character/character_detail_panel",
+        "type": "sprite",
+        "usage": "panel_frame"
+    },
+    "ui.character.list_panel": {
+        "assetId": "textures/ui/character/character_list_panel",
+        "type": "sprite",
+        "usage": "panel_frame"
+    },
+    "ui.character.select_btn": {
+        "assetId": "textures/ui/character/btn_select",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "character.card.default": {
+        "assetId": "textures/ui/character/character_card_default",
+        "type": "sliced",
+        "usage": "character_card",
+        "slice": {
+            "left": 44,
+            "right": 44,
+            "top": 20,
+            "bottom": 20
+        },
+        "minSize": {
+            "width": 260,
+            "height": 96
+        },
+        "defaultSize": {
+            "width": 320,
+            "height": 96
+        }
+    },
+    "character.card.selected": {
+        "assetId": "textures/ui/character/character_card_selected",
+        "type": "sliced",
+        "usage": "character_card",
+        "slice": {
+            "left": 44,
+            "right": 44,
+            "top": 20,
+            "bottom": 20
+        },
+        "minSize": {
+            "width": 260,
+            "height": 96
+        },
+        "defaultSize": {
+            "width": 320,
+            "height": 96
+        }
+    },
+    "ui.area.bg": {
+        "assetId": "textures/ui/area/area_bg",
+        "type": "background",
+        "usage": "area_select_background"
+    },
+    "ui.area.route_panel": {
+        "assetId": "textures/ui/area/route_panel",
+        "type": "sprite",
+        "usage": "panel_frame"
+    },
+    "ui.area.route_card": {
+        "assetId": "textures/ui/area/route_card_default",
+        "type": "sliced",
+        "usage": "route_card",
+        "slice": {
+            "left": 44,
+            "right": 44,
+            "top": 18,
+            "bottom": 18
+        },
+        "minSize": {
+            "width": 300,
+            "height": 92
+        },
+        "defaultSize": {
+            "width": 720,
+            "height": 92
+        }
+    },
+    "ui.area.route_card_locked": {
+        "assetId": "textures/ui/area/route_card_locked",
+        "type": "sliced",
+        "usage": "route_card",
+        "slice": {
+            "left": 44,
+            "right": 44,
+            "top": 18,
+            "bottom": 18
+        },
+        "minSize": {
+            "width": 300,
+            "height": 92
+        },
+        "defaultSize": {
+            "width": 720,
+            "height": 92
+        }
+    },
+    "ui.area.badge_forest": {
+        "assetId": "textures/ui/area/area_badge_forest",
+        "type": "sprite",
+        "usage": "icon"
+    },
+    "ui.area.badge_swamp": {
+        "assetId": "textures/ui/area/area_badge_swamp",
+        "type": "sprite",
+        "usage": "icon"
+    },
+    "ui.area.badge_tundra": {
+        "assetId": "textures/ui/area/area_badge_tundra",
+        "type": "sprite",
+        "usage": "icon"
+    },
+    "ui.area.badge_volcano": {
+        "assetId": "textures/ui/area/area_badge_volcano",
+        "type": "sprite",
+        "usage": "icon"
+    },
+    "ui.area.badge_abyss": {
+        "assetId": "textures/ui/area/area_badge_abyss",
+        "type": "sprite",
+        "usage": "icon"
+    },
+    "character.card.selected.warrior": {
+        "assetId": "textures/ui/character/character_card_selected",
+        "type": "sprite",
+        "usage": "character_card"
+    },
+    "character.card.selected.archer": {
+        "assetId": "textures/ui/character/character_card_selected",
+        "type": "sprite",
+        "usage": "character_card"
+    },
+    "character.card.selected.assassin": {
+        "assetId": "textures/ui/character/character_card_selected",
+        "type": "sprite",
+        "usage": "character_card"
+    },
+    "character.card.selected.mage": {
+        "assetId": "textures/ui/character/character_card_selected",
+        "type": "sprite",
+        "usage": "character_card"
+    },
+    "character.card.selected.berserker": {
+        "assetId": "textures/ui/character/character_card_selected",
+        "type": "sprite",
+        "usage": "character_card"
+    },
+    "ui.settlement.reward_strip": {
+        "assetId": "textures/ui/settlement/reward_strip",
+        "type": "sliced",
+        "usage": "reward_strip",
+        "slice": {
+            "left": 44,
+            "right": 44,
+            "top": 18,
+            "bottom": 18
+        },
+        "minSize": {
+            "width": 300,
+            "height": 90
+        },
+        "defaultSize": {
+            "width": 620,
+            "height": 90
+        }
+    },
+    "ui.map.panel": {
+        "assetId": "textures/ui/map/map_panel",
+        "type": "sprite",
+        "usage": "map"
+    },
+    "ui.upgrade.bg": {
+        "assetId": "textures/ui/upgrade/upgrade_bg",
+        "type": "background",
+        "usage": "upgrade_background"
+    },
+    "ui.upgrade.pick_btn": {
+        "assetId": "textures/ui/upgrade/btn_pick",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.equipment.bg": {
+        "assetId": "textures/ui/equipment/equipment_bg",
+        "type": "background",
+        "usage": "equipment_background"
+    },
+    "ui.equipment.inventory_panel": {
+        "assetId": "textures/ui/equipment/inventory_panel",
+        "type": "sprite",
+        "usage": "panel_frame"
+    },
+    "ui.equipment.equip_btn": {
+        "assetId": "textures/ui/equipment/btn_equip",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.equipment.close_btn": {
+        "assetId": "textures/ui/equipment/btn_close",
+        "type": "sprite",
+        "usage": "button"
+    },
+    "ui.event.choice_card": {
+        "assetId": "textures/ui/event/choice_card",
+        "type": "sliced",
+        "usage": "frame",
+        "slice": {
+            "left": 44,
+            "right": 44,
+            "top": 20,
+            "bottom": 20
+        },
+        "minSize": {
+            "width": 300,
+            "height": 96
+        },
+        "defaultSize": {
+            "width": 720,
+            "height": 96
+        }
+    },
+    "ui.log.stat_row": {
+        "assetId": "textures/ui/log/stat_row",
+        "type": "sliced",
+        "usage": "frame",
+        "slice": {
+            "left": 40,
+            "right": 40,
+            "top": 16,
+            "bottom": 16
+        },
+        "minSize": {
+            "width": 300,
+            "height": 72
+        },
+        "defaultSize": {
+            "width": 720,
+            "height": 72
+        }
+    },
+    "ui.create.input_name": {
+        "assetId": "textures/ui/create/input_name",
+        "type": "sliced",
+        "usage": "frame",
+        "slice": {
+            "left": 36,
+            "right": 36,
+            "top": 18,
+            "bottom": 18
+        },
+        "minSize": {
+            "width": 320,
+            "height": 72
+        },
+        "defaultSize": {
+            "width": 480,
+            "height": 72
+        }
     }
 }

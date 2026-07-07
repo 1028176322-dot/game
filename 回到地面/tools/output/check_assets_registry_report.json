@@ -2,20 +2,164 @@
   "metadata": {
     "tool": "check_assets_registry.py",
     "version": "2.0.0",
-    "timestamp": "2026-07-06T17:34:32.376822"
+    "timestamp": "2026-07-07T20:56:22.836440"
   },
   "registry": {
     "disk_exists_but_not_registered": [],
     "registered_but_missing_file": [],
-    "total_disk": 418,
-    "total_registered": 418,
-    "total_matched": 418
+    "total_disk": 498,
+    "total_registered": 498,
+    "total_matched": 498
   },
   "ui_assets_cross_ref": {
-    "ui_assets_total": 104,
+    "ui_assets_total": 153,
     "ui_assets_assetId_not_in_assets_json": []
   },
-  "ui_assets_type_issues": [],
+  "ui_assets_type_issues": [
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "ui.shop.coin_panel",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    },
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "ui.hud.hpbar_frame",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    },
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "ui.splash.loading_bar",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    },
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "ui.equipment.set_counter_bg",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    },
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "ui.login.agreement_strip",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    },
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "character.card.default",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    },
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "character.card.selected",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    },
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "ui.area.route_card",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    },
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "ui.area.route_card_locked",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    },
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "ui.settlement.reward_strip",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    },
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "ui.event.choice_card",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    },
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "ui.log.stat_row",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    },
+    {
+      "type": "ui_assets_type_invalid",
+      "key": "ui.create.input_name",
+      "value": "sliced",
+      "allowed": [
+        "background",
+        "icon",
+        "nine_slice",
+        "sprite"
+      ]
+    }
+  ],
   "binder_key_check": {
     "binder_key_orphaned": [],
     "total_referenced": 2,
@@ -31,7 +175,14 @@
       "character.card.archer",
       "character.card.assassin",
       "character.card.berserker",
+      "character.card.default",
       "character.card.mage",
+      "character.card.selected",
+      "character.card.selected.archer",
+      "character.card.selected.assassin",
+      "character.card.selected.berserker",
+      "character.card.selected.mage",
+      "character.card.selected.warrior",
       "character.card.warrior",
       "character.preview.archer",
       "character.preview.assassin",
@@ -51,11 +202,31 @@
       "icon.skill.slowfield",
       "icon.skill.snapshot",
       "ui.area.back_btn",
+      "ui.area.badge_abyss",
+      "ui.area.badge_forest",
+      "ui.area.badge_swamp",
+      "ui.area.badge_tundra",
+      "ui.area.badge_volcano",
+      "ui.area.bg",
+      "ui.area.route_card",
+      "ui.area.route_card_locked",
+      "ui.area.route_panel",
       "ui.area.start_btn",
+      "ui.character.bg",
       "ui.character.close_btn",
+      "ui.character.detail_panel",
+      "ui.character.list_panel",
+      "ui.character.select_btn",
+      "ui.create.bg",
+      "ui.create.class_btn",
+      "ui.create.class_btn_selected",
       "ui.create.confirm_btn",
+      "ui.create.info_panel",
+      "ui.create.input_name",
       "ui.create.model_area",
+      "ui.create.name_input",
       "ui.create.skip_btn",
+      "ui.create.stage_glow",
       "ui.death.bg",
       "ui.death.result_panel",
       "ui.death.revive_btn_active",
@@ -63,7 +234,11 @@
       "ui.death.settle_btn_active",
       "ui.death.settle_btn_default",
       "ui.death.soulstone_icon",
+      "ui.equipment.bg",
       "ui.equipment.body_frame",
+      "ui.equipment.close_btn",
+      "ui.equipment.equip_btn",
+      "ui.equipment.inventory_panel",
       "ui.equipment.inventory_slot",
       "ui.equipment.item_slot",
       "ui.equipment.rarity_common",
@@ -79,6 +254,7 @@
       "ui.equipment.slot_ring",
       "ui.equipment.slot_shoes",
       "ui.equipment.slot_weapon",
+      "ui.event.choice_card",
       "ui.hud.cdmask",
       "ui.hud.hpbar_bg",
       "ui.hud.hpbar_fill",
@@ -87,8 +263,14 @@
       "ui.hud.skillslot",
       "ui.joystick.base",
       "ui.joystick.dot",
+      "ui.log.bg",
+      "ui.log.book_panel",
       "ui.log.close_btn",
+      "ui.log.stat_row",
+      "ui.login.agreement_strip",
+      "ui.login.bg",
       "ui.login.guest_btn",
+      "ui.login.panel",
       "ui.login.title",
       "ui.login.wechat_btn",
       "ui.main.bg",
@@ -98,10 +280,12 @@
       "ui.main.shop_button",
       "ui.main.start_button",
       "ui.main.titledeco",
+      "ui.main.top_status_panel",
       "ui.map.line",
       "ui.map.node_current",
       "ui.map.node_unknown",
       "ui.map.node_visited",
+      "ui.map.panel",
       "ui.map.room_boss",
       "ui.map.room_combat",
       "ui.map.room_event",
@@ -112,23 +296,32 @@
       "ui.panel.frame",
       "ui.panel.mask",
       "ui.placeholder.avatar",
+      "ui.settings.bg",
       "ui.settings.close_btn",
+      "ui.settings.panel",
       "ui.settings.reset_btn",
       "ui.settlement.back_btn",
       "ui.settlement.bg",
       "ui.settlement.double_btn",
       "ui.settlement.result_panel",
+      "ui.settlement.reward_strip",
       "ui.settlement.soulstone_icon",
       "ui.shop.bg",
+      "ui.shop.buy_btn",
       "ui.shop.coin_icon",
+      "ui.shop.coin_panel",
+      "ui.shop.shelf_panel",
       "ui.shop.slot",
       "ui.splash.bg",
+      "ui.splash.loading_bar",
       "ui.splash.logo",
+      "ui.upgrade.bg",
       "ui.upgrade.card_common",
       "ui.upgrade.card_epic",
-      "ui.upgrade.card_rare"
+      "ui.upgrade.card_rare",
+      "ui.upgrade.pick_btn"
     ],
-    "total_unused": 104
+    "total_unused": 153
   },
   "nine_slice_check": {
     "nine_slice_requires_border": [
@@ -143,9 +336,9 @@
   },
   "summary": {
     "total_issues": 0,
-    "type_validation_errors": 0,
+    "type_validation_errors": 13,
     "orphaned_binder_keys": 0,
-    "unused_ui_asset_keys": 104,
+    "unused_ui_asset_keys": 153,
     "nine_slice_review_needed": 1
   }
 }

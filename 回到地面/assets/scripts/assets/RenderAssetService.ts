@@ -11,6 +11,7 @@ export class RenderAssetService {
         if (!frame || !node.isValid) return null;
 
         sprite.spriteFrame = frame;
+        sprite.enabled = true;
         const graphics = node.getComponent(Graphics);
         if (graphics) graphics.enabled = false;
         return frame;
@@ -50,6 +51,7 @@ export class RenderAssetService {
 
         const sliced = createFrameFromSheet(texture, sheetInfo.frameWidth, sheetInfo.frameHeight, frameIndex);
         sprite.spriteFrame = sliced;
+        sprite.enabled = true;
         const graphics = node.getComponent(Graphics);
         if (graphics) graphics.enabled = false;
         return sliced;
@@ -71,6 +73,7 @@ export class RenderAssetService {
             frame.texture = texture;
             const sprite = this._ensureSprite(node);
             sprite.spriteFrame = frame;
+            sprite.enabled = true;
             return frame;
         } catch (err) {
             console.warn(`[RenderAssetService] texture sprite load failed: ${resourceId}`, err);

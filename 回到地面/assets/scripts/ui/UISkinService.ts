@@ -16,8 +16,9 @@
  *   3. Editor UISkinBinder.assetKey stays unchanged
  */
 
-import { resources, JsonAsset, Node, Sprite, SpriteFrame } from 'cc';
+import { resources, JsonAsset, Node, Sprite, SpriteFrame, UITransform, view, Vec3 } from 'cc';
 import { RenderAssetService } from '../assets/RenderAssetService';
+import { AssetBundleService } from '../assets/AssetBundleService';
 
 export interface UIAssetDef {
     assetId: string;
@@ -115,8 +116,7 @@ export class UISkinService {
             return false;
         }
 
-        // Apply sprite frame
-        const frame = await RenderAssetService.applySpriteById(node, def.assetId);
+        const frame = await this._applyAsset(node, def.assetId);
         if (!frame) {
             console.warn(`[UISkinService] apply failed: key=${key}, assetId=${def.assetId}`);
             return this._fallback(node);
@@ -129,6 +129,10 @@ export class UISkinService {
                 sprite.type = Sprite.Type.SLICED;
                 sprite.sizeMode = Sprite.SizeMode.CUSTOM;
             }
+        }
+
+        if (def.type === 'background') {
+            this._fitBackground(node);
         }
 
         return true;
@@ -149,6 +153,9 @@ export class UISkinService {
      * Ensure node has a Sprite component.
      */
     ensureSprite(node: Node): Sprite {
+        if (!node.getComponent(UITransform)) {
+            node.addComponent(UITransform);
+        }
         return node.getComponent(Sprite) ?? node.addComponent(Sprite);
     }
 
@@ -177,6 +184,17 @@ export class UISkinService {
         return Array.from(ids);
     }
 
+    private async _applyAsset(node: Node, assetId: string): Promise<SpriteFrame | null> {
+        await AssetBundleService.instance.loadAssetMapFromResources();
+        const entry = AssetBundleService.instance.resolve(assetId);
+
+        if (entry?.type === 'Texture2D') {
+            return RenderAssetService.applyTextureAsSprite(node, assetId);
+        }
+
+        return RenderAssetService.applySpriteById(node, assetId);
+    }
+
     /**
      * Get all keys filtered by usage.
      */
@@ -193,5 +211,23 @@ export class UISkinService {
         if (!def) return false;
         const frame = await RenderAssetService.applySpriteById(node, def.assetId);
         return frame !== null;
+    }
+
+    private _fitBackground(node: Node): void {
+        const transform = node.getComponent(UITransform) ?? node.addComponent(UITransform);
+        const parentTransform = node.parent?.getComponent(UITransform) ?? null;
+        const visible = view.getVisibleSize();
+
+        const width = parentTransform && parentTransform.width > 0 ? parentTransform.width : visible.width || 1280;
+        const height = parentTransform && parentTransform.height > 0 ? parentTransform.height : visible.height || 720;
+
+        transform.setContentSize(width, height);
+        node.setPosition(Vec3.ZERO);
+
+        const sprite = node.getComponent(Sprite);
+        if (sprite) {
+            sprite.type = Sprite.Type.SIMPLE;
+            sprite.sizeMode = Sprite.SizeMode.CUSTOM;
+        }
     }
 }

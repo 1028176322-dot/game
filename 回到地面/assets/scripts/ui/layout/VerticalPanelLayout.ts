@@ -1,27 +1,12 @@
 /**
- * VerticalPanelLayout — Generic vertical zone-based layout component
+ * Generic vertical zone layout.
  *
- * Usage: Mount on ContentRoot. Set zones in editor, then call applyLayout().
- * Places zones top-to-bottom within the container, with fixed heights + gaps + padding.
- *
- * Typical usage:
- *   ContentRoot [VerticalPanelLayout]
- *   ├── HeaderZone      52px  (TitleLabel)
- *   ├── PreviewZone    150px  (ModelDisplay)
- *   ├── ChoiceZone      58px  (CardRoot / buttons)
- *   ├── InfoZone        76px  (SelectedInfo, SelectedDesc)
- *   └── ActionZone      58px  (ConfirmBtn, SkipBtn)
- *
- * Each zone is responsible for its own internal layout (handled by panel-specific layout
- * component like CreatePanelLayout, or by the zone's own component).
- *
- * Integration with ResponsivePanelContent:
- *   ResponsivePanelContent.applyLayout() → sets ContentRoot size →
- *   VerticalPanelLayout.applyLayout() → positions zones →
- *   panel-specific layout → positions elements within each zone.
+ * Mount on ContentRoot. The component positions zone nodes from top to bottom.
+ * If available height is smaller than the requested layout, it scales zone
+ * heights and gaps down together instead of letting zones overlap.
  */
 
-import { _decorator, Component, Node, UITransform } from 'cc';
+import { _decorator, CCInteger, Component, Node, UITransform, clamp } from 'cc';
 
 const { ccclass, property, menu } = _decorator;
 
@@ -31,7 +16,7 @@ export class VerticalPanelLayout extends Component {
     @property([Node])
     zones: Node[] = [];
 
-    @property([Number])
+    @property({ type: [CCInteger] })
     heights: number[] = [];
 
     @property
@@ -50,22 +35,25 @@ export class VerticalPanelLayout extends Component {
         const totalH = rootTrans.height;
         const totalW = rootTrans.width;
         const count = Math.min(this.zones.length, this.heights.length);
+        if (count <= 0) return;
 
-        // Calculate total fixed height
-        let fixedH = this.paddingTop + this.paddingBottom;
+        let requestedH = this.paddingTop + this.paddingBottom;
         for (let i = 0; i < count; i++) {
-            fixedH += this.heights[i] ?? 0;
+            requestedH += this.heights[i] ?? 0;
         }
-        fixedH += Math.max(0, count - 1) * this.gap;
+        requestedH += Math.max(0, count - 1) * this.gap;
 
-        // Start from top
-        let y = totalH / 2 - this.paddingTop;
+        const scale = requestedH > 0 ? clamp(totalH / requestedH, 0.45, 1) : 1;
+        const gap = this.gap * scale;
+        const paddingTop = this.paddingTop * scale;
+
+        let y = totalH / 2 - paddingTop;
 
         for (let i = 0; i < count; i++) {
             const zone = this.zones[i];
             if (!zone) continue;
 
-            const h = this.heights[i] ?? 0;
+            const h = (this.heights[i] ?? 0) * scale;
             const trans = zone.getComponent(UITransform);
             if (trans) {
                 trans.setContentSize(totalW, h);
@@ -73,7 +61,7 @@ export class VerticalPanelLayout extends Component {
 
             y -= h / 2;
             zone.setPosition(0, y);
-            y -= h / 2 + this.gap;
+            y -= h / 2 + gap;
         }
     }
 }

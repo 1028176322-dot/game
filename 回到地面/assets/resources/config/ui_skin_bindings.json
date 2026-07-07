@@ -8,6 +8,7 @@
         "Canvas/SplashUI/SplashImage": "ui.splash.bg"
     },
     "main": {
+        "Canvas/MainBackground": "ui.main.bg",
         "Canvas/MainUI/StartButton": "ui.main.start_button",
         "Canvas/MainUI/characterBtn": "ui.main.character_button",
         "Canvas/MainUI/ShopBtn": "ui.main.shop_button",
@@ -15,24 +16,24 @@
         "Canvas/MainUI/SettingsBtn": "ui.main.settings_button",
 
         "Canvas/LoginPanel/PanelRoot/PanelFrame": "ui.panel.frame",
-        "Canvas/CreatePanel/PanelRoot/PanelFrame": "ui.panel.frame",
-        "Canvas/CreatePanel/PanelRoot/PanelFrame/ContentRoot/ConfirmBtn": "ui.create.confirm_btn",
+        "Canvas/CreatePanel/PanelRoot/PanelFrame/ContentRoot/ActionZone/ConfirmBtn": "ui.create.confirm_btn",
+        "Canvas/CreatePanel/PanelRoot/PanelFrame/ContentRoot/ActionZone/SkipBtn": "ui.create.skip_btn",
         "Canvas/CharacterPanel/PanelRoot/PanelFrame": "ui.panel.frame",
         "Canvas/AreaSelectPanel/PanelRoot/PanelFrame": "ui.panel.frame",
         "Canvas/SettlementPanel/PanelRoot/PanelFrame": "ui.panel.frame",
         "Canvas/SettingsPanel/PanelRoot/PanelFrame": "ui.panel.frame",
         "Canvas/AdventureLogPanel/PanelRoot/PanelFrame": "ui.panel.frame",
 
-        "Canvas/SettlementPanel/PanelRoot/ContentRoot/DoubleBtn": "ui.settlement.double_btn",
-        "Canvas/SettlementPanel/PanelRoot/ContentRoot/BackBtn": "ui.settlement.back_btn",
-        "Canvas/SettingsPanel/PanelRoot/ContentRoot/CloseBtn": "ui.settings.close_btn",
-        "Canvas/SettingsPanel/PanelRoot/ContentRoot/ResetBtn": "ui.settings.reset_btn",
-        "Canvas/AdventureLogPanel/PanelRoot/ContentRoot/CloseBtn": "ui.log.close_btn",
-        "Canvas/CharacterPanel/PanelRoot/ContentRoot/CloseBtn": "ui.character.close_btn",
-        "Canvas/AreaSelectPanel/PanelRoot/ContentRoot/StartBtn": "ui.area.start_btn",
-        "Canvas/AreaSelectPanel/PanelRoot/ContentRoot/BackBtn": "ui.area.back_btn",
-        "Canvas/LoginPanel/PanelRoot/ContentRoot/WechatBtn": "ui.login.wechat_btn",
-        "Canvas/LoginPanel/PanelRoot/ContentRoot/GuestBtn": "ui.login.guest_btn"
+        "Canvas/SettlementPanel/PanelRoot/PanelFrame/ContentRoot/DoubleBtn": "ui.settlement.double_btn",
+        "Canvas/SettlementPanel/PanelRoot/PanelFrame/ContentRoot/BackBtn": "ui.settlement.back_btn",
+        "Canvas/SettingsPanel/PanelRoot/PanelFrame/ContentRoot/CloseBtn": "ui.settings.close_btn",
+        "Canvas/SettingsPanel/PanelRoot/PanelFrame/ContentRoot/ResetBtn": "ui.settings.reset_btn",
+        "Canvas/AdventureLogPanel/PanelRoot/PanelFrame/ContentRoot/CloseBtn": "ui.log.close_btn",
+        "Canvas/CharacterPanel/PanelRoot/PanelFrame/ContentRoot/CloseBtn": "ui.character.close_btn",
+        "Canvas/AreaSelectPanel/PanelRoot/PanelFrame/ContentRoot/StartBtn": "ui.area.start_btn",
+        "Canvas/AreaSelectPanel/PanelRoot/PanelFrame/ContentRoot/BackBtn": "ui.area.back_btn",
+        "Canvas/LoginPanel/PanelRoot/PanelFrame/ContentRoot/WechatBtn": "ui.login.wechat_btn",
+        "Canvas/LoginPanel/PanelRoot/PanelFrame/ContentRoot/GuestBtn": "ui.login.guest_btn"
     },
     "dungeon": {
         "Canvas/UIRoot/BattleHUD": "ui.hud.hpbar_bg",

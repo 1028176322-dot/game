@@ -1,0 +1,26 @@
+{
+  "doc": "docs\\一体化界面资源重做清单.md",
+  "expected_count": 97,
+  "issue_count": 64,
+  "missing_count": 0,
+  "extension_mismatch_count": 11,
+  "extra_file_count": 101,
+  "config_issue_count": 0,
+  "top_issues": {
+    "extension_mismatch_doc_vs_file": 11,
+    "size_mismatch_expected_260x88": 1,
+    "size_mismatch_expected_180x68": 4,
+    "size_mismatch_expected_1120x86": 1,
+    "hard_alpha_panel_edge": 21,
+    "size_mismatch_expected_760x460": 1,
+    "size_mismatch_expected_320x76": 2,
+    "size_mismatch_expected_620x44": 1,
+    "over_budget_800.0KB": 1,
+    "visible_checker_or_fake_transparency_risk": 10,
+    "visible_chroma_residue": 10,
+    "button_center_too_busy_risk": 6,
+    "size_mismatch_expected_1280x720": 1,
+    "expected_png_rgba": 3,
+    "transparent_rgb_chroma_pollution": 8
+  }
+}

@@ -8,98 +8,6 @@
     ".png"
   ],
   "subMetas": {
-    "f9941": {
-      "importer": "sprite-frame",
-      "uuid": "9572b3b3-460e-4de2-89a6-aaedf922d055@f9941",
-      "displayName": "equip_body_frame",
-      "id": "f9941",
-      "name": "spriteFrame",
-      "userData": {
-        "trimThreshold": 1,
-        "rotated": false,
-        "offsetX": -0.5,
-        "offsetY": 0,
-        "trimX": 54,
-        "trimY": 12,
-        "width": 291,
-        "height": 276,
-        "rawWidth": 400,
-        "rawHeight": 300,
-        "borderTop": 0,
-        "borderBottom": 0,
-        "borderLeft": 0,
-        "borderRight": 0,
-        "packable": true,
-        "pixelsToUnit": 100,
-        "pivotX": 0.5,
-        "pivotY": 0.5,
-        "meshType": 0,
-        "vertices": {
-          "rawPosition": [
-            -145.5,
-            -138,
-            0,
-            145.5,
-            -138,
-            0,
-            -145.5,
-            138,
-            0,
-            145.5,
-            138,
-            0
-          ],
-          "indexes": [
-            0,
-            1,
-            2,
-            2,
-            1,
-            3
-          ],
-          "uv": [
-            54,
-            288,
-            345,
-            288,
-            54,
-            12,
-            345,
-            12
-          ],
-          "nuv": [
-            0.135,
-            0.04,
-            0.8625,
-            0.04,
-            0.135,
-            0.96,
-            0.8625,
-            0.96
-          ],
-          "minPos": [
-            -145.5,
-            -138,
-            0
-          ],
-          "maxPos": [
-            145.5,
-            138,
-            0
-          ]
-        },
-        "isUuid": true,
-        "imageUuidOrDatabaseUri": "9572b3b3-460e-4de2-89a6-aaedf922d055@6c48a",
-        "atlasUuid": "",
-        "trimType": "auto"
-      },
-      "ver": "1.0.12",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "6c48a": {
       "importer": "texture",
       "uuid": "9572b3b3-460e-4de2-89a6-aaedf922d055@6c48a",
@@ -118,6 +26,98 @@
         "visible": false
       },
       "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "9572b3b3-460e-4de2-89a6-aaedf922d055@f9941",
+      "displayName": "equip_body_frame",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 420,
+        "height": 520,
+        "rawWidth": 420,
+        "rawHeight": 520,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -210,
+            -260,
+            0,
+            210,
+            -260,
+            0,
+            -210,
+            260,
+            0,
+            210,
+            260,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            0,
+            520,
+            420,
+            520,
+            0,
+            0,
+            420,
+            0
+          ],
+          "nuv": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "minPos": [
+            -210,
+            -260,
+            0
+          ],
+          "maxPos": [
+            210,
+            260,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "9572b3b3-460e-4de2-89a6-aaedf922d055@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
       "imported": true,
       "files": [
         ".json"

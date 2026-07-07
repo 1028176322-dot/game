@@ -9,26 +9,12 @@
  *
  * Layout:
  *   ContentRoot [VerticalPanelLayout, CreatePanelLayout]
- *   ├── HeaderZone
- *   │   └── TitleLabel              "创建冒险者"
- *   ├── PreviewZone
- *   │   └── ModelDisplay            shows selected character looping attack animation
- *   │       └── CharacterPreview    (128x128 sprite, scale 0.75)
- *   ├── ChoiceZone
- *   │   └── CardRoot                5 class buttons
- *   │       ├── Btn_warrior
- *   │       ├── Btn_archer
- *   │       ├── Btn_assassin
- *   │       ├── Btn_mage
- *   │       └── Btn_berserker
- *   ├── InfoZone
- *   │   ├── SelectedInfo            "熊 熊战士"
- *   │   └── SelectedDesc            "坚实盾牌，可靠的防御"
- *   ├── ActionZone
- *   │   ├── ConfirmBtn
- *   │   ├── SkipBtn
- *   │   └── ErrorLabel
- *   └── NameInput                   (naming phase, direct child of ContentRoot)
+ *   - HeaderZone / TitleLabel
+ *   - PreviewZone / ModelDisplay / CharacterPreview
+ *   - ChoiceZone / CardRoot / five class buttons
+ *   - InfoZone / SelectedInfo + SelectedDesc
+ *   - ActionZone / ConfirmBtn + SkipBtn + ErrorLabel
+ *   - NameInput, only active during naming phase
  *
  * Skin keys used: ui.main.character_button
  */
@@ -84,8 +70,9 @@ export class CreatePanel extends Component implements UIPanel {
     private _selectedId = 'warrior';
     private _classCards: Node[] = [];
     private _isNaming = false;
+    private _runtimeStructureReady = false;
 
-    // ── UIPanel ──
+    // UIPanel
 
     open(_params?: unknown): void {
         if (this.panelRoot) this.panelRoot.active = true;
@@ -110,7 +97,7 @@ export class CreatePanel extends Component implements UIPanel {
         if (this.panelRoot) this.panelRoot.active = false;
     }
 
-    // ── Lifecycle ──
+    // Lifecycle
 
     onLoad(): void {
         if (this.node.name !== 'CreatePanel') {
@@ -118,6 +105,9 @@ export class CreatePanel extends Component implements UIPanel {
             this.enabled = false;
             return;
         }
+
+        this._ensureRuntimeStructure();
+        this._prepareIntegratedBackground();
 
         // Mount VerticalPanelLayout on ContentRoot. Cocos cannot serialize
         // new script class IDs in scene files, so mount at runtime here.
@@ -144,7 +134,7 @@ export class CreatePanel extends Component implements UIPanel {
         }
     }
 
-    // ── Phase Management ──
+    // Phase management
 
     private _applyPhase(): void {
         const selectPhase = !this._isNaming;
@@ -170,15 +160,151 @@ export class CreatePanel extends Component implements UIPanel {
         }
     }
 
-    // ── Character Cards ──
+    private _ensureRuntimeStructure(): void {
+        if (this._runtimeStructureReady) return;
+
+        const contentRoot = this._getContentRoot();
+        if (!contentRoot) {
+            console.warn('[CreatePanel] cannot build runtime structure: ContentRoot not found');
+            return;
+        }
+
+        contentRoot.removeAllChildren();
+
+        const headerZone = this._createZone('HeaderZone', contentRoot);
+        const previewZone = this._createZone('PreviewZone', contentRoot);
+        const choiceZone = this._createZone('ChoiceZone', contentRoot);
+        const infoZone = this._createZone('InfoZone', contentRoot);
+        const actionZone = this._createZone('ActionZone', contentRoot);
+
+        this.titleLabel = this._createLabelNode('TitleLabel', headerZone, T('ui.createTitle'), 28);
+
+        this.modelDisplay = new Node('ModelDisplay');
+        this.modelDisplay.addComponent(UITransform).setContentSize(240, 150);
+        previewZone.addChild(this.modelDisplay);
+
+        this.cardRoot = new Node('CardRoot');
+        this.cardRoot.addComponent(UITransform).setContentSize(620, 52);
+        choiceZone.addChild(this.cardRoot);
+
+        this.selectedInfo = this._createLabelNode('SelectedInfo', infoZone, '', 22);
+        this.selectedDesc = this._createLabelNode('SelectedDesc', infoZone, '', 20);
+
+        this.confirmBtn = this._createButtonNode('ConfirmBtn', actionZone, T('ui.createConfirm'), 'ui.create.confirm_btn');
+        this.skipBtnRef = this._createButtonNode('SkipBtn', actionZone, T('ui.skip'), 'ui.create.skip_btn');
+        this.errorLabel = this._createLabelNode('ErrorLabel', actionZone, '', 18);
+        this.errorLabel.active = false;
+
+        this.nameInput = this._createNameInput(contentRoot);
+        this.nameInput.active = false;
+
+        if (!contentRoot.getComponent(CreatePanelLayout)) {
+            contentRoot.addComponent(CreatePanelLayout);
+        }
+
+        this._runtimeStructureReady = true;
+    }
+
+    private _createZone(name: string, parent: Node): Node {
+        const node = new Node(name);
+        node.addComponent(UITransform).setContentSize(640, 60);
+        parent.addChild(node);
+        return node;
+    }
+
+    private _prepareIntegratedBackground(): void {
+        const panelRoot = this.panelRoot;
+        const frame = panelRoot?.getChildByName('PanelFrame');
+        const mask = panelRoot?.getChildByName('DimMask');
+
+        const frameSprite = frame?.getComponent(Sprite);
+        if (frameSprite) {
+            frameSprite.enabled = false;
+        }
+
+        const maskSprite = mask?.getComponent(Sprite);
+        if (maskSprite) {
+            maskSprite.enabled = false;
+        }
+    }
+
+    private _createLabelNode(name: string, parent: Node, text: string, fontSize: number): Node {
+        const node = new Node(name);
+        node.addComponent(UITransform).setContentSize(360, fontSize + 8);
+        const label = node.addComponent(Label);
+        label.string = text;
+        label.fontSize = fontSize;
+        label.lineHeight = fontSize + 4;
+        label.overflow = Label.Overflow.SHRINK;
+        label.color = Color.WHITE;
+        label.horizontalAlign = HorizontalTextAlignment.CENTER;
+        label.verticalAlign = VerticalTextAlignment.CENTER;
+        parent.addChild(node);
+        return node;
+    }
+
+    private _createButtonNode(name: string, parent: Node, text: string, skinKey: string): Node {
+        const node = new Node(name);
+        node.addComponent(UITransform).setContentSize(128, 42);
+        node.addComponent(Sprite);
+        node.addComponent(Button);
+
+        const labelNode = new Node('Label');
+        labelNode.addComponent(UITransform).setContentSize(116, 34);
+        const label = labelNode.addComponent(Label);
+        label.string = text;
+        label.fontSize = 22;
+        label.lineHeight = 26;
+        label.overflow = Label.Overflow.SHRINK;
+        label.color = Color.WHITE;
+        label.horizontalAlign = HorizontalTextAlignment.CENTER;
+        label.verticalAlign = VerticalTextAlignment.CENTER;
+        node.addChild(labelNode);
+
+        parent.addChild(node);
+        void UISkinService.instance.applyOptional(node, skinKey);
+        return node;
+    }
+
+    private _createNameInput(parent: Node): Node {
+        const node = new Node('NameInput');
+        node.addComponent(UITransform).setContentSize(420, 46);
+        const editBox = node.addComponent(EditBox);
+        editBox.maxLength = 6;
+        editBox.placeholder = T('ui.createNamePlaceholder');
+
+        const textLabelNode = new Node('TextLabel');
+        textLabelNode.addComponent(UITransform).setContentSize(380, 36);
+        const textLabel = textLabelNode.addComponent(Label);
+        textLabel.fontSize = 22;
+        textLabel.lineHeight = 26;
+        textLabel.color = Color.WHITE;
+        node.addChild(textLabelNode);
+        editBox.textLabel = textLabel;
+
+        const placeholderNode = new Node('PlaceholderLabel');
+        placeholderNode.addComponent(UITransform).setContentSize(380, 36);
+        const placeholderLabel = placeholderNode.addComponent(Label);
+        placeholderLabel.string = T('ui.createNamePlaceholder');
+        placeholderLabel.fontSize = 22;
+        placeholderLabel.lineHeight = 26;
+        placeholderLabel.color = new Color(210, 210, 210, 255);
+        node.addChild(placeholderNode);
+        editBox.placeholderLabel = placeholderLabel;
+
+        parent.addChild(node);
+        return node;
+    }
+
+    // Character cards
 
     /**
      * Build 5 class selection buttons (no full character models).
      *
      * Structure per button:
      *   Btn_{id} (CARD_WIDTH x BUTTON_HEIGHT)
-     *   ├── Sprite (ui.main.character_button skin, tinted on selection)
-     *   └── Label (class name from text.json)
+     *   - Sprite: ui.main.character_button skin, tinted on selection.
+     *   - Label: class name from text.json.
      */
     private _buildCards(): void {
         if (!this.cardRoot) return;
@@ -231,12 +357,10 @@ export class CreatePanel extends Component implements UIPanel {
     private _ensureVerticalPanelLayout(): void {
         const cr = this._getContentRoot();
         if (!cr) return;
-        const existing = cr.getComponent(VerticalPanelLayout);
-        if (existing) return;
 
-        const vpl = cr.addComponent(VerticalPanelLayout);
+        const vpl = cr.getComponent(VerticalPanelLayout) ?? cr.addComponent(VerticalPanelLayout);
         const zoneNames = ['HeaderZone', 'PreviewZone', 'ChoiceZone', 'InfoZone', 'ActionZone'];
-        const zoneHeights = [52, 150, 58, 76, 58];
+        const zoneHeights = [58, 178, 64, 84, 64];
         const zones: Node[] = [];
         const heights: number[] = [];
         for (let i = 0; i < zoneNames.length; i++) {
@@ -250,7 +374,7 @@ export class CreatePanel extends Component implements UIPanel {
             vpl.paddingTop = 18;
             vpl.paddingBottom = 18;
         }
-        console.log(`[CreatePanel] VerticalPanelLayout mounted with ${zones.length} zones`);
+        console.log(`[CreatePanel] VerticalPanelLayout bound with ${zones.length} zones`);
     }
 
     /** Re-trigger layout: zones first (VerticalPanelLayout), then internal (CreatePanelLayout). */
@@ -281,7 +405,7 @@ export class CreatePanel extends Component implements UIPanel {
             ?.getChildByName('ContentRoot') ?? null;
     }
 
-    // ── Character Selection ──
+    // Character selection
 
     private _selectCharacter(id: string): void {
         this._selectedId = id;
@@ -315,8 +439,8 @@ export class CreatePanel extends Component implements UIPanel {
         trans.setContentSize(128, 128);
         previewNode.setPosition(0, 0);
 
-        // Scale down to fit within PreviewZone (max 140h) without overflowing
-        previewNode.setScale(0.75, 0.75, 1);
+        // Keep the character inside the stage without affecting the stage skin.
+        previewNode.setScale(0.82, 0.82, 1);
 
         this.modelDisplay.addChild(previewNode);
 
@@ -339,7 +463,7 @@ export class CreatePanel extends Component implements UIPanel {
         }
     }
 
-    // ── Confirm ──
+    // Confirm
 
     private _onConfirm(): void {
         if (!this._isNaming) {

@@ -14,6 +14,7 @@
  */
 
 import { JsonAsset, Node, resources } from 'cc';
+import { AssetBundleService } from '../assets/AssetBundleService';
 import { UISkinService } from './UISkinService';
 
 export type SceneKey = 'splash' | 'main' | 'dungeon';
@@ -38,6 +39,7 @@ export class UISkinSceneApplier {
         if (!sceneRoot || !sceneRoot.isValid) return;
 
         await this._loadConfig();
+        await AssetBundleService.instance.loadAssetMapFromResources();
         await UISkinService.instance.loadConfig();
 
         const bindings = this._config?.[sceneKey] ?? {};

@@ -29,6 +29,7 @@ export class MainSceneController extends Component {
         PlayerDataManager.getInstance();
         this.shopUI?.init();
 
+        this._ensurePersistentMainBackground();
         void UISkinSceneApplier.applyScene(this.node.scene ?? this.node, 'main');
 
         WXAdapter.getInstance().showBanner();
@@ -82,11 +83,33 @@ export class MainSceneController extends Component {
         return null;
     }
 
+    private _ensurePersistentMainBackground(): Node | null {
+        const canvas = this._findChildRecursive(this.node.scene ?? this.node, 'Canvas');
+        if (!canvas) {
+            console.warn('[MainScene] Canvas not found; main background cannot be created');
+            return null;
+        }
+
+        let bg = canvas.getChildByName('MainBackground');
+        if (!bg) {
+            bg = new Node('MainBackground');
+            bg.layer = canvas.layer;
+            canvas.addChild(bg);
+        }
+
+        bg.setSiblingIndex(0);
+        bg.active = true;
+        return bg;
+    }
+
     private _onFlowState(state: string): void {
         const router = UiRouter.instance;
 
         // Show MainUI only when in main hub, hide during all modal panels (area select, settings, etc.)
-        const mainUI = this.node.parent?.getChildByName('MainUI');
+        // Robust lookup: the controller may live as a direct Canvas child or elsewhere; find MainUI by name.
+        const mainUI =
+            this.node.parent?.getChildByName('MainUI') ??
+            this._findChildRecursive(this.node.scene ?? this.node, 'MainUI');
         const showMainUI = state === AppFlowState.MAIN_HUB;
         if (mainUI) mainUI.active = showMainUI;
 

@@ -34,6 +34,18 @@ export class LocalizedLabel extends Component {
         this.refresh();
     }
 
+    onEnable(): void {
+        // Retry text resolution if the initial onLoad happened before text config was loaded.
+        // This handles the race condition where splash-screen LocalizedLabels fire before
+        // GameBootstrap finishes loading text.json.
+        if (this.textKey) {
+            const label = this.getComponent(Label);
+            if (label && label.string === this.textKey) {
+                this.scheduleOnce(() => this.refresh(), 0);
+            }
+        }
+    }
+
     /**
      * 从 text.json 刷新文本
      * @param params 模板变量 {key: value}

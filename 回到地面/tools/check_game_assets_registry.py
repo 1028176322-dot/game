@@ -50,6 +50,22 @@ REQUIRED_FIELDS = {
     "icon": ["width", "height"],
 }
 
+# File size thresholds (KB): (warning, hard_fail)
+# Based on 4MB WeChat mini game code package budget
+FILE_SIZE_LIMITS: dict[str, tuple[float | None, float | None]] = {
+    "background":     (500, 1000),   # 500KB warn, 1MB fail
+    "sprite_sheet":   (300, 500),    # character sprite sheets
+    "sprite":         (150, 300),    # single-frame boss/monster sprites
+    "effect_sheet":   (200, 350),    # effect sprite sheets
+    "icon":           (50, 100),     # UI/element icons
+    "tile":           (100, 200),    # terrain tiles
+}
+# Category-specific overrides map (game_assets category -> type for lookup)
+CATEGORY_SIZE_OVERRIDES: dict[str, dict[str, tuple[float, float]]] = {
+    "bosses":    {"sprite": (250, 500)},   # boss sprites can be larger
+    "monsters":  {"sprite": (100, 200)},   # monster sprites are smaller
+}
+
 
 def load_json(path: Path) -> dict:
     if not path.exists():
@@ -149,9 +165,16 @@ def main() -> int:
         if fpath.exists():
             _check_type_vs_file(fpath, key, typ, item, errors)
 
-        # Check 6: safeReview boolean
-        if "safeReview" in item and not isinstance(item["safeReview"], bool):
-            warnings.append(f"safeReview should be boolean: key={key}")
+        # Check 6: safeReview — required for all entries, enforce compliance
+        if "safeReview" not in item:
+            errors.append(f"missing safeReview field: key={key} (all game_assets must have safeReview boolean)")
+        elif not isinstance(item["safeReview"], bool):
+            errors.append(f"safeReview must be boolean: key={key}, got {type(item['safeReview']).__name__}")
+        elif item["safeReview"] is False:
+            warnings.append(f"safeReview=false: key={key} (pending content review for WeChat compliance)")
+
+        # Check 7: file size gate by type
+        _check_file_size(fpath, key, typ, item, errors, warnings)
 
         # -- Image-level quality checks (require Pillow) --
         if not HAS_PILLOW:
@@ -285,6 +308,36 @@ def _check_type_vs_file(fpath, key, typ, item, errors):
 
 # ---- Image-level quality check helpers (Pillow required) ----
 
+def _check_file_size(fpath, key, typ, item, errors, warnings):
+    """
+    Validate file size against per-type thresholds.
+    Category-specific overrides take precedence over type defaults.
+    """
+    try:
+        fsize_kb = fpath.stat().st_size / 1024
+    except Exception:
+        return  # cannot stat
+
+    category = item.get("category", "")
+    warn_limit, fail_limit = None, None
+
+    # Check category-specific override first
+    if category in CATEGORY_SIZE_OVERRIDES and typ in CATEGORY_SIZE_OVERRIDES[category]:
+        warn_limit, fail_limit = CATEGORY_SIZE_OVERRIDES[category][typ]
+    elif typ in FILE_SIZE_LIMITS:
+        warn_limit, fail_limit = FILE_SIZE_LIMITS[typ]
+
+    if fail_limit is not None and fsize_kb > fail_limit:
+        errors.append(
+            f"file size HARD FAIL: key={key}, {fsize_kb:.0f}KB exceeds limit {fail_limit:.0f}KB "
+            f"(type={typ}, category={category or 'none'})"
+        )
+    elif warn_limit is not None and fsize_kb > warn_limit:
+        warnings.append(
+            f"file size WARNING: key={key}, {fsize_kb:.0f}KB exceeds warning {warn_limit:.0f}KB "
+            f"(type={typ}, category={category or 'none'})"
+        )
+
 def _check_sheet(img, key, item, errors):
     """Validate sprite sheet dimensions match metadata."""
     w, h = img.size
@@ -307,7 +360,7 @@ def _check_sheet(img, key, item, errors):
 
 
 def _check_tile(img, key, item, warnings):
-    """Validate tile size and edge seamlessness."""
+    """Validate tile size, edge seamlessness, and wrap-around tiling."""
     w, h = img.size
     tile_size = item.get("tileSize", 0)
     if tile_size and (w != tile_size or h != tile_size):
@@ -316,15 +369,39 @@ def _check_tile(img, key, item, warnings):
     px = img.convert("RGB").load()
     if not px:
         return
-    score = 0
-    for y in range(h):
-        score += sum(abs(px[0, y][i] - px[w - 1, y][i]) for i in range(3))
-    for x in range(w):
-        score += sum(abs(px[x, 0][i] - px[x, h - 1][i]) for i in range(3))
-    score /= max(1, (w + h) * 3)
 
-    if score > 18:
-        warnings.append(f"tile edge score high: {key}, score={score:.2f}")
+    # Edge seamlessness: compare left/right edges and top/bottom edges
+    edge_score = 0
+    # Horizontal wrap edges (left vs right)
+    for y in range(h):
+        edge_score += sum(abs(px[0, y][i] - px[w - 1, y][i]) for i in range(3))
+    # Vertical wrap edges (top vs bottom)
+    for x in range(w):
+        edge_score += sum(abs(px[x, 0][i] - px[x, h - 1][i]) for i in range(3))
+    edge_score /= max(1, (w + h) * 3)
+
+    # Corner seamlessness: check 2x2 tile pattern continuity
+    corner_score = 0
+    if w > 2 and h > 2:
+        for y in range(min(4, h)):
+            for x in range(min(4, w)):
+                mid_x = w // 2 + x
+                mid_y = h // 2 + y
+                if mid_x < w and mid_y < h:
+                    if x + 1 < w and y + 1 < h:
+                        corner_score += (
+                            abs(px[x, y][0] - px[mid_x, mid_y][0]) +
+                            abs(px[x, y][1] - px[mid_x, mid_y][1]) +
+                            abs(px[x, y][2] - px[mid_x, mid_y][2])
+                        )
+    corner_score /= max(1, 16 * 3)
+
+    combined = edge_score * 0.7 + corner_score * 0.3
+
+    if combined > 25:
+        warnings.append(f"tile edge score CRITICAL: {key}, combined={combined:.2f} (edge={edge_score:.2f}, corner={corner_score:.2f})")
+    elif combined > 15:
+        warnings.append(f"tile edge score HIGH: {key}, combined={combined:.2f} (edge={edge_score:.2f}, corner={corner_score:.2f})")
 
 
 def _check_icon(img, key, warnings):
@@ -338,17 +415,21 @@ def _check_icon(img, key, warnings):
 
 
 def _check_background(img, key, item, warnings):
-    """Validate background format and rough file size."""
+    """Validate background format and alpha channel."""
     fmt = item.get("format", "")
     if fmt and fmt not in ("jpg", "jpeg", "png"):
         warnings.append(f"background format may be suboptimal: {key}, format={fmt}")
-    try:
-        fsize = Path(img.filename).stat().st_size if hasattr(img, 'filename') and img.filename else 0
-        size_kb = fsize / 1024
-        if size_kb > 500:
-            warnings.append(f"background file may be oversized: {key}, {size_kb:.0f}KB")
-    except Exception:
-        pass
+
+    # Backgrounds should not have alpha in most cases (unless overlay)
+    if fmt in ("jpg", "jpeg") and img.mode in ("RGBA", "LA"):
+        warnings.append(f"background should be RGB (no alpha) for JPG: {key}, mode={img.mode}")
+    elif img.mode == "RGBA":
+        # Check if alpha is actually used (non-opaque pixels)
+        alpha = img.getchannel("A")
+        non_opaque = sum(1 for v in alpha.getdata() if v < 240)
+        ratio = non_opaque / max(1, img.width * img.height)
+        if ratio < 0.02:
+            warnings.append(f"background has unused alpha channel: {key}, consider saving as RGB for size reduction")
 
 
 if __name__ == "__main__":
