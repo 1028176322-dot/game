@@ -14,6 +14,8 @@ import {
     HorizontalTextAlignment,
     VerticalTextAlignment,
     Size,
+    Vec3,
+    view,
 } from 'cc';
 import { NodeRef } from '../../utils/NodeRef';
 
@@ -85,18 +87,54 @@ export class CreatePanelLayout extends Component {
         const confirm = this._node(this.confirmBtn, 'ActionZone/ConfirmBtn');
         const skip = this._node(this.skipBtn, 'ActionZone/SkipBtn');
         const error = this._node(this.errorLabel, 'ActionZone/ErrorLabel');
+        const actionZone = this._node(null, 'ActionZone');
 
         this._setSize(confirm, 200, 62);
         this._setSize(skip, 200, 62);
         this._setSize(error, Math.min(contentSize.width - 64, 480), 22);
 
-        confirm?.setPosition(-110, -14);
-        skip?.setPosition(110, -14);
-        error?.setPosition(0, 17);
+        // Position buttons at the bottom-left and bottom-right corners of the screen
+        // so they sit on the grass foreground, not in the center of the panel.
+        if (actionZone) {
+            const visible = view.getVisibleSize();
+            const marginX = 24;   // margin from left/right screen edge
+            const marginY = 20;   // margin from bottom screen edge
+            const btnHalfW = 100; // 200 / 2
+            const btnHalfH = 31;  // 62 / 2
+
+            const leftWorld = new Vec3(
+                -visible.width / 2 + marginX + btnHalfW,
+                -visible.height / 2 + marginY + btnHalfH,
+                0
+            );
+            const rightWorld = new Vec3(
+                visible.width / 2 - marginX - btnHalfW,
+                -visible.height / 2 + marginY + btnHalfH,
+                0
+            );
+
+            const leftLocal = this._toLocal(actionZone, leftWorld);
+            const rightLocal = this._toLocal(actionZone, rightWorld);
+
+            confirm?.setPosition(leftLocal.x, leftLocal.y);
+            skip?.setPosition(rightLocal.x, rightLocal.y);
+            // Error label stays centered above the buttons.
+            error?.setPosition(0, Math.max(leftLocal.y, rightLocal.y) + 50);
+        } else {
+            confirm?.setPosition(-110, -14);
+            skip?.setPosition(110, -14);
+            error?.setPosition(0, 17);
+        }
 
         this._formatButtonLabel(confirm, 22);
         this._formatButtonLabel(skip, 22);
         this._formatLabel(error, 18, 22, Label.Overflow.SHRINK);
+    }
+
+    private _toLocal(node: Node, worldPos: Vec3): Vec3 {
+        const transform = node.getComponent(UITransform);
+        if (!transform) return worldPos.clone();
+        return transform.convertToNodeSpaceAR(worldPos);
     }
 
     private _layoutNameInput(contentSize: Size): void {
