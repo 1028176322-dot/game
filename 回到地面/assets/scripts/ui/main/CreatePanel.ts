@@ -13,8 +13,9 @@
  *   - PreviewZone / ModelDisplay / CharacterPreview
  *   - ChoiceZone / CardRoot / five class buttons
  *   - InfoZone / SelectedInfo + SelectedDesc
- *   - ActionZone / ConfirmBtn + SkipBtn + ErrorLabel
+ *   - ActionZone / ErrorLabel
  *   - NameInput, only active during naming phase
+ *   ConfirmBtn + SkipBtn are runtime-reparented to PanelRoot for bottom-corner positioning.
  *
  * Skin keys used: ui.create.class_btn, ui.create.class_btn_selected, ui.create.confirm_btn, ui.create.skip_btn
  */
@@ -192,15 +193,33 @@ export class CreatePanel extends Component implements UIPanel {
 
         this.confirmBtn = this._createButtonNode('ConfirmBtn', actionZone, T('ui.createConfirm'), 'ui.create.confirm_btn');
         this.skipBtnRef = this._createButtonNode('SkipBtn', actionZone, T('ui.skip'), 'ui.create.skip_btn');
+
+        // Reparent confirm/skip buttons to PanelRoot so they can be freely
+        // positioned at the bottom-left / bottom-right corners of the screen.
+        const panelRoot = this.panelRoot;
+        if (panelRoot && this.confirmBtn && this.skipBtnRef) {
+            panelRoot.addChild(this.confirmBtn);
+            panelRoot.addChild(this.skipBtnRef);
+        }
+
         this.errorLabel = this._createLabelNode('ErrorLabel', actionZone, '', 18);
         this.errorLabel.active = false;
 
         this.nameInput = this._createNameInput(contentRoot);
         this.nameInput.active = false;
 
-        if (!contentRoot.getComponent(CreatePanelLayout)) {
-            contentRoot.addComponent(CreatePanelLayout);
-        }
+        // Bind all dynamic node references to CreatePanelLayout so it can
+        // position them without relying on stale editor paths.
+        const layout = contentRoot.getComponent(CreatePanelLayout) ?? contentRoot.addComponent(CreatePanelLayout);
+        layout.titleLabel = this.titleLabel;
+        layout.modelDisplay = this.modelDisplay;
+        layout.cardRoot = this.cardRoot;
+        layout.selectedInfo = this.selectedInfo;
+        layout.selectedDesc = this.selectedDesc;
+        layout.confirmBtn = this.confirmBtn;
+        layout.skipBtn = this.skipBtnRef;
+        layout.errorLabel = this.errorLabel;
+        layout.nameInput = this.nameInput;
 
         this._runtimeStructureReady = true;
     }

@@ -14,8 +14,6 @@ import {
     HorizontalTextAlignment,
     VerticalTextAlignment,
     Size,
-    Vec3,
-    view,
 } from 'cc';
 import { NodeRef } from '../../utils/NodeRef';
 
@@ -84,59 +82,34 @@ export class CreatePanelLayout extends Component {
     }
 
     private _layoutActions(contentSize: Size): void {
-        const confirm = this._node(this.confirmBtn, 'ActionZone/ConfirmBtn');
-        const skip = this._node(this.skipBtn, 'ActionZone/SkipBtn');
+        const confirm = this._node(this.confirmBtn, 'ConfirmBtn');
+        const skip = this._node(this.skipBtn, 'SkipBtn');
         const error = this._node(this.errorLabel, 'ActionZone/ErrorLabel');
-        const actionZone = this._node(null, 'ActionZone');
 
         this._setSize(confirm, 200, 62);
         this._setSize(skip, 200, 62);
         this._setSize(error, Math.min(contentSize.width - 64, 480), 22);
 
-        // Position buttons at the bottom-left and bottom-right corners of the screen.
-        // ActionZone is centered horizontally in the panel, so we compute the desired
-        // screen-corner world coordinates and subtract the ActionZone world offset
-        // to get the local coordinates for the button children.
-        if (actionZone) {
-            const visible = view.getVisibleSize();
-            const screenW = visible.width > 0 ? visible.width : 1280;
-            const screenH = visible.height > 0 ? visible.height : 720;
-            const marginX = 24;   // margin from left/right screen edge
-            const marginY = 20;   // margin from bottom screen edge
-            const btnHalfW = 100; // 200 / 2
-            const btnHalfH = 31;  // 62 / 2
+        // Confirm/Skip buttons are now children of PanelRoot so they can be
+        // freely positioned at the bottom-left / bottom-right corners of the panel.
+        const panelRoot = this.node.parent?.parent; // ContentRoot -> PanelFrame -> PanelRoot
+        const panelRootTrans = panelRoot?.getComponent(UITransform);
+        const panelW = panelRootTrans?.width ?? 1280;
+        const panelH = panelRootTrans?.height ?? 720;
 
-            const actionZoneWorld = actionZone.getWorldPosition();
+        const marginX = 24;   // margin from left/right panel edge
+        const marginY = 20;   // margin from bottom panel edge
+        const btnHalfW = 100; // 200 / 2
+        const btnHalfH = 31;  // 62 / 2
 
-            const targetLeft = new Vec3(
-                -screenW / 2 + marginX + btnHalfW,
-                -screenH / 2 + marginY + btnHalfH,
-                0
-            );
-            const targetRight = new Vec3(
-                screenW / 2 - marginX - btnHalfW,
-                -screenH / 2 + marginY + btnHalfH,
-                0
-            );
+        const leftX = -panelW / 2 + marginX + btnHalfW;
+        const rightX = panelW / 2 - marginX - btnHalfW;
+        const bottomY = -panelH / 2 + marginY + btnHalfH;
 
-            confirm?.setPosition(
-                targetLeft.x - actionZoneWorld.x,
-                targetLeft.y - actionZoneWorld.y
-            );
-            skip?.setPosition(
-                targetRight.x - actionZoneWorld.x,
-                targetRight.y - actionZoneWorld.y
-            );
-            // Error label stays centered above the buttons.
-            error?.setPosition(0, Math.max(
-                targetLeft.y - actionZoneWorld.y,
-                targetRight.y - actionZoneWorld.y
-            ) + 50);
-        } else {
-            confirm?.setPosition(-520, -36);
-            skip?.setPosition(520, -36);
-            error?.setPosition(0, 17);
-        }
+        confirm?.setPosition(leftX, bottomY);
+        skip?.setPosition(rightX, bottomY);
+        // Error label stays centered above the buttons.
+        error?.setPosition(0, bottomY + 50);
 
         this._formatButtonLabel(confirm, 22);
         this._formatButtonLabel(skip, 22);
