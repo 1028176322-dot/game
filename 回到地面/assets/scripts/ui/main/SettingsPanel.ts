@@ -65,9 +65,9 @@ export class SettingsPanel extends Component implements UIPanel {
 
         if (this.accountLabel) {
             const storage = StorageService.instance;
-            const openid = storage.get('wx_openid', '');
+            const openid = storage.get('platform_user_id', '');
             const isGuest = storage.get('is_guest', 'false') === 'true';
-            const type = isGuest ? T('ui.settingsGuest') : T('ui.settingsWeChat');
+            const type = isGuest ? T('ui.settingsGuest') : T('ui.settingsPlatform');
             this.accountLabel.string = T('ui.settingsAccount', { type, id: openid.slice(0, 8) + '...' });
         }
     }

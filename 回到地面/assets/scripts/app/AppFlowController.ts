@@ -42,15 +42,31 @@ export class AppFlowController {
         console.log('[AppFlow] start flow');
 
         const platform = PlatformService.instance;
-        if (platform.isWX) {
-            const loggedIn = false;
-            if (!loggedIn) {
-                this._currentState = AppFlowState.AUTH_CHECK;
-                await this._route();
-                return;
-            }
+
+        // Initialize platform adapter first
+        await platform.init();
+
+        // Check if user is already logged in via platform adapter
+        const userId = platform.getUserId();
+        const isGuest = this._storageGet('is_guest') === 'true';
+
+        if (!userId) {
+            // No logged-in user — show login panel
+            this._currentState = AppFlowState.AUTH_CHECK;
+            await this._route();
+            return;
         }
 
+        // User is logged in (platform login or guest)
+        const compliance = await platform.checkCompliance(userId);
+        if (!compliance.isAllowed) {
+            console.warn('[AppFlow] compliance check failed, re-login required');
+            this._currentState = AppFlowState.AUTH_CHECK;
+            await this._route();
+            return;
+        }
+
+        // Logged in, check first-time player
         const pdm = PlayerDataManager.getInstance();
         if (pdm.isFirstTime()) {
             this._currentState = AppFlowState.PROFILE_CHECK;
@@ -86,6 +102,16 @@ export class AppFlowController {
                 return 'dungeon';
             default:
                 return null;
+        }
+    }
+
+    /** Safe storage read helper */
+    private _storageGet(key: string): string {
+        try {
+            const { StorageService } = require('../platform/StorageService');
+            return StorageService.instance.get(key);
+        } catch {
+            return '';
         }
     }
 

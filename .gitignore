@@ -29,6 +29,17 @@ secrets.*.json
 *.bak_*
 *.backup/
 
+# 临时修复脚本
+_fix_*
+fix_*
+
+# WorkBuddy 工作区记忆
+.workbuddy/
+
+# 临时文件
+*.tmp
+*.temp
+
 # 美术源文件（AI母版/导出缓存/备份）
 art_source/
 

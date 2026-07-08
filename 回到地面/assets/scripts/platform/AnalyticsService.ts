@@ -29,22 +29,14 @@ export class AnalyticsService {
 
     /** 上报事件 */
     report(eventName: string, data: Record<string, any>): void {
-        if (this._platform.isDev) {
-            console.log(`[Analytics] ${eventName}`, data);
+        const logStr = JSON.stringify(data);
+        if (logStr.length > 1024) {
+            console.warn(`[Analytics] 数据过大: ${eventName} = ${logStr.length}bytes`);
             return;
         }
 
-        try {
-            const logStr = JSON.stringify(data);
-            if (logStr.length > 1024) {
-                console.warn(`[Analytics] 数据过大: ${eventName} = ${logStr.length}bytes`);
-                return;
-            }
-            wx.reportAnalytics(eventName, data);
-        } catch (err) {
-            console.warn(`[Analytics] 上报失败: ${eventName}`);
-            this._cacheEvent(eventName, data);
-        }
+        // 通过 PlatformService 委托给当前适配器
+        this._platform.report(eventName, data);
     }
 
     /** 上报广告展示事件 */
@@ -55,7 +47,7 @@ export class AnalyticsService {
         });
     }
 
-    /** 启动时刷新缓存 */
+    /** 启动时刷新缓存（通过 PlatformService 委托给适配器） */
     flushCache(): void {
         const cached = StorageService.instance.getJson<
             Array<{ eventId: string; params: Record<string, any>; ts: number }>
@@ -64,9 +56,7 @@ export class AnalyticsService {
         if (cached.length === 0) return;
         for (const item of cached) {
             try {
-                if (this._platform.isWX) {
-                    wx.reportAnalytics(item.eventId, item.params);
-                }
+                this._platform.report(item.eventId, item.params);
             } catch { /* 丢弃 */ }
         }
         StorageService.instance.remove('analytics_cache');

@@ -17,8 +17,6 @@
 
         "Canvas/LoginPanel/PanelRoot/PanelFrame": "ui.panel.frame",
         "Canvas/CreatePanel/PanelRoot/CreateBackground": "ui.create.bg",
-        "Canvas/CreatePanel/PanelRoot/PanelFrame/ContentRoot/ActionZone/ConfirmBtn": "ui.create.confirm_btn",
-        "Canvas/CreatePanel/PanelRoot/PanelFrame/ContentRoot/ActionZone/SkipBtn": "ui.create.skip_btn",
         "Canvas/CharacterPanel/PanelRoot/PanelFrame": "ui.panel.frame",
         "Canvas/AreaSelectPanel/PanelRoot/PanelFrame": "ui.panel.frame",
         "Canvas/SettlementPanel/PanelRoot/PanelFrame": "ui.panel.frame",
@@ -33,7 +31,7 @@
         "Canvas/CharacterPanel/PanelRoot/PanelFrame/ContentRoot/CloseBtn": "ui.character.close_btn",
         "Canvas/AreaSelectPanel/PanelRoot/PanelFrame/ContentRoot/StartBtn": "ui.area.start_btn",
         "Canvas/AreaSelectPanel/PanelRoot/PanelFrame/ContentRoot/BackBtn": "ui.area.back_btn",
-        "Canvas/LoginPanel/PanelRoot/PanelFrame/ContentRoot/WechatBtn": "ui.login.wechat_btn",
+        "Canvas/LoginPanel/PanelRoot/PanelFrame/ContentRoot/PlatformLoginBtn": "ui.login.platform_btn",
         "Canvas/LoginPanel/PanelRoot/PanelFrame/ContentRoot/GuestBtn": "ui.login.guest_btn"
     },
     "dungeon": {

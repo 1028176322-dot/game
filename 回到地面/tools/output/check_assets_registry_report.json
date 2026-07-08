@@ -2,7 +2,7 @@
   "metadata": {
     "tool": "check_assets_registry.py",
     "version": "2.0.0",
-    "timestamp": "2026-07-08T14:02:51.267177"
+    "timestamp": "2026-07-08T20:29:40.073577"
   },
   "registry": {
     "disk_exists_but_not_registered": [],
@@ -128,8 +128,8 @@
       "ui.login.bg",
       "ui.login.guest_btn",
       "ui.login.panel",
+      "ui.login.platform_btn",
       "ui.login.title",
-      "ui.login.wechat_btn",
       "ui.main.bg",
       "ui.main.character_button",
       "ui.main.log_button",

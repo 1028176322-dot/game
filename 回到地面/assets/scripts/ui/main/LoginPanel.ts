@@ -1,8 +1,10 @@
 /**
- * LoginPanel - WeChat login / guest login panel
+ * LoginPanel - Platform login / guest login panel (Adpater-ready)
  *
  * UIPanel implementation. Opened by AppFlowController when AUTH_CHECK state is active.
  * On login success, calls AppFlowController.goTo(PROFILE_CHECK) for routing.
+ *
+ * Uses PlatformService (Adapter pattern) instead of direct wx.* calls.
  */
 
 import { _decorator, Component, Node, Label, Button, Sprite, Color } from 'cc';
@@ -27,8 +29,9 @@ export class LoginPanel extends Component implements UIPanel {
     @property(Label)
     subtitleLabel: Label | null = null;
 
-    @property(Button)
-    wxLoginBtn: Button | null = null;
+    /** Platform login button — platform-specific (WeChat / TapTap / generic) */
+    @property(Node)
+    platformLoginBtn: Node | null = null;
 
     @property(Button)
     guestBtn: Button | null = null;
@@ -49,9 +52,18 @@ export class LoginPanel extends Component implements UIPanel {
         if (this.statusLabel) this.statusLabel.string = '';
 
         // Dev mode: auto-skip to logged-in
-        if (!PlatformService.instance.isWX) {
+        const platform = PlatformService.instance;
+        if (platform.isDev) {
             console.log('[LoginPanel] dev mode, auto login');
-            StorageService.instance.set('wx_openid', 'dev_user');
+            StorageService.instance.set('platform_user_id', 'dev_user');
+            this._onLoginSuccess();
+            return;
+        }
+
+        // Check if already logged in (platform_user_id exists)
+        const existingUserId = platform.getUserId();
+        if (existingUserId) {
+            console.log('[LoginPanel] already logged in:', existingUserId);
             this._onLoginSuccess();
         }
     }
@@ -63,8 +75,8 @@ export class LoginPanel extends Component implements UIPanel {
     // ── Lifecycle ──
 
     onLoad(): void {
-        if (this.wxLoginBtn) {
-            this.wxLoginBtn.node.on(Button.EventType.CLICK, this._onWxLogin, this);
+        if (this.platformLoginBtn) {
+            this.platformLoginBtn.on(Node.EventType.TOUCH_END, this._onPlatformLogin, this);
         }
         if (this.guestBtn) {
             this.guestBtn.node.on(Button.EventType.CLICK, this._onGuestLogin, this);
@@ -79,14 +91,16 @@ export class LoginPanel extends Component implements UIPanel {
 
     // ── Handlers ──
 
-    private async _onWxLogin(): Promise<void> {
+    private async _onPlatformLogin(): Promise<void> {
         this._setStatus(T('ui.loading'));
         this._setButtonsEnabled(false);
 
         try {
             const platform = PlatformService.instance;
-            const result = await platform.wxLogin();
-            if (result) {
+            const result = await platform.login();
+            if (result.success && result.userId) {
+                StorageService.instance.set('platform_user_id', result.userId);
+                StorageService.instance.remove('is_guest');
                 this._onLoginSuccess();
             } else {
                 this._retryCount++;
@@ -98,7 +112,7 @@ export class LoginPanel extends Component implements UIPanel {
                 this._setButtonsEnabled(true);
             }
         } catch (err) {
-            console.error('[LoginPanel] wx login error:', err);
+            console.error('[LoginPanel] platform login error:', err);
             this._setStatus(T('ui.loginFailed'));
             this._setButtonsEnabled(true);
         }
@@ -106,7 +120,7 @@ export class LoginPanel extends Component implements UIPanel {
 
     private _onGuestLogin(): void {
         const guestId = 'guest_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
-        StorageService.instance.set('wx_openid', guestId);
+        StorageService.instance.set('platform_user_id', guestId);
         StorageService.instance.set('is_guest', 'true');
         console.log('[LoginPanel] guest login:', guestId);
         this._onLoginSuccess();
@@ -130,7 +144,7 @@ export class LoginPanel extends Component implements UIPanel {
     }
 
     private _setButtonsEnabled(enabled: boolean): void {
-        if (this.wxLoginBtn) this.wxLoginBtn.interactable = enabled;
+        if (this.platformLoginBtn) this.platformLoginBtn.getComponent(Button)!.interactable = enabled;
         if (this.guestBtn) this.guestBtn.interactable = enabled;
     }
 }

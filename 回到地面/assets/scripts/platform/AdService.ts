@@ -6,14 +6,16 @@
  * 2. 插屏广告（局间展示）
  * 3. Banner 广告（主界面）
  *
- * 环境策略:
- * - 开发环境: 直接模拟成功
- * - 正式环境: 网络异常时按策略 fallback
- *
- * Phase 6: 从 WXAdapter 提取广告逻辑
+ * 平台策略:
+ * - 通过 AdAdapter 委托给平台特定实现
+ * - 开发环境: 模拟成功
+ * - Android/TapTap: NoopAdAdapter（无广告）
+ * - 微信: WeChatAdAdapter
  */
 
 import { PlatformService } from './PlatformService';
+import { AdAdapter } from './adapters/AdAdapter';
+import { NoopAdAdapter } from './adapters/NoopAdAdapter';
 import { AdPlacement } from '../core/Constants';
 
 export interface AdResult {
@@ -27,6 +29,7 @@ export type AdCallback = (result: AdResult) => void;
 export class AdService {
     private static _instance: AdService | null = null;
     private readonly _platform: PlatformService;
+    private _adapter: AdAdapter | null = null;
     private _adCache = new Map<string, any>();
     private _adCD = new Map<string, number>();
     private readonly _cdDuration = 60; // 同位置 60 秒 CD
@@ -58,34 +61,42 @@ export class AdService {
             return;
         }
 
+        this._initAdapter();
+
+        const adUnitId = this._getAdUnitId(placement);
+        if (!adUnitId || !this._adapter) {
+            this._fallback(callback);
+            return;
+        }
+
         try {
-            const adUnitId = this._getAdUnitId(placement);
-            if (!adUnitId) {
-                this._fallback(callback);
-                return;
-            }
-
-            let ad = this._adCache.get(placement);
-            if (!ad) {
-                ad = wx.createRewardedVideoAd({ adUnitId });
+            let wrapperRewardedAd = this._adCache.get(placement);
+            if (!wrapperRewardedAd) {
+                const ad = this._adapter.createRewardedAd(adUnitId);
                 ad.onError((err: any) => {
-                    console.warn(`[AdService] 广告加载失败 ${placement}: ${err.errMsg}`);
+                    console.warn(`[AdService] 广告加载失败 ${placement}: ${err.errMsg || err}`);
                 });
-                ad.onClose((res: any) => {
-                    this._setAdCD(placement);
-                    const rewarded = res?.isEnded ?? false;
-                    callback?.({ success: true, rewarded });
-                });
-                this._adCache.set(placement, ad);
+                const wrapper = {
+                    raw: ad,
+                    show: () => {
+                        return new Promise<void>((resolve, reject) => {
+                            ad.onClose((res) => {
+                                this._setAdCD(placement);
+                                const rewarded = res?.isEnded ?? false;
+                                callback?.({ success: true, rewarded });
+                            });
+                            ad.show().catch((err: any) => {
+                                console.warn(`[AdService] 广告展示失败 ${placement}: ${err.errMsg || err}`);
+                                ad.show().catch(() => this._fallback(callback));
+                            });
+                            resolve();
+                        });
+                    },
+                };
+                this._adCache.set(placement, wrapper);
             }
 
-            ad.show()
-                .catch((err: any) => {
-                    console.warn(`[AdService] 广告展示失败 ${placement}: ${err.errMsg}`);
-                    ad.load()
-                        .then(() => ad.show())
-                        .catch(() => this._fallback(callback));
-                });
+            wrapperRewardedAd.show();
         } catch (err: any) {
             console.warn(`[AdService] 广告异常 ${placement}:`, err);
             this._fallback(callback);
@@ -102,13 +113,15 @@ export class AdService {
         this._interstitialCount++;
         if (this._interstitialCount < this._interstitialThreshold) return;
         this._interstitialCount = 0;
-        if (!this._platform.isWX) return;
+
+        this._initAdapter();
+        if (!this._adapter) return;
 
         try {
-            const ad = wx.createInterstitialAd({
-                adUnitId: this._getAdUnitId(AdPlacement.Interstitial) || '',
-            });
-            if (ad) ad.show().catch(() => {});
+            const adUnitId = this._getAdUnitId(AdPlacement.Interstitial);
+            if (!adUnitId) return;
+            const ad = this._adapter.createInterstitialAd(adUnitId);
+            ad.show().catch(() => {});
         } catch { /* 忽略 */ }
     }
 
@@ -118,17 +131,19 @@ export class AdService {
 
     /** 展示 Banner */
     showBanner(): void {
-        if (!this._platform.isWX) return;
+        this._initAdapter();
+        if (!this._adapter) return;
+
         if (this._bannerAd) {
             this._bannerAd.show();
             return;
         }
         try {
-            this._bannerAd = wx.createBannerAd({
-                adUnitId: this._getAdUnitId(AdPlacement.Banner) || '',
-                style: { left: 0, top: 0, width: 320 },
-            });
-            this._bannerAd.onError(() => {});
+            const adUnitId = this._getAdUnitId(AdPlacement.Banner);
+            if (!adUnitId) return;
+            const bAd = this._adapter.createBannerAd(adUnitId, { left: 0, top: 0, width: 320 });
+            bAd.onError(() => {});
+            this._bannerAd = bAd;
         } catch { /* 忽略 */ }
     }
 
@@ -140,6 +155,17 @@ export class AdService {
     }
 
     // ======== 私有方法 ========
+
+    /** 延迟初始化适配器（懒加载） */
+    private _initAdapter(): void {
+        if (this._adapter) return;
+        if (this._platform.isWX) {
+            const { WeChatAdAdapter } = require('./adapters/WeChatAdAdapter');
+            this._adapter = new WeChatAdAdapter();
+        } else {
+            this._adapter = new NoopAdAdapter();
+        }
+    }
 
     private _fallback(callback?: AdCallback): void {
         if (!this._platform.isDev && !this.prodRewardFallback) {

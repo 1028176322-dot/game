@@ -9,6 +9,8 @@ import { _decorator } from 'cc';
 import { RunStartConfig, createDefaultRunConfig } from './RunStartConfig';
 import { AppFlowController, AppFlowState } from '../app/AppFlowController';
 import { SceneFlowService } from '../app/SceneFlowService';
+import { ComplianceService } from '../platform/ComplianceService';
+import { T } from '../core/TextManager';
 
 const { ccclass } = _decorator;
 
@@ -39,6 +41,24 @@ export class RunCoordinator {
     /** Start a new dungeon run with the given config */
     startRun(config: RunStartConfig): void {
         console.log('[RunCoordinator] start run:', config.characterId, config.zoneRoute.join('->'));
+
+        // Compliance check before entering dungeon
+        const compliance = ComplianceService.instance;
+        const canStart = compliance.canStartRun();
+        if (canStart === false) {
+            console.warn('[RunCoordinator] compliance blocked, returning to main hub');
+            AppFlowController.instance.goTo(AppFlowState.MAIN_HUB);
+            return;
+        }
+        if (canStart === 'need_recheck') {
+            // Async re-check while entering
+            const userId = ''; // will be populated by platform adapter
+            compliance.refreshCheck(userId).then((result) => {
+                if (!result.isAllowed) {
+                    AppFlowController.instance.goTo(AppFlowState.MAIN_HUB);
+                }
+            });
+        }
 
         this._state = {
             config,

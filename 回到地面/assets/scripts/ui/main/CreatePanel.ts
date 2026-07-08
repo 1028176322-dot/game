@@ -119,7 +119,7 @@ export class CreatePanel extends Component implements UIPanel {
 
         const confirmButton = this._confirmBtnNode();
         if (confirmButton) {
-            confirmButton.on(Button.EventType.CLICK, this._onConfirm, this);
+            confirmButton.node.on(Button.EventType.CLICK, this._onConfirm, this);
         }
         if (this._skipBtn) {
             this._skipBtn.on(Node.EventType.TOUCH_END, this._onSkip, this);
@@ -130,7 +130,7 @@ export class CreatePanel extends Component implements UIPanel {
         }
     }
 
-    // ─── Runtime structure ───────────────────────────────────
+    // Runtime structure
 
     private _ensureRuntimeStructure(): void {
         if (this._selectView) return; // already built
@@ -141,7 +141,7 @@ export class CreatePanel extends Component implements UIPanel {
         // Remove any runtime-generated nodes from previous structure
         this._removeRuntimeNodes(root);
 
-        // ── SelectView ──
+        // SelectView
         this._selectView = new Node('SelectView');
         root.addChild(this._selectView);
 
@@ -162,7 +162,7 @@ export class CreatePanel extends Component implements UIPanel {
         this._selectedInfo = this._createLabelNode('SelectedInfo', infoZone, '', 22);
         this._selectedDesc = this._createLabelNode('SelectedDesc', infoZone, '', 20);
 
-        // ── NamingView ──
+        // NamingView
         this._namingView = new Node('NamingView');
         this._namingView.active = false;
         root.addChild(this._namingView);
@@ -174,6 +174,8 @@ export class CreatePanel extends Component implements UIPanel {
         void UISkinService.instance.applyOptional(this._namePanel, 'ui.create.name_panel');
 
         this._nameTitleLabel = this._createLabelNode('NameTitleLabel', this._namingView, T('ui.createNamePrompt'), 28);
+        const nameTitleLabel = this._nameTitleLabel.getComponent(Label);
+        if (nameTitleLabel) nameTitleLabel.color = new Color(92, 62, 32, 255);
 
         const nameInputNode = new Node('NameInput');
         nameInputNode.addComponent(UITransform).setContentSize(420, 64);
@@ -187,7 +189,7 @@ export class CreatePanel extends Component implements UIPanel {
         const textLabel = textLabelNode.addComponent(Label);
         textLabel.fontSize = 22;
         textLabel.lineHeight = 26;
-        textLabel.color = Color.WHITE;
+        textLabel.color = new Color(92, 62, 32, 255);
         nameInputNode.addChild(textLabelNode);
         editBox.textLabel = textLabel;
 
@@ -197,7 +199,7 @@ export class CreatePanel extends Component implements UIPanel {
         placeholderLabel.string = T('ui.createNamePlaceholder');
         placeholderLabel.fontSize = 22;
         placeholderLabel.lineHeight = 26;
-        placeholderLabel.color = new Color(210, 210, 210, 255);
+        placeholderLabel.color = new Color(120, 92, 58, 220);
         nameInputNode.addChild(placeholderNode);
         editBox.placeholderLabel = placeholderLabel;
 
@@ -208,7 +210,7 @@ export class CreatePanel extends Component implements UIPanel {
         this._errorLabel = this._createLabelNode('ErrorLabel', this._namingView, '', 18);
         this._errorLabel.active = false;
 
-        // ── ActionZone ──
+        // ActionZone
         this._actionZone = new Node('ActionZone');
         root.addChild(this._actionZone);
 
@@ -229,6 +231,9 @@ export class CreatePanel extends Component implements UIPanel {
         const frame = root?.getChildByName('PanelFrame');
         const mask = root?.getChildByName('DimMask');
 
+        if (frame) frame.active = false;
+        if (mask) mask.active = false;
+
         const frameSprite = frame?.getComponent(Sprite);
         if (frameSprite) frameSprite.enabled = false;
 
@@ -236,7 +241,7 @@ export class CreatePanel extends Component implements UIPanel {
         if (maskSprite) maskSprite.enabled = false;
     }
 
-    // ─── Layout ──────────────────────────────────────────────
+    // Layout
 
     /**
      * Position all sub-views and their children relative to PanelRoot.
@@ -268,39 +273,31 @@ export class CreatePanel extends Component implements UIPanel {
             }
         }
 
-        // NamingView: centered, NamePanel at center, Title above, Input centered on panel, Error below input
+        // NamingView: the panel is centered, with title/input/error inside it.
         if (this._namingView) {
-            const panelTrans = this._namePanel?.getComponent(UITransform);
-            const panelH = panelTrans?.height ?? 240;
-
-            // NamePanel centered with slight upward bias
-            const panelY = 45;
-            this._namePanel?.setPosition(0, panelY + panelH / 2);
-
-            // Title above panel
-            this._nameTitleLabel?.setPosition(0, panelY + panelH + 12);
-
-            // NameInput centered on panel
-            this._nameInput?.setPosition(0, panelY);
-
-            // Error label below input
-            this._errorLabel?.setPosition(0, panelY - 45);
+            const panelY = 92;
+            this._namePanel?.setPosition(0, panelY);
+            this._nameTitleLabel?.setPosition(0, panelY + 72);
+            this._nameInput?.setPosition(0, panelY - 12);
+            this._errorLabel?.setPosition(0, panelY - 78);
         }
 
-        // ActionZone: centered at bottom of PanelRoot, buttons side-by-side above the bottom edge
+        // ActionZone: anchored to left/right edges of PanelRoot.
+        // Confirm button stays on the left, skip/back button stays on the right.
+        // Horizontal positions use panel width (pw) so they adapt to resolution.
         if (this._actionZone) {
             const btnW = 200;
             const btnH = 62;
-            const gapX = 48; // gap between buttons
-            const bottomMargin = 36; // distance from button center to bottom edge
+            const marginX = 60;          // margin from left/right panel edge
+            const bottomMargin = 54;     // distance from button center to bottom edge
             const btnY = -ph / 2 + bottomMargin;
 
-            this._skipBtn?.setPosition(-btnW / 2 - gapX / 2, btnY);
-            this._confirmBtn?.setPosition(btnW / 2 + gapX / 2, btnY);
+            this._confirmBtn?.setPosition(-pw / 2 + marginX + btnW / 2, btnY);
+            this._skipBtn?.setPosition(pw / 2 - marginX - btnW / 2, btnY);
         }
     }
 
-    // ─── Phase management ────────────────────────────────────
+    // Phase management
 
     private _setPhase(phase: CreatePhase): void {
         this._phase = phase;
@@ -323,7 +320,7 @@ export class CreatePanel extends Component implements UIPanel {
         this._clearError();
     }
 
-    // ─── Factories ───────────────────────────────────────────
+    // Factories
 
     private _createZone(name: string, parent: Node): Node {
         const node = new Node(name);
@@ -370,7 +367,7 @@ export class CreatePanel extends Component implements UIPanel {
         return node;
     }
 
-    // ─── Character cards ─────────────────────────────────────
+    // Character cards
 
     private _buildCards(): void {
         if (!this._cardRoot) return;
@@ -412,7 +409,7 @@ export class CreatePanel extends Component implements UIPanel {
         }
     }
 
-    // ─── Character selection ─────────────────────────────────
+    // Character selection
 
     private _selectCharacter(id: string): void {
         this._selectedId = id;
@@ -459,7 +456,7 @@ export class CreatePanel extends Component implements UIPanel {
         }
     }
 
-    // ─── Confirm / Skip / Back ───────────────────────────────
+    // Confirm / Skip / Back
 
     private _onConfirm(): void {
         if (this._phase === 'select') {
@@ -518,7 +515,7 @@ export class CreatePanel extends Component implements UIPanel {
         if (btn) btn.interactable = true;
     }
 
-    // ─── Helpers ─────────────────────────────────────────────
+    // Helpers
 
     private _confirmBtnNode(): Button | null {
         return this._confirmBtn?.getComponent(Button) ?? null;

@@ -54,7 +54,7 @@
         "type": "sprite",
         "usage": "decoration"
     },
-    "ui.login.wechat_btn": {
+    "ui.login.platform_btn": {
         "assetId": "textures/ui/login/btn_wechat",
         "type": "sprite",
         "usage": "button"
