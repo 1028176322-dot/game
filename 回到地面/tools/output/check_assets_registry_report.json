@@ -2,23 +2,23 @@
   "metadata": {
     "tool": "check_assets_registry.py",
     "version": "2.0.0",
-    "timestamp": "2026-07-08T13:35:29.304372"
+    "timestamp": "2026-07-08T14:02:51.267177"
   },
   "registry": {
     "disk_exists_but_not_registered": [],
     "registered_but_missing_file": [],
-    "total_disk": 498,
-    "total_registered": 498,
-    "total_matched": 498
+    "total_disk": 499,
+    "total_registered": 499,
+    "total_matched": 499
   },
   "ui_assets_cross_ref": {
-    "ui_assets_total": 153,
+    "ui_assets_total": 154,
     "ui_assets_assetId_not_in_assets_json": []
   },
   "ui_assets_type_issues": [],
   "binder_key_check": {
     "binder_key_orphaned": [],
-    "total_referenced": 3,
+    "total_referenced": 5,
     "total_matched_in_ui_assets": 0
   },
   "unused_key_check": {
@@ -81,6 +81,7 @@
       "ui.create.input_name",
       "ui.create.model_area",
       "ui.create.name_input",
+      "ui.create.name_panel",
       "ui.create.skip_btn",
       "ui.create.stage_glow",
       "ui.death.bg",
@@ -177,7 +178,7 @@
       "ui.upgrade.card_rare",
       "ui.upgrade.pick_btn"
     ],
-    "total_unused": 153
+    "total_unused": 154
   },
   "nine_slice_check": {
     "nine_slice_requires_border": [
@@ -185,6 +186,12 @@
         "type": "nine_slice_requires_border",
         "key": "ui.panel.frame",
         "assetId": "textures/ui/common/panel_bg",
+        "note": "Verify Sprite borders (9-slice) are configured in .meta"
+      },
+      {
+        "type": "nine_slice_requires_border",
+        "key": "ui.create.name_panel",
+        "assetId": "textures/ui/create/name_panel",
         "note": "Verify Sprite borders (9-slice) are configured in .meta"
       },
       {
@@ -206,13 +213,13 @@
         "note": "Verify Sprite borders (9-slice) are configured in .meta"
       }
     ],
-    "total_nine_slice_entries": 4
+    "total_nine_slice_entries": 5
   },
   "summary": {
     "total_issues": 0,
     "type_validation_errors": 0,
     "orphaned_binder_keys": 0,
-    "unused_ui_asset_keys": 153,
-    "nine_slice_review_needed": 4
+    "unused_ui_asset_keys": 154,
+    "nine_slice_review_needed": 5
   }
 }

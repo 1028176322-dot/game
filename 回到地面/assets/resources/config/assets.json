@@ -2145,6 +2145,11 @@
             "type": "SpriteFrame",
             "path": "textures/ui/create/input_name/spriteFrame"
         },
+        "textures/ui/create/name_panel": {
+            "bundle": "resources",
+            "type": "SpriteFrame",
+            "path": "textures/ui/create/name_panel/spriteFrame"
+        },
         "textures/ui/login/agreement_strip": {
             "bundle": "resources",
             "type": "SpriteFrame",

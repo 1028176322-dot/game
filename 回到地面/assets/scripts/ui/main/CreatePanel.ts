@@ -3,21 +3,21 @@
  *
  * Two-phase flow:
  *   1. SELECT: player picks a character class from class buttons
- *      - title / model display (current character attack animation) / class buttons / class info / confirm+skip
+ *      - SelectView: title / model display / class buttons / class info
  *   2. NAMING: player enters a name, then confirms to create character
- *      - title / name input / confirm
+ *      - NamingView: NamePanel / NameTitleLabel / NameInput / ErrorLabel
+ *
+ * ActionZone (shared, fixed at bottom of PanelRoot):
+ *   - BackOrSkipBtn (left) and ConfirmBtn (right)
  *
  * Layout:
- *   ContentRoot [VerticalPanelLayout, CreatePanelLayout]
- *   - HeaderZone / TitleLabel
- *   - PreviewZone / ModelDisplay / CharacterPreview
- *   - ChoiceZone / CardRoot / five class buttons
- *   - InfoZone / SelectedInfo + SelectedDesc
- *   - ActionZone / ErrorLabel
- *   - NameInput, only active during naming phase
- *   ConfirmBtn + SkipBtn are runtime-reparented to PanelRoot for bottom-corner positioning.
+ *   All content nodes are children of PanelRoot (not PanelFrame/ContentRoot).
+ *   SelectView and NamingView are mutually exclusive.
+ *   ActionZone buttons positioned relative to PanelRoot center/bottom.
  *
- * Skin keys used: ui.create.class_btn, ui.create.class_btn_selected, ui.create.confirm_btn, ui.create.skip_btn
+ * Skin keys used: ui.create.class_btn, ui.create.class_btn_selected,
+ *                 ui.create.confirm_btn, ui.create.skip_btn,
+ *                 ui.create.name_panel, ui.create.name_input
  */
 
 import { _decorator, Component, Node, Label, Button, EditBox, Sprite, Color, UITransform, HorizontalTextAlignment, VerticalTextAlignment } from 'cc';
@@ -27,8 +27,6 @@ import { PlayerDataManager } from '../../core/PlayerDataManager';
 import { T } from '../../core/TextManager';
 import { UISkinService } from '../UISkinService';
 import { CharacterVisualService } from '../../render/CharacterVisualService';
-import { VerticalPanelLayout } from '../layout/VerticalPanelLayout';
-import { CreatePanelLayout } from '../layout/CreatePanelLayout';
 import { NodeRef } from '../../utils/NodeRef';
 
 const { ccclass, property } = _decorator;
@@ -52,45 +50,54 @@ const CARD_WIDTH = 104;
 const BUTTON_HEIGHT = 48;
 const CARD_GAP = 12;
 
+type CreatePhase = 'select' | 'naming';
+
 @ccclass('CreatePanel')
 export class CreatePanel extends Component implements UIPanel {
     id: UiPanelId = 'create_character';
 
     @property(Node) panelRoot: Node | null = null;
-    @property(Node) contentRoot: Node | null = null;
-    @property(Node) titleLabel: Node | null = null;
-    @property(Node) modelDisplay: Node | null = null;
-    @property(Node) cardRoot: Node | null = null;
-    @property(Node) selectedInfo: Node | null = null;
-    @property(Node) selectedDesc: Node | null = null;
-    @property(Node) confirmBtn: Node | null = null;
-    @property(Node) errorLabel: Node | null = null;
-    @property(Node) skipBtnRef: Node | null = null;
-    @property(Node) nameInput: Node | null = null;
 
+    // Dynamic sub-view roots
+    private _selectView: Node | null = null;
+    private _namingView: Node | null = null;
+    private _actionZone: Node | null = null;
+
+    // Select phase nodes
+    private _titleLabel: Node | null = null;
+    private _modelDisplay: Node | null = null;
+    private _cardRoot: Node | null = null;
+    private _selectedInfo: Node | null = null;
+    private _selectedDesc: Node | null = null;
+
+    // Naming phase nodes
+    private _nameTitleLabel: Node | null = null;
+    private _namePanel: Node | null = null;
+    private _nameInput: Node | null = null;
+    private _errorLabel: Node | null = null;
+
+    // Shared action nodes
+    private _confirmBtn: Node | null = null;
+    private _skipBtn: Node | null = null;
+
+    private _phase: CreatePhase = 'select';
     private _selectedId = 'warrior';
     private _classCards: Node[] = [];
-    private _isNaming = false;
-    private _runtimeStructureReady = false;
 
     // UIPanel
 
     open(_params?: unknown): void {
         if (this.panelRoot) this.panelRoot.active = true;
 
-        this._isNaming = false;
-        this._clearError();
-        this._applyPhase();
+        this._setPhase('select');
+        this._layoutAll();
 
-        // Ensure layout is applied first so ModelDisplay/CardRoot have correct sizes
-        this._reLayout();
         this._buildCards();
         this._selectCharacter('warrior');
 
-        // Next frame: re-apply layout after dynamic nodes are built, then start animation
         this.scheduleOnce(() => {
-            this._reLayout();
-            this._updateModelDisplay(this._selectedId);
+            this._layoutAll();
+            void this._updateModelDisplay(this._selectedId);
         }, 0);
     }
 
@@ -102,7 +109,7 @@ export class CreatePanel extends Component implements UIPanel {
 
     onLoad(): void {
         if (this.node.name !== 'CreatePanel') {
-            console.warn(`[CreatePanel] disabled unexpected duplicate component on ${this.node.name}`);
+            console.warn(`[CreatePanel] disabled on ${this.node.name}`);
             this.enabled = false;
             return;
         }
@@ -110,141 +117,219 @@ export class CreatePanel extends Component implements UIPanel {
         this._ensureRuntimeStructure();
         this._prepareIntegratedBackground();
 
-        // Mount VerticalPanelLayout on ContentRoot. Cocos cannot serialize
-        // new script class IDs in scene files, so mount at runtime here.
-        this._ensureVerticalPanelLayout();
-        
-        const confirmButton = this._confirmButton();
+        const confirmButton = this._confirmBtnNode();
         if (confirmButton) {
-            confirmButton.node.on(Button.EventType.CLICK, this._onConfirm, this);
+            confirmButton.on(Button.EventType.CLICK, this._onConfirm, this);
         }
-        // Find skip btn by editor binding or fallback (handles stale scene bindings)
-        if (!this.skipBtnRef) {
-            const cr = this._getContentRoot();
-            const actionZone = cr?.getChildByName('ActionZone');
-            if (actionZone) {
-                this.skipBtnRef = actionZone.getChildByName('SkipBtn');
-            }
+        if (this._skipBtn) {
+            this._skipBtn.on(Node.EventType.TOUCH_END, this._onSkip, this);
         }
-        if (this.skipBtnRef) {
-            this.skipBtnRef.on(Node.EventType.TOUCH_END, this._onSkip, this);
-        }
-        const editBox = this._nameEditBox();
+        const editBox = this._editBox();
         if (editBox) {
             editBox.node.on('editing-did-ended', this._onNameEdited, this);
         }
     }
 
-    // Phase management
-
-    private _applyPhase(): void {
-        const selectPhase = !this._isNaming;
-        if (this.modelDisplay) this.modelDisplay.active = selectPhase;
-        if (this.cardRoot) this.cardRoot.active = selectPhase;
-        const selectedInfoNode = this._labelNode(this.selectedInfo, 'InfoZone/SelectedInfo');
-        const selectedDescNode = this._labelNode(this.selectedDesc, 'InfoZone/SelectedDesc');
-        if (selectedInfoNode) selectedInfoNode.active = selectPhase;
-        if (selectedDescNode) selectedDescNode.active = selectPhase;
-        if (this.skipBtnRef) this.skipBtnRef.active = selectPhase;
-        const nameInputNode = this._nodeFromRef(this.nameInput) ?? this._findInContent('NameInput');
-        if (nameInputNode) nameInputNode.active = this._isNaming;
-        const title = this._label(this.titleLabel, 'HeaderZone/TitleLabel');
-        if (title) {
-            title.string = this._isNaming ? T('ui.createNamePrompt') : T('ui.createTitle');
-        }
-        const confirmButton = this._confirmButton();
-        if (confirmButton) {
-            const btnLabel = confirmButton.getComponentInChildren(Label);
-            if (btnLabel) {
-                btnLabel.string = this._isNaming ? T('ui.createConfirmName') : T('ui.createConfirm');
-            }
-        }
-    }
+    // ─── Runtime structure ───────────────────────────────────
 
     private _ensureRuntimeStructure(): void {
-        if (this._runtimeStructureReady) return;
+        if (this._selectView) return; // already built
 
-        const contentRoot = this._getContentRoot();
-        if (!contentRoot) {
-            console.warn('[CreatePanel] cannot build runtime structure: ContentRoot not found');
-            return;
-        }
+        const root = this.panelRoot;
+        if (!root) return;
 
-        contentRoot.removeAllChildren();
+        // Remove any runtime-generated nodes from previous structure
+        this._removeRuntimeNodes(root);
 
-        const headerZone = this._createZone('HeaderZone', contentRoot);
-        const previewZone = this._createZone('PreviewZone', contentRoot);
-        const choiceZone = this._createZone('ChoiceZone', contentRoot);
-        const infoZone = this._createZone('InfoZone', contentRoot);
-        const actionZone = this._createZone('ActionZone', contentRoot);
+        // ── SelectView ──
+        this._selectView = new Node('SelectView');
+        root.addChild(this._selectView);
 
-        this.titleLabel = this._createLabelNode('TitleLabel', headerZone, T('ui.createTitle'), 28);
+        const headerZone = this._createZone('HeaderZone', this._selectView);
+        this._titleLabel = this._createLabelNode('TitleLabel', headerZone, T('ui.createTitle'), 28);
 
-        this.modelDisplay = new Node('ModelDisplay');
-        this.modelDisplay.addComponent(UITransform).setContentSize(240, 150);
-        previewZone.addChild(this.modelDisplay);
+        const previewZone = this._createZone('PreviewZone', this._selectView);
+        this._modelDisplay = new Node('ModelDisplay');
+        this._modelDisplay.addComponent(UITransform).setContentSize(240, 150);
+        previewZone.addChild(this._modelDisplay);
 
-        this.cardRoot = new Node('CardRoot');
-        this.cardRoot.addComponent(UITransform).setContentSize(620, 52);
-        choiceZone.addChild(this.cardRoot);
+        const choiceZone = this._createZone('ChoiceZone', this._selectView);
+        this._cardRoot = new Node('CardRoot');
+        this._cardRoot.addComponent(UITransform).setContentSize(620, 52);
+        choiceZone.addChild(this._cardRoot);
 
-        this.selectedInfo = this._createLabelNode('SelectedInfo', infoZone, '', 22);
-        this.selectedDesc = this._createLabelNode('SelectedDesc', infoZone, '', 20);
+        const infoZone = this._createZone('InfoZone', this._selectView);
+        this._selectedInfo = this._createLabelNode('SelectedInfo', infoZone, '', 22);
+        this._selectedDesc = this._createLabelNode('SelectedDesc', infoZone, '', 20);
 
-        this.confirmBtn = this._createButtonNode('ConfirmBtn', actionZone, T('ui.createConfirm'), 'ui.create.confirm_btn');
-        this.skipBtnRef = this._createButtonNode('SkipBtn', actionZone, T('ui.skip'), 'ui.create.skip_btn');
+        // ── NamingView ──
+        this._namingView = new Node('NamingView');
+        this._namingView.active = false;
+        root.addChild(this._namingView);
 
-        // Reparent confirm/skip buttons to PanelRoot so they can be freely
-        // positioned at the bottom-left / bottom-right corners of the screen.
-        const panelRoot = this.panelRoot;
-        if (panelRoot && this.confirmBtn && this.skipBtnRef) {
-            panelRoot.addChild(this.confirmBtn);
-            panelRoot.addChild(this.skipBtnRef);
-        }
+        this._namePanel = new Node('NamePanel');
+        this._namePanel.addComponent(UITransform).setContentSize(620, 240);
+        this._namePanel.addComponent(Sprite);
+        this._namingView.addChild(this._namePanel);
+        void UISkinService.instance.applyOptional(this._namePanel, 'ui.create.name_panel');
 
-        this.errorLabel = this._createLabelNode('ErrorLabel', actionZone, '', 18);
-        this.errorLabel.active = false;
+        this._nameTitleLabel = this._createLabelNode('NameTitleLabel', this._namingView, T('ui.createNamePrompt'), 28);
 
-        this.nameInput = this._createNameInput(contentRoot);
-        this.nameInput.active = false;
+        const nameInputNode = new Node('NameInput');
+        nameInputNode.addComponent(UITransform).setContentSize(420, 64);
+        nameInputNode.addComponent(Sprite);
+        const editBox = nameInputNode.addComponent(EditBox);
+        editBox.maxLength = 6;
+        editBox.placeholder = T('ui.createNamePlaceholder');
 
-        // Bind all dynamic node references to CreatePanelLayout so it can
-        // position them without relying on stale editor paths.
-        const layout = contentRoot.getComponent(CreatePanelLayout) ?? contentRoot.addComponent(CreatePanelLayout);
-        layout.titleLabel = this.titleLabel;
-        layout.modelDisplay = this.modelDisplay;
-        layout.cardRoot = this.cardRoot;
-        layout.selectedInfo = this.selectedInfo;
-        layout.selectedDesc = this.selectedDesc;
-        layout.confirmBtn = this.confirmBtn;
-        layout.skipBtn = this.skipBtnRef;
-        layout.errorLabel = this.errorLabel;
-        layout.nameInput = this.nameInput;
+        const textLabelNode = new Node('TextLabel');
+        textLabelNode.addComponent(UITransform).setContentSize(380, 36);
+        const textLabel = textLabelNode.addComponent(Label);
+        textLabel.fontSize = 22;
+        textLabel.lineHeight = 26;
+        textLabel.color = Color.WHITE;
+        nameInputNode.addChild(textLabelNode);
+        editBox.textLabel = textLabel;
 
-        this._runtimeStructureReady = true;
+        const placeholderNode = new Node('PlaceholderLabel');
+        placeholderNode.addComponent(UITransform).setContentSize(380, 36);
+        const placeholderLabel = placeholderNode.addComponent(Label);
+        placeholderLabel.string = T('ui.createNamePlaceholder');
+        placeholderLabel.fontSize = 22;
+        placeholderLabel.lineHeight = 26;
+        placeholderLabel.color = new Color(210, 210, 210, 255);
+        nameInputNode.addChild(placeholderNode);
+        editBox.placeholderLabel = placeholderLabel;
+
+        void UISkinService.instance.applyOptional(nameInputNode, 'ui.create.name_input');
+        this._namingView.addChild(nameInputNode);
+        this._nameInput = nameInputNode;
+
+        this._errorLabel = this._createLabelNode('ErrorLabel', this._namingView, '', 18);
+        this._errorLabel.active = false;
+
+        // ── ActionZone ──
+        this._actionZone = new Node('ActionZone');
+        root.addChild(this._actionZone);
+
+        this._skipBtn = this._createButtonNode('BackOrSkipBtn', this._actionZone, T('ui.skip'), 'ui.create.skip_btn');
+        this._confirmBtn = this._createButtonNode('ConfirmBtn', this._actionZone, T('ui.createConfirm'), 'ui.create.confirm_btn');
     }
+
+    /** Remove any runtime-created nodes (SelectView, NamingView, ActionZone) from PanelRoot. */
+    private _removeRuntimeNodes(root: Node): void {
+        ['SelectView', 'NamingView', 'ActionZone'].forEach(name => {
+            const child = root.getChildByName(name);
+            if (child) root.removeChild(child);
+        });
+    }
+
+    private _prepareIntegratedBackground(): void {
+        const root = this.panelRoot;
+        const frame = root?.getChildByName('PanelFrame');
+        const mask = root?.getChildByName('DimMask');
+
+        const frameSprite = frame?.getComponent(Sprite);
+        if (frameSprite) frameSprite.enabled = false;
+
+        const maskSprite = mask?.getComponent(Sprite);
+        if (maskSprite) maskSprite.enabled = false;
+    }
+
+    // ─── Layout ──────────────────────────────────────────────
+
+    /**
+     * Position all sub-views and their children relative to PanelRoot.
+     * Call after any phase change or content size change.
+     */
+    private _layoutAll(): void {
+        const root = this.panelRoot;
+        if (!root) return;
+        const rootTrans = root.getComponent(UITransform);
+        const pw = rootTrans?.width ?? 1280;
+        const ph = rootTrans?.height ?? 720;
+
+        // SelectView: centered, top zone starts at ph/2 - padding
+        if (this._selectView) {
+            const zoneNames = ['HeaderZone', 'PreviewZone', 'ChoiceZone', 'InfoZone'];
+            const zoneHeights = [58, 178, 64, 84];
+            const gap = 18;
+            const padding = 18;
+            const totalH = padding + zoneHeights.reduce((a, b) => a + b, 0) + (zoneHeights.length - 1) * gap + padding;
+            let y = ph / 2 - padding;
+            for (let i = 0; i < zoneNames.length; i++) {
+                const zone = this._selectView.getChildByName(zoneNames[i]);
+                if (!zone) continue;
+                const trans = zone.getComponent(UITransform);
+                if (trans) trans.setContentSize(pw, zoneHeights[i]);
+                y -= zoneHeights[i] / 2;
+                zone.setPosition(0, y);
+                y -= zoneHeights[i] / 2 + gap;
+            }
+        }
+
+        // NamingView: centered, NamePanel at center, Title above, Input centered on panel, Error below input
+        if (this._namingView) {
+            const panelTrans = this._namePanel?.getComponent(UITransform);
+            const panelH = panelTrans?.height ?? 240;
+
+            // NamePanel centered with slight upward bias
+            const panelY = 45;
+            this._namePanel?.setPosition(0, panelY + panelH / 2);
+
+            // Title above panel
+            this._nameTitleLabel?.setPosition(0, panelY + panelH + 12);
+
+            // NameInput centered on panel
+            this._nameInput?.setPosition(0, panelY);
+
+            // Error label below input
+            this._errorLabel?.setPosition(0, panelY - 45);
+        }
+
+        // ActionZone: centered at bottom of PanelRoot, buttons side-by-side above the bottom edge
+        if (this._actionZone) {
+            const btnW = 200;
+            const btnH = 62;
+            const gapX = 48; // gap between buttons
+            const bottomMargin = 36; // distance from button center to bottom edge
+            const btnY = -ph / 2 + bottomMargin;
+
+            this._skipBtn?.setPosition(-btnW / 2 - gapX / 2, btnY);
+            this._confirmBtn?.setPosition(btnW / 2 + gapX / 2, btnY);
+        }
+    }
+
+    // ─── Phase management ────────────────────────────────────
+
+    private _setPhase(phase: CreatePhase): void {
+        this._phase = phase;
+        const isSelect = phase === 'select';
+        const isNaming = phase === 'naming';
+
+        if (this._selectView) this._selectView.active = isSelect;
+        if (this._namingView) this._namingView.active = isNaming;
+
+        // Update button labels
+        const skipLabel = this._skipBtn?.getComponentInChildren(Label);
+        if (skipLabel) {
+            skipLabel.string = isNaming ? T('ui.areaBack') : T('ui.skip');
+        }
+        const confirmLabel = this._confirmBtn?.getComponentInChildren(Label);
+        if (confirmLabel) {
+            confirmLabel.string = isNaming ? T('ui.createConfirmName') : T('ui.createConfirm');
+        }
+
+        this._clearError();
+    }
+
+    // ─── Factories ───────────────────────────────────────────
 
     private _createZone(name: string, parent: Node): Node {
         const node = new Node(name);
         node.addComponent(UITransform).setContentSize(640, 60);
         parent.addChild(node);
         return node;
-    }
-
-    private _prepareIntegratedBackground(): void {
-        const panelRoot = this.panelRoot;
-        const frame = panelRoot?.getChildByName('PanelFrame');
-        const mask = panelRoot?.getChildByName('DimMask');
-
-        const frameSprite = frame?.getComponent(Sprite);
-        if (frameSprite) {
-            frameSprite.enabled = false;
-        }
-
-        const maskSprite = mask?.getComponent(Sprite);
-        if (maskSprite) {
-            maskSprite.enabled = false;
-        }
     }
 
     private _createLabelNode(name: string, parent: Node, text: string, fontSize: number): Node {
@@ -264,12 +349,12 @@ export class CreatePanel extends Component implements UIPanel {
 
     private _createButtonNode(name: string, parent: Node, text: string, skinKey: string): Node {
         const node = new Node(name);
-        node.addComponent(UITransform).setContentSize(128, 42);
+        node.addComponent(UITransform).setContentSize(200, 62);
         node.addComponent(Sprite);
         node.addComponent(Button);
 
         const labelNode = new Node('Label');
-        labelNode.addComponent(UITransform).setContentSize(116, 34);
+        labelNode.addComponent(UITransform).setContentSize(180, 50);
         const label = labelNode.addComponent(Label);
         label.string = text;
         label.fontSize = 22;
@@ -285,52 +370,13 @@ export class CreatePanel extends Component implements UIPanel {
         return node;
     }
 
-    private _createNameInput(parent: Node): Node {
-        const node = new Node('NameInput');
-        node.addComponent(UITransform).setContentSize(420, 46);
-        const editBox = node.addComponent(EditBox);
-        editBox.maxLength = 6;
-        editBox.placeholder = T('ui.createNamePlaceholder');
+    // ─── Character cards ─────────────────────────────────────
 
-        const textLabelNode = new Node('TextLabel');
-        textLabelNode.addComponent(UITransform).setContentSize(380, 36);
-        const textLabel = textLabelNode.addComponent(Label);
-        textLabel.fontSize = 22;
-        textLabel.lineHeight = 26;
-        textLabel.color = Color.WHITE;
-        node.addChild(textLabelNode);
-        editBox.textLabel = textLabel;
-
-        const placeholderNode = new Node('PlaceholderLabel');
-        placeholderNode.addComponent(UITransform).setContentSize(380, 36);
-        const placeholderLabel = placeholderNode.addComponent(Label);
-        placeholderLabel.string = T('ui.createNamePlaceholder');
-        placeholderLabel.fontSize = 22;
-        placeholderLabel.lineHeight = 26;
-        placeholderLabel.color = new Color(210, 210, 210, 255);
-        node.addChild(placeholderNode);
-        editBox.placeholderLabel = placeholderLabel;
-
-        parent.addChild(node);
-        return node;
-    }
-
-    // Character cards
-
-    /**
-     * Build 5 class selection buttons (no full character models).
-     *
-     * Structure per button:
-     *   Btn_{id} (CARD_WIDTH x BUTTON_HEIGHT)
-     *   - Sprite: ui.create.class_btn / ui.create.class_btn_selected skin.
-     *   - Label: class name from text.json.
-     */
     private _buildCards(): void {
-        if (!this.cardRoot) return;
-        this.cardRoot.removeAllChildren();
+        if (!this._cardRoot) return;
+        this._cardRoot.removeAllChildren();
         this._classCards = [];
 
-        // Calculate horizontal layout
         const totalW = CHAR_OPTIONS.length * CARD_WIDTH + (CHAR_OPTIONS.length - 1) * CARD_GAP;
         const startX = -totalW / 2 + CARD_WIDTH / 2;
 
@@ -343,12 +389,9 @@ export class CreatePanel extends Component implements UIPanel {
             const trans = btnNode.addComponent(UITransform);
             trans.setContentSize(CARD_WIDTH, BUTTON_HEIGHT);
 
-            const sprite = btnNode.addComponent(Sprite);
-            sprite.color = Color.WHITE;
-            // Apply default (unselected) skin; selection state is refreshed below.
-            void UISkinService.instance.applyOptional(btnNode, 'ui.create.class_btn');
-
+            btnNode.addComponent(Sprite);
             btnNode.addComponent(Button);
+            void UISkinService.instance.applyOptional(btnNode, 'ui.create.class_btn');
 
             const labelNode = new Node('Label');
             labelNode.setPosition(0, 0);
@@ -364,158 +407,87 @@ export class CreatePanel extends Component implements UIPanel {
 
             btnNode.on(Button.EventType.CLICK, () => this._selectCharacter(opt.id), this);
 
-            this.cardRoot.addChild(btnNode);
+            this._cardRoot.addChild(btnNode);
             this._classCards.push(btnNode);
         }
     }
 
-    /**
-     * Mount VerticalPanelLayout on ContentRoot at startup.
-     * Cocos cannot serialize new script class IDs in scene files, so we mount at runtime.
-     * Called once from onLoad().
-     */
-    private _ensureVerticalPanelLayout(): void {
-        const cr = this._getContentRoot();
-        if (!cr) return;
-
-        const vpl = cr.getComponent(VerticalPanelLayout) ?? cr.addComponent(VerticalPanelLayout);
-        const zoneNames = ['HeaderZone', 'PreviewZone', 'ChoiceZone', 'InfoZone', 'ActionZone'];
-        const zoneHeights = [58, 178, 64, 84, 64];
-        const zones: Node[] = [];
-        const heights: number[] = [];
-        for (let i = 0; i < zoneNames.length; i++) {
-            const zone = cr.getChildByName(zoneNames[i]);
-            if (zone) { zones.push(zone); heights.push(zoneHeights[i]); }
-        }
-        if (zones.length > 0) {
-            vpl.zones = zones;
-            vpl.heights = heights;
-            vpl.gap = 18;
-            vpl.paddingTop = 18;
-            vpl.paddingBottom = 18;
-        }
-        console.log(`[CreatePanel] VerticalPanelLayout bound with ${zones.length} zones`);
-    }
-
-    /** Re-trigger layout: zones first (VerticalPanelLayout), then internal (CreatePanelLayout). */
-    private _reLayout(): void {
-        const contentRoot = this._getContentRoot();
-        if (!contentRoot) {
-            console.warn('[CreatePanel] ContentRoot not found');
-            return;
-        }
-
-        const verticalLayout = contentRoot.getComponent(VerticalPanelLayout);
-        if (!verticalLayout) {
-            console.warn('[CreatePanel] VerticalPanelLayout missing on ContentRoot');
-            return;
-        }
-        verticalLayout.applyLayout();
-
-        const internalLayout = contentRoot.getComponent(CreatePanelLayout);
-        if (internalLayout) internalLayout.applyLayout();
-    }
-
-    /** Get ContentRoot node from editor binding or fallback path traversal. */
-    private _getContentRoot(): Node | null {
-        if (this.contentRoot?.isValid) return this.contentRoot;
-        // Fallback: traverse from panelRoot
-        return this.panelRoot
-            ?.getChildByName('PanelFrame')
-            ?.getChildByName('ContentRoot') ?? null;
-    }
-
-    // Character selection
+    // ─── Character selection ─────────────────────────────────
 
     private _selectCharacter(id: string): void {
         this._selectedId = id;
         const opt = CHAR_OPTIONS.find(c => c.id === id);
         if (!opt) return;
 
-        // Update model display to selected character looping attack animation
         void this._updateModelDisplay(id);
 
-        const selectedInfo = this._label(this.selectedInfo, 'InfoZone/SelectedInfo');
-        const selectedDesc = this._label(this.selectedDesc, 'InfoZone/SelectedDesc');
-        if (selectedInfo) {
-            selectedInfo.string = `${T(opt.animalKey)} ${T(opt.classKey)}`;
+        if (this._selectedInfo) {
+            const label = this._selectedInfo.getComponent(Label);
+            if (label) label.string = `${T(opt.animalKey)} ${T(opt.classKey)}`;
         }
-        if (selectedDesc) {
-            selectedDesc.string = T(opt.descKey);
+        if (this._selectedDesc) {
+            const label = this._selectedDesc.getComponent(Label);
+            if (label) label.string = T(opt.descKey);
         }
 
         this._refreshSelectedButtonState();
         this._clearError();
     }
 
-    /** Update the top model display to show selected character's attack animation, scaled to fit PreviewZone. */
     private async _updateModelDisplay(id: string): Promise<void> {
-        if (!this.modelDisplay) return;
-
-        this.modelDisplay.removeAllChildren();
+        if (!this._modelDisplay) return;
+        this._modelDisplay.removeAllChildren();
 
         const previewNode = new Node('CharacterPreview');
         const trans = previewNode.addComponent(UITransform);
         trans.setContentSize(128, 128);
         previewNode.setPosition(0, 0);
-
-        // Keep the character inside the stage without affecting the stage skin.
         previewNode.setScale(0.82, 0.82, 1);
-
-        this.modelDisplay.addChild(previewNode);
+        this._modelDisplay.addChild(previewNode);
 
         await CharacterVisualService.instance.play(previewNode, `character.${id}.attack`, 8);
     }
 
-    /** Refresh button visual state based on current selection. */
     private _refreshSelectedButtonState(): void {
         for (const card of this._classCards) {
             const selected = card.name === `Btn_${this._selectedId}`;
-
-            // Apply the correct skin for selected/unselected state.
             void UISkinService.instance.applyOptional(
                 card,
                 selected ? 'ui.create.class_btn_selected' : 'ui.create.class_btn'
             );
-
             card.setScale(selected ? 1.06 : 1, selected ? 1.06 : 1, 1);
         }
     }
 
-    // Confirm
+    // ─── Confirm / Skip / Back ───────────────────────────────
 
     private _onConfirm(): void {
-        if (!this._isNaming) {
-            this._isNaming = true;
-            this._clearError();
-            this._applyPhase();
-            const nameInputNode = this._nodeFromRef(this.nameInput) ?? this._findInContent('NameInput');
-            if (nameInputNode) {
-                nameInputNode.active = true;
-            }
-            this._reLayout();
+        if (this._phase === 'select') {
+            this._setPhase('naming');
+            this._layoutAll();
             return;
         }
 
-        const name = this._nameEditBox()?.string.trim() ?? '';
+        const name = this._editBox()?.string.trim() ?? '';
         if (!name) { this._showError(T('ui.createNameRequired')); return; }
         if (name.length > 6) { this._showError(T('ui.createNameTooLong')); return; }
         if (this._hasReservedWords(name)) { this._showError(T('ui.createNameBlocked')); return; }
 
-        const pdm = PlayerDataManager.getInstance();
-        pdm.createCharacter(name, this._selectedId);
-        console.log('[CreatePanel] character created:', name, this._selectedId);
-
+        PlayerDataManager.getInstance().createCharacter(name, this._selectedId);
         this.close();
         const appFlow = AppFlowController.instance;
         if (appFlow) appFlow.goTo(AppFlowState.MAIN_HUB);
     }
 
     private _onSkip(): void {
-        const pdm = PlayerDataManager.getInstance();
-        pdm.createCharacter(T('ui.defaultName'), 'warrior');
-        console.log('[CreatePanel] skipped, default character created');
+        if (this._phase === 'naming') {
+            this._setPhase('select');
+            this._layoutAll();
+            void this._updateModelDisplay(this._selectedId);
+            return;
+        }
 
+        PlayerDataManager.getInstance().createCharacter(T('ui.defaultName'), 'warrior');
         this.close();
         const appFlow = AppFlowController.instance;
         if (appFlow) appFlow.goTo(AppFlowState.MAIN_HUB);
@@ -525,6 +497,9 @@ export class CreatePanel extends Component implements UIPanel {
         if (editBox.string.length > 6) {
             editBox.string = editBox.string.slice(0, 6);
         }
+        if (editBox.string.trim().length > 0) {
+            this._clearError();
+        }
     }
 
     private _hasReservedWords(name: string): boolean {
@@ -533,40 +508,23 @@ export class CreatePanel extends Component implements UIPanel {
     }
 
     private _showError(msg: string): void {
-        const error = this._label(this.errorLabel, 'ActionZone/ErrorLabel');
-        if (error) { error.string = msg; error.node.active = true; }
-        const confirmButton = this._confirmButton();
-        if (confirmButton) confirmButton.interactable = false;
+        const label = this._errorLabel?.getComponent(Label);
+        if (label) { label.string = msg; label.node.active = true; }
     }
 
     private _clearError(): void {
-        const errorNode = this._labelNode(this.errorLabel, 'ActionZone/ErrorLabel');
-        if (errorNode) errorNode.active = false;
-        const confirmButton = this._confirmButton();
-        if (confirmButton) confirmButton.interactable = true;
+        if (this._errorLabel) this._errorLabel.active = false;
+        const btn = this._confirmBtn?.getComponent(Button);
+        if (btn) btn.interactable = true;
     }
 
-    private _confirmButton(): Button | null {
-        return NodeRef.component(this.confirmBtn, Button, this._getContentRoot(), 'ActionZone/ConfirmBtn');
+    // ─── Helpers ─────────────────────────────────────────────
+
+    private _confirmBtnNode(): Button | null {
+        return this._confirmBtn?.getComponent(Button) ?? null;
     }
 
-    private _nameEditBox(): EditBox | null {
-        return NodeRef.component(this.nameInput, EditBox, this._getContentRoot(), 'NameInput');
-    }
-
-    private _label(ref: unknown, path: string): Label | null {
-        return NodeRef.component(ref as any, Label, this._getContentRoot(), path);
-    }
-
-    private _labelNode(ref: unknown, path: string): Node | null {
-        return NodeRef.node(ref as any) ?? this._findInContent(path);
-    }
-
-    private _nodeFromRef(ref: unknown): Node | null {
-        return NodeRef.node(ref as any);
-    }
-
-    private _findInContent(path: string): Node | null {
-        return NodeRef.find(this._getContentRoot(), path);
+    private _editBox(): EditBox | null {
+        return this._nameInput?.getComponent(EditBox) ?? null;
     }
 }

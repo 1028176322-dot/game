@@ -73,6 +73,8 @@
         "createErrorSensitive": "名字包含不当文字",
         "createNamePrompt": "请输入名字",
         "createConfirmName": "确定",
+        "areaBack": "返回",
+        "defaultName": "冒险者",
         "settlementTitle": "冒险结束",
         "settlementVictory": "胜利！",
         "settlementZone": "到达: {zone}",

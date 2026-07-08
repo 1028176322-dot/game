@@ -103,8 +103,33 @@
     },
     "ui.create.name_input": {
         "assetId": "textures/ui/create/input_name",
-        "type": "nine_slice",
-        "usage": "input"
+        "type": "sliced",
+        "usage": "input",
+        "slice": {
+            "left": 48,
+            "right": 48,
+            "top": 24,
+            "bottom": 24
+        },
+        "defaultSize": {
+            "width": 420,
+            "height": 64
+        }
+    },
+    "ui.create.name_panel": {
+        "assetId": "textures/ui/create/name_panel",
+        "type": "sliced",
+        "usage": "name_phase_panel",
+        "slice": {
+            "left": 64,
+            "right": 64,
+            "top": 48,
+            "bottom": 48
+        },
+        "defaultSize": {
+            "width": 620,
+            "height": 240
+        }
     },
     "ui.create.stage_glow": {
         "assetId": "textures/ui/create/character_stage_glow",
