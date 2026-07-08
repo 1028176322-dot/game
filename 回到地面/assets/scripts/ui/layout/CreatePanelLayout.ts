@@ -86,13 +86,13 @@ export class CreatePanelLayout extends Component {
         const skip = this._node(this.skipBtn, 'ActionZone/SkipBtn');
         const error = this._node(this.errorLabel, 'ActionZone/ErrorLabel');
 
-        this._setSize(confirm, 128, 42);
-        this._setSize(skip, 128, 42);
+        this._setSize(confirm, 200, 62);
+        this._setSize(skip, 200, 62);
         this._setSize(error, Math.min(contentSize.width - 64, 480), 22);
 
-        confirm?.setPosition(-110, 0);
-        skip?.setPosition(110, 0);
-        error?.setPosition(0, 31);
+        confirm?.setPosition(-110, -14);
+        skip?.setPosition(110, -14);
+        error?.setPosition(0, 17);
 
         this._formatButtonLabel(confirm, 22);
         this._formatButtonLabel(skip, 22);

@@ -81,13 +81,25 @@
     },
     "ui.create.confirm_btn": {
         "assetId": "textures/ui/create/btn_create_confirm",
-        "type": "sprite",
-        "usage": "button"
+        "type": "sliced",
+        "usage": "button",
+        "slice": {
+            "left": 48,
+            "right": 48,
+            "top": 24,
+            "bottom": 24
+        }
     },
     "ui.create.skip_btn": {
         "assetId": "textures/ui/create/btn_create_skip",
-        "type": "sprite",
-        "usage": "button"
+        "type": "sliced",
+        "usage": "button",
+        "slice": {
+            "left": 48,
+            "right": 48,
+            "top": 24,
+            "bottom": 24
+        }
     },
     "ui.create.name_input": {
         "assetId": "textures/ui/create/input_name",
