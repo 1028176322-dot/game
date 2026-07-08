@@ -22,11 +22,21 @@ import { AssetBundleService } from '../assets/AssetBundleService';
 
 export interface UIAssetDef {
     assetId: string;
-    type: 'sprite' | 'nine_slice' | 'icon' | 'background';
+    type: 'sprite' | 'sliced' | 'nine_slice' | 'icon' | 'background';
     usage?: string;
+    slice?: {
+        left?: number;
+        right?: number;
+        top?: number;
+        bottom?: number;
+    };
+    defaultSize?: {
+        width?: number;
+        height?: number;
+    };
 }
 
-const VALID_TYPES = new Set(['sprite', 'nine_slice', 'icon', 'background']);
+const VALID_TYPES = new Set(['sprite', 'sliced', 'nine_slice', 'icon', 'background']);
 
 export class UISkinService {
     private static _instance: UISkinService | null = null;
@@ -122,12 +132,12 @@ export class UISkinService {
             return this._fallback(node);
         }
 
-        // Handle nine_slice type: set Sprite mode to SLICED
-        if (def.type === 'nine_slice') {
+        if (def.type === 'sliced' || def.type === 'nine_slice') {
             const sprite = this.ensureSprite(node);
             if (sprite) {
                 sprite.type = Sprite.Type.SLICED;
                 sprite.sizeMode = Sprite.SizeMode.CUSTOM;
+                this._applySlice(sprite, def);
             }
         }
 
@@ -193,6 +203,26 @@ export class UISkinService {
         }
 
         return RenderAssetService.applySpriteById(node, assetId);
+    }
+
+    private _applySlice(sprite: Sprite, def: UIAssetDef): void {
+        const frame = sprite.spriteFrame;
+        if (!frame || !def.slice) return;
+
+        const slice = def.slice;
+        frame.insetLeft = slice.left ?? frame.insetLeft;
+        frame.insetRight = slice.right ?? frame.insetRight;
+        frame.insetTop = slice.top ?? frame.insetTop;
+        frame.insetBottom = slice.bottom ?? frame.insetBottom;
+
+        if (def.defaultSize) {
+            const transform = sprite.node.getComponent(UITransform) ?? sprite.node.addComponent(UITransform);
+            const width = def.defaultSize.width ?? transform.width;
+            const height = def.defaultSize.height ?? transform.height;
+            if (width > 0 && height > 0) {
+                transform.setContentSize(width, height);
+            }
+        }
     }
 
     /**

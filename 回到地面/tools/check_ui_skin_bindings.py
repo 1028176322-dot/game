@@ -35,7 +35,7 @@ SCENE_FILES = {
     "dungeon": SCENE_DIR / "dungeon.scene",
 }
 
-VALID_TYPES = {"sprite", "nine_slice", "icon", "background"}
+VALID_TYPES = {"sprite", "sliced", "nine_slice", "icon", "background"}
 
 
 def load_json(path: Path) -> dict:

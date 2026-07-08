@@ -1,0 +1,107 @@
+resource,risks,action_taken
+area/area_badge_forest.png,CHROMA_RESIDUE(count=4739),pending_review
+area/area_badge_swamp.png,TEXT_EDGES_SUSPECT(edge_ratio=12.6%) | CHROMA_RESIDUE(count=1621),pending_review
+area/area_badge_tundra.png,TEXT_EDGES_SUSPECT(edge_ratio=17.0%) | CHROMA_RESIDUE(count=6330),pending_review
+area/area_bg.jpg,SKULL_SUSPECT(white=10.5% dark=5.8%) | CHROMA_RESIDUE(count=40850),pending_review
+character/avatar_archer.png,TEXT_EDGES_SUSPECT(edge_ratio=11.4%) | CHROMA_RESIDUE(count=585),pending_review
+character/avatar_assassin.png,TEXT_EDGES_SUSPECT(edge_ratio=10.7%),pending_review
+character/avatar_mage.png,TEXT_EDGES_SUSPECT(edge_ratio=12.9%) | CHROMA_RESIDUE(count=1050),pending_review
+character/character_bg.jpg,SKULL_SUSPECT(white=9.1% dark=3.6%) | CHROMA_RESIDUE(count=40401),pending_review
+character/character_detail_panel.png,SKULL_SUSPECT(white=51.0% dark=4.3%) | HARD_ALPHA_EDGE(partial=33.8%),pending_review
+character/character_list_panel.png,CHROMA_RESIDUE(count=129),pending_review
+common/btn_active.png,CHROMA_RESIDUE(count=226),pending_review
+common/btn_close.png,SKULL_SUSPECT(white=18.1% dark=4.0%) | TEXT_EDGES_SUSPECT(edge_ratio=20.3%) | CHROMA_RESIDUE(count=195) | HARD_ALPHA_EDGE(partial=55.1%),pending_review
+common/btn_default.png,CHROMA_RESIDUE(count=2388),pending_review
+common/btn_hover.png,CHROMA_RESIDUE(count=2070),pending_review
+common/panel_bg.png,CHROMA_RESIDUE(count=183) | HARD_ALPHA_EDGE(partial=19.0%),pending_review
+create/btn_create_confirm.png,CHROMA_RESIDUE(count=3469),pending_review
+death/death_bg.jpg,SKULL_SUSPECT(white=5.9% dark=2.9%) | CHROMA_RESIDUE(count=64045),pending_review
+death/result_panel.png,CHROMA_RESIDUE(count=6765),pending_review
+equipment/equip_body_frame.png,SKULL_SUSPECT(white=26.3% dark=5.5%) | CHROMA_RESIDUE(count=21841),pending_review
+equipment/equip_slot_chest.png,CHROMA_RESIDUE(count=216),pending_review
+equipment/equip_slot_gloves.png,CHROMA_RESIDUE(count=896),pending_review
+equipment/equip_slot_helmet.png,TEXT_EDGES_SUSPECT(edge_ratio=9.7%),pending_review
+equipment/equip_slot_legs.png,CHROMA_RESIDUE(count=325),pending_review
+equipment/equip_slot_necklace.png,TEXT_EDGES_SUSPECT(edge_ratio=9.8%),pending_review
+equipment/equip_slot_ring.png,CHROMA_RESIDUE(count=221),pending_review
+equipment/equip_slot_shoes.png,CHROMA_RESIDUE(count=244),pending_review
+equipment/equip_slot_weapon.png,TEXT_EDGES_SUSPECT(edge_ratio=10.4%),pending_review
+equipment/equipment_bg.jpg,SKULL_SUSPECT(white=11.3% dark=9.4%) | CHROMA_RESIDUE(count=24796),pending_review
+equipment/inventory_slot.png,SKULL_SUSPECT(white=22.5% dark=25.3%) | CHROMA_RESIDUE(count=51),pending_review
+equipment/item_slot.png,CHROMA_RESIDUE(count=380),pending_review
+equipment/rarity_common.png,SKULL_SUSPECT(white=55.4% dark=1.6%) | CHROMA_RESIDUE(count=114),pending_review
+equipment/rarity_legendary.png,SKULL_SUSPECT(white=43.4% dark=3.1%) | CHROMA_RESIDUE(count=88) | HARD_ALPHA_EDGE(partial=15.9%),pending_review
+equipment/rarity_magic.png,SKULL_SUSPECT(white=52.7% dark=1.8%) | CHROMA_RESIDUE(count=944) | HARD_ALPHA_EDGE(partial=16.5%),pending_review
+equipment/rarity_rare.png,CHROMA_RESIDUE(count=176),pending_review
+event/event_panel.png,SKULL_SUSPECT(white=65.6% dark=1.1%),pending_review
+hud/floor_badge.png,SKULL_SUSPECT(white=15.0% dark=1.0%) | CHROMA_RESIDUE(count=360),pending_review
+hud/hud_hpbar_bg.png,SKULL_SUSPECT(white=13.2% dark=1.1%) | CHROMA_RESIDUE(count=2012),pending_review
+hud/hud_rollbtn.png,CHROMA_RESIDUE(count=4728),pending_review
+hud/hud_skillslot.png,CHROMA_RESIDUE(count=642),pending_review
+hud/joystick_base.png,SKULL_SUSPECT(white=7.9% dark=4.3%) | CHROMA_RESIDUE(count=3910),pending_review
+hud/joystick_dot.png,CHROMA_RESIDUE(count=1395),pending_review
+hud/kill_badge.png,SKULL_SUSPECT(white=55.4% dark=1.7%),pending_review
+hud/pause_btn.png,SKULL_SUSPECT(white=33.2% dark=2.7%) | CHROMA_RESIDUE(count=680),pending_review
+log/btn_close.png,SKULL_SUSPECT(white=14.5% dark=8.8%),pending_review
+log/log_bg.jpg,SKULL_SUSPECT(white=9.3% dark=17.2%),pending_review
+log/log_book_panel.png,SKULL_SUSPECT(white=56.1% dark=2.3%),pending_review
+main/main_titledeco.png,CHROMA_RESIDUE(count=3654),pending_review
+map/icon_room_boss.png,TEXT_EDGES_SUSPECT(edge_ratio=12.1%) | CHROMA_RESIDUE(count=406),pending_review
+map/icon_room_combat.png,SKULL_SUSPECT(white=26.5% dark=3.5%) | TEXT_EDGES_SUSPECT(edge_ratio=14.5%) | CHROMA_RESIDUE(count=614),pending_review
+map/icon_room_event.png,TEXT_EDGES_SUSPECT(edge_ratio=8.5%) | CHROMA_RESIDUE(count=508),pending_review
+map/icon_room_healing.png,CHROMA_RESIDUE(count=642),pending_review
+map/icon_room_shop.png,CHROMA_RESIDUE(count=330),pending_review
+map/icon_room_treasure.png,TEXT_EDGES_SUSPECT(edge_ratio=9.6%) | CHROMA_RESIDUE(count=361),pending_review
+map/icon_room_upgrade.png,CHROMA_RESIDUE(count=576),pending_review
+map/map_line.png,HARD_ALPHA_EDGE(partial=100.0%),pending_review
+map/map_node_unknown.png,CHROMA_RESIDUE(count=124),pending_review
+map/map_panel.png,SKULL_SUSPECT(white=63.2% dark=1.5%) | HARD_ALPHA_EDGE(partial=25.6%),pending_review
+settings/btn_close.png,CHROMA_RESIDUE(count=159),pending_review
+settlement/result_panel.png,CHROMA_RESIDUE(count=7545),pending_review
+settlement/settlement_bg.jpg,CHROMA_RESIDUE(count=46147),pending_review
+shop/icon_coin.png,TEXT_EDGES_SUSPECT(edge_ratio=8.5%),pending_review
+shop/shop_shelf_panel.png,HARD_ALPHA_EDGE(partial=45.8%),pending_review
+splash/splash_bg.jpg,SKULL_SUSPECT(white=7.2% dark=2.2%) | CHROMA_RESIDUE(count=1491),pending_review
+splash/splash_logo.png,CHROMA_RESIDUE(count=47659) | HARD_ALPHA_EDGE(partial=70.0%),pending_review
+upgrade/card_frame_common.png,CHROMA_RESIDUE(count=6838),pending_review
+upgrade/card_frame_epic.png,CHROMA_RESIDUE(count=1578),pending_review
+upgrade/card_frame_rare.png,CHROMA_RESIDUE(count=41375),pending_review
+upgrade/icon_ability_bullettime.png,SKULL_SUSPECT(white=13.1% dark=2.5%) | CHROMA_RESIDUE(count=19156),pending_review
+upgrade/icon_ability_doublestrike.png,SKULL_SUSPECT(white=25.4% dark=2.7%) | CHROMA_RESIDUE(count=14077),pending_review
+upgrade/icon_ability_elementresonance.png,CHROMA_RESIDUE(count=8278),pending_review
+upgrade/icon_ability_firewalker.png,SKULL_SUSPECT(white=7.0% dark=7.0%) | TEXT_EDGES_SUSPECT(edge_ratio=12.1%) | CHROMA_RESIDUE(count=522) | HARD_ALPHA_EDGE(partial=16.4%),pending_review
+upgrade/icon_ability_frostbite.png,SKULL_SUSPECT(white=23.7% dark=2.4%) | TEXT_EDGES_SUSPECT(edge_ratio=14.1%) | CHROMA_RESIDUE(count=10775) | HARD_ALPHA_EDGE(partial=30.8%),pending_review
+upgrade/icon_ability_holyshield.png,CHROMA_RESIDUE(count=1464) | HARD_ALPHA_EDGE(partial=16.9%),pending_review
+upgrade/icon_ability_lifestealaura.png,SKULL_SUSPECT(white=12.7% dark=1.7%) | CHROMA_RESIDUE(count=13808) | HARD_ALPHA_EDGE(partial=15.6%),pending_review
+upgrade/icon_ability_phasewalk.png,SKULL_SUSPECT(white=12.9% dark=2.5%) | CHROMA_RESIDUE(count=21997),pending_review
+upgrade/icon_ability_ricochet.png,SKULL_SUSPECT(white=42.2% dark=3.5%) | CHROMA_RESIDUE(count=4750),pending_review
+upgrade/icon_ability_shieldreflect.png,SKULL_SUSPECT(white=22.3% dark=1.6%) | CHROMA_RESIDUE(count=7977),pending_review
+upgrade/icon_ability_sprint.png,SKULL_SUSPECT(white=11.5% dark=5.6%) | TEXT_EDGES_SUSPECT(edge_ratio=14.4%) | CHROMA_RESIDUE(count=6647) | HARD_ALPHA_EDGE(partial=27.1%),pending_review
+upgrade/icon_ability_warcry.png,SKULL_SUSPECT(white=10.9% dark=1.8%) | CHROMA_RESIDUE(count=12695),pending_review
+upgrade/icon_relic_blinkstone.png,SKULL_SUSPECT(white=21.8% dark=3.2%) | CHROMA_RESIDUE(count=12837),pending_review
+upgrade/icon_relic_decoyscroll.png,SKULL_SUSPECT(white=38.5% dark=5.1%) | CHROMA_RESIDUE(count=128),pending_review
+upgrade/icon_relic_echoorb.png,SKULL_SUSPECT(white=25.7% dark=1.9%) | CHROMA_RESIDUE(count=8719),pending_review
+upgrade/icon_relic_flamering.png,SKULL_SUSPECT(white=20.1% dark=2.8%) | TEXT_EDGES_SUSPECT(edge_ratio=11.9%) | CHROMA_RESIDUE(count=1090) | HARD_ALPHA_EDGE(partial=18.2%),pending_review
+upgrade/icon_relic_frenzyaxe.png,SKULL_SUSPECT(white=9.4% dark=5.4%) | TEXT_EDGES_SUSPECT(edge_ratio=13.1%) | CHROMA_RESIDUE(count=1472) | HARD_ALPHA_EDGE(partial=33.6%),pending_review
+upgrade/icon_relic_frostamulet.png,TEXT_EDGES_SUSPECT(edge_ratio=17.1%) | CHROMA_RESIDUE(count=12081) | HARD_ALPHA_EDGE(partial=21.2%),pending_review
+upgrade/icon_relic_gravitystone.png,SKULL_SUSPECT(white=16.5% dark=3.2%) | TEXT_EDGES_SUSPECT(edge_ratio=8.4%) | CHROMA_RESIDUE(count=977) | HARD_ALPHA_EDGE(partial=20.9%),pending_review
+upgrade/icon_relic_immortalstone.png,CHROMA_RESIDUE(count=1377) | HARD_ALPHA_EDGE(partial=20.8%),pending_review
+upgrade/icon_relic_ironarmor.png,SKULL_SUSPECT(white=13.0% dark=8.6%) | CHROMA_RESIDUE(count=4526),pending_review
+upgrade/icon_relic_lifelink.png,SKULL_SUSPECT(white=28.8% dark=3.8%) | TEXT_EDGES_SUSPECT(edge_ratio=8.9%) | CHROMA_RESIDUE(count=8623),pending_review
+upgrade/icon_relic_luckycoin.png,CHROMA_RESIDUE(count=1522) | HARD_ALPHA_EDGE(partial=17.0%),pending_review
+upgrade/icon_relic_shadowcloak.png,CHROMA_RESIDUE(count=1635) | HARD_ALPHA_EDGE(partial=16.8%),pending_review
+upgrade/icon_relic_shadowdagger.png,SKULL_SUSPECT(white=9.4% dark=6.7%) | TEXT_EDGES_SUSPECT(edge_ratio=20.8%) | CHROMA_RESIDUE(count=1269) | HARD_ALPHA_EDGE(partial=27.4%),pending_review
+upgrade/icon_relic_speedgauntlet.png,SKULL_SUSPECT(white=30.0% dark=2.0%) | CHROMA_RESIDUE(count=5564),pending_review
+upgrade/icon_relic_thornarmor.png,SKULL_SUSPECT(white=5.2% dark=19.0%) | TEXT_EDGES_SUSPECT(edge_ratio=11.9%) | CHROMA_RESIDUE(count=5318),pending_review
+upgrade/icon_relic_timehourglass.png,TEXT_EDGES_SUSPECT(edge_ratio=13.5%) | CHROMA_RESIDUE(count=6348) | HARD_ALPHA_EDGE(partial=19.6%),pending_review
+upgrade/icon_upgrade_agileboots.png,SKULL_SUSPECT(white=7.7% dark=36.7%) | TEXT_EDGES_SUSPECT(edge_ratio=15.7%) | CHROMA_RESIDUE(count=1222),pending_review
+upgrade/icon_upgrade_greedring.png,SKULL_SUSPECT(white=16.8% dark=50.6%) | TEXT_EDGES_SUSPECT(edge_ratio=10.8%) | CHROMA_RESIDUE(count=147),pending_review
+upgrade/icon_upgrade_ironwall.png,SKULL_SUSPECT(white=5.7% dark=16.7%) | CHROMA_RESIDUE(count=1627),pending_review
+upgrade/icon_upgrade_lifecharm.png,TEXT_EDGES_SUSPECT(edge_ratio=13.1%) | CHROMA_RESIDUE(count=1781),pending_review
+upgrade/icon_upgrade_longarm.png,TEXT_EDGES_SUSPECT(edge_ratio=13.7%) | CHROMA_RESIDUE(count=1672),pending_review
+upgrade/icon_upgrade_meleeboost.png,TEXT_EDGES_SUSPECT(edge_ratio=10.6%) | CHROMA_RESIDUE(count=452),pending_review
+upgrade/icon_upgrade_movespeed.png,SKULL_SUSPECT(white=58.8% dark=3.6%) | TEXT_EDGES_SUSPECT(edge_ratio=12.2%),pending_review
+upgrade/icon_upgrade_rangedboost.png,SKULL_SUSPECT(white=76.0% dark=1.4%) | TEXT_EDGES_SUSPECT(edge_ratio=9.3%),pending_review
+upgrade/icon_upgrade_skillslot.png,TEXT_EDGES_SUSPECT(edge_ratio=8.5%),pending_review
+upgrade/icon_upgrade_windstep.png,SKULL_SUSPECT(white=13.4% dark=38.9%) | TEXT_EDGES_SUSPECT(edge_ratio=12.6%) | CHROMA_RESIDUE(count=3376),pending_review
+upgrade/upgrade_bg.jpg,SKULL_SUSPECT(white=22.7% dark=3.2%) | CHROMA_RESIDUE(count=28994),pending_review

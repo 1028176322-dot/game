@@ -5,7 +5,7 @@ check_assets_registry.py — Resource registry integrity gate
 Checks assets.json / ui_assets.json / disk file 3-way consistency, plus:
   1. disk_exists_but_not_registered — file on disk but missing from assets.json
   2. registered_but_missing_file — entry in assets.json but file missing on disk
-  3. ui_assets_type_invalid — type not in allowed set (sprite/nine_slice/icon/background)
+  3. ui_assets_type_invalid — type not in allowed set (sprite/sliced/nine_slice/icon/background)
   4. ui_assets_assetId_missing — assetId referenced by ui_assets.json not in assets.json
   5. binder_key_orphaned — UISkinBinder.assetKey / apply() call referencing unknown key
   6. ui_assets_key_unused — key defined in ui_assets but never referenced by any .ts file
@@ -39,7 +39,7 @@ OUTPUT_DIR = SCRIPT_DIR / "output"
 
 SUPPORTED_EXTENSIONS = {".png", ".jpg", ".jpeg"}
 SKIP_DIRS = {"__MACOSX"}
-ALLOWED_UI_TYPES = {"sprite", "nine_slice", "icon", "background"}
+ALLOWED_UI_TYPES = {"sprite", "sliced", "nine_slice", "icon", "background"}
 
 # -- Scan helpers --
 
@@ -160,7 +160,7 @@ def check_nine_slice_spriteborders(ui_assets: dict) -> list:
     """
     warnings = []
     for key, defn in ui_assets.items():
-        if defn.get("type") == "nine_slice":
+        if defn.get("type") in {"sliced", "nine_slice"}:
             # Check if the source texture is in the common/panel directory
             aid = defn.get("assetId", "")
             if "panel" in aid or "frame" in aid or "bg" in aid:

@@ -2,7 +2,7 @@
   "metadata": {
     "tool": "check_assets_registry.py",
     "version": "2.0.0",
-    "timestamp": "2026-07-07T20:56:22.836440"
+    "timestamp": "2026-07-08T10:30:01.600573"
   },
   "registry": {
     "disk_exists_but_not_registered": [],
@@ -15,151 +15,7 @@
     "ui_assets_total": 153,
     "ui_assets_assetId_not_in_assets_json": []
   },
-  "ui_assets_type_issues": [
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "ui.shop.coin_panel",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    },
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "ui.hud.hpbar_frame",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    },
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "ui.splash.loading_bar",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    },
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "ui.equipment.set_counter_bg",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    },
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "ui.login.agreement_strip",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    },
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "character.card.default",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    },
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "character.card.selected",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    },
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "ui.area.route_card",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    },
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "ui.area.route_card_locked",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    },
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "ui.settlement.reward_strip",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    },
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "ui.event.choice_card",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    },
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "ui.log.stat_row",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    },
-    {
-      "type": "ui_assets_type_invalid",
-      "key": "ui.create.input_name",
-      "value": "sliced",
-      "allowed": [
-        "background",
-        "icon",
-        "nine_slice",
-        "sprite"
-      ]
-    }
-  ],
+  "ui_assets_type_issues": [],
   "binder_key_check": {
     "binder_key_orphaned": [],
     "total_referenced": 2,
@@ -330,15 +186,33 @@
         "key": "ui.panel.frame",
         "assetId": "textures/ui/common/panel_bg",
         "note": "Verify Sprite borders (9-slice) are configured in .meta"
+      },
+      {
+        "type": "nine_slice_requires_border",
+        "key": "ui.shop.coin_panel",
+        "assetId": "textures/ui/shop/coin_panel",
+        "note": "Verify Sprite borders (9-slice) are configured in .meta"
+      },
+      {
+        "type": "nine_slice_requires_border",
+        "key": "ui.hud.hpbar_frame",
+        "assetId": "textures/ui/hud/hud_hpbar_frame",
+        "note": "Verify Sprite borders (9-slice) are configured in .meta"
+      },
+      {
+        "type": "nine_slice_requires_border",
+        "key": "ui.equipment.set_counter_bg",
+        "assetId": "textures/ui/equipment/set_counter_bg",
+        "note": "Verify Sprite borders (9-slice) are configured in .meta"
       }
     ],
-    "total_nine_slice_entries": 1
+    "total_nine_slice_entries": 4
   },
   "summary": {
     "total_issues": 0,
-    "type_validation_errors": 13,
+    "type_validation_errors": 0,
     "orphaned_binder_keys": 0,
     "unused_ui_asset_keys": 153,
-    "nine_slice_review_needed": 1
+    "nine_slice_review_needed": 4
   }
 }

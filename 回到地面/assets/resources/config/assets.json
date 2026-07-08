@@ -1817,8 +1817,8 @@
         },
         "textures/ui/main/main_bg": {
             "bundle": "resources",
-            "type": "SpriteFrame",
-            "path": "textures/ui/main/main_bg/spriteFrame"
+            "type": "Texture2D",
+            "path": "textures/ui/main/main_bg"
         },
         "textures/ui/main/main_titledeco": {
             "bundle": "resources",
@@ -2162,8 +2162,8 @@
         },
         "textures/ui/login/login_bg": {
             "bundle": "resources",
-            "type": "SpriteFrame",
-            "path": "textures/ui/login/login_bg/spriteFrame"
+            "type": "Texture2D",
+            "path": "textures/ui/login/login_bg"
         },
         "textures/ui/login/login_panel": {
             "bundle": "resources",
@@ -2317,8 +2317,8 @@
         },
         "textures/ui/log/log_bg": {
             "bundle": "resources",
-            "type": "SpriteFrame",
-            "path": "textures/ui/log/log_bg/spriteFrame"
+            "type": "Texture2D",
+            "path": "textures/ui/log/log_bg"
         },
         "textures/ui/log/log_book_panel": {
             "bundle": "resources",
@@ -2402,8 +2402,8 @@
         },
         "textures/ui/equipment/equipment_bg": {
             "bundle": "resources",
-            "type": "SpriteFrame",
-            "path": "textures/ui/equipment/equipment_bg/spriteFrame"
+            "type": "Texture2D",
+            "path": "textures/ui/equipment/equipment_bg"
         },
         "textures/ui/equipment/inventory_panel": {
             "bundle": "resources",
@@ -2422,8 +2422,8 @@
         },
         "textures/ui/upgrade/upgrade_bg": {
             "bundle": "resources",
-            "type": "SpriteFrame",
-            "path": "textures/ui/upgrade/upgrade_bg/spriteFrame"
+            "type": "Texture2D",
+            "path": "textures/ui/upgrade/upgrade_bg"
         },
         "textures/ui/event/btn_continue": {
             "bundle": "resources",
@@ -2437,8 +2437,8 @@
         },
         "textures/ui/event/event_bg": {
             "bundle": "resources",
-            "type": "SpriteFrame",
-            "path": "textures/ui/event/event_bg/spriteFrame"
+            "type": "Texture2D",
+            "path": "textures/ui/event/event_bg"
         },
         "textures/ui/event/event_panel": {
             "bundle": "resources",
