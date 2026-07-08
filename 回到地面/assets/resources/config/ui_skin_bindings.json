@@ -16,6 +16,7 @@
         "Canvas/MainUI/SettingsBtn": "ui.main.settings_button",
 
         "Canvas/LoginPanel/PanelRoot/PanelFrame": "ui.panel.frame",
+        "Canvas/CreatePanel/PanelRoot/CreateBackground": "ui.create.bg",
         "Canvas/CreatePanel/PanelRoot/PanelFrame/ContentRoot/ActionZone/ConfirmBtn": "ui.create.confirm_btn",
         "Canvas/CreatePanel/PanelRoot/PanelFrame/ContentRoot/ActionZone/SkipBtn": "ui.create.skip_btn",
         "Canvas/CharacterPanel/PanelRoot/PanelFrame": "ui.panel.frame",

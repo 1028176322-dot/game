@@ -2,7 +2,7 @@
   "metadata": {
     "tool": "check_assets_registry.py",
     "version": "2.0.0",
-    "timestamp": "2026-07-08T10:30:01.600573"
+    "timestamp": "2026-07-08T11:52:13.460160"
   },
   "registry": {
     "disk_exists_but_not_registered": [],
@@ -18,7 +18,7 @@
   "ui_assets_type_issues": [],
   "binder_key_check": {
     "binder_key_orphaned": [],
-    "total_referenced": 2,
+    "total_referenced": 3,
     "total_matched_in_ui_assets": 0
   },
   "unused_key_check": {

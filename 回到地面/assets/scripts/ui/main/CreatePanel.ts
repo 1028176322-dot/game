@@ -16,7 +16,7 @@
  *   - ActionZone / ConfirmBtn + SkipBtn + ErrorLabel
  *   - NameInput, only active during naming phase
  *
- * Skin keys used: ui.main.character_button
+ * Skin keys used: ui.create.class_btn, ui.create.class_btn_selected, ui.create.confirm_btn, ui.create.skip_btn
  */
 
 import { _decorator, Component, Node, Label, Button, EditBox, Sprite, Color, UITransform, HorizontalTextAlignment, VerticalTextAlignment } from 'cc';
@@ -303,7 +303,7 @@ export class CreatePanel extends Component implements UIPanel {
      *
      * Structure per button:
      *   Btn_{id} (CARD_WIDTH x BUTTON_HEIGHT)
-     *   - Sprite: ui.main.character_button skin, tinted on selection.
+     *   - Sprite: ui.create.class_btn / ui.create.class_btn_selected skin.
      *   - Label: class name from text.json.
      */
     private _buildCards(): void {
@@ -325,8 +325,9 @@ export class CreatePanel extends Component implements UIPanel {
             trans.setContentSize(CARD_WIDTH, BUTTON_HEIGHT);
 
             const sprite = btnNode.addComponent(Sprite);
-            sprite.color = new Color(0xFF, 0xFF, 0xFF, 0x30);
-            void UISkinService.instance.applyOptional(btnNode, 'ui.main.character_button');
+            sprite.color = Color.WHITE;
+            // Apply default (unselected) skin; selection state is refreshed below.
+            void UISkinService.instance.applyOptional(btnNode, 'ui.create.class_btn');
 
             btnNode.addComponent(Button);
 
@@ -451,13 +452,12 @@ export class CreatePanel extends Component implements UIPanel {
     private _refreshSelectedButtonState(): void {
         for (const card of this._classCards) {
             const selected = card.name === `Btn_${this._selectedId}`;
-            const sprite = card.getComponent(Sprite);
 
-            if (sprite) {
-                sprite.color = selected
-                    ? new Color(255, 255, 255, 255)
-                    : new Color(180, 180, 180, 255);
-            }
+            // Apply the correct skin for selected/unselected state.
+            void UISkinService.instance.applyOptional(
+                card,
+                selected ? 'ui.create.class_btn_selected' : 'ui.create.class_btn'
+            );
 
             card.setScale(selected ? 1.06 : 1, selected ? 1.06 : 1, 1);
         }
