@@ -156,7 +156,12 @@ export class MonsterController extends Component {
     }
 
     private _dieVisual(): void {
-        tween(this.node).to(0.3, { scale: new Vec3(0, 0, 1) }).call(() => this.node.destroy()).start();
+        this._flashWhite();
+        tween(this.node)
+            .to(0.05, { scale: new Vec3(1.2, 1.2, 1) })
+            .to(0.25, { scale: new Vec3(0, 0, 1) })
+            .call(() => { if (this.node.isValid) this.node.destroy(); })
+            .start();
     }
 
     private _scalePulse(): void {

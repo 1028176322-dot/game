@@ -277,7 +277,7 @@ export class ShopUI extends Component {
         node.addChild(descNode);
         const descLabel = descNode.addComponent(Label);
         descLabel.string = desc;
-        descLabel.fontSize = 11;
+        descLabel.fontSize = 13;
         descLabel.color = new Color(180, 180, 180);
 
         // 状态/按钮
@@ -308,7 +308,7 @@ export class ShopUI extends Component {
         node.addChild(lineNode);
         const lineLabel = lineNode.addComponent(Label);
         lineLabel.string = '───';
-        lineLabel.fontSize = 8;
+        lineLabel.fontSize = 12;
         lineLabel.color = new Color(60, 60, 60);
 
         return node;

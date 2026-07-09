@@ -147,10 +147,10 @@ export class EquipmentView extends Component {
         bg.addComponent(Sprite).color = new Color(50, 50, 50, 200);
         root.addChild(bg);
         const nameN = new Node('name'); root.addChild(nameN);
-        const label = nameN.addComponent(Label); label.fontSize = 12; label.color = Color.WHITE;
+        const label = nameN.addComponent(Label); label.fontSize = 14; label.color = Color.WHITE;
         const slotN = new Node('slotName'); slotN.setPosition(0, -16); root.addChild(slotN);
         const sLabel = slotN.addComponent(Label); sLabel.string = SLOT_NAMES[slot] ?? slot;
-        sLabel.fontSize = 10; sLabel.color = Color.GRAY;
+        sLabel.fontSize = 12; sLabel.color = Color.GRAY;
         root.on(Node.EventType.TOUCH_END, () => this._onSlotClick?.(slot));
         return { root, label };
     }

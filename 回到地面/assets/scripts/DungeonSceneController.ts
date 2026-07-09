@@ -19,6 +19,7 @@ import { EquipmentSystem } from './battle/EquipmentSystem';
 import { EventSystem } from './battle/EventSystem';
 import { ItemSystem } from './battle/ItemSystem';
 import { MutationManager } from './battle/MutationManager';
+import { CombatEffectService } from './battle/CombatEffectService';
 import { EquipmentUI } from './ui/EquipmentUI';
 import { EventUI } from './ui/EventUI';
 import { MarqueeUI } from './ui/MarqueeUI';
@@ -188,6 +189,7 @@ export class DungeonSceneController extends Component {
         player.init(gridManager);
         skillSystem.init(player);
         battleManager.init(player, gridManager, refs.actorLayer);
+        CombatEffectService.instance.init(player.node);
         this.upgradeManager?.init(player, skillSystem, autoAttack, battleManager);
         this.elementSystem?.init(player, battleManager);
         this.equipmentSystem?.init(player);

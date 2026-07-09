@@ -32,7 +32,6 @@ TEXTURES_DIR = os.path.join(PROJECT_ROOT, "assets/resources/textures")
 ASSETS_JSON = os.path.join(PROJECT_ROOT, "assets/resources/config/assets.json")
 UI_ASSETS_JSON = os.path.join(PROJECT_ROOT, "assets/resources/config/ui_assets.json")
 GAME_ASSETS_JSON = os.path.join(PROJECT_ROOT, "assets/resources/config/game_assets.json")
-# prompts.json 在父目录的公共资源目录下
 PROMPTS_JSON = os.path.join(os.path.dirname(PROJECT_ROOT), "assets/resources/config/prompts.json")
 MASTER_DIR = os.path.join(PROJECT_ROOT, "art_source/textures_review/master")
 CANDIDATES_DIR = os.path.join(PROJECT_ROOT, "art_source/textures_review/runtime_candidates")
@@ -44,90 +43,231 @@ PROGRESS_FILE = os.path.join(PROJECT_ROOT, "art_source/textures_review/art_pipel
 API_URL = "https://apihub.agnes-ai.com/v1/images/generations"
 API_KEY = os.environ.get("AGNES_API_KEY", "")
 
-# ── 编辑性常量（提示词工程参数，非数据） ──────────────────
+# ── 权威来源路径 ──────────────────────────────────────────
+ART_RULES_PATH = r"E:/game/.workbuddy/memory/topics/ART_RESOURCE_RULES.md"
 
-STYLE_ANCHOR = (
-    "Bright colorful cartoon adventure game art, playful mobile game look, "
-    "clean high-resolution rounded shapes, warm friendly forms, saturated colors, "
-    "soft highlights, readable silhouettes, consistent with the forest-and-gem interface style."
+# ── 从 ART_RESOURCE_RULES.md 第15节加载所有管线参数 ──────
+
+_PIPELINE_CFG_CACHE = None
+
+def _load_pipeline_config():
+    """从 ART_RESOURCE_RULES.md 第15节 JSON 代码块加载管线参数。
+    
+    权威来源：ART_RESOURCE_RULES.md → 十五、Pipeline 实现参数
+    编辑该节后必须 `npm.cmd run validate:all` 验证解析一致。
+    """
+    global _PIPELINE_CFG_CACHE
+    if _PIPELINE_CFG_CACHE is not None:
+        return _PIPELINE_CFG_CACHE
+
+    if not os.path.isfile(ART_RULES_PATH):
+        print(f"[WARN] ART_RESOURCE_RULES.md not found, using fallback constants", file=sys.stderr)
+        _PIPELINE_CFG_CACHE = _FALLBACK_PIPELINE_CFG()
+        return _PIPELINE_CFG_CACHE
+
+    try:
+        with open(ART_RULES_PATH, "r", encoding="utf-8") as f:
+            text = f.read()
+    except OSError as e:
+        print(f"[WARN] Cannot read ART_RESOURCE_RULES.md: {e}", file=sys.stderr)
+        _PIPELINE_CFG_CACHE = _FALLBACK_PIPELINE_CFG()
+        return _PIPELINE_CFG_CACHE
+
+    # Extract the JSON block from Section 15 — between ```json and ```
+    m = re.search(r"```json\s*\n(.*?)\n```", text, re.DOTALL)
+    if not m:
+        print(f"[WARN] No JSON config block found in ART_RESOURCE_RULES.md, using fallback", file=sys.stderr)
+        _PIPELINE_CFG_CACHE = _FALLBACK_PIPELINE_CFG()
+        return _PIPELINE_CFG_CACHE
+
+    try:
+        cfg = json.loads(m.group(1))
+        _PIPELINE_CFG_CACHE = cfg
+        return cfg
+    except json.JSONDecodeError as e:
+        print(f"[WARN] JSON parse error in ART_RESOURCE_RULES.md: {e}", file=sys.stderr)
+        _PIPELINE_CFG_CACHE = _FALLBACK_PIPELINE_CFG()
+        return _PIPELINE_CFG_CACHE
+
+
+def _FALLBACK_PIPELINE_CFG():
+    """回退默认值（当规则文件解析失败时使用）。"""
+    return {
+        "style_anchor": "Bright cheerful hand-painted cartoon game art, rounded friendly shapes, saturated colors, soft highlights, clean mobile readability, polished look.",
+        "safety_block": "Warm cheerful family-friendly fantasy art style, clean shapes and readable silhouettes, suitable for mobile game UI and backgrounds.",
+        "detail_anchors": {
+            "bosses": "Full-body boss sprite, large readable silhouette, simple exaggerated shapes, bright material colors.",
+            "monsters": "Small full-body enemy sprite, readable at 128px, simple pose, one creature only.",
+            "characters": "Full-body character sprite sheet with multiple frames stacked vertically, each frame on plain solid background.",
+            "effects": "Clean VFX, bold center shape per frame, simple particle clusters, rich clean color gradients.",
+            "icons": "Icon asset, single centered object with transparent margin.",
+            "tiles": "Seamless ground tile texture at 96px, natural ground crack patterns, stone grain marks, and soil texture variations distributed evenly, tileable edges, consistent natural ground color per region, pure ground material only.",
+            "ui": "UI asset, clean alpha edges, centered with transparent margin.",
+            "backgrounds": "Full opaque rectangular painted scene filling the entire canvas.",
+        },
+        "transparent_categories": ["effects", "icons", "ui", "monsters", "bosses", "characters"],
+        "matte_categories": ["icons", "ui", "monsters", "bosses", "characters"],
+        "procedural_categories": [],
+        "ornament_types": ["ui", "icons"],
+        "overscan_factor": 1.8,
+        "min_opaque_ratio": {"icons": 0.15, "ui": 0.02, "monsters": 0.08, "bosses": 0.05, "characters": 0.08, "effects": 0.02},
+        "palette_retry_steps": {"effects": [64, 48, 32], "icons": [128, 96, 64, 48], "ui": [128, 96, 64, 48], "monsters": [128, 96, 64], "characters": [256, 192, 128], "bosses": [256, 192, 128]},
+        "ui_kit_default_dims": {"btn": [240, 80], "card": [260, 96], "panel": [360, 200], "input": [260, 44], "slot": [92, 92]},
+    }
+
+
+def _pc(key, default=None):
+    """安全读取管线配置项。"""
+    return _load_pipeline_config().get(key, default)
+
+
+# ── 管线配置常量（从 ART_RESOURCE_RULES.md 第15节读取，回退到 _fallback） ──
+
+STYLE_ANCHOR = _pc("style_anchor", "")
+SAFETY_BLOCK = _pc("safety_block", "")
+DETAIL_ANCHORS = _pc("detail_anchors", {})
+TRANSPARENT_CATEGORIES = set(_pc("transparent_categories", []))
+MATTE_CATEGORIES = set(_pc("matte_categories", []))
+PROCEDURAL_CATEGORIES = set(_pc("procedural_categories", []))
+MIN_OPAQUE_RATIO = _pc("min_opaque_ratio", {})
+PALETTE_RETRY_STEPS = _pc("palette_retry_steps", {})
+ORNAMENT_TYPES = set(_pc("ornament_types", []))
+OVERSCAN_FACTOR = _pc("overscan_factor", 1.8)
+# 推荐生成尺寸（来自 ART_RESOURCE_RULES.md 3.2 节，按分类取高画质版本）
+RECOMMENDED_SIZES = _pc("recommended_sizes", {})
+
+UI_KIT_DEFAULT_DIMS = _pc("ui_kit_default_dims", {})
+
+# ── UI 组件程序化匹配正则（执行逻辑，非配置） ──
+KIND_PROCEDURAL_UI = re.compile(
+    r"^(?:ui/(?:.*/)?.*?(?:btn_|button_|panel|card|frame|slot|input_|name_|strip_|row_|bar_))"
 )
 
-SAFETY_BLOCK = (
-    "Unified safety direction: warm cheerful family-friendly fantasy matching the project's forest-and-gem interface style, "
-    "flowers, leaves, crystals, stars, paw marks, magic sparkles, gems, ribbons, and polished toy-like props, "
-    "pure visual fantasy decoration, clear blank areas for engine-rendered text overlay."
-)
+# ── 体积预算：从 ART_RESOURCE_RULES.md 读取 ──────────────
+# 权威来源：E:/game/.workbuddy/memory/topics/ART_RESOURCE_RULES.md → 九、体积与性能策略
+# 如果解析失败，回退到静态默认值。
 
-DETAIL_ANCHORS = {
-    "bosses": "Full-body boss sprite, large readable silhouette, simple exaggerated shapes, clear head-body-limb separation, bright material colors, 12 percent transparent margin.",
-    "monsters": "Small full-body enemy sprite, readable at 128px, simple pose, one creature only, chunky outline, clear attack-facing silhouette, friendly arcade adventure proportions.",
-    "effects": "Clean VFX, bold center shape per frame, simple particle clusters, rich clean color gradients, high readability over gameplay, smooth transparent edges.",
-    "icons": "Standalone item icon, one object only, thick outline, simple inner highlights, recognizable at 64px, centered with transparent margin, clear contrast against matte background.",
-    "tiles": "Tiny 32px top-down gameplay tile, readable material pattern, tileable edges, simple clean cartoon material patches, consistent color family per region.",
-    "ui": "Reusable clean UI piece, clean beveled shape, soft highlight, simple border, empty content area where needed, consistent warm forest adventure UI palette.",
-    "backgrounds": "Full opaque rectangular scene filling the entire canvas; no transparency, single complete painted scene background, no isolated cutout, no empty border. Keep a clean readable center area for gameplay.",
+# 静态预算默认值（当规则文件解析失败时使用）
+_FALLBACK_BUDGET = {
+    "backgrounds":  {"warning": 800,    "hard": 1500},
+    "ui":           {"warning": 500,    "hard": 800},
+    "icons":        {"warning": 60,     "hard": 180},
+    "characters":   {"warning": 500,    "hard": 1200},
+    "monsters":     {"warning": 350,    "hard": 900},
+    "bosses":       {"warning": 1200,   "hard": 2500},
+    "effects":      {"warning": 250,    "hard": 700},
+    "tiles":        {"warning": 40,     "hard": 120},
 }
-
-TRANSPARENT_CATEGORIES = {"effects", "icons", "ui", "monsters", "bosses", "characters"}
-MATTE_CATEGORIES = {"icons", "ui", "monsters", "bosses", "characters"}
-PROCEDURAL_CATEGORIES = {"tiles"}
-
-MIN_OPAQUE_RATIO = {
-    "icons": 0.20, "ui": 0.02, "monsters": 0.08,
-    "bosses": 0.05, "characters": 0.08,
-}
-
-PALETTE_RETRY_STEPS = {
-    "backgrounds": (256, 192, 128, 64, 32),
-    "effects": (64, 48, 32),
-    "icons": (128, 96, 64, 48),
-    "ui": (128, 96, 64, 48),
-    "monsters": (128, 96, 64),
-    "characters": (256, 192, 128),
-    "bosses": (256, 192, 128),
-}
-
-# ── BUDGET_LIMITS：从 prompts.json 实际文件尺寸动态计算 ──
-# 不在脚本中硬编码，也不在外部配文件中中转。
-# 每次启动时扫描磁盘文件统计，自动适配。
 
 _BUDGET_CACHE = None
 
-def _calc_budget():
-    """扫描 prompts.json 对应磁盘文件，按类别统计实际尺寸，计算预算。"""
-    global _BUDGET_CACHE
-    if _BUDGET_CACHE is not None:
-        return _BUDGET_CACHE
-    prompts = load_prompts()
-    cat_sizes = {}
-    for key in prompts:
-        fp = os.path.join(TEXTURES_DIR, key)
-        if os.path.isfile(fp):
-            sz = os.path.getsize(fp) / 1024
-            cat = key.split("/")[0]
-            cat_sizes.setdefault(cat, []).append(sz)
+def _parse_art_rules_budget():
+    """从 ART_RESOURCE_RULES.md 解析体积预算表。"""
+    if not os.path.isfile(ART_RULES_PATH):
+        print(f"[WARN] ART_RESOURCE_RULES.md not found, using fallback budget", file=sys.stderr)
+        return dict(_FALLBACK_BUDGET)
+
+    try:
+        with open(ART_RULES_PATH, "r", encoding="utf-8") as f:
+            text = f.read()
+    except OSError as e:
+        print(f"[WARN] Cannot read ART_RESOURCE_RULES.md: {e}", file=sys.stderr)
+        return dict(_FALLBACK_BUDGET)
+
+    # Parse the budget table in Section 9.2.
+    # Table format (4 columns after split by |):
+    #   类型         推荐范围        可接受           人工确认上限
+    #   全屏背景 JPG  300-800KB     800KB-1.2MB     1.5MB
+    #   战斗背景 JPG  250-600KB     600KB-1MB       1.2MB
+    #   UI 大面板 PNG 80-250KB      250-500KB       800KB
+    #   UI 小按钮 PNG 20-100KB      100-180KB       250KB
+    #   角色 sprite  150-500KB     500-900KB       1.2MB
+    #   Boss sprite  400KB-1.2MB   1.2-1.8MB       2.5MB
+    #   普通怪物 PNG  100-350KB     350-600KB       900KB
+    #   特效 sprite  80-250KB      250-450KB       700KB
+    #   图标 PNG     15-60KB       60-120KB        180KB
+    #   Tile PNG     5-40KB        40-80KB         120KB
+
+    category_map = {
+        "全屏背景": "backgrounds",
+        "战斗背景": "backgrounds",
+        "UI 大面板": "ui",
+        "UI 小按钮": "ui",
+        "角色 sprite": "characters",
+        "Boss sprite": "bosses",
+        "普通怪物": "monsters",
+        "特效 sprite": "effects",
+        "图标": "icons",
+        "Tile": "tiles",
+    }
+
+    def parse_kb(s):
+        """Parse a size like '800KB', '1.2MB' to KB int."""
+        s = s.strip()
+        m = re.match(r"([\d.]+)\s*(KB|MB)", s)
+        if not m:
+            return None
+        val = float(m.group(1))
+        if m.group(2) == "MB":
+            val *= 1024
+        return int(round(val))
+
+    def parse_warn(s):
+        """Parse '可接受' column like '800KB-1.2MB', '100-180KB' → return upper bound."""
+        s = s.strip()
+        parts = s.split("-")
+        if len(parts) != 2:
+            return None
+        return parse_kb(parts[1])
 
     result = {}
-    for cat, sizes in cat_sizes.items():
-        sizes.sort()
-        n = len(sizes)
-        p75 = sizes[3 * n // 4]
-        mx = sizes[-1]
-        warn = int(math.ceil(p75 / 5) * 5)
-        hard = int(math.ceil(mx * 1.3 / 5) * 5)
-        result[cat] = {"warning": warn, "hard": max(hard, warn + 5)}
+    # For categories with multiple rows (e.g. backgrounds → 全屏背景/战斗背景), take the LARGER budget
+    for line in text.split("\n"):
+        if not line.startswith("|") or line.count("|") < 4:
+            continue
+        cols = [c.strip() for c in line.split("|")]
+        if len(cols) < 5:
+            continue
+        name = cols[1]
+        matched_cat = None
+        for keyword, cat in category_map.items():
+            if keyword in name:
+                matched_cat = cat
+                break
+        if not matched_cat:
+            continue
 
-    # 确保所有类别都有预算（包括磁盘上可能暂无文件的）
-    for cat in list(DETAIL_ANCHORS.keys()) + ["characters"]:
-        if cat not in result:
-            result[cat] = {"warning": 64, "hard": 256}
+        warn = parse_warn(cols[3])
+        hard = parse_kb(cols[4])
+        if warn is None or hard is None:
+            continue
 
-    _BUDGET_CACHE = result
+        # Merge: if category already has a value, take LARGER budget
+        existing = result.get(matched_cat)
+        if existing:
+            warn = max(warn, existing["warning"])
+            hard = max(hard, existing["hard"])
+        result[matched_cat] = {"warning": warn, "hard": hard}
+
+    if not result:
+        print(f"[WARN] Could not parse budget from ART_RESOURCE_RULES.md, using fallback", file=sys.stderr)
+        return dict(_FALLBACK_BUDGET)
+
     return result
 
+def _to_kb(val_str, unit):
+    """Convert KB/MB string to KB integer."""
+    val = float(val_str)
+    if unit.upper() == "MB":
+        val *= 1024
+    return int(round(val))
+
 def budget_limits(category):
-    """获取某类别的体积预算。"""
-    return _calc_budget().get(category, {"warning": 64, "hard": 256})
+    """获取某类别的体积预算，从 ART_RESOURCE_RULES.md 读取。"""
+    global _BUDGET_CACHE
+    if _BUDGET_CACHE is None:
+        _BUDGET_CACHE = _parse_art_rules_budget()
+    return _BUDGET_CACHE.get(category, {"warning": 64, "hard": 256})
 
 # ── 状态常量 ──────────────────────────────────────────────
 ST_PLANNED = "planned"
@@ -202,25 +342,71 @@ def find_dimension_in_prompt(prompt):
     return None
 
 
+def resolve_target_size(category, key, default=(128, 128)):
+    """确定生成目标尺寸。优先级：推荐尺寸 → prompt提取 → 默认值。
+    
+    来源链：
+      1. ART_RESOURCE_RULES.md 第3.2节推荐尺寸（按分类取高画质版本）——质量目标
+      2. prompts.json 中的 Target canvas: WxH（由 find_dimension_in_prompt 提取）
+      3. 回退 128x128
+    """
+    # 1. 检查规则文件中的推荐尺寸（最高优先级）
+    if category in RECOMMENDED_SIZES:
+        return tuple(RECOMMENDED_SIZES[category])
+    # 2. 检查 UI Kit 默认尺寸（按钮/卡片/面板等）
+    for kit_name, dims in UI_KIT_DEFAULT_DIMS.items():
+        if kit_name in key:
+            return tuple(dims)
+    # fallback 留给调用方处理（prompts.json 提取或 128x128）
+    return None
+
+
 def classify_resource(key):
-    """根据资源 key 判断类别和用途。"""
+    """根据资源 key 判断类别和用途。返回包含 asset_kind 的 dict。"""
     parts = key.split("/")
     category = parts[0] if len(parts) > 1 else "other"
+    # 整屏背景即使在 ui 目录下也按 backgrounds 处理
+    if key.endswith("_bg.jpg") or key.endswith("_bg.png"):
+        category = "backgrounds"
+
+    # 判定 asset_kind（决定生成方式和验证门禁）
+    if category == "backgrounds":
+        asset_kind = "background"
+    elif category == "tiles":
+        asset_kind = "tile"
+    elif category == "icons" or (category == "ui" and "/icon_" in key):
+        asset_kind = "icon"
+    elif category == "characters":
+        asset_kind = "character"
+    elif category == "monsters":
+        asset_kind = "monster"
+    elif category == "bosses":
+        asset_kind = "boss"
+    elif category == "effects":
+        asset_kind = "effect"
+    elif category == "ui" and KIND_PROCEDURAL_UI.match(key):
+        asset_kind = "procedural_ui"
+    else:
+        # 兜底：不匹配 KIND_PROCEDURAL_UI 的 UI 资源走 AI（如 area_badge）
+        asset_kind = "icon" if category == "ui" else "icon"
+
+    # 判定生成方式：统一从规则文件读取 PROCEDURAL_CATEGORIES
+    # (asset_kind 保留给验证门禁用，不决定生成方式)
+    is_procedural = category in PROCEDURAL_CATEGORIES or bool(KIND_PROCEDURAL_UI.match(key))
+
     # 细分 ui 下面的子类
     sub_category = "/".join(parts[:2]) if len(parts) > 1 else ""
-    is_ui = category == "ui"
-    is_bg = key.startswith("backgrounds/")
-    is_procedural = category in PROCEDURAL_CATEGORIES
     filename = parts[-1]
     ext = os.path.splitext(filename)[1].lower()
     return {
         "key": key,
         "category": category,
+        "asset_kind": asset_kind,
         "sub_category": sub_category,
         "filename": filename,
         "ext": ext,
-        "is_ui": is_ui,
-        "is_bg": is_bg,
+        "is_ui": category == "ui",
+        "is_bg": category == "backgrounds",
         "is_procedural": is_procedural,
     }
 
@@ -383,52 +569,108 @@ def download_image(url, output_path):
         return False, str(e)
 
 
-def generate_procedural(resource_info, output_path):
-    """调用 generate_panel.py 生成程序化面板。"""
-    script = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)),
-        "..",
-        ".workbuddy",
-        "skills",
-        "art-pipeline",
-        "scripts",
-        "generate_panel.py",
-    )
-    # 如果技能脚本不在项目中，回退到用户级 skill 目录
-    if not os.path.isfile(script):
-        script = os.path.join(
-            os.path.expanduser("~"),
-            ".workbuddy",
-            "skills",
-            "art-pipeline",
-            "scripts",
-            "generate_panel.py",
-        )
-    if not os.path.isfile(script):
-        return False, "找不到 generate_panel.py"
+# ── UI Kit 风格默认尺寸 ──
+UI_KIT_DEFAULT_DIMS = {
+    "btn": (240, 80),
+    "card": (260, 96),
+    "panel": (360, 200),
+    "input": (260, 44),
+    "slot": (92, 92),
+}
 
-    # 从文件名推断尺寸
+
+def _infer_ui_kit_params(key, textures_dir=TEXTURES_DIR):
+    """从资源 key 推断 UI Kit 生成参数（style / dim / selected / no_leaves / no_gems）。
+
+    优先读取 textures_dir 中已有文件的尺寸，否则使用风格默认值。
+    """
+    filename = os.path.basename(key)
+
+    # —— 风格推断 ——
+    if filename.startswith("btn_") or filename.startswith("button_"):
+        style = "btn"
+    elif filename.startswith("card_") or filename.startswith("character_card_"):
+        style = "card"
+    elif filename.startswith("route_card_"):
+        style = "panel"
+    elif filename.startswith("panel_") or filename.startswith("frame_"):
+        style = "panel"
+    elif filename.startswith("input_") or filename.startswith("name_"):
+        style = "input"
+    elif filename.startswith("slot_"):
+        style = "slot"
+    else:
+        style = "panel"
+
+    # —— 尺寸推断：优先已有文件，否则用风格默认 ——
+    textures_path = os.path.join(textures_dir, key)
+    if os.path.isfile(textures_path):
+        try:
+            from PIL import Image as _PIL
+            existing = _PIL.open(textures_path)
+            dim = (existing.width, existing.height)
+        except Exception:
+            dim = UI_KIT_DEFAULT_DIMS.get(style, (240, 80))
+    else:
+        dim = UI_KIT_DEFAULT_DIMS.get(style, (240, 80))
+
+    # —— 选中态 / 锁定态 ——
+    selected = "_selected" in filename or "_active" in filename
+    locked = "_locked" in filename or "_lock" in filename
+
+    # —— 装饰开关 ——
+    no_leaves = style in ("input", "slot")
+    no_gems = style == "slot"
+
+    return style, dim, selected, locked, no_leaves, no_gems
+
+
+def generate_procedural(resource_info, output_path):
+    """调用 ui_kit_generator.py 生成程序化 UI 组件（替代旧 generate_panel.py）。"""
+    # 定位 UI Kit 生成器脚本
+    candidates = [
+        os.path.join(_SCRIPT_DIR, "ui_kit_generator.py"),
+        os.path.join(PROJECT_ROOT, "tools", "ui_kit_generator.py"),
+    ]
+    script = None
+    for c in candidates:
+        if os.path.isfile(c):
+            script = c
+            break
+    if not script:
+        return False, "找不到 ui_kit_generator.py"
+
     key = resource_info["key"]
-    dim = find_dimension_in_prompt(
-        load_prompts().get(key, "")) or (360, 200)
+    style, dim, selected, locked, no_leaves, no_gems = _infer_ui_kit_params(key)
+
+    # UI Kit 生成器内部加 8px PADDING 透明边距（每边 8px，共 16px）。
+    # 需传入缩小后的 content 尺寸，使最终输出 = 目标尺寸。
+    content_w = max(dim[0] - 16, 32)
+    content_h = max(dim[1] - 16, 16)
 
     cmd = [
         sys.executable, script,
-        "--width", str(dim[0]),
-        "--height", str(dim[1]),
+        "--width", str(content_w),
+        "--height", str(content_h),
+        "--style", style,
         "--output", output_path,
-        "--seed", "20260708",
+        "--seed", "20260709",
     ]
-    # 输入框不要叶子装饰
-    if "input" in key or "name_input" in key:
+    if selected and style in ("btn", "card", "panel"):
+        cmd.append("--selected")
+    if locked and style in ("card", "panel"):
+        cmd.append("--locked")
+    if no_leaves:
         cmd.append("--no-leaves")
+    if no_gems:
+        cmd.append("--no-gems")
 
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
         if result.returncode != 0:
             return False, result.stderr[:300]
         if not os.path.isfile(output_path):
-            return False, "脚本未生成文件"
+            return False, "ui_kit_generator.py 未生成文件"
         return True, None
     except subprocess.TimeoutExpired:
         return False, "脚本超时"
@@ -477,21 +719,120 @@ def crop_to_target_aspect(img, target_size):
         return img.crop((0, top, sw, top + new_h))
 
 
+def fit_rgba_to_canvas(img, target_size, margin_ratio=0.10, resample=Image.LANCZOS, max_scale=1.0):
+    """Center the subject in target_size canvas with transparent margin.
+
+    Finds the alpha bounding box of the subject, scales it to fit within
+    target_size minus margin, and centers it with transparent padding on all sides.
+    This replaces center-crop for transparent UI assets: instead of cropping
+    to aspect, it preserves the full subject and adds breathing room.
+    margin_ratio = what fraction of the shorter edge is reserved as transparent padding.
+    """
+    if img.mode == "RGB":
+        img = img.convert("RGBA")
+
+    # Find alpha bbox
+    alpha = img.split()[3]
+    bbox = alpha.getbbox()
+    if not bbox:
+        # Fully transparent — blank canvas
+        return Image.new("RGBA", target_size, (0, 0, 0, 0))
+
+    subject = img.crop(bbox)
+    sw, sh = subject.size
+    tw, th = target_size
+
+    # Calculate inner area with margin
+    margin_w = int(tw * margin_ratio * 2)
+    margin_h = int(th * margin_ratio * 2)
+    inner_w = max(tw - margin_w, tw // 4)
+    inner_h = max(th - margin_h, th // 4)
+
+    # Scale subject to fit inner area (preserving aspect)
+    scale = min(inner_w / sw, inner_h / sh, max_scale)
+    new_w = max(int(sw * scale), 1)
+    new_h = max(int(sh * scale), 1)
+    subject_resized = subject.resize((new_w, new_h), resample)
+
+    # Center on canvas
+    canvas = Image.new("RGBA", target_size, (0, 0, 0, 0))
+    x = (tw - new_w) // 2
+    y = (th - new_h) // 2
+    canvas.paste(subject_resized, (x, y), subject_resized)
+    return canvas
+
+
 def remove_matte_background(img):
-    """Remove solid matte backgrounds from AI-generated images via flood-fill from edges."""
+    """Remove solid matte backgrounds from AI-generated images via edge-based flood-fill.
+    
+    Steps:
+    1. Sample ALL edge pixels (not just 4 corners) to build a color histogram
+    2. Pick the 1-2 most common edge colors as the "background" color(s)
+    3. Flood-fill from the edges matching those colors within threshold
+    4. If insufficient background removal, fall back to a wider sampling
+    
+    This avoids both:
+    - Old flood-fill bug: taking only 4 corners that might be scene colors
+    - Global key bug: eating into monster body parts that match background color
+    """
     rgba = img.convert("RGBA")
     pixels = rgba.load()
     w, h = rgba.size
-    corner_colors = [pixels[0, 0][:3], pixels[w - 1, 0][:3],
-                     pixels[0, h - 1][:3], pixels[w - 1, h - 1][:3]]
 
-    def bg_match(x, y):
+    # --- Step 1: Build edge color histogram ---
+    # Sample all 4 edges (not just corners) to find real background color(s)
+    step = max(1, min(w, h) // 100)  # sample ~100 per edge
+    edge_colors = {}
+    
+    def _sample_edge(x, y):
         r, g, b, a = pixels[x, y]
         if a == 0:
-            return True
-        return any(sum((int(r) - int(c[i]))**2 for i in range(3)) ** 0.5 <= 72
-                   for c in corner_colors)
+            return
+        bucket = (r // 16 * 16, g // 16 * 16, b // 16 * 16)  # finer 16-level buckets
+        edge_colors[bucket] = edge_colors.get(bucket, 0) + 1
+    
+    # Top edge
+    for x in range(0, w, step):
+        _sample_edge(x, 0)
+    # Bottom edge
+    for x in range(0, w, step):
+        _sample_edge(x, h - 1)
+    # Left edge
+    for y in range(0, h, step):
+        _sample_edge(0, y)
+    # Right edge
+    for y in range(0, h, step):
+        _sample_edge(w - 1, y)
 
+    if not edge_colors:
+        return rgba
+
+    # --- Step 2: Find most common edge background color(s) ---
+    sorted_colors = sorted(edge_colors.items(), key=lambda x: -x[1])
+    
+    # Use top-2 most common edge colors as background candidates
+    bg_threshold = 72  # RGB Euclidean distance
+    bg_colors = []
+    for bucket, count in sorted_colors[:2]:
+        # Only use if it's significantly present (>5% of edge samples)
+        if count > max(1, sum(edge_colors.values()) * 0.05):
+            center = (bucket[0] + 8, bucket[1] + 8, bucket[2] + 8)
+            bg_colors.append(center)
+    
+    if not bg_colors:
+        # Fallback: use first bucket anyway
+        center = (sorted_colors[0][0][0] + 8, sorted_colors[0][0][1] + 8, sorted_colors[0][0][2] + 8)
+        bg_colors.append(center)
+
+    def _is_bg(r, g, b):
+        """Check if pixel matches any background color within threshold."""
+        for bc in bg_colors:
+            dist = ((r - bc[0]) ** 2 + (g - bc[1]) ** 2 + (b - bc[2]) ** 2) ** 0.5
+            if dist <= bg_threshold:
+                return True
+        return False
+
+    # --- Step 3: Flood-fill from edges ---
     stack = []
     seen = set()
     for x in range(w):
@@ -501,16 +842,71 @@ def remove_matte_background(img):
         stack.append((0, y))
         stack.append((w - 1, y))
 
+    removed_count = 0
     while stack:
         x, y = stack.pop()
         if x < 0 or y < 0 or x >= w or y >= h or (x, y) in seen:
             continue
         seen.add((x, y))
-        if not bg_match(x, y):
+        r, g, b, a = pixels[x, y]
+        if a == 0:
             continue
-        r, g, b, _ = pixels[x, y]
+        if not _is_bg(r, g, b):
+            continue
         pixels[x, y] = (r, g, b, 0)
+        removed_count += 1
         stack.extend([(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)])
+
+    # --- Step 4 (fallback): If flood-fill barely removed anything (< 5% of image),
+    # the subject likely fills the entire canvas with no visible matte.
+    # In that case, aggressively remove edge pixels that are "more background-like"
+    # than their neighbors (thin halos around edges).
+    total_px = w * h
+    if removed_count < total_px * 0.03:
+        # Wider sampling: find top 3 colors in the whole edge region (outer 10%)
+        wide_colors = {}
+        margin_x = max(w // 10, 5)
+        margin_y = max(h // 10, 5)
+        for y in range(0, h):
+            for x in range(0, w):
+                if min(x, y, w - x - 1, h - y - 1) > margin_x:
+                    continue
+                r, g, b, a = pixels[x, y]
+                if a == 0:
+                    continue
+                bucket = (r // 16 * 16, g // 16 * 16, b // 16 * 16)
+                wide_colors[bucket] = wide_colors.get(bucket, 0) + 1
+        
+        if wide_colors:
+            sorted_wide = sorted(wide_colors.items(), key=lambda x: -x[1])
+            for bucket, count in sorted_wide[:3]:
+                if count > max(1, sum(wide_colors.values()) * 0.03):
+                    center = (bucket[0] + 8, bucket[1] + 8, bucket[2] + 8)
+                    bg_colors.append(center)
+            
+            # Re-flood with wider colors
+            second_stack = []
+            second_seen = set()
+            for x in range(w):
+                second_stack.append((x, 0))
+                second_stack.append((x, h - 1))
+            for y in range(h):
+                second_stack.append((0, y))
+                second_stack.append((w - 1, y))
+            
+            while second_stack:
+                x, y = second_stack.pop()
+                if x < 0 or y < 0 or x >= w or y >= h or (x, y) in second_seen:
+                    continue
+                second_seen.add((x, y))
+                r, g, b, a = pixels[x, y]
+                if a == 0:
+                    continue
+                if not _is_bg(r, g, b):
+                    continue
+                pixels[x, y] = (r, g, b, 0)
+                second_stack.extend([(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)])
+
     return rgba
 
 
@@ -547,6 +943,198 @@ def feather_alpha(img, radius=0.8):
     return Image.merge("RGBA", (r, g, b, a))
 
 
+def validate_edge_transparent(img):
+    """Check that a transparent resource has proper transparent margin.
+
+    Layer 2 gate checks:
+    - Outer 2px: non-transparent pixel ratio <= 1%
+    - Four corners 8x8: non-transparent ratio <= 1%
+    - Subject alpha bbox has >= 6px padding from all 4 edges
+
+    Returns (pass: bool, issues: list[str]).
+    """
+    issues = []
+    if img.mode != "RGBA":
+        return True, issues
+
+    w, h = img.size
+    pixels = img.load()
+
+    def _ratio_in_area(x1, y1, x2, y2):
+        opaque = 0
+        total = 0
+        for y in range(max(y1, 0), min(y2, h)):
+            for x in range(max(x1, 0), min(x2, w)):
+                total += 1
+                if pixels[x, y][3] > 0:
+                    opaque += 1
+        return opaque / total if total > 0 else 0.0
+
+    # Outer 2px strip on all 4 edges
+    top_r = _ratio_in_area(0, 0, w, 2)
+    bot_r = _ratio_in_area(0, h - 2, w, h)
+    lft_r = _ratio_in_area(0, 2, 2, h - 2)
+    rgt_r = _ratio_in_area(w - 2, 2, w, h - 2)
+    max_edge_ratio = max(top_r, bot_r, lft_r, rgt_r)
+    if max_edge_ratio > 0.01:
+        issues.append(
+            f"边缘透明不足: 最外2px非透明率{max_edge_ratio:.1%}"
+            f" (T{top_r:.1%}/B{bot_r:.1%}/L{lft_r:.1%}/R{rgt_r:.1%})"
+        )
+
+    # Four 8x8 corners
+    corners = [(0, 0), (w - 8, 0), (0, h - 8), (w - 8, h - 8)]
+    for cx, cy in corners:
+        cr = _ratio_in_area(cx, cy, min(cx + 8, w), min(cy + 8, h))
+        if cr > 0.01:
+            issues.append(f"角({cx},{cy})非透明率{cr:.1%}")
+            break
+
+    # Subject alpha bbox padding
+    alpha = img.split()[3]
+    alpha_bbox = alpha.getbbox()
+    if alpha_bbox:
+        l, t, r, b = alpha_bbox
+        pad_l, pad_t = l, t
+        pad_r, pad_b = w - r, h - b
+        min_pad = min(pad_l, pad_t, pad_r, pad_b)
+        if min_pad < 6:
+            issues.append(
+                f"主体留边不足: L{pad_l}/T{pad_t}/R{pad_r}/B{pad_b} (min={min_pad}px)"
+            )
+
+    return len(issues) == 0, issues
+
+
+def validate_visual_quality(img, category, filename=""):
+    """Visual quality gate for ALL resource types.
+
+    Universal checks (all types):
+    - Global brightness: not all dark / all light / all single color
+    - Global variance: image should not be a solid block (too flat/blank)
+
+    Transparent resources extra:
+    - Subject proportion: subject should occupy a reasonable portion
+    - Subject centering: alpha bbox should not be severely off-center
+
+    Type-specific:
+    - Button/card/panel: center region blank (low variance)
+    - Backgrounds: enough scene detail (variance above threshold)
+    """
+    issues = []
+    if img.mode not in ("RGBA", "RGB"):
+        return True, issues
+
+    w, h = img.size
+    pixels = img.load()
+    total = w * h
+    is_transparent = img.mode == "RGBA"
+
+    # Collect opaque pixel data
+    opaque_pixels = []
+    opaque_count = 0
+    for y in range(h):
+        for x in range(w):
+            r, g, b = pixels[x, y][:3]
+            if is_transparent:
+                a = pixels[x, y][3] if len(pixels[x, y]) > 3 else 255
+                if a < 16:
+                    continue
+            opaque_pixels.append((r, g, b))
+            opaque_count += 1
+
+    # --- 1. Universal: brightness and flatness ---
+    if opaque_count > 0:
+        avg_r = sum(p[0] for p in opaque_pixels) / opaque_count
+        avg_g = sum(p[1] for p in opaque_pixels) / opaque_count
+        avg_b = sum(p[2] for p in opaque_pixels) / opaque_count
+        avg_luma = avg_r * 0.299 + avg_g * 0.587 + avg_b * 0.114
+
+        if avg_luma < 30:
+            issues.append("brightness_too_dark: avg luma {:.0f}".format(avg_luma))
+        elif avg_luma > 230:
+            issues.append("brightness_too_bright: avg luma {:.0f}".format(avg_luma))
+
+        var_r = sum((p[0] - avg_r) ** 2 for p in opaque_pixels) / opaque_count
+        var_g = sum((p[1] - avg_g) ** 2 for p in opaque_pixels) / opaque_count
+        var_b = sum((p[2] - avg_b) ** 2 for p in opaque_pixels) / opaque_count
+        avg_std = ((var_r + var_g + var_b) / 3) ** 0.5
+
+        if avg_std < 15:
+            issues.append("image_too_flat: color std {:.0f}".format(avg_std))
+    else:
+        issues.append("no_opaque_pixels: image is fully transparent")
+
+    # --- 2. Transparent: subject centering ---
+    if is_transparent:
+        from PIL import Image as _PIL
+        _, _, _, alpha = img.split()
+        bbox = alpha.getbbox()
+        if bbox:
+            l, t, r, b_ = bbox
+            sb_w = r - l
+            sb_h = b_ - t
+            ratio = (sb_w * sb_h) / total
+            if ratio < 0.01 and opaque_count > 0:
+                issues.append("subject_too_small: {:.1%} of canvas".format(ratio))
+            cx_img = w / 2
+            cy_img = h / 2
+            cx_sb = (l + r) / 2
+            cy_sb = (t + b_) / 2
+            offset_x = abs(cx_sb - cx_img) / w
+            offset_y = abs(cy_sb - cy_img) / h
+            if offset_x > 0.25 or offset_y > 0.25:
+                issues.append("subject_off_center: h{:.0%}/v{:.0%}".format(offset_x, offset_y))
+
+    # --- 3. Button/card/panel: center blank check ---
+    is_blank_type = any(tag in filename for tag in
+        ["btn_", "card_", "panel_", "frame_", "input_", "name_", "strip_"])
+    if category in ORNAMENT_TYPES and is_blank_type:
+        cx, cy = w // 2, h // 2
+        cw, ch = max(w // 4, 8), max(h // 4, 8)
+        x1 = max(cx - cw // 2, 0)
+        y1 = max(cy - ch // 2, 0)
+        x2 = min(cx + cw // 2, w)
+        y2 = min(cy + ch // 2, h)
+
+        cv = []
+        for y in range(y1, y2):
+            for x in range(x1, x2):
+                if is_transparent and pixels[x, y][3] < 128:
+                    continue
+                cv.append((pixels[x, y][0], pixels[x, y][1], pixels[x, y][2]))
+
+        if cv:
+            mr = sum(v[0] for v in cv) / len(cv)
+            mg = sum(v[1] for v in cv) / len(cv)
+            mb = sum(v[2] for v in cv) / len(cv)
+            vr = sum((v[0] - mr) ** 2 for v in cv) / len(cv)
+            vg = sum((v[1] - mg) ** 2 for v in cv) / len(cv)
+            vb = sum((v[2] - mb) ** 2 for v in cv) / len(cv)
+            center_std = ((vr + vg + vb) / 3) ** 0.5
+            if center_std > 30:
+                issues.append("center_not_blank: color std {:.0f}".format(center_std))
+
+    # --- 4. Background: scene detail check ---
+    if category == "backgrounds" and opaque_count > 0:
+        if avg_std < 25:
+            issues.append("background_low_detail: color std {:.0f}".format(avg_std))
+
+    # --- 5. Chroma residuals (transparent only) ---
+    if is_transparent:
+        chroma_count = 0
+        for y in range(h):
+            for x in range(w):
+                if pixels[x, y][3] == 0:
+                    pr, pg, pb = pixels[x, y][:3]
+                    if (pr >= 210 and pb >= 170 and pg <= 95) or (pg >= 210 and pr <= 95 and pb <= 95):
+                        chroma_count += 1
+        if chroma_count > 10:
+            issues.append("chroma_residuals: {} transparent pixels magenta/green".format(chroma_count))
+
+    return len(issues) == 0, issues
+
+
 def reduce_palette(img, max_colors):
     """Reduce color count to fit within budget. Returns (new_img, actual_colors)."""
     if img.mode != "RGBA":
@@ -564,32 +1152,48 @@ def reduce_palette(img, max_colors):
 
 
 def post_process_generated(master_path, target_size, category, output_path,
-                           max_kb=120):
-    """Full post-processing pipeline: resize → matte removal → alpha feather
-    → chroma cleanup → palette reduction → size check with retry.
+                           max_kb=120, overscan_factor=1.0):
+    """Full post-processing pipeline: overscan crop -> matte removal -> alpha feather
+    -> chroma cleanup -> fit_rgba_to_canvas -> palette reduction -> size check.
+
+    For ornament/border type resources, overscan_factor > 1 means the API
+    generated at a larger canvas; we crop to target and fit with margin.
 
     Returns (ok: bool, error_or_warning: str, final_size_kb: int).
     """
     img = Image.open(master_path)
 
-    # Step 1: Crop to target aspect ratio from center, then resize
-    img = crop_to_target_aspect(img, target_size)
-    img = img.resize(target_size, Image.LANCZOS)
-
-    # Step 2: Transparent post-processing (categories that need alpha)
+    # Step 1: For transparent categories, use margin-aware fit instead of center-crop
     if category in TRANSPARENT_CATEGORIES:
+        # Apply matte removal and chroma cleanup at full resolution first
         if category in MATTE_CATEGORIES:
             img = remove_matte_background(img)
         img = remove_chroma_pixels(img)
-        # Ensure RGBA
         if img.mode != "RGBA":
             img = img.convert("RGBA")
-        # Feather alpha to create smooth edge transitions (passes validate_technical)
-        img = feather_alpha(img, radius=0.8)
-    elif category == "backgrounds":
-        # Backgrounds are opaque RGB
-        if img.mode != "RGB":
-            img = img.convert("RGB")
+
+        # Fit to target canvas with margin:
+        # 装饰框/UI/icon 需要较宽透明边距；角色/怪物/BOSS/特效应几乎铺满画布
+        if category in ORNAMENT_TYPES:
+            margin_ratio = 0.12
+            resample = Image.LANCZOS
+            max_scale = 1.0
+        else:
+            margin_ratio = 0.0
+            resample = Image.NEAREST
+            max_scale = 1.5
+        img = fit_rgba_to_canvas(img, target_size, margin_ratio, resample, max_scale)
+
+        # Feather alpha for smooth edge transitions (仅装饰框/UI/icon 需要柔边)
+        if category in ORNAMENT_TYPES:
+            img = feather_alpha(img, radius=0.8)
+    else:
+        # Backgrounds: center-crop to aspect then resize
+        img = crop_to_target_aspect(img, target_size)
+        img = img.resize(target_size, Image.LANCZOS)
+        if category == "backgrounds":
+            if img.mode != "RGB":
+                img = img.convert("RGB")
 
     # Step 3: Palette reduction if over budget
     max_colors = PALETTE_RETRY_STEPS.get(category, (256, 128, 64))
@@ -646,13 +1250,15 @@ def post_process_generated(master_path, target_size, category, output_path,
     return True, f"size_warning:{fsize/1024:.0f}KB>{max_kb}KB" if fsize > max_kb * 1024 else "", fsize / 1024
 
 
-def validate_technical(filepath, expected_size=None, max_kb=None, category=None):
+def validate_technical(filepath, expected_size=None, max_kb=None, category=None,
+                       asset_kind=None):
     """技术门禁检查。返回 (pass, issues_list)。
 
     Enhanced checks:
     - File existence
     - Image dimensions match expected
     - Mode is RGBA or RGB (not indexed/CMYK)
+    - Filename conforms to naming convention: lowercase letters, digits, underscores only
     - For transparent categories: alpha has smooth edges, not hard 0/255 cut
     - For transparent categories: subject has minimum opaque pixel ratio
     - File volume within budget
@@ -662,6 +1268,12 @@ def validate_technical(filepath, expected_size=None, max_kb=None, category=None)
     if not os.path.isfile(filepath):
         issues.append("文件不存在")
         return False, issues
+
+    # 命名规范检查（ART_RESOURCE_RULES.md Section 6: lowercase + digits + underscores only）
+    filename = os.path.basename(filepath)
+    name_no_ext = os.path.splitext(filename)[0]
+    if not re.match(r"^[a-z0-9_]+$", name_no_ext):
+        issues.append(f"文件名不合规: {filename}（必须小写英文+数字+下划线）")
 
     fsize = os.path.getsize(filepath)
     try:
@@ -678,16 +1290,23 @@ def validate_technical(filepath, expected_size=None, max_kb=None, category=None)
     if img.mode not in ("RGBA", "RGB"):
         issues.append(f"模式异常: {img.mode}（应为 RGBA 或 RGB）")
 
+    # 程序化 UI 走轻量验证（不检查 alpha/边缘/Chroma）
+    if asset_kind == "procedural_ui":
+        if max_kb and fsize > max_kb * 1024:
+            issues.append(f"体积超标: {fsize / 1024:.1f}KB > {max_kb}KB")
+        return len(issues) == 0, issues
+
     # 透明相关检查
     if img.mode == "RGBA":
         r, g, b, a = img.split()
         a_data = list(a.getdata())
         total_pixels = len(a_data)
 
-        # 硬切边检查
-        mid_count = sum(1 for v in a_data if 0 < v < 255)
-        if mid_count == 0 and total_pixels > 0:
-            issues.append("Alpha 硬切边: 没有 0<v<255 的过渡像素")
+        # 硬切边检查（仅装饰框/UI/icon 需要渐变过渡）
+        if category in ORNAMENT_TYPES:
+            mid_count = sum(1 for v in a_data if 0 < v < 255)
+            if mid_count == 0 and total_pixels > 0:
+                issues.append("Alpha 硬切边: 没有 0<v<255 的过渡像素")
 
         # 透明类别：检查是否完全透明（opaque ratio）
         if category and category in MIN_OPAQUE_RATIO:
@@ -696,6 +1315,12 @@ def validate_technical(filepath, expected_size=None, max_kb=None, category=None)
             min_ratio = MIN_OPAQUE_RATIO.get(category, 0)
             if ratio < min_ratio:
                 issues.append(f"不透明像素比例过低: {ratio:.1%} < {min_ratio:.0%}（可能全透明或只有微量主体）")
+
+        # 边缘透明检查（Layer 2 门禁：仅装饰框/UI/icon 需要严格留边）
+        if category in ORNAMENT_TYPES:
+            edge_ok, edge_issues = validate_edge_transparent(img)
+            if not edge_ok:
+                issues.extend(edge_issues)
 
         # Chroma 残留检查（alpha=0 的像素不应是纯品红/绿/青色）
         rgba_pixels = img.load()
@@ -714,6 +1339,19 @@ def validate_technical(filepath, expected_size=None, max_kb=None, category=None)
                 break
         if chroma_found:
             issues.append("Chroma 残留: 透明像素中存在品红/绿色")
+
+        # 视觉质量门禁
+        fname = os.path.basename(filepath)
+        vq_ok, vq_issues = validate_visual_quality(img, category, fname)
+        if not vq_ok:
+            issues.extend(vq_issues)
+
+    # 对 RGB（背景）也做视觉质量检查
+    if img.mode == "RGB":
+        fname = os.path.basename(filepath)
+        vq_ok, vq_issues = validate_visual_quality(img, category, fname)
+        if not vq_ok:
+            issues.extend(vq_issues)
 
     # 体积检查
     if max_kb and fsize > max_kb * 1024:
@@ -801,17 +1439,6 @@ def cmd_generate(args):
 
     print(f"Generate: 计划处理 {len(keys_to_process)} 个资源")
 
-    max_kb_map = {
-        "backgrounds": 180,
-        "ui": 120,
-        "icons": 32,
-        "characters": 80,
-        "monsters": 80,
-        "bosses": 180,
-        "effects": 60,
-        "tiles": 8,
-    }
-
     succeed = 0
     failed = 0
     skipped = 0
@@ -830,7 +1457,7 @@ def cmd_generate(args):
                 continue
 
         # 失败次数过多则跳过
-        if entry.get("failCount", 0) >= 3 and not args.force:
+        if entry.get("failCount", 0) >= 2 and not args.force:
             print(f"  → 跳过 (已失败 {entry['failCount']} 次, 用 --force 强制重试)")
             skipped += 1
             continue
@@ -841,10 +1468,12 @@ def cmd_generate(args):
         ensure_dir(os.path.dirname(master_path))
         ensure_dir(os.path.dirname(candidate_path))
 
-        # 提取目标尺寸
+        # 提取目标尺寸（规则推荐 → prompt提取 → 128x128）
         orig_prompt = prompts.get(key, "")
-        dim = find_dimension_in_prompt(orig_prompt)
-        target_size = dim or (128, 128)  # 找不到就用 128x128
+        target_size = resolve_target_size(info["category"], key)
+        if target_size is None:
+            dim = find_dimension_in_prompt(orig_prompt)
+            target_size = dim or (128, 128)
 
         prompt_hash_val = prompt_hash(orig_prompt)
 
@@ -886,7 +1515,25 @@ def cmd_generate(args):
                 # 构造完整 prompt（使用类别专属的 DETAIL_ANCHORS）
                 detail = DETAIL_ANCHORS.get(info["category"], "")
                 ct_prompt = f"{STYLE_ANCHOR} {orig_prompt} {detail} {SAFETY_BLOCK}"
-                gen_size_str = f"{max(target_size[0], 512)}x{max(target_size[1], 512)}"
+                # 装饰框类按目标纵横比 overscan，给 AI 物理余量
+                if info["category"] in ORNAMENT_TYPES:
+                    tw, th = target_size
+                    scale = 512 / min(tw, th)  # 短边至少 512，保持目标比例
+                    gen_size_str = f"{int(tw * scale)}x{int(th * scale)}"
+                else:
+                    # 角色/怪物/BOSS/特效：生成尺寸按目标等比放大，
+                    # 小 sprite 用更大的源尺寸保证缩回后细节清晰
+                    tw, th = target_size
+                    if tw < 64 or th < 64:
+                        # 极小 sprite（如 48x48）：用 256 作为短边
+                        scale = 256 / min(tw, th)
+                    elif tw < 128 or th < 128:
+                        scale = 3.0
+                    elif tw < 256 or th < 256:
+                        scale = 2.0
+                    else:
+                        scale = 1.5
+                    gen_size_str = f"{int(tw * scale)}x{int(th * scale)}"
 
                 print(f"  → 调用 Agnes API (size={gen_size_str}, category={info['category']})...")
                 url, err = call_agnes_api(ct_prompt, gen_size_str)
@@ -908,8 +1555,10 @@ def cmd_generate(args):
                 # 全流程后处理：缩放 → 抠图 → 去绿幕 → 调色板压缩 → 体积检查
                 budget = budget_limits(info["category"])
                 max_kb = budget.get("hard", 120)
+                overscan_factor = 1.8 if info["category"] in ORNAMENT_TYPES else 1.0
                 ok, warn, final_kb = post_process_generated(
-                    temp_path, target_size, info["category"], master_path, max_kb)
+                    temp_path, target_size, info["category"], master_path, max_kb,
+                    overscan_factor)
                 if os.path.isfile(temp_path):
                     os.remove(temp_path)
                 if not ok:
@@ -987,17 +1636,6 @@ def cmd_validate(args):
 
     print(f"Validate: {len(keys_to_check)} 个资源")
 
-    max_kb_map = {
-        "backgrounds": 180,
-        "ui": 120,
-        "icons": 32,
-        "characters": 80,
-        "monsters": 80,
-        "bosses": 180,
-        "effects": 60,
-        "tiles": 8,
-    }
-
     passed = 0
     failed_count = 0
     for key in keys_to_check:
@@ -1014,14 +1652,21 @@ def cmd_validate(args):
             failed_count += 1
             continue
 
-        # 提取目标尺寸
+        # 提取目标尺寸（与 generate 一致：规则推荐 → prompt → 128x128）
         orig_prompt = prompts.get(key, "")
-        dim = find_dimension_in_prompt(orig_prompt)
+        dim = resolve_target_size(info["category"], key)
+        if dim is None:
+            dim = find_dimension_in_prompt(orig_prompt)
+        if dim is None:
+            dim = (128, 128)
 
-        # 体积预算
-        max_kb = max_kb_map.get(info["category"], 120)
+        # 体积预算（从 ART_RESOURCE_RULES.md 读取）
+        budget = budget_limits(info["category"])
+        max_kb = budget.get("hard", 256)
 
-        ok, issues = validate_technical(check_path, dim, max_kb)
+        ok, issues = validate_technical(check_path, dim, max_kb,
+                                           category=info["category"],
+                                           asset_kind=info.get("asset_kind"))
         if ok:
             progress.update(key, status=ST_VALIDATED,
                             fileHash=file_hash(check_path))

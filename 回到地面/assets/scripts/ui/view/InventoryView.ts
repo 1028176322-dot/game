@@ -71,11 +71,11 @@ export class InventoryView extends Component {
         bg.addComponent(Sprite).color = new Color(40, 40, 40, 180);
         root.addChild(bg);
         const nameN = new Node('name'); root.addChild(nameN);
-        const label = nameN.addComponent(Label); label.fontSize = 11; label.color = Color.WHITE;
+        const label = nameN.addComponent(Label); label.fontSize = 14; label.color = Color.WHITE;
         const countN = new Node('count'); countN.setPosition(20, -20); root.addChild(countN);
-        const countLabel = countN.addComponent(Label); countLabel.fontSize = 10; countLabel.color = Color.YELLOW;
+        const countLabel = countN.addComponent(Label); countLabel.fontSize = 13; countLabel.color = Color.YELLOW;
         const keyN = new Node('key'); keyN.setPosition(0, -28); root.addChild(keyN);
-        const keyLabel = keyN.addComponent(Label); keyLabel.fontSize = 9; keyLabel.color = new Color(150, 150, 150);
+        const keyLabel = keyN.addComponent(Label); keyLabel.fontSize = 12; keyLabel.color = new Color(150, 150, 150);
         root.on(Node.EventType.TOUCH_END, () => this._onSlotClick?.(index));
         return { root, label, countLabel, keyLabel };
     }

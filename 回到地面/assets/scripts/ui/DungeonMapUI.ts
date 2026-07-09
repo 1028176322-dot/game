@@ -71,10 +71,10 @@ export class DungeonMapUI extends Component {
 
         if (!this.mapContainer) return;
 
-        const roomWidth = 40;
-        const roomHeight = 30;
-        const marginX = 60;
-        const marginY = 50;
+        const roomWidth = 64;
+        const roomHeight = 48;
+        const marginX = 80;
+        const marginY = 60;
 
         // 探索者天赋: 显示提示
         const pdm = PlayerDataManager.getInstance();

@@ -31,7 +31,7 @@ const LAYER_NAMES: Record<LayerType, string> = {
 };
 
 const ACTOR_BASE_INDEX = 100;
-const TILE_SIZE = 64;
+const TILE_SIZE = 96;
 
 @ccclass('RuntimeLayerService')
 export class RuntimeLayerService {

@@ -27,6 +27,7 @@ CHECKS = [
     ("资源注册", ["python", "tools/check_assets_registry.py", "--ci"]),
     ("UI皮肤绑定", ["python", "tools/check_ui_skin_bindings.py"]),
     ("非UI资源注册", ["python", "tools/check_game_assets_registry.py"]),
+    ("文档一致性", ["python", "tools/check_doc_consistency.py"]),
 ]
 
 
