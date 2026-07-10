@@ -23,7 +23,7 @@ export const BUILTIN_SHEETS: Record<string, SpriteSheetInfo> = {
     // --- Archer ---
     'textures/characters/archer/archer_idle':     { frameWidth: 192, frameHeight: 192, frameCount: 4 },
     'textures/characters/archer/archer_walk':     { frameWidth: 192, frameHeight: 192, frameCount: 4 },
-    'textures/characters/archer/archer_attack':   { frameWidth: 192, frameHeight: 192, frameCount: 4 },
+    'textures/characters/archer/archer_attack':   { frameWidth: 256, frameHeight: 256, frameCount: 4 },
     'textures/characters/archer/archer_hit':      { frameWidth: 192, frameHeight: 192, frameCount: 4 },
     'textures/characters/archer/archer_dodge':    { frameWidth: 192, frameHeight: 192, frameCount: 4 },
     'textures/characters/archer/archer_skill':    { frameWidth: 192, frameHeight: 192, frameCount: 4 },

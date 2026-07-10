@@ -26,6 +26,10 @@ SHEET_METADATA: dict[str, tuple[int, int, int, str]] = {
     **{f"characters/{c}/{a}": (192, 192, 4, "vertical")
        for c in ["warrior", "archer", "assassin", "berserker", "mage"]
        for a in ["idle", "walk", "attack", "hit", "dodge", "skill", "death"]},
+    # archer_attack regenerated at 256x256 (per ART_RESOURCE_RULES.md section 9/15:
+    # character sprite sheet = 256x1024, 4 frames @ 256x256 vertical). Override to
+    # keep registry aligned with the 256x1024 asset and the current spec.
+    "characters/archer/archer_attack": (256, 256, 4, "vertical"),
 }
 
 

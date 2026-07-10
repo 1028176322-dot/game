@@ -735,8 +735,8 @@
     "type": "sprite_sheet",
     "category": "characters",
     "safeReview": false,
-    "frameWidth": 192,
-    "frameHeight": 192,
+    "frameWidth": 256,
+    "frameHeight": 256,
     "frames": 4,
     "layout": "vertical"
   },

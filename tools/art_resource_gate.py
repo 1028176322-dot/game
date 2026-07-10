@@ -39,6 +39,10 @@ TEXTURES_ROOT = Path("assets/resources/textures")
 RESOURCES_ROOT = Path("assets/resources")
 SEARCH_EXTS = {".scene", ".prefab", ".anim", ".json", ".ts"}
 PNG_EXT = ".png"
+MODELS_ROOT = Path("assets/resources/models")
+PREFABS_ROOT = Path("assets/resources/prefabs")
+GLB_EXT = ".glb"
+PREFAB_EXT = ".prefab"
 OLD_NAME_RE = re.compile(
     r"(^|[_\-. ])(old|backup|bak|copy|tmp|temp|low|lowres|small|48px|draft|test|v\d+)([_\-. ]|$)",
     re.IGNORECASE,
@@ -184,6 +188,53 @@ def scan_pngs(project_root: Path) -> dict[str, PngInfo]:
             info.error = f"{type(exc).__name__}: {exc}"
         pngs[rel_resource_path] = info
     return pngs
+
+
+def load_3d_naming_re(project_root: Path) -> "re.Pattern[str] | None":
+    budget_path = project_root / "assets/resources/config/art_quality_budget.json"
+    if not budget_path.exists():
+        return None
+    try:
+        data = json.loads(read_text(budget_path))
+        pat = data.get("rules3d", {}).get("naming", {}).get("pattern")
+        if pat:
+            return re.compile(pat)
+    except Exception:
+        return None
+    return None
+
+
+def scan_3d(project_root: Path) -> list[dict[str, Any]]:
+    """Audit 3D assets (.glb/.prefab) for meta presence and naming compliance.
+
+    Runs only when assets/resources/models or prefabs exist; safe no-op otherwise.
+    """
+    naming_re = load_3d_naming_re(project_root)
+    results: list[dict[str, Any]] = []
+    assets_root = project_root / "assets"
+    for root in (project_root / MODELS_ROOT, project_root / PREFABS_ROOT):
+        if not root.exists():
+            continue
+        for path in root.rglob("*"):
+            if not path.is_file() or path.suffix.lower() not in (GLB_EXT, PREFAB_EXT):
+                continue
+            rel = path.relative_to(assets_root).as_posix()
+            name = path.name
+            meta_exists = path.with_suffix(path.suffix + ".meta").exists()
+            naming_ok = bool(naming_re and naming_re.match(name))
+            issues: list[str] = []
+            if not meta_exists:
+                issues.append("missing_meta")
+            if not naming_ok:
+                issues.append("naming_noncompliant")
+            results.append({
+                "path": rel,
+                "type": path.suffix.lower(),
+                "meta_exists": meta_exists,
+                "naming_ok": naming_ok,
+                "issues": ";".join(issues),
+            })
+    return results
 
 
 def read_meta(path: Path) -> tuple[bool, str, str, str, str]:
@@ -602,6 +653,29 @@ def main() -> None:
     scan_references(records, project_root)
     assess_records(records, texture_manifest_paths)
     summary = write_outputs(project_root, records, out_dir)
+
+    # 3D asset gate (Phase 0 of 3D upgrade)
+    if (project_root / MODELS_ROOT).exists() or (project_root / PREFABS_ROOT).exists():
+        results_3d = scan_3d(project_root)
+        write_csv(out_dir / "art_resource_gate_3d.csv", results_3d,
+                  ["path", "type", "meta_exists", "naming_ok", "issues"])
+        n3d = len(results_3d)
+        n3d_issue = sum(1 for r in results_3d if r["issues"])
+        report_md = out_dir / "art_resource_gate_report.md"
+        extra = [
+            "",
+            "## 3D 资产门禁",
+            "",
+            f"- 扫描到 3D 资产: {n3d}",
+            f"- 有问题(缺 meta / 命名不合规): {n3d_issue}",
+            "- 输出: `art_resource_gate_3d.csv`",
+        ]
+        if report_md.exists():
+            with report_md.open("a", encoding="utf-8") as f:
+                f.write("\n".join(extra) + "\n")
+        print(f"[3D] scanned={n3d} issues={n3d_issue}")
+    else:
+        print("[3D] no models/prefabs dirs yet; 3D gate skipped")
 
     print("=" * 64)
     print("Art Resource Gate")

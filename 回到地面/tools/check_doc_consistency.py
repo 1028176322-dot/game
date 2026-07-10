@@ -176,6 +176,11 @@ def _resolve_path(ref, skill_path, project_root):
         return os.path.join(project_root, ref)
     if ref.startswith(".workbuddy/"):
         return os.path.join(os.path.dirname(project_root), ref)
+    if ref.startswith("../"):
+        # Resolve relative to PROJECT_ROOT (so `../docs/X` means
+        # parent-of-project/docs/X, e.g. E:/game/docs/X from E:/game/回到地面).
+        # This removes the previous blind spot where `../docs/...` was silently skipped.
+        return os.path.normpath(os.path.join(project_root, ref))
     if ref in ("assets.json", "ui_assets.json", "game_assets.json"):
         return os.path.join(project_root, "assets/resources/config", ref)
     return None
@@ -186,8 +191,16 @@ if os.path.isfile(SKILL_PATH):
 
     # Find all path references in backticks that look like file paths
     refs = re.findall(r"`([^`]+?\.(?:md|json|py|ts|png|txt))`", skill_text)
-    # Also find references with full paths like `E:/...` or `docs/...`
-    refs += re.findall(r"`((?:E:|/|[a-zA-Z]/|docs/|tools/|assets/)[^`]+?)`", skill_text)
+    # Also find references with full paths like `E:/...` or `docs/...` (inline backticks)
+    refs += re.findall(r"`((?:E:|/|[a-zA-Z]/|docs/|tools/|assets/|\.\./)[^`]+?)`", skill_text)
+    # Also extract path-like references INSIDE fenced code blocks
+    # (e.g. the "read these files" ```text list). Previously these were a blind spot.
+    # Only the leading path token per line is captured (stops at whitespace or '#').
+    for _block in re.findall(r"```(?:text|bash)?\s*\n(.*?)```", skill_text, re.DOTALL):
+        for _line in _block.splitlines():
+            _m = re.match(r"\s*((?:E:|/|[a-zA-Z]/|docs/|tools/|assets/|\.\./)[^\s#`]+)", _line)
+            if _m:
+                refs.append(_m.group(1))
     refs = list(set(refs))
     missing_refs = []
     for ref in refs:

@@ -9,8 +9,15 @@ art_pipeline.py — 美术资源生成与入库一体化管线
   - validate   技术门禁（尺寸/格式/Alpha/体积）
   - contact    生成 contact sheet 供人工验收
   - import     将 approved 资源从 master/candidate 复制到正式目录
+               （2D->textures/；3D 模型->models/，prefab->prefabs/）
   - status     打印进度摘要
   - reset      重置某资源或某类资源的进度状态
+
+3D 升级说明（P2）：
+  3D 类别（characters/monsters/bosses/effects/tiles）不经由 Agnes 出图，
+  而是经 Blender->glb->Prefab 流程后由 import 直接入库。generate/validate
+  对 3D 资产自动路由到 3D 门禁（命名+三角面/骨骼/贴图预算，读
+  art_quality_budget.json 的 rules3d）。详见 ART_RESOURCE_RULES.md §16。
 
 断点续执行：
   进度文件 art_source/textures_review/art_pipeline_progress.json
@@ -39,12 +46,32 @@ BACKUP_DIR = os.path.join(PROJECT_ROOT, "art_source/textures_review/backup")
 CONTACTS_DIR = os.path.join(PROJECT_ROOT, "art_source/textures_review/contact_sheets")
 PROGRESS_FILE = os.path.join(PROJECT_ROOT, "art_source/textures_review/art_pipeline_progress.json")
 
+# 3D asset dirs (added in 3D upgrade; see ART_RESOURCE_RULES.md §16).
+# 3D models import to models/, prefabs to prefabs/; 2D still uses textures/.
+MODELS_DIR = os.path.join(PROJECT_ROOT, "assets/resources/models")
+PREFABS_DIR = os.path.join(PROJECT_ROOT, "assets/resources/prefabs")
+MODELS_REL = "assets/resources/models"
+PREFABS_REL = "assets/resources/prefabs"
+# Categories that route through Blender->glb->Prefab instead of Agnes image gen.
+DIM_3D_CATEGORIES = {"characters", "monsters", "bosses", "effects", "tiles"}
+PROMPTS_DIM_JSON = os.path.join(os.path.dirname(PROJECT_ROOT),
+                                "assets/resources/config/prompts_dim.json")
+RULES3D_BUDGET_JSON = os.path.join(os.path.dirname(PROJECT_ROOT),
+                                  "assets/resources/config/art_quality_budget.json")
+# 3D 资产注册表 (由 tools/gen_3d_manifest.py 从 L1 文档生成；单一事实来源)
+MANIFEST_JSON = os.path.join(os.path.dirname(PROJECT_ROOT),
+                             "assets/resources/config/art_3d_manifest.json")
+# 独立 3D 校验器 (GAP 4/8：3D 入库/校验必须复用此单一来源)
+ASSET_VALIDATE_SCRIPT = os.path.join(_SCRIPT_DIR, "asset_validate.py")
+
 # Agnes API: key 从环境变量读取
 API_URL = "https://apihub.agnes-ai.com/v1/images/generations"
 API_KEY = os.environ.get("AGNES_API_KEY", "")
 
 # ── 权威来源路径 ──────────────────────────────────────────
-ART_RULES_PATH = r"E:/game/.workbuddy/memory/topics/ART_RESOURCE_RULES.md"
+# 相对 PROJECT_ROOT 计算（遵循「所有路径相对」约定），避免项目移动即失效
+ART_RULES_PATH = os.path.normpath(os.path.join(
+    PROJECT_ROOT, "..", ".workbuddy", "memory", "topics", "ART_RESOURCE_RULES.md"))
 
 # ── 从 ART_RESOURCE_RULES.md 第15节加载所有管线参数 ──────
 
@@ -138,13 +165,50 @@ RECOMMENDED_SIZES = _pc("recommended_sizes", {})
 
 UI_KIT_DEFAULT_DIMS = _pc("ui_kit_default_dims", {})
 
-# ── UI 组件程序化匹配正则（执行逻辑，非配置） ──
-KIND_PROCEDURAL_UI = re.compile(
-    r"^(?:ui/(?:.*/)?.*?(?:btn_|button_|panel|card|frame|slot|input_|name_|strip_|row_|bar_))"
-)
+# ── 3D/2D dimension routing (P2: 3D upgrade) ──
+_DIM_MAP_CACHE = None
+
+def load_dim_map():
+    """Load prompts_dim.json registry (P1). Non-blocking: empty dict if absent."""
+    global _DIM_MAP_CACHE
+    if _DIM_MAP_CACHE is not None:
+        return _DIM_MAP_CACHE
+    _DIM_MAP_CACHE = {}
+    if os.path.isfile(PROMPTS_DIM_JSON):
+        try:
+            with open(PROMPTS_DIM_JSON, encoding="utf-8") as f:
+                obj = json.load(f)
+            _DIM_MAP_CACHE = obj.get("map", {}) or {}
+        except Exception:
+            _DIM_MAP_CACHE = {}
+    return _DIM_MAP_CACHE
+
+def category_dim(category, key=None, mode="2d"):
+    """Return '3d' or '2d' for a category/key.
+
+    Authority order (ART_RESOURCE_RULES.md §16 single-source):
+      1. mode == "2d"  → 永远返回 "2d"（2D 兼容模式，不阻断当前 2D 生产；GAP 3）
+      2. mode == "3d"  → prompts_dim.json map (key-level, P1 registry)
+      3. category-name fallback (DIM_3D_CATEGORIES)
+    """
+    if mode == "2d":
+        return "2d"
+    if key:
+        dmap = load_dim_map()
+        if key in dmap:
+            return dmap[key]
+    return "3d" if category in DIM_3D_CATEGORIES else "2d"
+
+# ── UI 生成方式（2D→3D 升级：2026-07-10 起 UI 全部走 AI 出图） ──
+# 历史正则 KIND_PROCEDURAL_UI（匹配 btn_/panel/card/frame/slot/input_/name_/strip_/row_/bar_）
+# 已弃用：UI 不再程序化生成，统一由 prompts.json + Agnes API 出图。
+# 若需回滚到程序化，恢复下方正则并在 classify_resource / is_procedural 重新接入。
+# KIND_PROCEDURAL_UI = re.compile(
+#     r"^(?:ui/(?:.*/)?.*?(?:btn_|button_|panel|card|frame|slot|input_|name_|strip_|row_|bar_))"
+# )
 
 # ── 体积预算：从 ART_RESOURCE_RULES.md 读取 ──────────────
-# 权威来源：E:/game/.workbuddy/memory/topics/ART_RESOURCE_RULES.md → 九、体积与性能策略
+# 权威来源：ART_RESOURCE_RULES.md（相对 PROJECT_ROOT 计算）→ 九、体积与性能策略
 # 如果解析失败，回退到静态默认值。
 
 # 静态预算默认值（当规则文件解析失败时使用）
@@ -290,6 +354,17 @@ def ensure_dir(path):
     os.makedirs(path, exist_ok=True)
 
 
+def _cleanup_stale_temps(directory: str):
+    """清理中断残留的 .tmp 和 .tmp_check.png 文件。"""
+    import glob
+    for ext in ("*.tmp", "*.tmp_check.png"):
+        for f in glob.glob(os.path.join(directory, "**", ext), recursive=True):
+            try:
+                os.remove(f)
+            except OSError:
+                pass
+
+
 def file_hash(path):
     """计算文件的 SHA256 哈希。"""
     if not os.path.isfile(path):
@@ -343,15 +418,20 @@ def find_dimension_in_prompt(prompt):
 
 
 def resolve_target_size(category, key, default=(128, 128)):
-    """确定生成目标尺寸。优先级：推荐尺寸 → prompt提取 → 默认值。
+    """确定生成目标尺寸。优先级：推荐尺寸（UI 除外按组件分化）→ prompt提取 → 默认值。
     
     来源链：
       1. ART_RESOURCE_RULES.md 第3.2节推荐尺寸（按分类取高画质版本）——质量目标
+         UI 跳过此步（recommended_sizes["ui"]=192×192 过于笼统），由 UI_KIT_DEFAULT_DIMS 按组件分化。
       2. prompts.json 中的 Target canvas: WxH（由 find_dimension_in_prompt 提取）
       3. 回退 128x128
     """
-    # 1. 检查规则文件中的推荐尺寸（最高优先级）
-    if category in RECOMMENDED_SIZES:
+    # 0. 部件化角色部件：尺寸由 per-part 规格决定（body=160x160, head=128x128 等），
+    #    提取自 prompts.json 的 Target canvas，不取 recommended_sizes["characters"]（256x1024）。
+    if "/parts/" in (key or ""):
+        return None
+    # 1. 检查规则文件中的推荐尺寸（最高优先级，UI 除外由 UI_KIT_DEFAULT_DIMS 按组件分化）
+    if category in RECOMMENDED_SIZES and category != "ui":
         return tuple(RECOMMENDED_SIZES[category])
     # 2. 检查 UI Kit 默认尺寸（按钮/卡片/面板等）
     for kit_name, dims in UI_KIT_DEFAULT_DIMS.items():
@@ -361,8 +441,11 @@ def resolve_target_size(category, key, default=(128, 128)):
     return None
 
 
-def classify_resource(key):
-    """根据资源 key 判断类别和用途。返回包含 asset_kind 的 dict。"""
+def classify_resource(key, mode="2d"):
+    """根据资源 key 判断类别和用途。返回包含 asset_kind 的 dict。
+
+    mode: "2d" 兼容模式（默认，不阻断 2D 生产）；"3d" 走 3D 路由。
+    """
     parts = key.split("/")
     category = parts[0] if len(parts) > 1 else "other"
     # 整屏背景即使在 ui 目录下也按 backgrounds 处理
@@ -376,6 +459,8 @@ def classify_resource(key):
         asset_kind = "tile"
     elif category == "icons" or (category == "ui" and "/icon_" in key):
         asset_kind = "icon"
+    elif category == "characters" and "/parts/" in key:
+        asset_kind = "character_part"
     elif category == "characters":
         asset_kind = "character"
     elif category == "monsters":
@@ -384,15 +469,16 @@ def classify_resource(key):
         asset_kind = "boss"
     elif category == "effects":
         asset_kind = "effect"
-    elif category == "ui" and KIND_PROCEDURAL_UI.match(key):
-        asset_kind = "procedural_ui"
+    elif category == "ui":
+        # 2D→3D 升级：UI 全部由 AI 出图（Agnes），不再程序化生成
+        asset_kind = "ui"
     else:
-        # 兜底：不匹配 KIND_PROCEDURAL_UI 的 UI 资源走 AI（如 area_badge）
-        asset_kind = "icon" if category == "ui" else "icon"
+        asset_kind = "icon"
 
     # 判定生成方式：统一从规则文件读取 PROCEDURAL_CATEGORIES
     # (asset_kind 保留给验证门禁用，不决定生成方式)
-    is_procedural = category in PROCEDURAL_CATEGORIES or bool(KIND_PROCEDURAL_UI.match(key))
+    # 2D→3D 升级：UI 已改为 AI 出图，不再程序化生成（PROCEDURAL_CATEGORIES 当前为空集）
+    is_procedural = category in PROCEDURAL_CATEGORIES
 
     # 细分 ui 下面的子类
     sub_category = "/".join(parts[:2]) if len(parts) > 1 else ""
@@ -408,7 +494,141 @@ def classify_resource(key):
         "is_ui": category == "ui",
         "is_bg": category == "backgrounds",
         "is_procedural": is_procedural,
+        "dim": category_dim(category, key, mode),
     }
+
+
+def load_3d_manifest():
+    """Load the 3D asset registry (art_3d_manifest.json). Single-source for 3D
+    generate/validate/import batches. Non-blocking: empty entries if absent."""
+    global _MANIFEST_CACHE
+    if _MANIFEST_CACHE is not None:
+        return _MANIFEST_CACHE
+    _MANIFEST_CACHE = {"entries": []}
+    if os.path.isfile(MANIFEST_JSON):
+        try:
+            with open(MANIFEST_JSON, encoding="utf-8") as f:
+                _MANIFEST_CACHE = json.load(f)
+        except Exception:
+            _MANIFEST_CACHE = {"entries": []}
+    return _MANIFEST_CACHE
+
+
+_MANIFEST_CACHE = None
+
+
+def run_asset_validate(model_path):
+    """Run tools/asset_validate.py on a 3D asset's .assetmeta.json sidecar.
+
+    Returns (pass:bool, issues:list[str]).
+    Enforces GAP 4: a 3D asset MUST pass asset_validate before it can be
+    imported. Falls back to inline _validate_3d_asset only if the standalone
+    validator script is missing (single-source preference = asset_validate.py).
+    """
+    meta = model_path + ".assetmeta.json"
+    if not os.path.isfile(meta):
+        return False, [f"缺少边车校验文件: {os.path.basename(meta)}"
+                       f"（3D 资产必须附带 .assetmeta.json，见 ART_RESOURCE_RULES.md §16）"]
+    if not os.path.isfile(ASSET_VALIDATE_SCRIPT):
+        # 回退：内联校验（仍要求 meta 存在）
+        cat = os.path.splitext(os.path.basename(model_path))[0].split("_")[0].lower()
+        return _validate_3d_asset(model_path, category=cat)
+    try:
+        proc = subprocess.run(
+            [sys.executable, ASSET_VALIDATE_SCRIPT, meta, "--budget", RULES3D_BUDGET_JSON],
+            capture_output=True, text=True, timeout=120)
+    except Exception as e:  # noqa: BLE001
+        return False, [f"asset_validate 调用失败: {e}"]
+    if proc.returncode == 0:
+        return True, []
+    issues = [ln.strip() for ln in proc.stdout.splitlines() if ln.strip().startswith("[XX]")]
+    if not issues:
+        tail = (proc.stdout or proc.stderr).strip()
+        issues = [tail[:300] or "asset_validate 报告未过"]
+    return False, issues
+
+
+def _filter_manifest(manifest, category, resource):
+    """Filter manifest entries by --category (category field) or --resource (name)."""
+    entries = manifest.get("entries", [])
+    if resource:
+        base = os.path.splitext(resource)[0]
+        return [e for e in entries if e["name"] == base]
+    if category:
+        return [e for e in entries if e["category"] == category]
+    return entries
+
+
+def _cmd_import_3d(args):
+    """3D 资产入库（GAP 1+4）：从 manifest 驱动，强制 asset_validate 通过。
+
+    流程: 候选模型 CANDIDATES_DIR/<name>.glb (+ .prefab) → 校验 →
+          models/<name>.glb + prefabs/<name>.prefab。
+    真实 3D 资产名 (CHR_/MON_/BOSS_/FX_/TILE_) 取自 manifest，不再拼 prompts.json key。
+    """
+    manifest = load_3d_manifest()
+    entries = _filter_manifest(manifest, args.category, args.resource)
+    if not entries:
+        print("没有匹配 3D 模式的资产条目 (检查 --category / --resource 或 manifest)")
+        return
+    print(f"Import(3D): {len(entries)} 个 3D 资产 (强制 asset_validate)")
+    imported = 0
+    for e in entries:
+        name = e["name"]
+        src_glb = os.path.join(CANDIDATES_DIR, name + ".glb")
+        src_prefab = os.path.join(CANDIDATES_DIR, name + ".prefab")
+        if not os.path.isfile(src_glb):
+            print(f"  ✗ {name}: 候选模型不存在 ({src_glb})")
+            continue
+        ok, issues = run_asset_validate(src_glb)
+        if not ok:
+            print(f"  ✗ {name}: 资产校验未过 → {'; '.join(issues)}")
+            continue
+        tgt_glb = os.path.join(MODELS_DIR, name + ".glb")
+        tgt_prefab = os.path.join(PREFABS_DIR, name + ".prefab")
+        for src, tgt in ((src_glb, tgt_glb), (src_prefab, tgt_prefab)):
+            if not os.path.isfile(src):
+                continue
+            ensure_dir(os.path.dirname(tgt))
+            if os.path.isfile(tgt):
+                ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                rel_backup = os.path.join(
+                    BACKUP_DIR, f"pre_import_3d_{ts}", os.path.basename(tgt))
+                ensure_dir(os.path.dirname(rel_backup))
+                shutil.copy2(tgt, rel_backup)
+            shutil.copy2(src, tgt)
+        imported += 1
+        print(f"  ✓ {name} (3D → models/ + prefabs/，已通过 asset_validate)")
+    print(f"\n3D 导入完成: {imported}/{len(entries)}")
+
+
+def _cmd_validate_3d(args):
+    """3D 资产技术门禁（GAP 8）：复用 asset_validate.py 单一来源。"""
+    manifest = load_3d_manifest()
+    entries = _filter_manifest(manifest, args.category, args.resource)
+    if not entries:
+        print("没有匹配 3D 模式的资产条目 (检查 --category / --resource 或 manifest)")
+        return
+    print(f"Validate(3D): {len(entries)} 个 3D 资产")
+    passed = 0
+    failed = 0
+    for e in entries:
+        name = e["name"]
+        src_glb = os.path.join(CANDIDATES_DIR, name + ".glb")
+        if not os.path.isfile(src_glb):
+            src_glb = os.path.join(MODELS_DIR, name + ".glb")
+        if not os.path.isfile(src_glb):
+            print(f"  ✗ {name}: 模型文件不存在")
+            failed += 1
+            continue
+        ok, issues = run_asset_validate(src_glb)
+        if ok:
+            print(f"  ✓ {name}")
+            passed += 1
+        else:
+            print(f"  ✗ {name}: {'; '.join(issues)}")
+            failed += 1
+    print(f"\n3D 验证完成: 通过 {passed}, 失败 {failed}")
 
 
 # ── 进度管理 ──────────────────────────────────────────────
@@ -446,7 +666,8 @@ class ProgressTracker:
         """更新某个资源的状态。"""
         entry = self.get(key)
         for k, v in kwargs.items():
-            if k in ("status", "promptHash", "fileHash", "source", "lastError"):
+            if k in ("status", "promptHash", "fileHash", "source", "lastError",
+                     "dim", "modelPath"):
                 entry[k] = v
             elif k == "failCount":
                 entry[k] = int(v)
@@ -1205,53 +1426,61 @@ def post_process_generated(master_path, target_size, category, output_path,
         img = img.convert("RGB")
 
     last_tmp = None
-    for colors in (max_colors if isinstance(max_colors, (list, tuple)) else (256,)):
-        # Save temporarily to check size
-        tmp_path = output_path + ".tmp_check.png"
-        img.save(tmp_path, "PNG")
-        fsize = os.path.getsize(tmp_path)
-        last_tmp = tmp_path
+    try:
+        for colors in (max_colors if isinstance(max_colors, (list, tuple)) else (256,)):
+            # Save temporarily to check size
+            tmp_path = output_path + ".tmp_check.png"
+            img.save(tmp_path, "PNG")
+            fsize = os.path.getsize(tmp_path)
+            last_tmp = tmp_path
 
-        if fsize <= max_kb * 1024:
-            # Under budget — finalize with correct format
+            if fsize <= max_kb * 1024:
+                # Under budget — finalize with correct format
+                if save_format == "JPEG":
+                    rgb = img.convert("RGB") if img.mode == "RGBA" else img
+                    rgb.save(output_path, "JPEG", quality=85, optimize=True)
+                    if os.path.isfile(tmp_path):
+                        os.remove(tmp_path)
+                else:
+                    shutil.move(tmp_path, output_path)
+                fsize = os.path.getsize(output_path) if os.path.isfile(output_path) else 0
+                return True, "", fsize / 1024
+            elif colors > 8:
+                # Reduce palette and retry
+                img, _ = reduce_palette(img, colors)
+            else:
+                # Can't reduce further — save as-is with correct format
+                if save_format == "JPEG":
+                    rgb = img.convert("RGB") if img.mode == "RGBA" else img
+                    rgb.save(output_path, "JPEG", quality=85, optimize=True)
+                    if os.path.isfile(tmp_path):
+                        os.remove(tmp_path)
+                else:
+                    shutil.move(tmp_path, output_path)
+                fsize = os.path.getsize(output_path) if os.path.isfile(output_path) else 0
+                return True, f"size_warning:{fsize/1024:.0f}KB>{max_kb}KB", fsize / 1024
+
+        # Loop exhausted without saving — save the last temp file to output
+        if last_tmp and os.path.isfile(last_tmp) and not os.path.isfile(output_path):
             if save_format == "JPEG":
                 rgb = img.convert("RGB") if img.mode == "RGBA" else img
                 rgb.save(output_path, "JPEG", quality=85, optimize=True)
-                if os.path.isfile(tmp_path):
-                    os.remove(tmp_path)
+                os.remove(last_tmp)
             else:
-                shutil.move(tmp_path, output_path)
-            fsize = os.path.getsize(output_path) if os.path.isfile(output_path) else 0
-            return True, "", fsize / 1024
-        elif colors > 8:
-            # Reduce palette and retry
-            img, _ = reduce_palette(img, colors)
-        else:
-            # Can't reduce further — save as-is with correct format
-            if save_format == "JPEG":
-                rgb = img.convert("RGB") if img.mode == "RGBA" else img
-                rgb.save(output_path, "JPEG", quality=85, optimize=True)
-                if os.path.isfile(tmp_path):
-                    os.remove(tmp_path)
-            else:
-                shutil.move(tmp_path, output_path)
-            fsize = os.path.getsize(output_path) if os.path.isfile(output_path) else 0
-            return True, f"size_warning:{fsize/1024:.0f}KB>{max_kb}KB", fsize / 1024
-
-    # Loop exhausted without saving — save the last temp file to output
-    if last_tmp and os.path.isfile(last_tmp) and not os.path.isfile(output_path):
-        if save_format == "JPEG":
-            rgb = img.convert("RGB") if img.mode == "RGBA" else img
-            rgb.save(output_path, "JPEG", quality=85, optimize=True)
-            os.remove(last_tmp)
-        else:
-            shutil.move(last_tmp, output_path)
-    fsize = os.path.getsize(output_path) if os.path.isfile(output_path) else 0
-    return True, f"size_warning:{fsize/1024:.0f}KB>{max_kb}KB" if fsize > max_kb * 1024 else "", fsize / 1024
+                shutil.move(last_tmp, output_path)
+        fsize = os.path.getsize(output_path) if os.path.isfile(output_path) else 0
+        return True, f"size_warning:{fsize/1024:.0f}KB>{max_kb}KB" if fsize > max_kb * 1024 else "", fsize / 1024
+    finally:
+        # 确保任何中断情况下都清理临时检查文件
+        if os.path.isfile(last_tmp or ""):
+            try:
+                os.remove(last_tmp)
+            except OSError:
+                pass
 
 
 def validate_technical(filepath, expected_size=None, max_kb=None, category=None,
-                       asset_kind=None):
+                       asset_kind=None, dim=None):
     """技术门禁检查。返回 (pass, issues_list)。
 
     Enhanced checks:
@@ -1268,6 +1497,10 @@ def validate_technical(filepath, expected_size=None, max_kb=None, category=None,
     if not os.path.isfile(filepath):
         issues.append("文件不存在")
         return False, issues
+
+    # 3D upgrade (P2): 3D model assets route to the 3D gate, not raster-image checks
+    if dim == "3d":
+        return _validate_3d_asset(filepath, category=category)
 
     # 命名规范检查（ART_RESOURCE_RULES.md Section 6: lowercase + digits + underscores only）
     filename = os.path.basename(filepath)
@@ -1360,6 +1593,85 @@ def validate_technical(filepath, expected_size=None, max_kb=None, category=None,
     return len(issues) == 0, issues
 
 
+# ── 3D asset gate (P2: 3D upgrade) ──────────────────────────
+# Budget is read from art_quality_budget.json `rules3d` (single source of truth,
+# see ART_RESOURCE_RULES.md §16). Mirrors tools/asset_validate.py logic inline
+# so the pipeline needs no subprocess.
+
+_RULES3D_CACHE = None
+
+def _rules3d():
+    """Load rules3d budget (cached). Returns {} if absent."""
+    global _RULES3D_CACHE
+    if _RULES3D_CACHE is None:
+        _RULES3D_CACHE = {}
+        if os.path.isfile(RULES3D_BUDGET_JSON):
+            try:
+                with open(RULES3D_BUDGET_JSON, encoding="utf-8") as f:
+                    d = json.load(f)
+                _RULES3D_CACHE = d.get("rules3d", {}) or {}
+            except Exception:
+                _RULES3D_CACHE = {}
+    return _RULES3D_CACHE
+
+def _rules3d_bucket(category, key=None):
+    """Map a category/key to its rules3d bucket name (matches art_quality_budget.json)."""
+    if category == "characters":
+        return "characters"
+    if category == "monsters":
+        return "monsters"
+    if category == "bosses":
+        return "bosses_final" if (key and "final" in key.lower()) else "bosses_mini"
+    if category == "effects":
+        return "effects_boss" if (key and "boss" in key.lower()) else "effects_normal"
+    if category == "tiles":
+        return "tiles"
+    return None
+
+def _validate_3d_asset(filepath, category=None):
+    """3D model/prefab technical gate. Returns (pass, issues_list).
+
+    Checks:
+      - extension is a 3D asset (.glb/.gltf/.prefab/.fbx)
+      - filename matches rules3d naming convention (CHR_/MON_/BOSS_/FX_/TILE_)
+      - if a sidecar <file>.assetmeta.json exists, compare tri/bones/texture to budget
+    """
+    issues = []
+    filename = os.path.basename(filepath)
+    ext = os.path.splitext(filename)[1].lower()
+    if ext not in (".glb", ".gltf", ".prefab", ".fbx"):
+        issues.append(f"3D 资产扩展名不合规: {filename}（应为 .glb/.gltf/.prefab/.fbx）")
+        return False, issues
+
+    bucket = _rules3d_bucket(category, filename)
+    rules = _rules3d()
+    pattern = rules.get("naming", {}).get("pattern")
+    if not pattern:
+        pattern = r"^(CHR|MON|BOSS|FX|TILE)_[A-Za-z0-9]+"
+    if not re.match(pattern, os.path.splitext(filename)[0]):
+        issues.append(f"3D 命名不合规: {filename}（需匹配 {pattern}）")
+
+    meta_path = filepath + ".assetmeta.json"
+    if os.path.isfile(meta_path):
+        try:
+            with open(meta_path, encoding="utf-8") as f:
+                meta = json.load(f)
+        except Exception as e:
+            issues.append(f"无法解析 meta: {e}")
+            return False, issues
+        b = rules.get(bucket, {})
+        tri_max = b.get("maxTri")
+        if tri_max and isinstance(meta.get("tri"), int) and meta["tri"] > tri_max:
+            issues.append(f"三角面超标: {meta.get('tri')} > {tri_max}")
+        bones_max = b.get("maxBones")
+        if bones_max and isinstance(meta.get("bones"), int) and meta["bones"] > bones_max:
+            issues.append(f"骨骼数超标: {meta.get('bones')} > {bones_max}")
+        tex_max = b.get("textureSize")
+        if tex_max and isinstance(meta.get("textureSize"), int) and meta["textureSize"] > tex_max:
+            issues.append(f"贴图尺寸超标: {meta.get('textureSize')} > {tex_max}（预算上限）")
+    return len(issues) == 0, issues
+
+
 # ── 子命令实现 ──────────────────────────────────────────────
 
 
@@ -1406,7 +1718,12 @@ def cmd_audit(args):
     print(f"\n需要生成: {len(need_generate)} 个")
     for key in need_generate:
         info = classify_resource(key)
-        gen = "程序化" if info["is_procedural"] else "AI"
+        if info["dim"] == "3d":
+            gen = "3D建模"
+        elif info["is_procedural"]:
+            gen = "程序化"
+        else:
+            gen = "AI"
         print(f"  [{gen}] {key}")
     return need_generate
 
@@ -1415,6 +1732,7 @@ def cmd_generate(args):
     """generate: 生成缺失/失败的资源。"""
     prompts = load_prompts()
     progress = ProgressTracker()
+    _cleanup_stale_temps(MASTER_DIR)
     keys_to_process = []
 
     if args.resource:
@@ -1445,7 +1763,15 @@ def cmd_generate(args):
 
     for idx, key in enumerate(keys_to_process):
         entry = progress.get(key)
-        info = classify_resource(key)
+        info = classify_resource(key, getattr(args, "mode", "2d"))
+
+        # 3D assets are authored in Blender, not AI-generated. Skip Agnes gen;
+        # they enter via `import` after export+Prefab. (ART_RESOURCE_RULES.md §16)
+        if info["dim"] == "3d":
+            print(f"  → 跳过 AI 生成 (3D 资产，需经 Blender→glb→Prefab 流程；"
+                  f"用 import 直接入库)")
+            skipped += 1
+            continue
 
         print(f"\n[{idx + 1}/{len(keys_to_process)}] {key}")
 
@@ -1513,8 +1839,13 @@ def cmd_generate(args):
                     continue
 
                 # 构造完整 prompt（使用类别专属的 DETAIL_ANCHORS）
-                detail = DETAIL_ANCHORS.get(info["category"], "")
-                ct_prompt = f"{STYLE_ANCHOR} {orig_prompt} {detail} {SAFETY_BLOCK}"
+                # 部件化角色部件 (/parts/) 用自己的 CREATURE_CORE 包装，
+                # 跳过 detail_anchors["characters"]（其内容是 sheet 描述，与部件 prompt 冲突）
+                if "/parts/" in key:
+                    ct_prompt = orig_prompt
+                else:
+                    detail = DETAIL_ANCHORS.get(info["category"], "")
+                    ct_prompt = f"{STYLE_ANCHOR} {orig_prompt} {detail} {SAFETY_BLOCK}"
                 # 装饰框类按目标纵横比 overscan，给 AI 物理余量
                 if info["category"] in ORNAMENT_TYPES:
                     tw, th = target_size
@@ -1545,27 +1876,30 @@ def cmd_generate(args):
 
                 print(f"  → 下载图片...")
                 temp_path = master_path + ".tmp"
-                ok, err = download_image(url, temp_path)
-                if not ok:
-                    progress.mark_failed(key, err)
-                    print(f"  ✗ 下载失败: {err}")
-                    failed += 1
-                    continue
+                try:
+                    ok, err = download_image(url, temp_path)
+                    if not ok:
+                        progress.mark_failed(key, err)
+                        print(f"  ✗ 下载失败: {err}")
+                        failed += 1
+                        continue
 
-                # 全流程后处理：缩放 → 抠图 → 去绿幕 → 调色板压缩 → 体积检查
-                budget = budget_limits(info["category"])
-                max_kb = budget.get("hard", 120)
-                overscan_factor = 1.8 if info["category"] in ORNAMENT_TYPES else 1.0
-                ok, warn, final_kb = post_process_generated(
-                    temp_path, target_size, info["category"], master_path, max_kb,
-                    overscan_factor)
-                if os.path.isfile(temp_path):
-                    os.remove(temp_path)
-                if not ok:
-                    progress.mark_failed(key, warn)
-                    print(f"  ✗ 后处理失败: {warn}")
-                    failed += 1
-                    continue
+                    # 全流程后处理：缩放 → 抠图 → 去绿幕 → 调色板压缩 → 体积检查
+                    budget = budget_limits(info["category"])
+                    max_kb = budget.get("hard", 120)
+                    overscan_factor = 1.8 if info["category"] in ORNAMENT_TYPES else 1.0
+                    ok, warn, final_kb = post_process_generated(
+                        temp_path, target_size, info["category"], master_path, max_kb,
+                        overscan_factor)
+                    if not ok:
+                        progress.mark_failed(key, warn)
+                        print(f"  ✗ 后处理失败: {warn}")
+                        failed += 1
+                        continue
+                finally:
+                    # 无论成功还是中断，都清理临时文件
+                    if os.path.isfile(temp_path):
+                        os.remove(temp_path)
                 size_note = f" ({final_kb:.0f}KB)"
                 if warn:
                     size_note += f" [WARN: {warn}]"
@@ -1610,6 +1944,10 @@ def cmd_generate(args):
 
 def cmd_validate(args):
     """validate: 对 generated 状态的资源做技术门禁检查。"""
+    # 3D 模式：从 manifest 驱动，复用 asset_validate.py 单一来源 (GAP 1+8)
+    if getattr(args, "mode", "2d") == "3d":
+        _cmd_validate_3d(args)
+        return
     prompts = load_prompts()
     progress = ProgressTracker()
 
@@ -1639,7 +1977,7 @@ def cmd_validate(args):
     passed = 0
     failed_count = 0
     for key in keys_to_check:
-        info = classify_resource(key)
+        info = classify_resource(key, getattr(args, "mode", "2d"))
         candidate_path = os.path.join(CANDIDATES_DIR, key)
         master_path = os.path.join(MASTER_DIR, key)
 
@@ -1666,7 +2004,8 @@ def cmd_validate(args):
 
         ok, issues = validate_technical(check_path, dim, max_kb,
                                            category=info["category"],
-                                           asset_kind=info.get("asset_kind"))
+                                           asset_kind=info.get("asset_kind"),
+                                           dim=info.get("dim"))
         if ok:
             progress.update(key, status=ST_VALIDATED,
                             fileHash=file_hash(check_path))
@@ -1682,6 +2021,10 @@ def cmd_validate(args):
 
 def cmd_import(args):
     """import: 将 validated/approved 的资源复制到正式目录。"""
+    # 3D 模式：从 manifest 驱动，强制 asset_validate 通过 (GAP 1+4)
+    if getattr(args, "mode", "2d") == "3d":
+        _cmd_import_3d(args)
+        return
     progress = ProgressTracker()
 
     if args.resource:
@@ -1704,7 +2047,9 @@ def cmd_import(args):
     print(f"Import: {len(keys_to_import)} 个资源")
     imported = 0
     for key in keys_to_import:
+        info = classify_resource(key, getattr(args, "mode", "2d"))
         candidate_path = os.path.join(CANDIDATES_DIR, key)
+
         textures_path = os.path.join(TEXTURES_DIR, key)
 
         if not os.path.isfile(candidate_path):
@@ -1867,6 +2212,15 @@ def main():
   # 导入
   python tools/art_pipeline.py import --all
 
+  # 3D 资产入库（先经 Blender->glb->Prefab，放入候选区后由 manifest 驱动）
+  #   → 强制 asset_validate.py 通过，未过校验禁止入库
+  python tools/art_pipeline.py import --mode 3d --category bosses
+  python tools/art_pipeline.py import --mode 3d --resource CHR_Archer_A
+  # 3D 资产技术门禁（复用 asset_validate.py 单一来源）
+  python tools/art_pipeline.py validate --mode 3d --category characters
+  # 2D 兼容模式（默认）：正常生成/导入 2D sprite，不被 3D 升级阻断
+  python tools/art_pipeline.py generate --category characters
+
   # 进度管理
   python tools/art_pipeline.py status
   python tools/art_pipeline.py status --category backgrounds
@@ -1884,6 +2238,8 @@ def main():
     p_audit.add_argument("--resource", help="指定单个资源 key")
     p_audit.add_argument("--category", help="按类别前缀过滤")
     p_audit.add_argument("--limit", type=int, help="最多显示数量")
+    p_audit.add_argument("--mode", choices=["2d", "3d"], default="2d",
+                         help="维度模式: 2d(默认,兼容当前 2D 生产) / 3d(走 manifest)")
 
     # generate
     p_gen = subparsers.add_parser("generate", help="生成资源")
@@ -1896,12 +2252,16 @@ def main():
                        help="只重试失败项")
     p_gen.add_argument("--self-check", action="store_true",
                        help="生成完成后自动运行技术门禁检查")
+    p_gen.add_argument("--mode", choices=["2d", "3d"], default="2d",
+                       help="维度模式: 2d(默认) / 3d(3D 资产跳过 AI 生成)")
 
     # validate
     p_val = subparsers.add_parser("validate", help="技术门禁检查")
     p_val.add_argument("--resource", help="指定单个资源 key")
     p_val.add_argument("--category", help="按类别前缀过滤")
     p_val.add_argument("--all", action="store_true", help="所有已验证的资源")
+    p_val.add_argument("--mode", choices=["2d", "3d"], default="2d",
+                       help="维度模式: 2d(默认) / 3d(走 manifest + asset_validate)")
 
     # import
     p_imp = subparsers.add_parser("import", help="导入 validated 资源到正式目录")
@@ -1909,6 +2269,8 @@ def main():
     p_imp.add_argument("--category", help="按类别前缀过滤")
     p_imp.add_argument("--all", action="store_true", dest="all_import",
                        help="导入所有 validated 资源")
+    p_imp.add_argument("--mode", choices=["2d", "3d"], default="2d",
+                       help="维度模式: 2d(默认,导 textures) / 3d(导 models+prefabs,强制 asset_validate)")
 
     # contact
     p_con = subparsers.add_parser("contact", help="生成 contact sheet")
@@ -1916,10 +2278,14 @@ def main():
     p_con.add_argument("--all", action="store_true", dest="all_contact",
                        help="所有资源")
     p_con.add_argument("--limit", type=int, help="最多图片数量")
+    p_con.add_argument("--mode", choices=["2d", "3d"], default="2d",
+                       help="维度模式: 2d(默认) / 3d")
 
     # status
     p_sta = subparsers.add_parser("status", help="打印进度摘要")
     p_sta.add_argument("--category", help="按类别前缀过滤")
+    p_sta.add_argument("--mode", choices=["2d", "3d"], default="2d",
+                       help="维度模式: 2d(默认) / 3d")
 
     # reset
     p_res = subparsers.add_parser("reset", help="重置进度")

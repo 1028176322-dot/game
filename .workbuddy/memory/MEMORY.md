@@ -1,86 +1,65 @@
 # Project Memory Index
 
-> Entry file. Read this first when a new conversation starts.
-> Keep this file small, stable, and UTF-8 encoded.
+> Entry file. Read first when a new conversation starts. Keep small, stable, UTF-8.
 
 ## High Priority Rules
 
-- **CROSS_FILE_CONSISTENCY - 2026-07-09** (HIGHEST PRIORITY): When any rule, data structure, interface definition, config item, or other critical information in any file is modified, ALL dependent or referencing files MUST be checked and updated to ensure consistency. Dependent files include but are not limited to: files that directly import/reference the modified content, files that extend or inherit the modified definitions, and files linked via imports, config references, or documentation links. After every critical information modification, immediately trigger a cross-file review and sync update. Run `npm.cmd run validate:all` (gate 9: doc consistency) to verify no cross-file conflicts remain.
-- **SKILL_REFERENCE - 2026-07-09** (MANDATORY): `docs/SKILL_REFERENCE.md` is the mandatory-read index of all available Skills. **Image generation / texture operations MUST load `art-pipeline` first. Source code modifications MUST load `encoding-pipeline-guard` first.** At the start of every turn, check whether the current task triggers any MANDATORY Skill. If so, load it before proceeding.
-- **ART_RESOURCE_RULES - 2026-07-08**: `topics/ART_RESOURCE_RULES.md` is the dedicated memory file for ALL art resource rules (style, pipeline, format, safety, registration, validation). **Read this before any art-related operation** -- generation, replacement, import, registration, or prompt changes. Supersedes the legacy `topics/ART_PIPELINE.md`.
-- **ENCODING_WRITE_POLICY - 2026-07-01**: All project file reads/writes must use explicit UTF-8. Never use default-encoding writes such as Python `open(path, "w")`, PowerShell `Set-Content` without `-Encoding utf8`, or any AI/editor tool that writes using GBK/ANSI defaults. This previously caused mojibake, U+FFFD replacement characters, comment truncation, comments swallowing code, and Cocos compile/runtime failures. After any source/config/doc change, run `npm.cmd run validate:all`; `encoding-audit` must pass with issues=0 and p0=0 before continuing. Full rules: `topics/ENGINEERING_STANDARDS.md`.
-- **ASCII_SOURCE_POLICY - 2026-07-01**: Source code comments, tool scripts, engineering docs, and memory files should be English/ASCII by default. Player-facing Chinese text belongs in `assets/resources/config/text.json`. Chinese is allowed in design docs only when necessary and must pass encoding audit. This reduces GBK/ANSI write corruption risk.
-- **COCOS_EDITOR_BINDING_POLICY - 2026-07-06**: New UI/panel/HUD scripts should expose `@property(Node)` fields in Inspector, not `Label/Button/Sprite/EditBox` component fields. Resolve components through `NodeRef.component()` with stable path fallback. Panel controllers stay on panel root nodes; `ContentRoot` is for responsive/layout components only. Full rules: `topics/ENGINEERING_STANDARDS.md` and `docs/编辑器节点绑定通用规则.md`.
-- **MEMORY_WRITE_RULE - 2026-06-30**: Different conversations must not directly edit long-term memory files unless the user explicitly says to merge main memory. Normal conversations write memory patches to `inbox/` first.
-- **ART_GENERATION_PIPELINE - 2026-07-09** (MANDATORY): All art asset operations (AI image gen, texture generation, image replacement/crop/compress/import) **MUST load `art-pipeline` Skill first** -- never skip this. AI generation goes through its built-in Agnes API flow; procedural panels use its bundled `scripts/generate_panel.py`. Assets not processed through the Skill pipeline must NOT be placed directly into `assets/resources/textures/`. Backup files must go to `art_source/textures_review/backup/`, NOT into the project textures directory. After any resource change, always run `npm.cmd run validate:all`.
-- **RUNTIME_ASSEMBLY - 2026-06-30**: Assets must be wired through `AssetBundleService` and `RenderAssetService`. Do not manually bind SpriteFrames in the Cocos editor as the primary production path.
-- **ARCH_FOUNDATION - 2026-07-01**: P0 architecture foundation is now live: 3-scene principle, AppFlowController state machine, RunCoordinator for dungeon entry, UiRouter v2 with UIPanel lifecycle, RuntimeLayerService for 5-layer rendering, SpriteAnimationService for config-driven animation. All `director.loadScene()` calls restricted to SceneFlowService only. Design docs updated to v1.2 with P0 Architecture Rules. Full details in `docs/游戏流程总览.md`.
-- **TEXT_MIGRATION - 2026-07-02**: All player-visible text centralized in `assets/resources/config/text.json`. All 7 panels + splash + AreaSelectPanel migrated to `T()` calls. LocalizedLabel component for editor-fixed labels. `tools/scan_scene_labels.py` handles per-panel key suggestion. See `docs/场景编辑器搭建手册.md` text-configuration rules section.
-- **RESPONSIVE_LAYOUT - 2026-07-02**: All PanelRoots use `ResponsivePanelRoot` component instead of fixed 1280x720. DimMask (semi-transparent) + PanelFrame (panel base) with dynamic ratio/min-max sizing. Panel size parameters in docs table. Never hardcode UITransform sizes.
-- **ROUTE_UNLOCK - 2026-07-02**: AreaSelectPanel routes use structured `UnlockCondition` type (none/clear_zone/reach_floor/player_level) instead of hardcoded English unlock strings. Display text from text.json keys (unlockNone/unlockClearZone/unlockReachFloor/unlockPlayerLevel). PlayerDataManager has `zoneClearCounts` tracking.
-- **SCENE_TREE_DOC_SYNC - 2026-07-06**: Any modification to scene structure trees (add/remove/rename nodes or components in `splash.scene` / `main.scene` / `dungeon.scene`) must immediately update `docs/三场景完整结构树.md`. Failure to sync causes UI binder keys, skin bindings, and layout components to reference stale paths. Validate by running `npm.cmd run validate:all` after each scene change.
-- **PROGRESS_REPORT_SYNC - 2026-07-09**: `docs/progress/_index.md` is the master progress index; `docs/progress/PROGRESS_RULES.md` defines the rule system. Each scheme file under `docs/` must have a corresponding progress file under `docs/progress/`. When a new scheme file is added, its progress file must be created. When implementation status changes, update both the individual progress file and `_index.md`.
+### Mandatory Skills (load before acting)
+- **art-pipeline** — MUST load before ANY art op (AI gen / texture gen / replace / crop / compress / import). AI via Agnes API; procedural panels via its `scripts/generate_panel.py`. Non-pipeline assets must NOT go to `assets/resources/textures/`; backups -> `art_source/textures_review/backup/`.
+- **encoding-pipeline-guard** — MUST load before ANY source-file create/edit/write (TS/Python/JSON/MD). Prevents UTF-8 corruption.
 
-## Memory Write Workflow
+### Cross-file & Consistency
+- **CROSS_FILE_CONSISTENCY (HIGHEST)**: Any change to rules / data structures / interfaces / config must update ALL dependent or referencing files. Run `npm.cmd run validate:all` (gate 9: doc consistency) after.
+- **SKILL_REFERENCE**: `docs/SKILL_REFERENCE.md` is the mandatory-read Skill index. Each turn, check if the task triggers `art-pipeline` (texture/gen) or `encoding-pipeline-guard` (source edit); if so, load it first.
+- **SCENE_TREE_DOC_SYNC**: Scene-tree changes in `splash/main/dungeon.scene` must update `docs/三场景完整结构树.md`; run `validate:all`.
+- **PROGRESS_REPORT_SYNC**: `docs/progress/_index.md` is the master index; each `docs/*.md` scheme needs a `docs/progress/` file. Update both on status change.
 
-Allowed direct writes:
-- `inbox/YYYY-MM-DD_HHMM_scope_status.md`
-- `daily/YYYY-MM-DD.md`
+### Art Resources
+- **ART_RESOURCE_RULES** — `topics/ART_RESOURCE_RULES.md` holds ALL art rules (style / pipeline / format / safety / registration / validation). Read before any art op. Supersedes legacy `topics/ART_PIPELINE.md`.
 
-Do not directly edit unless the user explicitly says "merge main memory":
-- `MEMORY.md`
-- `topics/*.md`
-- `CHANGELOG.md`
+### Encoding & Source
+- **ENCODING_WRITE_POLICY**: All reads/writes explicit UTF-8. No default-encoding writes (Python `open(w)`, PowerShell without `-Encoding utf8`). After changes run `validate:all`; `encoding-audit --ci` must be issues=0, p0=0.
+- **ASCII_SOURCE_POLICY**: Code comments / tool scripts / eng docs / memory -> English/ASCII by default. Player-facing Chinese -> `assets/resources/config/text.json`.
+- **RELATIVE_PATH_POLICY**: All path references in project docs / skills MUST be relative, never absolute (`E:/game/...`, `C:/...`). Resolution base = project root `E:/game/回到地面` for the doc-consistency gate (`check_doc_consistency.py` Check3, which since 2026-07-10 ALSO scans fenced ```text code blocks and resolves `../` against project root). Valid relative forms: `docs/` `tools/` `assets/` `.workbuddy/` (gate-resolved) + `../` for parent-level files (`E:/game/docs/`, `E:/game/tools/`, `E:/game/.workbuddy/`). The `回到地面/docs/...` mixed form is NOT portable — gate returns `None` and silently skips validation.
+  - **Two-layer docs convention**: `E:/game/docs/` (root) = cross-project PLANNING / AUDIT / REVIEW layer; its docs reference the project via `回到地面/...` root-relative paths (e.g. `art-pipeline升级审查.md`, `2D转3D全面升级方案.md`, `2D转3D实施计划.md`). `回到地面/docs/` (project) = art + game SPEC documents (制作参数总表_3D / 入库规范 / MachineSpec / Workflow / game specs); reference siblings via `docs/X`. CRITICAL: docs that use `回到地面/...` refs MUST stay at root docs — moving them into `回到地面/docs/` breaks those refs. `../docs/X` (pointing to a root planning doc) is valid and now gate-validated (base = project root → parent docs). Use `docs/X` (not `../docs/X`) for siblings inside `回到地面/docs/`.
+  - **Cross-level same-name reality (audit 2026-07-10)**: `docs/ assets/ tools/ .workbuddy/ art_source/` exist at BOTH `E:/game/` and `E:/game/回到地面/`; also `config/ memory/ resources/ skills/` collide across levels. Gate anchors each prefix to a FIXED base so automated indexing is safe, but humans/CWD-based resolution is ambiguous. `docs/X.md` + `docs/progress/X.md` twins are by-design (scheme + progress stub). Two `tools/` layers hold IDENTICAL copies of `auto_bind_scene.py`/`gen_scenes.py`/`gen_scenes_simple.py` — consolidate to avoid drift.
 
-Patch workflow:
-1. Copy `templates/MEMORY_PATCH_TEMPLATE.md`.
-2. Write `inbox/YYYY-MM-DD_HHMM_scope_status.md`.
-3. Include Source, Proposed Updates, Evidence, Conflicts, and Suggested Target.
-4. Merge into `topics/`, `MEMORY.md`, and `CHANGELOG.md` only after explicit user approval.
+### UI / Editor
+- **COCOS_EDITOR_BINDING_POLICY**: New UI scripts expose `@property(Node)`, resolve via `NodeRef.component()` with path fallback. Panel controllers on panel root; `ContentRoot` for layout only.
+- **RESPONSIVE_LAYOUT**: PanelRoots use `ResponsivePanelRoot` (DimMask + PanelFrame), never hardcode UITransform.
+- **TEXT_MIGRATION**: Player text centralized in `text.json`; use `T()` + `LocalizedLabel`. Scan via `tools/scan_scene_labels.py`.
+- **ROUTE_UNLOCK**: AreaSelectPanel uses `UnlockCondition` (none/clear_zone/reach_floor/player_level); display text from text.json keys; `PlayerDataManager.zoneClearCounts`.
+
+### Architecture & Runtime
+- **ARCH_FOUNDATION**: 3-scene principle; AppFlowController state machine; RunCoordinator; UiRouter v2; RuntimeLayerService (5-layer); SpriteAnimationService. Only `SceneFlowService` may call `director.loadScene()`.
+- **RUNTIME_ASSEMBLY**: Assets via `AssetBundleService` + `RenderAssetService`; no manual SpriteFrame binding.
+- **MEMORY_WRITE_RULE**: Normal conversations write patches to `inbox/`; do NOT directly edit `MEMORY.md`/`topics/*.md`/`CHANGELOG.md` unless user says "merge main memory".
+
+## Active Initiative
+- **2D -> 3D Upgrade** — Architecture blueprint: `docs/2D转3D全面升级方案.md` (v3). Phased: Demo0-6 (infra + feature demos) -> Vertical Slice -> Phase1-6 (render/anim/combat/dungeon/lighting/optimize). Core principles to respect before touching combat/dungeon/render/AI: `ILifecycle`+`LifecycleManager`, `GameContext` DI/ServiceLocator, `ICollisionService` (no direct `PhysicsSystem`), `SkillGraph` (no `switch(id)`), `IAIController` (BT/FSM/GOAP/Utility), `AssetCache`. Reference this doc when modifying those systems.
 
 ## Startup Reading Order
+1. This file. 2. `docs/SKILL_REFERENCE.md` (load mandatory Skill if triggered). 3. Latest `daily/<date>.md` (or most recent). 4. Relevant `topics/*.md`. 5. `topics/ART_RESOURCE_RULES.md` if any art op. 6. `README.md` if saving memory (follow patch workflow). After context compression, re-read latest daily log.
 
-**MANDATORY -- must follow EVERY time a new turn begins (including after context compression / summarization).**
-
-1. **This file.** Always read first.
-2. **`docs/SKILL_REFERENCE.md`.** Read immediately after this file. **Determine if the current task triggers `art-pipeline` (any texture/gen operation) or `encoding-pipeline-guard` (any source file modification).** If so, load the corresponding Skill via `Skill({ skill: "..." })` before proceeding.
-3. **Latest daily log.** Read `daily/<today's date>.md`. If it doesn't exist, read the most recent one.
-4. **Task-relevant topics.** Based on user intent, read matching files in `topics/`.
-5. **`topics/ART_RESOURCE_RULES.md`.** If the task involves any art resource operation, read this before proceeding.
-6. **If saving memory**, read `README.md` and follow the patch workflow.
-
-After context compression: the system preserves `<working_memory_content>` (this file's content), but daily log details may be summarized away. **Always re-read the latest daily log** after detecting a context compression / summarization boundary to restore granular context.
-
-## Skill Reference
-
-See `docs/SKILL_REFERENCE.md` for detailed usage and trigger conditions. The following lists only project-relevant Skills.
-
-| Skill | Level | Trigger | Must load first |
-|---|---|---|---|
-| `art-pipeline` | **MANDATORY** | AI image gen, texture gen, image replace/crop/compress/import -- any `assets/resources/textures/` operation | ✅ Load before acting |
-| `encoding-pipeline-guard` | **MANDATORY** | Any source file (TS/Python/JSON/MD) create/edit/write -- prevents encoding corruption | ✅ Load before editing |
-| `ardot-mindmap-game-system-flow` | On-demand | Game system flow diagram / mind map | Load when relevant |
+## Memory Write Workflow
+Allowed direct: `inbox/YYYY-MM-DD_HHMM_scope_status.md`, `daily/YYYY-MM-DD.md`. Do NOT directly edit `MEMORY.md` / `topics/*.md` / `CHANGELOG.md` unless user says "merge main memory".
+Patch: copy `templates/MEMORY_PATCH_TEMPLATE.md` -> write inbox patch (Source / Proposed / Evidence / Conflicts / Target) -> merge only after explicit approval.
 
 ## Topic Index
+| Scope | File |
+|---|---|
+| ART_RESOURCE_RULES | `topics/ART_RESOURCE_RULES.md` |
+| CONVENTIONS | `topics/CONVENTIONS.md` |
+| WECHAT_REVIEW | `topics/WECHAT_REVIEW_RULES.md` |
+| ENGINEERING | `topics/ENGINEERING_STANDARDS.md` |
+| ARCH_GOVERNANCE | `topics/ARCHITECTURE_GOVERNANCE.md` |
+| RUNTIME_ASSEMBLY | `topics/RUNTIME_ASSEMBLY.md` |
+| DESIGN | `topics/DESIGN_MILESTONES.md` |
+| DEV_PROGRESS | `topics/DEV_PROGRESS.md` |
+| RESOURCE_STATUS | `topics/RESOURCE_STATUS.md` |
 
-| Scope | File | Description |
-|---|---|---|
-| ART_RESOURCE_RULES | `topics/ART_RESOURCE_RULES.md` | All art resource rules (style/pipeline/format/safety/registration/validation) |
-| CONVENTIONS | `topics/CONVENTIONS.md` | |
-| WECHAT_REVIEW | `topics/WECHAT_REVIEW_RULES.md` | |
-| ENGINEERING | `topics/ENGINEERING_STANDARDS.md` | |
-| ARCH_GOVERNANCE | `topics/ARCHITECTURE_GOVERNANCE.md` | |
-| RUNTIME_ASSEMBLY | `topics/RUNTIME_ASSEMBLY.md` | |
-| ART_PIPELINE | `topics/ART_PIPELINE.md` | (legacy, superseded by ART_RESOURCE_RULES) |
-| RESOURCE_STATUS | `topics/RESOURCE_STATUS.md` | |
-| DESIGN | `topics/DESIGN_MILESTONES.md` | |
-| DEV_PROGRESS | `topics/DEV_PROGRESS.md` | |
-
-## Current Validation Gates
-
-- Run `npm.cmd run validate:all` after source/config/doc changes. Runs 9 gates: config, bundle, encoding, architecture, ts-static, asset registry, ui skin, game assets, **doc consistency**.
-- Encoding gate: `python tools/encoding_audit.py --ci` must pass with issues=0 and p0=0.
-- Architecture gate: automated in `validate:all` -- `python tools/config_pipeline/check_architecture.py`. Only `SceneFlowService.ts` may call `director.loadScene()`.
-- **Doc consistency gate**: `python tools/check_doc_consistency.py` — validates budget alignment between `ART_RESOURCE_RULES.md` and `tools/art_pipeline.py`, category completeness, and path reference validity in `art-pipeline` SKILL.md. Must pass with 0 issues.
-- Existing bundle warnings may remain as optimization work, but all 9 gates must pass.
-- **Skill available**: `encoding-pipeline-guard` -- any file create/modify must route through its 4-phase workflow. Load via: `Skill({ skill: "encoding-pipeline-guard" })`.
+## Validation Gates
+`npm.cmd run validate:all` -> 9 gates: config, bundle, encoding, architecture, ts-static, asset registry, ui skin, game assets, doc consistency.
+- encoding: `python tools/encoding_audit.py --ci` issues=0, p0=0.
+- architecture: only `SceneFlowService.ts` may `director.loadScene()` (checked by `tools/config_pipeline/check_architecture.py`).
+- doc consistency: `python tools/check_doc_consistency.py` must be 0 issues (ART_RESOURCE_RULES <-> art_pipeline.py; paths in art-pipeline SKILL.md).

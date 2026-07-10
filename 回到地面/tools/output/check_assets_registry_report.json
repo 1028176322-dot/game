@@ -2,18 +2,39 @@
   "metadata": {
     "tool": "check_assets_registry.py",
     "version": "2.0.0",
-    "timestamp": "2026-07-08T20:29:40.073577"
+    "timestamp": "2026-07-10T18:12:19.757265"
   },
   "registry": {
     "disk_exists_but_not_registered": [],
     "registered_but_missing_file": [],
-    "total_disk": 499,
-    "total_registered": 499,
-    "total_matched": 499
+    "total_disk": 476,
+    "total_registered": 476,
+    "total_matched": 476
   },
   "ui_assets_cross_ref": {
     "ui_assets_total": 154,
-    "ui_assets_assetId_not_in_assets_json": []
+    "ui_assets_assetId_not_in_assets_json": [
+      {
+        "key": "character.preview.warrior",
+        "assetId": "textures/characters/warrior/warrior_idle"
+      },
+      {
+        "key": "character.preview.archer",
+        "assetId": "textures/characters/archer/archer_idle"
+      },
+      {
+        "key": "character.preview.assassin",
+        "assetId": "textures/characters/assassin/assassin_idle"
+      },
+      {
+        "key": "character.preview.mage",
+        "assetId": "textures/characters/mage/mage_idle"
+      },
+      {
+        "key": "character.preview.berserker",
+        "assetId": "textures/characters/berserker/berserker_idle"
+      }
+    ]
   },
   "ui_assets_type_issues": [],
   "binder_key_check": {
@@ -216,7 +237,7 @@
     "total_nine_slice_entries": 5
   },
   "summary": {
-    "total_issues": 0,
+    "total_issues": 5,
     "type_validation_errors": 0,
     "orphaned_binder_keys": 0,
     "unused_ui_asset_keys": 154,

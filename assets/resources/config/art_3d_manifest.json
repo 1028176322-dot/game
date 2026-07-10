@@ -1,0 +1,1462 @@
+{
+  "version": 1,
+  "source": "docs/美术资源制作参数总表_3D.md",
+  "generated_at": "2026-07-10T04:37:40.896757+00:00",
+  "counts": {
+    "characters": 5,
+    "monsters": 36,
+    "bosses": 42,
+    "effects": 27,
+    "tiles": 24
+  },
+  "entries": [
+    {
+      "name": "CHR_Archer_A",
+      "category": "characters",
+      "bucket": "characters",
+      "dim": "3d",
+      "source_2d": [
+        "characters/archer/archer_attack.png",
+        "characters/archer/archer_death.png",
+        "characters/archer/archer_dodge.png",
+        "characters/archer/archer_hit.png",
+        "characters/archer/archer_idle.png",
+        "characters/archer/archer_skill.png",
+        "characters/archer/archer_walk.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "CHR_Assassin_A",
+      "category": "characters",
+      "bucket": "characters",
+      "dim": "3d",
+      "source_2d": [
+        "characters/assassin/assassin_attack.png",
+        "characters/assassin/assassin_death.png",
+        "characters/assassin/assassin_dodge.png",
+        "characters/assassin/assassin_hit.png",
+        "characters/assassin/assassin_idle.png",
+        "characters/assassin/assassin_skill.png",
+        "characters/assassin/assassin_walk.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "CHR_Berserker_A",
+      "category": "characters",
+      "bucket": "characters",
+      "dim": "3d",
+      "source_2d": [
+        "characters/berserker/berserker_attack.png",
+        "characters/berserker/berserker_death.png",
+        "characters/berserker/berserker_dodge.png",
+        "characters/berserker/berserker_hit.png",
+        "characters/berserker/berserker_idle.png",
+        "characters/berserker/berserker_skill.png",
+        "characters/berserker/berserker_walk.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "CHR_Mage_A",
+      "category": "characters",
+      "bucket": "characters",
+      "dim": "3d",
+      "source_2d": [
+        "characters/mage/mage_attack.png",
+        "characters/mage/mage_death.png",
+        "characters/mage/mage_dodge.png",
+        "characters/mage/mage_hit.png",
+        "characters/mage/mage_idle.png",
+        "characters/mage/mage_skill.png",
+        "characters/mage/mage_walk.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "CHR_Warrior_A",
+      "category": "characters",
+      "bucket": "characters",
+      "dim": "3d",
+      "source_2d": [
+        "characters/warrior/warrior_attack.png",
+        "characters/warrior/warrior_death.png",
+        "characters/warrior/warrior_dodge.png",
+        "characters/warrior/warrior_hit.png",
+        "characters/warrior/warrior_idle.png",
+        "characters/warrior/warrior_skill.png",
+        "characters/warrior/warrior_walk.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Abyss_Abyssarcher",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/abyss/monster_abyss_abyssarcher_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Abyss_Abysslordelite",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/abyss/monster_abyss_abysslordelite_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Abyss_Shadowdemon",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/abyss/monster_abyss_shadowdemon_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Abyss_Shadowgolem",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/abyss/monster_abyss_shadowgolem_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Abyss_Voidrift",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/abyss/monster_abyss_voidrift_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Abyss_Voidwraith",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/abyss/monster_abyss_voidwraith_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Catacombs_Batswarm",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/catacombs/monster_catacombs_batswarm_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Catacombs_Deathknight",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/catacombs/monster_catacombs_deathknight_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Catacombs_Ghost",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/catacombs/monster_catacombs_ghost_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Catacombs_Ghoul",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/catacombs/monster_catacombs_ghoul_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Catacombs_Skeleton",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/catacombs/monster_catacombs_skeleton_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Catacombs_Skeletonarcher",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/catacombs/monster_catacombs_skeletonarcher_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Forest_Boar",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/forest/monster_forest_boar_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Forest_Deerelite",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/forest/monster_forest_deerelite_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Forest_Elfarcher",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/forest/monster_forest_elfarcher_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Forest_Mushroom",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/forest/monster_forest_mushroom_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Forest_Slime",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/forest/monster_forest_slime_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Forest_Treant",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/forest/monster_forest_treant_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Swamp_Gianttoad",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/swamp/monster_swamp_gianttoad_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Swamp_Rottreant",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/swamp/monster_swamp_rottreant_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Swamp_Slimepoison",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/swamp/monster_swamp_slimepoison_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Swamp_Swampdragon",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/swamp/monster_swamp_swampdragon_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Swamp_Swampspider",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/swamp/monster_swamp_swampspider_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Swamp_Viper",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/swamp/monster_swamp_viper_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Tundra_Frostgiant",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/tundra/monster_tundra_frostgiant_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Tundra_Frostmage",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/tundra/monster_tundra_frostmage_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Tundra_Iceskeleton",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/tundra/monster_tundra_iceskeleton_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Tundra_Penguinsoldier",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/tundra/monster_tundra_penguinsoldier_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Tundra_Snowman",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/tundra/monster_tundra_snowman_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Tundra_Snowwolf",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/tundra/monster_tundra_snowwolf_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Volcano_Ashwraith",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/volcano/monster_volcano_ashwraith_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Volcano_Demon",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/volcano/monster_volcano_demon_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Volcano_Fireelemental",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/volcano/monster_volcano_fireelemental_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Volcano_Infernoelite",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/volcano/monster_volcano_infernoelite_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Volcano_Lavaspider",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/volcano/monster_volcano_lavaspider_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "MON_Monster_Volcano_Suicidegolem",
+      "category": "monsters",
+      "bucket": "monsters",
+      "dim": "3d",
+      "source_2d": [
+        "monsters/volcano/monster_volcano_suicidegolem_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Final_01",
+      "category": "bosses",
+      "bucket": "bosses_final",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/finalboss/abyss/boss_abyssoverlord_attack.png",
+        "bosses/finalboss/abyss/boss_abyssoverlord_death.png",
+        "bosses/finalboss/abyss/boss_abyssoverlord_idle.png",
+        "bosses/finalboss/abyss/boss_abyssoverlord_phasechange.png",
+        "bosses/finalboss/abyss/boss_abyssoverlord_skill.png",
+        "bosses/finalboss/boss_abyssoverlord_attack.png",
+        "bosses/finalboss/boss_abyssoverlord_death.png",
+        "bosses/finalboss/boss_abyssoverlord_idle.png",
+        "bosses/finalboss/boss_abyssoverlord_phasechange.png",
+        "bosses/finalboss/boss_abyssoverlord_skill.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Final_02",
+      "category": "bosses",
+      "bucket": "bosses_final",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/finalboss/boss_beast_swamp_attack.png",
+        "bosses/finalboss/boss_beast_swamp_death.png",
+        "bosses/finalboss/boss_beast_swamp_idle.png",
+        "bosses/finalboss/boss_beast_swamp_phasechange.png",
+        "bosses/finalboss/boss_beast_swamp_skill.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Final_03",
+      "category": "bosses",
+      "bucket": "bosses_final",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/finalboss/boss_firelord_attack.png",
+        "bosses/finalboss/boss_firelord_death.png",
+        "bosses/finalboss/boss_firelord_idle.png",
+        "bosses/finalboss/boss_firelord_phasechange.png",
+        "bosses/finalboss/boss_firelord_skill.png",
+        "bosses/finalboss/volcano/boss_firelord_attack.png",
+        "bosses/finalboss/volcano/boss_firelord_death.png",
+        "bosses/finalboss/volcano/boss_firelord_idle.png",
+        "bosses/finalboss/volcano/boss_firelord_phasechange.png",
+        "bosses/finalboss/volcano/boss_firelord_skill.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Final_04",
+      "category": "bosses",
+      "bucket": "bosses_final",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/finalboss/boss_forestguardian_attack.png",
+        "bosses/finalboss/boss_forestguardian_death.png",
+        "bosses/finalboss/boss_forestguardian_idle.png",
+        "bosses/finalboss/boss_forestguardian_phasechange.png",
+        "bosses/finalboss/boss_forestguardian_skill.png",
+        "bosses/finalboss/forest/boss_forestguardian_attack.png",
+        "bosses/finalboss/forest/boss_forestguardian_death.png",
+        "bosses/finalboss/forest/boss_forestguardian_idle.png",
+        "bosses/finalboss/forest/boss_forestguardian_phasechange.png",
+        "bosses/finalboss/forest/boss_forestguardian_skill.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Final_05",
+      "category": "bosses",
+      "bucket": "bosses_final",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/finalboss/boss_frostqueen_attack.png",
+        "bosses/finalboss/boss_frostqueen_death.png",
+        "bosses/finalboss/boss_frostqueen_idle.png",
+        "bosses/finalboss/boss_frostqueen_phasechange.png",
+        "bosses/finalboss/boss_frostqueen_skill.png",
+        "bosses/finalboss/tundra/boss_frostqueen_attack.png",
+        "bosses/finalboss/tundra/boss_frostqueen_death.png",
+        "bosses/finalboss/tundra/boss_frostqueen_idle.png",
+        "bosses/finalboss/tundra/boss_frostqueen_phasechange.png",
+        "bosses/finalboss/tundra/boss_frostqueen_skill.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Final_06",
+      "category": "bosses",
+      "bucket": "bosses_final",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/finalboss/boss_guardian_forest_attack.png",
+        "bosses/finalboss/boss_guardian_forest_death.png",
+        "bosses/finalboss/boss_guardian_forest_idle.png",
+        "bosses/finalboss/boss_guardian_forest_phasechange.png",
+        "bosses/finalboss/boss_guardian_forest_skill.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Final_07",
+      "category": "bosses",
+      "bucket": "bosses_final",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/finalboss/boss_lord_abyss_attack.png",
+        "bosses/finalboss/boss_lord_abyss_death.png",
+        "bosses/finalboss/boss_lord_abyss_idle.png",
+        "bosses/finalboss/boss_lord_abyss_phasechange.png",
+        "bosses/finalboss/boss_lord_abyss_skill.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Final_08",
+      "category": "bosses",
+      "bucket": "bosses_final",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/finalboss/boss_lord_catacombs_attack.png",
+        "bosses/finalboss/boss_lord_catacombs_death.png",
+        "bosses/finalboss/boss_lord_catacombs_idle.png",
+        "bosses/finalboss/boss_lord_catacombs_phasechange.png",
+        "bosses/finalboss/boss_lord_catacombs_skill.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Final_09",
+      "category": "bosses",
+      "bucket": "bosses_final",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/finalboss/boss_lord_volcano_attack.png",
+        "bosses/finalboss/boss_lord_volcano_death.png",
+        "bosses/finalboss/boss_lord_volcano_idle.png",
+        "bosses/finalboss/boss_lord_volcano_phasechange.png",
+        "bosses/finalboss/boss_lord_volcano_skill.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Final_10",
+      "category": "bosses",
+      "bucket": "bosses_final",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/finalboss/boss_queen_tundra_attack.png",
+        "bosses/finalboss/boss_queen_tundra_death.png",
+        "bosses/finalboss/boss_queen_tundra_idle.png",
+        "bosses/finalboss/boss_queen_tundra_phasechange.png",
+        "bosses/finalboss/boss_queen_tundra_skill.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Final_11",
+      "category": "bosses",
+      "bucket": "bosses_final",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/finalboss/boss_skeletonlord_attack.png",
+        "bosses/finalboss/boss_skeletonlord_death.png",
+        "bosses/finalboss/boss_skeletonlord_idle.png",
+        "bosses/finalboss/boss_skeletonlord_phasechange.png",
+        "bosses/finalboss/boss_skeletonlord_skill.png",
+        "bosses/finalboss/catacombs/boss_skeletonlord_attack.png",
+        "bosses/finalboss/catacombs/boss_skeletonlord_death.png",
+        "bosses/finalboss/catacombs/boss_skeletonlord_idle.png",
+        "bosses/finalboss/catacombs/boss_skeletonlord_phasechange.png",
+        "bosses/finalboss/catacombs/boss_skeletonlord_skill.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Final_12",
+      "category": "bosses",
+      "bucket": "bosses_final",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/finalboss/boss_swampbehemoth_attack.png",
+        "bosses/finalboss/boss_swampbehemoth_death.png",
+        "bosses/finalboss/boss_swampbehemoth_idle.png",
+        "bosses/finalboss/boss_swampbehemoth_phasechange.png",
+        "bosses/finalboss/boss_swampbehemoth_skill.png",
+        "bosses/finalboss/swamp/boss_swampbehemoth_attack.png",
+        "bosses/finalboss/swamp/boss_swampbehemoth_death.png",
+        "bosses/finalboss/swamp/boss_swampbehemoth_idle.png",
+        "bosses/finalboss/swamp/boss_swampbehemoth_phasechange.png",
+        "bosses/finalboss/swamp/boss_swampbehemoth_skill.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_01",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/abyss/miniboss_abysssentinel_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_02",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/abyss/miniboss_nightmareknight_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_03",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/abyss/miniboss_shadowdragon_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_04",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/abyss/miniboss_voidhunter_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_05",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/abyss/miniboss_voidlord_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_06",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/catacombs/miniboss_blackknight_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_07",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/catacombs/miniboss_gargoyle_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_08",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/catacombs/miniboss_giantskeleton_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_09",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/catacombs/miniboss_lich_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_10",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/catacombs/miniboss_warden_catacombs_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_11",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/forest/miniboss_boarchief_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_12",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/forest/miniboss_poisonflower_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_13",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/forest/miniboss_porcupineking_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_14",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/forest/miniboss_stagbeetle_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_15",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/forest/miniboss_warden_forest_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_16",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/swamp/miniboss_poisonscorpion_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_17",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/swamp/miniboss_rottreantelite_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_18",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/swamp/miniboss_serpentqueen_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_19",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/swamp/miniboss_swampcrocodile_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_20",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/swamp/miniboss_swampfrog_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_21",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/tundra/miniboss_frostelemental_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_22",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/tundra/miniboss_icegiant_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_23",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/tundra/miniboss_icescorpion_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_24",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/tundra/miniboss_polarbearking_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_25",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/tundra/miniboss_snowape_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_26",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/volcano/miniboss_firegolem_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_27",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/volcano/miniboss_inferno_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_28",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/volcano/miniboss_lavaworm_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_29",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/volcano/miniboss_volcanogiant_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "BOSS_Mini_30",
+      "category": "bosses",
+      "bucket": "bosses_mini",
+      "dim": "3d",
+      "source_2d": [
+        "bosses/miniboss/volcano/miniboss_warden_volcano_idle.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_Crit",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/combat/fx_crit.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_Dash",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/combat/fx_dash.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_Dodge",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/combat/fx_dodge.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_Heal",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/combat/fx_heal.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_HitNormal",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/combat/fx_hit_normal.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_Shield",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/combat/fx_shield.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_ReactionBurn",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/reactions/fx_reaction_burn.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_ReactionConduct",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/reactions/fx_reaction_conduct.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_ReactionCorrode",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/reactions/fx_reaction_corrode.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_ReactionDecay",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/reactions/fx_reaction_decay.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_ReactionFreeze",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/reactions/fx_reaction_freeze.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_ReactionMelt",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/reactions/fx_reaction_melt.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_ReactionOverload",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/reactions/fx_reaction_overload.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_ReactionRadiance",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/reactions/fx_reaction_radiance.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_ReactionShatter",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/reactions/fx_reaction_shatter.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_ReactionVaporize",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/reactions/fx_reaction_vaporize.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_ReactionVoid",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/reactions/fx_reaction_void.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_RelicBlinkStone",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/relics/fx_relic_blink_stone.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_RelicDecoyScroll",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/relics/fx_relic_decoy_scroll.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_RelicFlameRing",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/relics/fx_relic_flame_ring.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_RelicFrostAmulet",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/relics/fx_relic_frost_amulet.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_RelicGravityStone",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/relics/fx_relic_gravity_stone.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_RelicLifeLink",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/relics/fx_relic_life_link.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_RelicShadowDagger",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/relics/fx_relic_shadow_dagger.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_RelicTimeHourglass",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/relics/fx_relic_time_hourglass.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_UiGlow",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/ui/fx_ui_glow.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "FX_UiLoading",
+      "category": "effects",
+      "bucket": "effects_normal",
+      "dim": "3d",
+      "source_2d": [
+        "effects/ui/fx_ui_loading.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Abyss_Floor",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/abyss/tile_abyss_floor.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Abyss_Highground",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/abyss/tile_abyss_highground.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Abyss_Thorn",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/abyss/tile_abyss_thorn.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Abyss_Wall",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/abyss/tile_abyss_wall.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Catacombs_Floor",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/catacombs/tile_catacombs_floor.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Catacombs_Highground",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/catacombs/tile_catacombs_highground.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Catacombs_Thorn",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/catacombs/tile_catacombs_thorn.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Catacombs_Wall",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/catacombs/tile_catacombs_wall.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Forest_Floor",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/forest/tile_forest_floor.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Forest_Highground",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/forest/tile_forest_highground.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Forest_Thorn",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/forest/tile_forest_thorn.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Forest_Wall",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/forest/tile_forest_wall.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Swamp_Floor",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/swamp/tile_swamp_floor.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Swamp_Highground",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/swamp/tile_swamp_highground.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Swamp_Thorn",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/swamp/tile_swamp_thorn.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Swamp_Wall",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/swamp/tile_swamp_wall.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Tundra_Floor",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/tundra/tile_tundra_floor.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Tundra_Highground",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/tundra/tile_tundra_highground.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Tundra_Thorn",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/tundra/tile_tundra_thorn.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Tundra_Wall",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/tundra/tile_tundra_wall.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Volcano_Floor",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/volcano/tile_volcano_floor.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Volcano_Highground",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/volcano/tile_volcano_highground.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Volcano_Thorn",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/volcano/tile_volcano_thorn.png"
+      ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "TILE_Volcano_Wall",
+      "category": "tiles",
+      "bucket": "tiles",
+      "dim": "3d",
+      "source_2d": [
+        "tiles/volcano/tile_volcano_wall.png"
+      ],
+      "lifecycle": "选秀"
+    }
+  ]
+}
