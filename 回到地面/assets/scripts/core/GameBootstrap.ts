@@ -24,6 +24,7 @@ import { ReplayRecorder } from '../replay/ReplayRecorder';
 import { AudioSystem, MemoryAudioSink } from '../audio/AudioSystem';
 import { AnimationStateMachine } from '../battle/ai/AnimationStateMachine';
 import { EventBusManager } from './EventBusManager';
+import { EntityManager, IEntityManager } from '../ecs/EntityManager';
 
 const { ccclass, property } = _decorator;
 
@@ -211,6 +212,14 @@ export class GameBootstrap extends Component {
         this._ctx.register(IEventBus, eventBus);
         this._lifecycle.register(eventBus);
         eventBus.initialize(this._ctx);
+
+        // §3.12: EntityManager (IEntityManager) — ECS entity registry.
+        // Pure TS. Implements ILifecycle. PlayerController already has the main
+        // Cocos component; EntityManager provides the registry side (component lookup).
+        const entityManager = new EntityManager();
+        this._ctx.register(IEntityManager, entityManager);
+        this._lifecycle.register(entityManager);
+        entityManager.initialize(this._ctx);
 
         const logger = this._ctx.get<Logger>(ILogger);
         // Demo probe (NOT a business system): implements ILifecycle so LifecycleManager
