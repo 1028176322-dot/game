@@ -13,6 +13,10 @@ import { CameraBrain, CameraMode, ICameraNode } from '../camera/CameraBrain';
 import { PhysicsCollisionImpl } from '../physics/PhysicsCollisionImpl';
 import { SkillGraph, ISkillGraph } from '../battle/skill/SkillGraph';
 import { SkillExecutor, ISkillExecutor } from '../battle/skill/SkillExecutor';
+import { DungeonGenerator } from '../dungeon/DungeonGenerator';
+import { RoomBuilder } from '../dungeon/RoomBuilder';
+import { NavigationGrid } from '../dungeon/NavigationGrid';
+import { RoomRuntime, IRoomRuntime } from '../dungeon/RoomRuntime';
 
 const { ccclass, property } = _decorator;
 
@@ -124,6 +128,17 @@ export class GameBootstrap extends Component {
         this._ctx.register(ISkillExecutor, skillExecutor);
         this._lifecycle.register(skillExecutor);
         skillExecutor.initialize(this._ctx);
+
+        // Demo5: dungeon room full lifecycle (§3.7 + §5.1). Build a demo room from a seed
+        // (DungeonGenerator -> RoomBuilder -> NavigationGrid), register the RoomRuntime as
+        // IRoomRuntime and join LifecycleManager (room-level teardown, red line 3). Pure TS.
+        const layout = new DungeonGenerator().generate(20260710, 'forest');
+        const roomData = new RoomBuilder().build(layout.rooms[0]);
+        const navGrid = new NavigationGrid(roomData.tileMap);
+        const roomRuntime = new RoomRuntime(roomData, navGrid);
+        this._ctx.register(IRoomRuntime, roomRuntime);
+        this._lifecycle.register(roomRuntime);
+        roomRuntime.initialize(this._ctx);
 
         const logger = this._ctx.get<Logger>(ILogger);
         // Demo probe (NOT a business system): implements ILifecycle so LifecycleManager
