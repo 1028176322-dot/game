@@ -4,12 +4,13 @@ import { ConfigService } from '../config/ConfigService';
 import { ConfigManager } from './ConfigManager';
 import { GameManager } from './GameManager';
 import { SceneFlowService } from '../app/SceneFlowService';
-import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain } from './GameContext';
+import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService } from './GameContext';
 import { Logger } from './Logger';
 import { ConfigDatabase } from './ConfigDatabase';
 import { LifecycleManager, ILifecycle } from './LifecycleManager';
 import { AssetCache } from '../assets/AssetCache';
 import { CameraBrain, CameraMode, ICameraNode } from '../camera/CameraBrain';
+import { PhysicsCollisionImpl } from '../physics/PhysicsCollisionImpl';
 
 const { ccclass, property } = _decorator;
 
@@ -102,6 +103,12 @@ export class GameBootstrap extends Component {
           cameraBrain.attach(mainCam);
         }
         cameraBrain.setMode(CameraMode.Follow);
+
+        // Demo3: PhysicsCollisionImpl — ICollisionService (§3.3). Pure TS, no cc, deterministic.
+        // Implements ILifecycle so it joins LifecycleManager teardown (red line 3).
+        const collision = new PhysicsCollisionImpl();
+        this._ctx.register(ICollisionService, collision);
+        this._lifecycle.register(collision);
 
         const logger = this._ctx.get<Logger>(ILogger);
         // Demo probe (NOT a business system): implements ILifecycle so LifecycleManager
