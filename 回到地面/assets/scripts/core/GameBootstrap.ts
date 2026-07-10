@@ -11,6 +11,8 @@ import { LifecycleManager, ILifecycle } from './LifecycleManager';
 import { AssetCache } from '../assets/AssetCache';
 import { CameraBrain, CameraMode, ICameraNode } from '../camera/CameraBrain';
 import { PhysicsCollisionImpl } from '../physics/PhysicsCollisionImpl';
+import { SkillGraph, ISkillGraph } from '../battle/skill/SkillGraph';
+import { SkillExecutor, ISkillExecutor } from '../battle/skill/SkillExecutor';
 
 const { ccclass, property } = _decorator;
 
@@ -109,6 +111,19 @@ export class GameBootstrap extends Component {
         const collision = new PhysicsCollisionImpl();
         this._ctx.register(ICollisionService, collision);
         this._lifecycle.register(collision);
+
+        // Demo4: SkillGraph + SkillExecutor (§3.9). Data-driven skills, no switch (red line 2).
+        // SkillGraph builds the node chain; SkillExecutor dispatches nodes by kind via a Map.
+        // Both implement ILifecycle so they join LifecycleManager teardown (red line 3).
+        const skillGraph = new SkillGraph();
+        this._ctx.register(ISkillGraph, skillGraph);
+        this._lifecycle.register(skillGraph);
+        skillGraph.initialize(this._ctx);
+
+        const skillExecutor = new SkillExecutor();
+        this._ctx.register(ISkillExecutor, skillExecutor);
+        this._lifecycle.register(skillExecutor);
+        skillExecutor.initialize(this._ctx);
 
         const logger = this._ctx.get<Logger>(ILogger);
         // Demo probe (NOT a business system): implements ILifecycle so LifecycleManager
