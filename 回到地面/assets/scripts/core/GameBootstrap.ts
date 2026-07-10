@@ -25,6 +25,7 @@ import { AudioSystem, MemoryAudioSink } from '../audio/AudioSystem';
 import { AnimationStateMachine } from '../battle/ai/AnimationStateMachine';
 import { EventBusManager } from './EventBusManager';
 import { EntityManager, IEntityManager } from '../ecs/EntityManager';
+import { CombatSystem, ICombatSystem } from '../battle/combat/CombatSystem';
 
 const { ccclass, property } = _decorator;
 
@@ -220,6 +221,14 @@ export class GameBootstrap extends Component {
         this._ctx.register(IEntityManager, entityManager);
         this._lifecycle.register(entityManager);
         entityManager.initialize(this._ctx);
+
+        // §3.8: CombatSystem — combat orchestration (dispatch/target/effect/projectile/lock-on).
+        // Consumes SkillRequest from AI or player CombatComponent, executes through the full
+        // combat pipeline. All dependencies resolved via ctx.get. Implements ILifecycle.
+        const combatSystem = new CombatSystem();
+        this._ctx.register(ICombatSystem, combatSystem);
+        this._lifecycle.register(combatSystem);
+        combatSystem.initialize(this._ctx);
 
         const logger = this._ctx.get<Logger>(ILogger);
         // Demo probe (NOT a business system): implements ILifecycle so LifecycleManager
