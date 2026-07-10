@@ -4,7 +4,7 @@ import { ConfigService } from '../config/ConfigService';
 import { ConfigManager } from './ConfigManager';
 import { GameManager } from './GameManager';
 import { SceneFlowService } from '../app/SceneFlowService';
-import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService } from './GameContext';
+import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService, IDebugService, ISaveManager, IReplayRecorder } from './GameContext';
 import { Logger } from './Logger';
 import { ConfigDatabase } from './ConfigDatabase';
 import { LifecycleManager, ILifecycle } from './LifecycleManager';
@@ -17,6 +17,9 @@ import { DungeonGenerator } from '../dungeon/DungeonGenerator';
 import { RoomBuilder } from '../dungeon/RoomBuilder';
 import { NavigationGrid } from '../dungeon/NavigationGrid';
 import { RoomRuntime, IRoomRuntime } from '../dungeon/RoomRuntime';
+import { DebugPanel } from '../debug/DebugPanel';
+import { SaveManagerImpl, MemorySaveBackend } from '../save/SaveManager';
+import { ReplayRecorder } from '../replay/ReplayRecorder';
 
 const { ccclass, property } = _decorator;
 
@@ -89,9 +92,25 @@ export class GameBootstrap extends Component {
         // ConfigDatabase does NOT implement ILifecycle, so it is NOT registered into
         // LifecycleManager (avoid faking lifecycle, per D0-5 strict constraint).
         this._ctx = new GameContext();
-        this._ctx.register(ILogger, new Logger(true));
-        this._ctx.register(IConfigDatabase, new ConfigDatabase());
         this._lifecycle = new LifecycleManager();
+
+        // §5.5 DebugPanel (IDebugService) — created before Logger so the Logger sink
+        // forwards its output into the DebugPanel "Events" buffer (ILogger buffer reuse).
+        const debugPanel = new DebugPanel();
+        this._ctx.register(IDebugService, debugPanel);
+        this._lifecycle.register(debugPanel);
+        debugPanel.initialize(this._ctx);
+        // Demo seed provider (IRuntimeState not built yet; filled by later system).
+        debugPanel.registerProvider('seed', () => ({ seed: { seed: 20260710, frame: 0 } }));
+
+        this._ctx.register(
+          ILogger,
+          new Logger(true, undefined, (line: string) => {
+            console.log(line);
+            debugPanel.pushRaw(line);
+          })
+        );
+        this._ctx.register(IConfigDatabase, new ConfigDatabase());
 
         // Demo1: AssetCache — loader delegates to existing AssetBundleService (no re-implementation).
         // Implements ILifecycle, so it is registered into LifecycleManager for teardown.
@@ -139,6 +158,22 @@ export class GameBootstrap extends Component {
         this._ctx.register(IRoomRuntime, roomRuntime);
         this._lifecycle.register(roomRuntime);
         roomRuntime.initialize(this._ctx);
+
+        // §5.6 SaveManager (ISaveManager) — layered persistence (crash recovery / daily
+        // challenge / cloud save share one snapshot). Backend injected (Memory for demo;
+        // engine wires a localStorage-backed backend). Implements ILifecycle.
+        const saveBackend = new MemorySaveBackend();
+        const saveManager = new SaveManagerImpl(saveBackend);
+        this._ctx.register(ISaveManager, saveManager);
+        this._lifecycle.register(saveManager);
+        saveManager.initialize(this._ctx);
+
+        // §5.7 ReplayRecorder (IReplayRecorder) — deterministic replay = seed + input
+        // stream. Ring buffer keeps recent N runs. Implements ILifecycle.
+        const replayRecorder = new ReplayRecorder();
+        this._ctx.register(IReplayRecorder, replayRecorder);
+        this._lifecycle.register(replayRecorder);
+        replayRecorder.initialize(this._ctx);
 
         const logger = this._ctx.get<Logger>(ILogger);
         // Demo probe (NOT a business system): implements ILifecycle so LifecycleManager
