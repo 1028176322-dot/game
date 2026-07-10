@@ -9,6 +9,7 @@
   "scripts": {
     "build": "cocos build",
     "build:wechat": "cocos build --platform wechatgame",
+    "test": "vitest run",
     "validate:config": "python tools/config_pipeline/validate_config.py",
     "validate:bundle": "python tools/bundle/check_bundle_budget.py",
     "validate:all": "python tools/config_pipeline/check_all.py",
@@ -16,5 +17,8 @@
     "prebuild:wechat": "npm run validate:all",
     "typecheck": "echo '请使用 Cocos Creator 编辑器内置 TypeScript 检查（ccc tsc）'"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "vitest": "^2.1.8"
+  }
 }
