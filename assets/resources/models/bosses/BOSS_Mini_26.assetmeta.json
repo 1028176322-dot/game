@@ -1,0 +1,30 @@
+{
+  "name": "BOSS_Mini_26",
+  "tri": 7000,
+  "bones": 60,
+  "textureSize": 512,
+  "lodLevels": 2,
+  "animClips": 7,
+  "sockets": [
+    "RightHand",
+    "LeftHand",
+    "Head",
+    "Chest",
+    "Back",
+    "Foot",
+    "Weapon",
+    "SkillOrigin",
+    "Mouth",
+    "Tail",
+    "WeakPoint"
+  ],
+  "colliders": [
+    "capsule"
+  ],
+  "lifecycle": "选秀",
+  "perfTier": "medium",
+  "version": "1.0.0",
+  "author": "",
+  "date": "2026-07-10",
+  "reviewer": ""
+}

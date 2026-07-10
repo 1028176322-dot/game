@@ -1,0 +1,546 @@
+{
+  "timestamp": "2026-07-08T16:36:22.540569",
+  "summary": {
+    "prompts_before": 418,
+    "textures_found": 499,
+    "matched_ok": 397,
+    "suffix_mismatches_fixed": 21,
+    "missing_prompts_generated": 81,
+    "prompts_after": 499
+  },
+  "fixes": [
+    {
+      "resource_id": "backgrounds/bg_combat_abyss",
+      "old_key": "backgrounds/bg_combat_abyss.png",
+      "new_key": "backgrounds/bg_combat_abyss.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_combat_catacombs",
+      "old_key": "backgrounds/bg_combat_catacombs.png",
+      "new_key": "backgrounds/bg_combat_catacombs.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_combat_forest",
+      "old_key": "backgrounds/bg_combat_forest.png",
+      "new_key": "backgrounds/bg_combat_forest.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_combat_swamp",
+      "old_key": "backgrounds/bg_combat_swamp.png",
+      "new_key": "backgrounds/bg_combat_swamp.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_combat_tundra",
+      "old_key": "backgrounds/bg_combat_tundra.png",
+      "new_key": "backgrounds/bg_combat_tundra.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_combat_volcano",
+      "old_key": "backgrounds/bg_combat_volcano.png",
+      "new_key": "backgrounds/bg_combat_volcano.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_event_abyss",
+      "old_key": "backgrounds/bg_event_abyss.png",
+      "new_key": "backgrounds/bg_event_abyss.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_event_catacombs",
+      "old_key": "backgrounds/bg_event_catacombs.png",
+      "new_key": "backgrounds/bg_event_catacombs.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_event_forest",
+      "old_key": "backgrounds/bg_event_forest.png",
+      "new_key": "backgrounds/bg_event_forest.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_event_swamp",
+      "old_key": "backgrounds/bg_event_swamp.png",
+      "new_key": "backgrounds/bg_event_swamp.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_event_tundra",
+      "old_key": "backgrounds/bg_event_tundra.png",
+      "new_key": "backgrounds/bg_event_tundra.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_event_volcano",
+      "old_key": "backgrounds/bg_event_volcano.png",
+      "new_key": "backgrounds/bg_event_volcano.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_room_healing",
+      "old_key": "backgrounds/bg_room_healing.png",
+      "new_key": "backgrounds/bg_room_healing.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_room_rest",
+      "old_key": "backgrounds/bg_room_rest.png",
+      "new_key": "backgrounds/bg_room_rest.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_room_shop",
+      "old_key": "backgrounds/bg_room_shop.png",
+      "new_key": "backgrounds/bg_room_shop.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_room_treasure",
+      "old_key": "backgrounds/bg_room_treasure.png",
+      "new_key": "backgrounds/bg_room_treasure.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "backgrounds/bg_room_upgrade",
+      "old_key": "backgrounds/bg_room_upgrade.png",
+      "new_key": "backgrounds/bg_room_upgrade.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "ui/death/death_bg",
+      "old_key": "ui/death/death_bg.png",
+      "new_key": "ui/death/death_bg.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "ui/main/main_bg",
+      "old_key": "ui/main/main_bg.png",
+      "new_key": "ui/main/main_bg.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "ui/shop/shop_bg",
+      "old_key": "ui/shop/shop_bg.png",
+      "new_key": "ui/shop/shop_bg.jpg",
+      "action": "rekey"
+    },
+    {
+      "resource_id": "ui/splash/splash_bg",
+      "old_key": "ui/splash/splash_bg.png",
+      "new_key": "ui/splash/splash_bg.jpg",
+      "action": "rekey"
+    }
+  ],
+  "additions": [
+    {
+      "path": "ui/area/area_badge_abyss.png",
+      "action": "generated",
+      "prompt_length": 2062
+    },
+    {
+      "path": "ui/area/area_badge_forest.png",
+      "action": "generated",
+      "prompt_length": 2063
+    },
+    {
+      "path": "ui/area/area_badge_swamp.png",
+      "action": "generated",
+      "prompt_length": 2062
+    },
+    {
+      "path": "ui/area/area_badge_tundra.png",
+      "action": "generated",
+      "prompt_length": 2063
+    },
+    {
+      "path": "ui/area/area_badge_volcano.png",
+      "action": "generated",
+      "prompt_length": 2064
+    },
+    {
+      "path": "ui/area/area_bg.jpg",
+      "action": "generated",
+      "prompt_length": 2617
+    },
+    {
+      "path": "ui/area/btn_back.png",
+      "action": "generated",
+      "prompt_length": 2114
+    },
+    {
+      "path": "ui/area/btn_start.png",
+      "action": "generated",
+      "prompt_length": 2115
+    },
+    {
+      "path": "ui/area/route_card_default.png",
+      "action": "generated",
+      "prompt_length": 2077
+    },
+    {
+      "path": "ui/area/route_card_locked.png",
+      "action": "generated",
+      "prompt_length": 2076
+    },
+    {
+      "path": "ui/area/route_panel.png",
+      "action": "generated",
+      "prompt_length": 2065
+    },
+    {
+      "path": "ui/character/avatar_archer.png",
+      "action": "generated",
+      "prompt_length": 2148
+    },
+    {
+      "path": "ui/character/avatar_assassin.png",
+      "action": "generated",
+      "prompt_length": 2150
+    },
+    {
+      "path": "ui/character/avatar_berserker.png",
+      "action": "generated",
+      "prompt_length": 2151
+    },
+    {
+      "path": "ui/character/avatar_mage.png",
+      "action": "generated",
+      "prompt_length": 2146
+    },
+    {
+      "path": "ui/character/avatar_warrior.png",
+      "action": "generated",
+      "prompt_length": 2149
+    },
+    {
+      "path": "ui/character/btn_select.png",
+      "action": "generated",
+      "prompt_length": 2121
+    },
+    {
+      "path": "ui/character/character_bg.jpg",
+      "action": "generated",
+      "prompt_length": 2622
+    },
+    {
+      "path": "ui/character/character_card_default.png",
+      "action": "generated",
+      "prompt_length": 2086
+    },
+    {
+      "path": "ui/character/character_card_selected.png",
+      "action": "generated",
+      "prompt_length": 2087
+    },
+    {
+      "path": "ui/character/character_detail_panel.png",
+      "action": "generated",
+      "prompt_length": 2081
+    },
+    {
+      "path": "ui/character/character_list_panel.png",
+      "action": "generated",
+      "prompt_length": 2079
+    },
+    {
+      "path": "ui/create/btn_class_default.png",
+      "action": "generated",
+      "prompt_length": 2125
+    },
+    {
+      "path": "ui/create/btn_class_selected.png",
+      "action": "generated",
+      "prompt_length": 2126
+    },
+    {
+      "path": "ui/create/btn_create_confirm.png",
+      "action": "generated",
+      "prompt_length": 2126
+    },
+    {
+      "path": "ui/create/btn_create_skip.png",
+      "action": "generated",
+      "prompt_length": 2123
+    },
+    {
+      "path": "ui/create/character_stage_glow.png",
+      "action": "generated",
+      "prompt_length": 2088
+    },
+    {
+      "path": "ui/create/create_bg.jpg",
+      "action": "generated",
+      "prompt_length": 2619
+    },
+    {
+      "path": "ui/create/create_model_stage.jpg",
+      "action": "generated",
+      "prompt_length": 2034
+    },
+    {
+      "path": "ui/create/info_panel.png",
+      "action": "generated",
+      "prompt_length": 2066
+    },
+    {
+      "path": "ui/create/input_name.png",
+      "action": "generated",
+      "prompt_length": 2066
+    },
+    {
+      "path": "ui/create/name_panel.png",
+      "action": "generated",
+      "prompt_length": 2066
+    },
+    {
+      "path": "ui/equipment/btn_close.png",
+      "action": "generated",
+      "prompt_length": 2120
+    },
+    {
+      "path": "ui/equipment/btn_equip.png",
+      "action": "generated",
+      "prompt_length": 2120
+    },
+    {
+      "path": "ui/equipment/equipment_bg.jpg",
+      "action": "generated",
+      "prompt_length": 2622
+    },
+    {
+      "path": "ui/equipment/inventory_panel.png",
+      "action": "generated",
+      "prompt_length": 2074
+    },
+    {
+      "path": "ui/event/btn_continue.png",
+      "action": "generated",
+      "prompt_length": 2119
+    },
+    {
+      "path": "ui/event/choice_card.png",
+      "action": "generated",
+      "prompt_length": 2071
+    },
+    {
+      "path": "ui/event/event_bg.jpg",
+      "action": "generated",
+      "prompt_length": 2618
+    },
+    {
+      "path": "ui/event/event_panel.png",
+      "action": "generated",
+      "prompt_length": 2066
+    },
+    {
+      "path": "ui/hud/floor_badge.png",
+      "action": "generated",
+      "prompt_length": 2061
+    },
+    {
+      "path": "ui/hud/kill_badge.png",
+      "action": "generated",
+      "prompt_length": 2060
+    },
+    {
+      "path": "ui/hud/pause_btn.png",
+      "action": "generated",
+      "prompt_length": 2025
+    },
+    {
+      "path": "ui/log/btn_close.png",
+      "action": "generated",
+      "prompt_length": 2114
+    },
+    {
+      "path": "ui/log/log_bg.jpg",
+      "action": "generated",
+      "prompt_length": 2616
+    },
+    {
+      "path": "ui/log/log_book_panel.png",
+      "action": "generated",
+      "prompt_length": 2067
+    },
+    {
+      "path": "ui/log/stat_row.png",
+      "action": "generated",
+      "prompt_length": 2061
+    },
+    {
+      "path": "ui/log/trophy_icon.png",
+      "action": "generated",
+      "prompt_length": 2055
+    },
+    {
+      "path": "ui/login/agreement_strip.png",
+      "action": "generated",
+      "prompt_length": 2067
+    },
+    {
+      "path": "ui/login/btn_guest.png",
+      "action": "generated",
+      "prompt_length": 2116
+    },
+    {
+      "path": "ui/login/btn_wechat.png",
+      "action": "generated",
+      "prompt_length": 2117
+    },
+    {
+      "path": "ui/login/login_bg.jpg",
+      "action": "generated",
+      "prompt_length": 2618
+    },
+    {
+      "path": "ui/login/login_panel.png",
+      "action": "generated",
+      "prompt_length": 2066
+    },
+    {
+      "path": "ui/main/btn_adventure.png",
+      "action": "generated",
+      "prompt_length": 2119
+    },
+    {
+      "path": "ui/main/btn_character.png",
+      "action": "generated",
+      "prompt_length": 2119
+    },
+    {
+      "path": "ui/main/btn_log.png",
+      "action": "generated",
+      "prompt_length": 2113
+    },
+    {
+      "path": "ui/main/btn_settings.png",
+      "action": "generated",
+      "prompt_length": 2118
+    },
+    {
+      "path": "ui/main/btn_shop.png",
+      "action": "generated",
+      "prompt_length": 2114
+    },
+    {
+      "path": "ui/main/top_status_panel.png",
+      "action": "generated",
+      "prompt_length": 2070
+    },
+    {
+      "path": "ui/map/map_panel.png",
+      "action": "generated",
+      "prompt_length": 2062
+    },
+    {
+      "path": "ui/settings/btn_close.png",
+      "action": "generated",
+      "prompt_length": 2119
+    },
+    {
+      "path": "ui/settings/btn_reset.png",
+      "action": "generated",
+      "prompt_length": 2119
+    },
+    {
+      "path": "ui/settings/settings_bg.jpg",
+      "action": "generated",
+      "prompt_length": 2621
+    },
+    {
+      "path": "ui/settings/settings_panel.png",
+      "action": "generated",
+      "prompt_length": 2072
+    },
+    {
+      "path": "ui/settlement/btn_back.png",
+      "action": "generated",
+      "prompt_length": 2120
+    },
+    {
+      "path": "ui/settlement/btn_double.png",
+      "action": "generated",
+      "prompt_length": 2122
+    },
+    {
+      "path": "ui/settlement/result_panel.png",
+      "action": "generated",
+      "prompt_length": 2072
+    },
+    {
+      "path": "ui/settlement/reward_strip.png",
+      "action": "generated",
+      "prompt_length": 2069
+    },
+    {
+      "path": "ui/settlement/settlement_bg.jpg",
+      "action": "generated",
+      "prompt_length": 2623
+    },
+    {
+      "path": "ui/settlement/soulstone_icon.png",
+      "action": "generated",
+      "prompt_length": 2043
+    },
+    {
+      "path": "ui/shop/btn_buy.png",
+      "action": "generated",
+      "prompt_length": 2113
+    },
+    {
+      "path": "ui/shop/coin_panel.png",
+      "action": "generated",
+      "prompt_length": 2064
+    },
+    {
+      "path": "ui/shop/shop_shelf_panel.png",
+      "action": "generated",
+      "prompt_length": 2070
+    },
+    {
+      "path": "ui/splash/loading_bar.png",
+      "action": "generated",
+      "prompt_length": 2040
+    },
+    {
+      "path": "ui/upgrade/btn_pick.png",
+      "action": "generated",
+      "prompt_length": 2117
+    },
+    {
+      "path": "ui/upgrade/icon_upgrade_aoeenhance.png",
+      "action": "generated",
+      "prompt_length": 2097
+    },
+    {
+      "path": "ui/upgrade/icon_upgrade_meleeboost.png",
+      "action": "generated",
+      "prompt_length": 2097
+    },
+    {
+      "path": "ui/upgrade/icon_upgrade_movespeed.png",
+      "action": "generated",
+      "prompt_length": 2096
+    },
+    {
+      "path": "ui/upgrade/icon_upgrade_rangedboost.png",
+      "action": "generated",
+      "prompt_length": 2098
+    },
+    {
+      "path": "ui/upgrade/icon_upgrade_skillslot.png",
+      "action": "generated",
+      "prompt_length": 2048
+    },
+    {
+      "path": "ui/upgrade/upgrade_bg.jpg",
+      "action": "generated",
+      "prompt_length": 2620
+    }
+  ]
+}

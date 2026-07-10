@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-07-10",
+    "description": "Character rig definitions: default part positions, anchors, and z-order"
+  },
+  "archer": {
+    "rootSize": [256, 256],
+    "parts": {
+      "shadow": {
+        "z": 0,
+        "position": [0, -74],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.5]
+      },
+      "tail": {
+        "z": 1,
+        "position": [-42, -18],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.15]
+      },
+      "cape": {
+        "z": 2,
+        "position": [-12, -8],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.75]
+      },
+      "leg_l": {
+        "z": 3,
+        "position": [-18, -58],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.85]
+      },
+      "leg_r": {
+        "z": 4,
+        "position": [18, -58],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.85]
+      },
+      "body": {
+        "z": 5,
+        "position": [0, -12],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.5]
+      },
+      "quiver": {
+        "z": 6,
+        "position": [-34, 4],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.5]
+      },
+      "arm_l": {
+        "z": 7,
+        "position": [-34, -2],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.85]
+      },
+      "arm_r": {
+        "z": 8,
+        "position": [34, -2],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.85]
+      },
+      "bow": {
+        "z": 9,
+        "position": [48, 0],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.5]
+      },
+      "head": {
+        "z": 10,
+        "position": [0, 48],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.35]
+      },
+      "ear_l": {
+        "z": 11,
+        "position": [-28, 92],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.15]
+      },
+      "ear_r": {
+        "z": 12,
+        "position": [28, 92],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.15]
+      }
+    }
+  }
+}

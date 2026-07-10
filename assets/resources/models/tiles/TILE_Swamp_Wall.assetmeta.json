@@ -1,0 +1,18 @@
+{
+  "name": "TILE_Swamp_Wall",
+  "tri": 0,
+  "bones": 0,
+  "textureSize": 512,
+  "lodLevels": 2,
+  "animClips": 0,
+  "sockets": [],
+  "colliders": [
+    "capsule"
+  ],
+  "lifecycle": "选秀",
+  "perfTier": "low",
+  "version": "1.0.0",
+  "author": "",
+  "date": "2026-07-10",
+  "reviewer": ""
+}

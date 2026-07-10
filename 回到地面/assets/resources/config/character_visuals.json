@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-07-10",
+    "description": "Character visual mode registry: parts vs sprite sheet"
+  },
+  "archer": {
+    "mode": "parts",
+    "partsKey": "archer",
+    "rigKey": "archer",
+    "animationsKey": "archer"
+  },
+  "warrior": {
+    "mode": "sheet"
+  },
+  "mage": {
+    "mode": "sheet"
+  },
+  "assassin": {
+    "mode": "sheet"
+  },
+  "berserker": {
+    "mode": "sheet"
+  }
+}

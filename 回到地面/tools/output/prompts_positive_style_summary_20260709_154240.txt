@@ -1,0 +1,39 @@
+updated=499
+backup=E:\game\assets\resources\config\prompts.backup_positive_style_20260709_154240.json
+report=E:\game\回到地面\tools\output\prompts_positive_style_report_20260709_154240.json
+risk_count=24
+new_prompt_count=0
+category_counts:
+  backgrounds=17
+  bosses=120
+  characters=35
+  effects=27
+  icons=67
+  monsters=36
+  tiles=24
+  ui=173
+risk_samples:
+  tiles/abyss/tile_abyss_floor.png: ['no']
+  tiles/abyss/tile_abyss_highground.png: ['no']
+  tiles/abyss/tile_abyss_thorn.png: ['no']
+  tiles/abyss/tile_abyss_wall.png: ['no']
+  tiles/catacombs/tile_catacombs_floor.png: ['no']
+  tiles/catacombs/tile_catacombs_highground.png: ['no']
+  tiles/catacombs/tile_catacombs_thorn.png: ['no']
+  tiles/catacombs/tile_catacombs_wall.png: ['no']
+  tiles/forest/tile_forest_floor.png: ['no']
+  tiles/forest/tile_forest_highground.png: ['no']
+  tiles/forest/tile_forest_thorn.png: ['no']
+  tiles/forest/tile_forest_wall.png: ['no']
+  tiles/swamp/tile_swamp_floor.png: ['no']
+  tiles/swamp/tile_swamp_highground.png: ['no']
+  tiles/swamp/tile_swamp_thorn.png: ['no']
+  tiles/swamp/tile_swamp_wall.png: ['no']
+  tiles/tundra/tile_tundra_floor.png: ['no']
+  tiles/tundra/tile_tundra_highground.png: ['no']
+  tiles/tundra/tile_tundra_thorn.png: ['no']
+  tiles/tundra/tile_tundra_wall.png: ['no']
+  tiles/volcano/tile_volcano_floor.png: ['no']
+  tiles/volcano/tile_volcano_highground.png: ['no']
+  tiles/volcano/tile_volcano_thorn.png: ['no']
+  tiles/volcano/tile_volcano_wall.png: ['no']

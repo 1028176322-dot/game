@@ -1,0 +1,27 @@
+updated=499
+backup=E:\game\assets\resources\config\prompts.backup_positive_style_20260709_220134.json
+report=E:\game\回到地面\tools\output\prompts_positive_style_report_20260709_220134.json
+risk_count=12
+new_prompt_count=0
+category_counts:
+  backgrounds=17
+  bosses=120
+  characters=35
+  effects=27
+  icons=67
+  monsters=36
+  tiles=24
+  ui=173
+risk_samples:
+  backgrounds/bg_combat_abyss.jpg: ['no']
+  backgrounds/bg_combat_catacombs.jpg: ['no']
+  backgrounds/bg_combat_forest.jpg: ['no']
+  backgrounds/bg_combat_swamp.jpg: ['no']
+  backgrounds/bg_combat_tundra.jpg: ['no']
+  backgrounds/bg_combat_volcano.jpg: ['no']
+  backgrounds/bg_event_abyss.jpg: ['no']
+  backgrounds/bg_event_catacombs.jpg: ['no']
+  backgrounds/bg_event_forest.jpg: ['no']
+  backgrounds/bg_event_swamp.jpg: ['no']
+  backgrounds/bg_event_tundra.jpg: ['no']
+  backgrounds/bg_event_volcano.jpg: ['no']

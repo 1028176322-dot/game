@@ -1,0 +1,219 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-07-10",
+    "description": "Keyframe animations for modular character parts"
+  },
+  "archer": {
+    "idle": {
+      "loop": true,
+      "duration": 1.2,
+      "tracks": {
+        "body": [
+          { "time": 0, "position": [0, -12], "rotation": 0, "scale": [1, 1] },
+          { "time": 0.6, "position": [0, -8], "rotation": 0, "scale": [1.01, 1.01] },
+          { "time": 1.2, "position": [0, -12], "rotation": 0, "scale": [1, 1] }
+        ],
+        "head": [
+          { "time": 0, "position": [0, 48], "rotation": 0 },
+          { "time": 0.6, "position": [0, 51], "rotation": -2 },
+          { "time": 1.2, "position": [0, 48], "rotation": 0 }
+        ],
+        "ear_l": [
+          { "time": 0, "rotation": -4 },
+          { "time": 0.6, "rotation": 3 },
+          { "time": 1.2, "rotation": -4 }
+        ],
+        "ear_r": [
+          { "time": 0, "rotation": 4 },
+          { "time": 0.6, "rotation": -3 },
+          { "time": 1.2, "rotation": 4 }
+        ],
+        "cape": [
+          { "time": 0, "rotation": -2 },
+          { "time": 0.6, "rotation": 2 },
+          { "time": 1.2, "rotation": -2 }
+        ],
+        "tail": [
+          { "time": 0, "rotation": -3 },
+          { "time": 0.6, "rotation": 3 },
+          { "time": 1.2, "rotation": -3 }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "duration": 0.8,
+      "tracks": {
+        "body": [
+          { "time": 0, "position": [0, -12], "rotation": 0 },
+          { "time": 0.2, "position": [0, -14], "rotation": 0 },
+          { "time": 0.4, "position": [0, -12], "rotation": 0 },
+          { "time": 0.6, "position": [0, -14], "rotation": 0 },
+          { "time": 0.8, "position": [0, -12], "rotation": 0 }
+        ],
+        "head": [
+          { "time": 0, "position": [0, 48], "rotation": 0 },
+          { "time": 0.2, "position": [0, 46], "rotation": 0 },
+          { "time": 0.4, "position": [0, 48], "rotation": 0 },
+          { "time": 0.6, "position": [0, 46], "rotation": 0 },
+          { "time": 0.8, "position": [0, 48], "rotation": 0 }
+        ],
+        "leg_l": [
+          { "time": 0, "rotation": 0 },
+          { "time": 0.2, "rotation": 18 },
+          { "time": 0.4, "rotation": 0 },
+          { "time": 0.6, "rotation": -18 },
+          { "time": 0.8, "rotation": 0 }
+        ],
+        "leg_r": [
+          { "time": 0, "rotation": 0 },
+          { "time": 0.2, "rotation": -18 },
+          { "time": 0.4, "rotation": 0 },
+          { "time": 0.6, "rotation": 18 },
+          { "time": 0.8, "rotation": 0 }
+        ],
+        "arm_l": [
+          { "time": 0, "rotation": 0 },
+          { "time": 0.2, "rotation": 10 },
+          { "time": 0.4, "rotation": 0 },
+          { "time": 0.6, "rotation": -10 },
+          { "time": 0.8, "rotation": 0 }
+        ],
+        "arm_r": [
+          { "time": 0, "rotation": 0 },
+          { "time": 0.2, "rotation": -10 },
+          { "time": 0.4, "rotation": 0 },
+          { "time": 0.6, "rotation": 10 },
+          { "time": 0.8, "rotation": 0 }
+        ],
+        "cape": [
+          { "time": 0, "rotation": -4 },
+          { "time": 0.2, "rotation": 4 },
+          { "time": 0.4, "rotation": -4 },
+          { "time": 0.6, "rotation": 4 },
+          { "time": 0.8, "rotation": -4 }
+        ]
+      }
+    },
+    "attack": {
+      "loop": false,
+      "duration": 0.45,
+      "tracks": {
+        "body": [
+          { "time": 0, "position": [0, -12], "rotation": 0 },
+          { "time": 0.18, "position": [-5, -12], "rotation": -5 },
+          { "time": 0.3, "position": [4, -12], "rotation": 4 },
+          { "time": 0.45, "position": [0, -12], "rotation": 0 }
+        ],
+        "arm_r": [
+          { "time": 0, "rotation": 12 },
+          { "time": 0.18, "rotation": -38 },
+          { "time": 0.3, "rotation": 42 },
+          { "time": 0.45, "rotation": 12 }
+        ],
+        "bow": [
+          { "time": 0, "position": [48, 0], "rotation": 0 },
+          { "time": 0.18, "position": [38, 0], "rotation": -8 },
+          { "time": 0.3, "position": [58, 0], "rotation": 8 },
+          { "time": 0.45, "position": [48, 0], "rotation": 0 }
+        ],
+        "head": [
+          { "time": 0, "position": [0, 48], "rotation": 0 },
+          { "time": 0.18, "position": [0, 48], "rotation": -4 },
+          { "time": 0.45, "position": [0, 48], "rotation": 0 }
+        ]
+      }
+    },
+    "hit": {
+      "loop": false,
+      "duration": 0.4,
+      "tracks": {
+        "body": [
+          { "time": 0, "position": [0, -12], "rotation": 0 },
+          { "time": 0.12, "position": [-8, -12], "rotation": -8 },
+          { "time": 0.28, "position": [-4, -12], "rotation": -4 },
+          { "time": 0.4, "position": [0, -12], "rotation": 0 }
+        ],
+        "head": [
+          { "time": 0, "position": [0, 48], "rotation": 0 },
+          { "time": 0.12, "position": [-6, 48], "rotation": -6 },
+          { "time": 0.4, "position": [0, 48], "rotation": 0 }
+        ],
+        "arm_l": [
+          { "time": 0, "rotation": 0 },
+          { "time": 0.12, "rotation": 25 },
+          { "time": 0.4, "rotation": 0 }
+        ]
+      }
+    },
+    "dodge": {
+      "loop": false,
+      "duration": 0.35,
+      "tracks": {
+        "body": [
+          { "time": 0, "position": [0, -12], "scale": [1, 1] },
+          { "time": 0.15, "position": [30, -12], "scale": [0.9, 1.05] },
+          { "time": 0.25, "position": [45, -12], "scale": [0.85, 1.1] },
+          { "time": 0.35, "position": [0, -12], "scale": [1, 1] }
+        ],
+        "head": [
+          { "time": 0, "position": [0, 48] },
+          { "time": 0.15, "position": [20, 48] },
+          { "time": 0.35, "position": [0, 48] }
+        ],
+        "cape": [
+          { "time": 0, "rotation": 0 },
+          { "time": 0.15, "rotation": 18 },
+          { "time": 0.35, "rotation": 0 }
+        ]
+      }
+    },
+    "death": {
+      "loop": false,
+      "duration": 0.6,
+      "tracks": {
+        "body": [
+          { "time": 0, "position": [0, -12], "rotation": 0, "scale": [1, 1] },
+          { "time": 0.2, "position": [-6, -22], "rotation": -15, "scale": [1, 1] },
+          { "time": 0.45, "position": [-12, -42], "rotation": -45, "scale": [0.95, 0.95] },
+          { "time": 0.6, "position": [-16, -58], "rotation": -70, "scale": [0.9, 0.9] }
+        ],
+        "head": [
+          { "time": 0, "position": [0, 48], "rotation": 0 },
+          { "time": 0.45, "position": [-14, 22], "rotation": -25 },
+          { "time": 0.6, "position": [-18, 8], "rotation": -35 }
+        ]
+      }
+    },
+    "skill": {
+      "loop": false,
+      "duration": 0.6,
+      "tracks": {
+        "body": [
+          { "time": 0, "position": [0, -12], "rotation": 0 },
+          { "time": 0.25, "position": [0, -8], "rotation": -3 },
+          { "time": 0.45, "position": [0, -12], "rotation": 2 },
+          { "time": 0.6, "position": [0, -12], "rotation": 0 }
+        ],
+        "arm_r": [
+          { "time": 0, "rotation": 12 },
+          { "time": 0.25, "rotation": -55 },
+          { "time": 0.45, "rotation": 60 },
+          { "time": 0.6, "rotation": 12 }
+        ],
+        "bow": [
+          { "time": 0, "position": [48, 0], "rotation": 0 },
+          { "time": 0.25, "position": [42, 0], "rotation": -15 },
+          { "time": 0.45, "position": [55, 0], "rotation": 12 },
+          { "time": 0.6, "position": [48, 0], "rotation": 0 }
+        ],
+        "head": [
+          { "time": 0, "position": [0, 48], "rotation": 0 },
+          { "time": 0.45, "position": [0, 50], "rotation": 3 },
+          { "time": 0.6, "position": [0, 48], "rotation": 0 }
+        ]
+      }
+    }
+  }
+}

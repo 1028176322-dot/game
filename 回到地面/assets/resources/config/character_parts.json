@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-07-10",
+    "description": "Character part asset paths for modular animation system"
+  },
+  "archer": {
+    "parts": {
+      "body": "textures/characters/archer/parts/body",
+      "head": "textures/characters/archer/parts/head",
+      "ear_l": "textures/characters/archer/parts/ear_l",
+      "ear_r": "textures/characters/archer/parts/ear_r",
+      "arm_l": "textures/characters/archer/parts/arm_l",
+      "arm_r": "textures/characters/archer/parts/arm_r",
+      "leg_l": "textures/characters/archer/parts/leg_l",
+      "leg_r": "textures/characters/archer/parts/leg_r",
+      "tail": "textures/characters/archer/parts/tail",
+      "bow": "textures/characters/archer/parts/bow",
+      "quiver": "textures/characters/archer/parts/quiver",
+      "cape": "textures/characters/archer/parts/cape"
+    }
+  }
+}

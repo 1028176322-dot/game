@@ -1,0 +1,3495 @@
+[
+  {
+    "path": "backgrounds/bg_combat_abyss.jpg",
+    "category": "backgrounds",
+    "length": 1918,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_combat_catacombs.jpg",
+    "category": "backgrounds",
+    "length": 1908,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_combat_forest.jpg",
+    "category": "backgrounds",
+    "length": 1915,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_combat_swamp.jpg",
+    "category": "backgrounds",
+    "length": 1909,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_combat_tundra.jpg",
+    "category": "backgrounds",
+    "length": 1900,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_combat_volcano.jpg",
+    "category": "backgrounds",
+    "length": 1918,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_event_abyss.jpg",
+    "category": "backgrounds",
+    "length": 1920,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_event_catacombs.jpg",
+    "category": "backgrounds",
+    "length": 1916,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_event_forest.jpg",
+    "category": "backgrounds",
+    "length": 1924,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_event_swamp.jpg",
+    "category": "backgrounds",
+    "length": 1912,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_event_tundra.jpg",
+    "category": "backgrounds",
+    "length": 1915,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_event_volcano.jpg",
+    "category": "backgrounds",
+    "length": 1930,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_room_healing.jpg",
+    "category": "backgrounds",
+    "length": 1932,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_room_rest.jpg",
+    "category": "backgrounds",
+    "length": 1934,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_room_shop.jpg",
+    "category": "backgrounds",
+    "length": 1935,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_room_treasure.jpg",
+    "category": "backgrounds",
+    "length": 1931,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "backgrounds/bg_room_upgrade.jpg",
+    "category": "backgrounds",
+    "length": 1923,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/abyss/boss_abyssoverlord_attack.png",
+    "category": "bosses",
+    "length": 2044,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/abyss/boss_abyssoverlord_death.png",
+    "category": "bosses",
+    "length": 2019,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/abyss/boss_abyssoverlord_idle.png",
+    "category": "bosses",
+    "length": 2018,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/abyss/boss_abyssoverlord_phasechange.png",
+    "category": "bosses",
+    "length": 2007,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/abyss/boss_abyssoverlord_skill.png",
+    "category": "bosses",
+    "length": 2009,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_abyssoverlord_attack.png",
+    "category": "bosses",
+    "length": 2034,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_abyssoverlord_death.png",
+    "category": "bosses",
+    "length": 2008,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_abyssoverlord_idle.png",
+    "category": "bosses",
+    "length": 2008,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_abyssoverlord_phasechange.png",
+    "category": "bosses",
+    "length": 1996,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_abyssoverlord_skill.png",
+    "category": "bosses",
+    "length": 1999,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_beast_swamp_attack.png",
+    "category": "bosses",
+    "length": 2032,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_beast_swamp_death.png",
+    "category": "bosses",
+    "length": 2006,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_beast_swamp_idle.png",
+    "category": "bosses",
+    "length": 2006,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_beast_swamp_phasechange.png",
+    "category": "bosses",
+    "length": 1994,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_beast_swamp_skill.png",
+    "category": "bosses",
+    "length": 1997,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_firelord_attack.png",
+    "category": "bosses",
+    "length": 2030,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_firelord_death.png",
+    "category": "bosses",
+    "length": 2004,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_firelord_idle.png",
+    "category": "bosses",
+    "length": 2004,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_firelord_phasechange.png",
+    "category": "bosses",
+    "length": 1992,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_firelord_skill.png",
+    "category": "bosses",
+    "length": 1995,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_forestguardian_attack.png",
+    "category": "bosses",
+    "length": 2043,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_forestguardian_death.png",
+    "category": "bosses",
+    "length": 2017,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_forestguardian_idle.png",
+    "category": "bosses",
+    "length": 2017,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_forestguardian_phasechange.png",
+    "category": "bosses",
+    "length": 2005,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_forestguardian_skill.png",
+    "category": "bosses",
+    "length": 2008,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_frostqueen_attack.png",
+    "category": "bosses",
+    "length": 2032,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_frostqueen_death.png",
+    "category": "bosses",
+    "length": 2006,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_frostqueen_idle.png",
+    "category": "bosses",
+    "length": 2006,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_frostqueen_phasechange.png",
+    "category": "bosses",
+    "length": 1994,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_frostqueen_skill.png",
+    "category": "bosses",
+    "length": 1997,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_guardian_forest_attack.png",
+    "category": "bosses",
+    "length": 2027,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_guardian_forest_death.png",
+    "category": "bosses",
+    "length": 2001,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_guardian_forest_idle.png",
+    "category": "bosses",
+    "length": 2001,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_guardian_forest_phasechange.png",
+    "category": "bosses",
+    "length": 1989,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_guardian_forest_skill.png",
+    "category": "bosses",
+    "length": 1992,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_abyss_attack.png",
+    "category": "bosses",
+    "length": 2031,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_abyss_death.png",
+    "category": "bosses",
+    "length": 2005,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_abyss_idle.png",
+    "category": "bosses",
+    "length": 2005,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_abyss_phasechange.png",
+    "category": "bosses",
+    "length": 1993,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_abyss_skill.png",
+    "category": "bosses",
+    "length": 1996,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_catacombs_attack.png",
+    "category": "bosses",
+    "length": 2037,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_catacombs_death.png",
+    "category": "bosses",
+    "length": 2011,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_catacombs_idle.png",
+    "category": "bosses",
+    "length": 2011,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_catacombs_phasechange.png",
+    "category": "bosses",
+    "length": 1999,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_catacombs_skill.png",
+    "category": "bosses",
+    "length": 2002,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_volcano_attack.png",
+    "category": "bosses",
+    "length": 2031,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_volcano_death.png",
+    "category": "bosses",
+    "length": 2005,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_volcano_idle.png",
+    "category": "bosses",
+    "length": 2005,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_volcano_phasechange.png",
+    "category": "bosses",
+    "length": 1993,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_lord_volcano_skill.png",
+    "category": "bosses",
+    "length": 1996,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_queen_tundra_attack.png",
+    "category": "bosses",
+    "length": 2022,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_queen_tundra_death.png",
+    "category": "bosses",
+    "length": 1996,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_queen_tundra_idle.png",
+    "category": "bosses",
+    "length": 1996,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_queen_tundra_phasechange.png",
+    "category": "bosses",
+    "length": 1984,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_queen_tundra_skill.png",
+    "category": "bosses",
+    "length": 1987,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_skeletonlord_attack.png",
+    "category": "bosses",
+    "length": 2048,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_skeletonlord_death.png",
+    "category": "bosses",
+    "length": 2022,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_skeletonlord_idle.png",
+    "category": "bosses",
+    "length": 2022,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_skeletonlord_phasechange.png",
+    "category": "bosses",
+    "length": 2010,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_skeletonlord_skill.png",
+    "category": "bosses",
+    "length": 2013,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_swampbehemoth_attack.png",
+    "category": "bosses",
+    "length": 2043,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_swampbehemoth_death.png",
+    "category": "bosses",
+    "length": 2017,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_swampbehemoth_idle.png",
+    "category": "bosses",
+    "length": 2017,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_swampbehemoth_phasechange.png",
+    "category": "bosses",
+    "length": 2005,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/boss_swampbehemoth_skill.png",
+    "category": "bosses",
+    "length": 2008,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/catacombs/boss_skeletonlord_attack.png",
+    "category": "bosses",
+    "length": 2056,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/catacombs/boss_skeletonlord_death.png",
+    "category": "bosses",
+    "length": 2031,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/catacombs/boss_skeletonlord_idle.png",
+    "category": "bosses",
+    "length": 2030,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/catacombs/boss_skeletonlord_phasechange.png",
+    "category": "bosses",
+    "length": 2019,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/catacombs/boss_skeletonlord_skill.png",
+    "category": "bosses",
+    "length": 2021,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/forest/boss_forestguardian_attack.png",
+    "category": "bosses",
+    "length": 2043,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/forest/boss_forestguardian_death.png",
+    "category": "bosses",
+    "length": 2018,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/forest/boss_forestguardian_idle.png",
+    "category": "bosses",
+    "length": 2017,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/forest/boss_forestguardian_phasechange.png",
+    "category": "bosses",
+    "length": 2006,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/forest/boss_forestguardian_skill.png",
+    "category": "bosses",
+    "length": 2008,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/swamp/boss_swampbehemoth_attack.png",
+    "category": "bosses",
+    "length": 2041,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/swamp/boss_swampbehemoth_death.png",
+    "category": "bosses",
+    "length": 2016,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/swamp/boss_swampbehemoth_idle.png",
+    "category": "bosses",
+    "length": 2015,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/swamp/boss_swampbehemoth_phasechange.png",
+    "category": "bosses",
+    "length": 2004,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/swamp/boss_swampbehemoth_skill.png",
+    "category": "bosses",
+    "length": 2006,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/tundra/boss_frostqueen_attack.png",
+    "category": "bosses",
+    "length": 2028,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/tundra/boss_frostqueen_death.png",
+    "category": "bosses",
+    "length": 2003,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/tundra/boss_frostqueen_idle.png",
+    "category": "bosses",
+    "length": 2002,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/tundra/boss_frostqueen_phasechange.png",
+    "category": "bosses",
+    "length": 1991,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/tundra/boss_frostqueen_skill.png",
+    "category": "bosses",
+    "length": 1993,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/volcano/boss_firelord_attack.png",
+    "category": "bosses",
+    "length": 2035,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/volcano/boss_firelord_death.png",
+    "category": "bosses",
+    "length": 2010,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/volcano/boss_firelord_idle.png",
+    "category": "bosses",
+    "length": 2009,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/volcano/boss_firelord_phasechange.png",
+    "category": "bosses",
+    "length": 1998,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/finalboss/volcano/boss_firelord_skill.png",
+    "category": "bosses",
+    "length": 2000,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/abyss/miniboss_abysssentinel_idle.png",
+    "category": "bosses",
+    "length": 2014,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/abyss/miniboss_nightmareknight_idle.png",
+    "category": "bosses",
+    "length": 2028,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/abyss/miniboss_shadowdragon_idle.png",
+    "category": "bosses",
+    "length": 2027,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/abyss/miniboss_voidhunter_idle.png",
+    "category": "bosses",
+    "length": 2015,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/abyss/miniboss_voidlord_idle.png",
+    "category": "bosses",
+    "length": 2013,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/catacombs/miniboss_blackknight_idle.png",
+    "category": "bosses",
+    "length": 2014,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/catacombs/miniboss_gargoyle_idle.png",
+    "category": "bosses",
+    "length": 2020,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/catacombs/miniboss_giantskeleton_idle.png",
+    "category": "bosses",
+    "length": 2038,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/catacombs/miniboss_lich_idle.png",
+    "category": "bosses",
+    "length": 2023,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/catacombs/miniboss_warden_catacombs_idle.png",
+    "category": "bosses",
+    "length": 2014,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/forest/miniboss_boarchief_idle.png",
+    "category": "bosses",
+    "length": 2020,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/forest/miniboss_poisonflower_idle.png",
+    "category": "bosses",
+    "length": 2009,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/forest/miniboss_porcupineking_idle.png",
+    "category": "bosses",
+    "length": 2020,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/forest/miniboss_stagbeetle_idle.png",
+    "category": "bosses",
+    "length": 2020,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/forest/miniboss_warden_forest_idle.png",
+    "category": "bosses",
+    "length": 2006,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/swamp/miniboss_poisonscorpion_idle.png",
+    "category": "bosses",
+    "length": 2022,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/swamp/miniboss_rottreantelite_idle.png",
+    "category": "bosses",
+    "length": 2026,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/swamp/miniboss_serpentqueen_idle.png",
+    "category": "bosses",
+    "length": 2025,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/swamp/miniboss_swampcrocodile_idle.png",
+    "category": "bosses",
+    "length": 2017,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/swamp/miniboss_swampfrog_idle.png",
+    "category": "bosses",
+    "length": 2021,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/tundra/miniboss_frostelemental_idle.png",
+    "category": "bosses",
+    "length": 2023,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/tundra/miniboss_icegiant_idle.png",
+    "category": "bosses",
+    "length": 2023,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/tundra/miniboss_icescorpion_idle.png",
+    "category": "bosses",
+    "length": 2024,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/tundra/miniboss_polarbearking_idle.png",
+    "category": "bosses",
+    "length": 2014,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/tundra/miniboss_snowape_idle.png",
+    "category": "bosses",
+    "length": 2011,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/volcano/miniboss_firegolem_idle.png",
+    "category": "bosses",
+    "length": 2023,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/volcano/miniboss_inferno_idle.png",
+    "category": "bosses",
+    "length": 2012,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/volcano/miniboss_lavaworm_idle.png",
+    "category": "bosses",
+    "length": 2003,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/volcano/miniboss_volcanogiant_idle.png",
+    "category": "bosses",
+    "length": 2010,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "bosses/miniboss/volcano/miniboss_warden_volcano_idle.png",
+    "category": "bosses",
+    "length": 2021,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/archer/archer_attack.png",
+    "category": "characters",
+    "length": 1909,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/archer/archer_death.png",
+    "category": "characters",
+    "length": 1885,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/archer/archer_dodge.png",
+    "category": "characters",
+    "length": 1883,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/archer/archer_hit.png",
+    "category": "characters",
+    "length": 1883,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/archer/archer_idle.png",
+    "category": "characters",
+    "length": 1883,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/archer/archer_skill.png",
+    "category": "characters",
+    "length": 1874,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/archer/archer_walk.png",
+    "category": "characters",
+    "length": 1882,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/assassin/assassin_attack.png",
+    "category": "characters",
+    "length": 1918,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/assassin/assassin_death.png",
+    "category": "characters",
+    "length": 1894,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/assassin/assassin_dodge.png",
+    "category": "characters",
+    "length": 1892,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/assassin/assassin_hit.png",
+    "category": "characters",
+    "length": 1892,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/assassin/assassin_idle.png",
+    "category": "characters",
+    "length": 1892,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/assassin/assassin_skill.png",
+    "category": "characters",
+    "length": 1883,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/assassin/assassin_walk.png",
+    "category": "characters",
+    "length": 1891,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/berserker/berserker_attack.png",
+    "category": "characters",
+    "length": 1907,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/berserker/berserker_death.png",
+    "category": "characters",
+    "length": 1883,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/berserker/berserker_dodge.png",
+    "category": "characters",
+    "length": 1881,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/berserker/berserker_hit.png",
+    "category": "characters",
+    "length": 1881,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/berserker/berserker_idle.png",
+    "category": "characters",
+    "length": 1881,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/berserker/berserker_skill.png",
+    "category": "characters",
+    "length": 1872,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/berserker/berserker_walk.png",
+    "category": "characters",
+    "length": 1880,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/mage/mage_attack.png",
+    "category": "characters",
+    "length": 1909,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/mage/mage_death.png",
+    "category": "characters",
+    "length": 1885,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/mage/mage_dodge.png",
+    "category": "characters",
+    "length": 1883,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/mage/mage_hit.png",
+    "category": "characters",
+    "length": 1883,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/mage/mage_idle.png",
+    "category": "characters",
+    "length": 1883,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/mage/mage_skill.png",
+    "category": "characters",
+    "length": 1874,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/mage/mage_walk.png",
+    "category": "characters",
+    "length": 1882,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/warrior/warrior_attack.png",
+    "category": "characters",
+    "length": 1930,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/warrior/warrior_death.png",
+    "category": "characters",
+    "length": 1906,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/warrior/warrior_dodge.png",
+    "category": "characters",
+    "length": 1904,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/warrior/warrior_hit.png",
+    "category": "characters",
+    "length": 1904,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/warrior/warrior_idle.png",
+    "category": "characters",
+    "length": 1904,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/warrior/warrior_skill.png",
+    "category": "characters",
+    "length": 1895,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "characters/warrior/warrior_walk.png",
+    "category": "characters",
+    "length": 1903,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/combat/fx_crit.png",
+    "category": "effects",
+    "length": 1515,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/combat/fx_dash.png",
+    "category": "effects",
+    "length": 1536,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/combat/fx_dodge.png",
+    "category": "effects",
+    "length": 1523,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/combat/fx_heal.png",
+    "category": "effects",
+    "length": 1533,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/combat/fx_hit_normal.png",
+    "category": "effects",
+    "length": 1544,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/combat/fx_shield.png",
+    "category": "effects",
+    "length": 1540,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/reactions/fx_reaction_burn.png",
+    "category": "effects",
+    "length": 1532,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/reactions/fx_reaction_conduct.png",
+    "category": "effects",
+    "length": 1532,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/reactions/fx_reaction_corrode.png",
+    "category": "effects",
+    "length": 1556,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/reactions/fx_reaction_decay.png",
+    "category": "effects",
+    "length": 1508,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/reactions/fx_reaction_freeze.png",
+    "category": "effects",
+    "length": 1522,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/reactions/fx_reaction_melt.png",
+    "category": "effects",
+    "length": 1515,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/reactions/fx_reaction_overload.png",
+    "category": "effects",
+    "length": 1508,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/reactions/fx_reaction_radiance.png",
+    "category": "effects",
+    "length": 1512,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/reactions/fx_reaction_shatter.png",
+    "category": "effects",
+    "length": 1516,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/reactions/fx_reaction_vaporize.png",
+    "category": "effects",
+    "length": 1504,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/reactions/fx_reaction_void.png",
+    "category": "effects",
+    "length": 1507,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/relics/fx_relic_blink_stone.png",
+    "category": "effects",
+    "length": 1501,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/relics/fx_relic_decoy_scroll.png",
+    "category": "effects",
+    "length": 1550,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/relics/fx_relic_flame_ring.png",
+    "category": "effects",
+    "length": 1498,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/relics/fx_relic_frost_amulet.png",
+    "category": "effects",
+    "length": 1552,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/relics/fx_relic_gravity_stone.png",
+    "category": "effects",
+    "length": 1508,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/relics/fx_relic_life_link.png",
+    "category": "effects",
+    "length": 1552,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/relics/fx_relic_shadow_dagger.png",
+    "category": "effects",
+    "length": 1554,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/relics/fx_relic_time_hourglass.png",
+    "category": "effects",
+    "length": 1539,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/ui/fx_ui_glow.png",
+    "category": "effects",
+    "length": 1531,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "effects/ui/fx_ui_loading.png",
+    "category": "effects",
+    "length": 1527,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/buffs/icon_buff_atkup.png",
+    "category": "icons",
+    "length": 1735,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/buffs/icon_buff_defup.png",
+    "category": "icons",
+    "length": 1725,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/buffs/icon_buff_shield.png",
+    "category": "icons",
+    "length": 1726,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/buffs/icon_buff_speedup.png",
+    "category": "icons",
+    "length": 1728,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/buffs/icon_buff_stealth.png",
+    "category": "icons",
+    "length": 1725,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/buffs/icon_debuff_burn.png",
+    "category": "icons",
+    "length": 1732,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/buffs/icon_debuff_freeze.png",
+    "category": "icons",
+    "length": 1735,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/buffs/icon_debuff_poison.png",
+    "category": "icons",
+    "length": 1740,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/buffs/icon_debuff_slow.png",
+    "category": "icons",
+    "length": 1719,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/buffs/icon_debuff_stun.png",
+    "category": "icons",
+    "length": 1733,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/elements/icon_element_fire.png",
+    "category": "icons",
+    "length": 1734,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/elements/icon_element_frost.png",
+    "category": "icons",
+    "length": 1726,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/elements/icon_element_holy.png",
+    "category": "icons",
+    "length": 1735,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/elements/icon_element_lightning.png",
+    "category": "icons",
+    "length": 1740,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/elements/icon_element_poison.png",
+    "category": "icons",
+    "length": 1736,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/elements/icon_element_shadow.png",
+    "category": "icons",
+    "length": 1731,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_advancedkey.png",
+    "category": "icons",
+    "length": 1735,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_bighealingpotion.png",
+    "category": "icons",
+    "length": 1723,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_flamebomb.png",
+    "category": "icons",
+    "length": 1733,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_furypotion.png",
+    "category": "icons",
+    "length": 1736,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_healingpotion.png",
+    "category": "icons",
+    "length": 1721,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_icebomb.png",
+    "category": "icons",
+    "length": 1732,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_ironpotion.png",
+    "category": "icons",
+    "length": 1737,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_key.png",
+    "category": "icons",
+    "length": 1739,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_mapscroll.png",
+    "category": "icons",
+    "length": 1725,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_purifypotion.png",
+    "category": "icons",
+    "length": 1737,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_rerollscroll.png",
+    "category": "icons",
+    "length": 1736,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_revivecoin.png",
+    "category": "icons",
+    "length": 1714,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_scrollfire.png",
+    "category": "icons",
+    "length": 1730,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_scrollholy.png",
+    "category": "icons",
+    "length": 1735,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_scrollice.png",
+    "category": "icons",
+    "length": 1729,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_scrollpoison.png",
+    "category": "icons",
+    "length": 1741,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_scrollshadow.png",
+    "category": "icons",
+    "length": 1732,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_scrollthunder.png",
+    "category": "icons",
+    "length": 1737,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/icon_item_speedpotion.png",
+    "category": "icons",
+    "length": 1736,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/item_healthPotion.png",
+    "category": "icons",
+    "length": 1721,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/item_key.png",
+    "category": "icons",
+    "length": 1738,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/item_largeHealthPotion.png",
+    "category": "icons",
+    "length": 1726,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/items/item_map.png",
+    "category": "icons",
+    "length": 1725,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_blinkstone.png",
+    "category": "icons",
+    "length": 1736,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_decoyscroll.png",
+    "category": "icons",
+    "length": 1742,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_echoorb.png",
+    "category": "icons",
+    "length": 1728,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_flamering.png",
+    "category": "icons",
+    "length": 1739,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_frenzyaxe.png",
+    "category": "icons",
+    "length": 1761,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_frostamulet.png",
+    "category": "icons",
+    "length": 1731,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_gravitystone.png",
+    "category": "icons",
+    "length": 1736,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_immortalstone.png",
+    "category": "icons",
+    "length": 1737,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_ironarmor.png",
+    "category": "icons",
+    "length": 1726,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_lifelink.png",
+    "category": "icons",
+    "length": 1731,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_luckycoin.png",
+    "category": "icons",
+    "length": 1720,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_shadowcloak.png",
+    "category": "icons",
+    "length": 1744,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_shadowdagger.png",
+    "category": "icons",
+    "length": 1740,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_speedgauntlet.png",
+    "category": "icons",
+    "length": 1725,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_thornarmor.png",
+    "category": "icons",
+    "length": 1733,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/relics/icon_relic_timehourglass.png",
+    "category": "icons",
+    "length": 1738,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/sets/icon_set_frostbite.png",
+    "category": "icons",
+    "length": 1730,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/sets/icon_set_fury.png",
+    "category": "icons",
+    "length": 1734,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/sets/icon_set_ironwall.png",
+    "category": "icons",
+    "length": 1722,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/sets/icon_set_radiance.png",
+    "category": "icons",
+    "length": 1737,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/sets/icon_set_shadow.png",
+    "category": "icons",
+    "length": 1730,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/sets/icon_set_tempest.png",
+    "category": "icons",
+    "length": 1732,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/skills/icon_skill_dash.png",
+    "category": "icons",
+    "length": 1729,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/skills/icon_skill_elementburst.png",
+    "category": "icons",
+    "length": 1735,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/skills/icon_skill_healwave.png",
+    "category": "icons",
+    "length": 1726,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/skills/icon_skill_shield.png",
+    "category": "icons",
+    "length": 1719,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/skills/icon_skill_slowfield.png",
+    "category": "icons",
+    "length": 1716,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "icons/skills/icon_skill_snapshot.png",
+    "category": "icons",
+    "length": 1729,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/abyss/monster_abyss_abyssarcher_idle.png",
+    "category": "monsters",
+    "length": 1932,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/abyss/monster_abyss_abysslordelite_idle.png",
+    "category": "monsters",
+    "length": 1943,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/abyss/monster_abyss_shadowdemon_idle.png",
+    "category": "monsters",
+    "length": 1935,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/abyss/monster_abyss_shadowgolem_idle.png",
+    "category": "monsters",
+    "length": 1928,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/abyss/monster_abyss_voidrift_idle.png",
+    "category": "monsters",
+    "length": 1932,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/abyss/monster_abyss_voidwraith_idle.png",
+    "category": "monsters",
+    "length": 1949,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/catacombs/monster_catacombs_batswarm_idle.png",
+    "category": "monsters",
+    "length": 1956,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/catacombs/monster_catacombs_deathknight_idle.png",
+    "category": "monsters",
+    "length": 1960,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/catacombs/monster_catacombs_ghost_idle.png",
+    "category": "monsters",
+    "length": 1957,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/catacombs/monster_catacombs_ghoul_idle.png",
+    "category": "monsters",
+    "length": 1941,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/catacombs/monster_catacombs_skeleton_idle.png",
+    "category": "monsters",
+    "length": 1951,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/catacombs/monster_catacombs_skeletonarcher_idle.png",
+    "category": "monsters",
+    "length": 1937,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/forest/monster_forest_boar_idle.png",
+    "category": "monsters",
+    "length": 1936,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/forest/monster_forest_deerelite_idle.png",
+    "category": "monsters",
+    "length": 1935,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/forest/monster_forest_elfarcher_idle.png",
+    "category": "monsters",
+    "length": 1938,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/forest/monster_forest_mushroom_idle.png",
+    "category": "monsters",
+    "length": 1944,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/forest/monster_forest_slime_idle.png",
+    "category": "monsters",
+    "length": 1941,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/forest/monster_forest_treant_idle.png",
+    "category": "monsters",
+    "length": 1946,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/swamp/monster_swamp_gianttoad_idle.png",
+    "category": "monsters",
+    "length": 1948,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/swamp/monster_swamp_rottreant_idle.png",
+    "category": "monsters",
+    "length": 1954,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/swamp/monster_swamp_slimepoison_idle.png",
+    "category": "monsters",
+    "length": 1967,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/swamp/monster_swamp_swampdragon_idle.png",
+    "category": "monsters",
+    "length": 1951,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/swamp/monster_swamp_swampspider_idle.png",
+    "category": "monsters",
+    "length": 1948,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/swamp/monster_swamp_viper_idle.png",
+    "category": "monsters",
+    "length": 1944,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/tundra/monster_tundra_frostgiant_idle.png",
+    "category": "monsters",
+    "length": 1955,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/tundra/monster_tundra_frostmage_idle.png",
+    "category": "monsters",
+    "length": 1954,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/tundra/monster_tundra_iceskeleton_idle.png",
+    "category": "monsters",
+    "length": 1956,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/tundra/monster_tundra_penguinsoldier_idle.png",
+    "category": "monsters",
+    "length": 1947,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/tundra/monster_tundra_snowman_idle.png",
+    "category": "monsters",
+    "length": 1962,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/tundra/monster_tundra_snowwolf_idle.png",
+    "category": "monsters",
+    "length": 1937,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/volcano/monster_volcano_ashwraith_idle.png",
+    "category": "monsters",
+    "length": 1939,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/volcano/monster_volcano_demon_idle.png",
+    "category": "monsters",
+    "length": 1965,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/volcano/monster_volcano_fireelemental_idle.png",
+    "category": "monsters",
+    "length": 1951,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/volcano/monster_volcano_infernoelite_idle.png",
+    "category": "monsters",
+    "length": 1957,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/volcano/monster_volcano_lavaspider_idle.png",
+    "category": "monsters",
+    "length": 1951,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "monsters/volcano/monster_volcano_suicidegolem_idle.png",
+    "category": "monsters",
+    "length": 1959,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/abyss/tile_abyss_floor.png",
+    "category": "tiles",
+    "length": 1630,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/abyss/tile_abyss_highground.png",
+    "category": "tiles",
+    "length": 1640,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/abyss/tile_abyss_thorn.png",
+    "category": "tiles",
+    "length": 1630,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/abyss/tile_abyss_wall.png",
+    "category": "tiles",
+    "length": 1628,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/catacombs/tile_catacombs_floor.png",
+    "category": "tiles",
+    "length": 1618,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/catacombs/tile_catacombs_highground.png",
+    "category": "tiles",
+    "length": 1628,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/catacombs/tile_catacombs_thorn.png",
+    "category": "tiles",
+    "length": 1618,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/catacombs/tile_catacombs_wall.png",
+    "category": "tiles",
+    "length": 1616,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/forest/tile_forest_floor.png",
+    "category": "tiles",
+    "length": 1627,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/forest/tile_forest_highground.png",
+    "category": "tiles",
+    "length": 1637,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/forest/tile_forest_thorn.png",
+    "category": "tiles",
+    "length": 1627,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/forest/tile_forest_wall.png",
+    "category": "tiles",
+    "length": 1625,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/swamp/tile_swamp_floor.png",
+    "category": "tiles",
+    "length": 1620,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/swamp/tile_swamp_highground.png",
+    "category": "tiles",
+    "length": 1630,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/swamp/tile_swamp_thorn.png",
+    "category": "tiles",
+    "length": 1620,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/swamp/tile_swamp_wall.png",
+    "category": "tiles",
+    "length": 1618,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/tundra/tile_tundra_floor.png",
+    "category": "tiles",
+    "length": 1618,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/tundra/tile_tundra_highground.png",
+    "category": "tiles",
+    "length": 1628,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/tundra/tile_tundra_thorn.png",
+    "category": "tiles",
+    "length": 1618,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/tundra/tile_tundra_wall.png",
+    "category": "tiles",
+    "length": 1616,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/volcano/tile_volcano_floor.png",
+    "category": "tiles",
+    "length": 1636,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/volcano/tile_volcano_highground.png",
+    "category": "tiles",
+    "length": 1646,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/volcano/tile_volcano_thorn.png",
+    "category": "tiles",
+    "length": 1636,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "tiles/volcano/tile_volcano_wall.png",
+    "category": "tiles",
+    "length": 1634,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/area/area_badge_abyss.png",
+    "category": "ui",
+    "length": 1768,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/area/area_badge_forest.png",
+    "category": "ui",
+    "length": 1768,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/area/area_badge_swamp.png",
+    "category": "ui",
+    "length": 1768,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/area/area_badge_tundra.png",
+    "category": "ui",
+    "length": 1768,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/area/area_badge_volcano.png",
+    "category": "ui",
+    "length": 1768,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/area/area_bg.jpg",
+    "category": "ui",
+    "length": 2117,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/area/btn_back.png",
+    "category": "ui",
+    "length": 1916,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/area/btn_start.png",
+    "category": "ui",
+    "length": 1916,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/area/route_card_default.png",
+    "category": "ui",
+    "length": 1925,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/area/route_card_locked.png",
+    "category": "ui",
+    "length": 1925,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/area/route_panel.png",
+    "category": "ui",
+    "length": 1927,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/character/avatar_archer.png",
+    "category": "ui",
+    "length": 1763,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/character/avatar_assassin.png",
+    "category": "ui",
+    "length": 1765,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/character/avatar_berserker.png",
+    "category": "ui",
+    "length": 1771,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/character/avatar_mage.png",
+    "category": "ui",
+    "length": 1761,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/character/avatar_warrior.png",
+    "category": "ui",
+    "length": 1764,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/character/btn_select.png",
+    "category": "ui",
+    "length": 1923,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/character/character_bg.jpg",
+    "category": "ui",
+    "length": 2112,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/character/character_card_default.png",
+    "category": "ui",
+    "length": 1929,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/character/character_card_selected.png",
+    "category": "ui",
+    "length": 1930,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/character/character_detail_panel.png",
+    "category": "ui",
+    "length": 1935,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/character/character_list_panel.png",
+    "category": "ui",
+    "length": 1931,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/common/btn_active.png",
+    "category": "ui",
+    "length": 1919,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/common/btn_close.png",
+    "category": "ui",
+    "length": 1918,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/common/btn_default.png",
+    "category": "ui",
+    "length": 1921,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/common/btn_hover.png",
+    "category": "ui",
+    "length": 1920,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/common/panel_bg.png",
+    "category": "ui",
+    "length": 2016,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/create/btn_class_default.png",
+    "category": "ui",
+    "length": 1918,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/create/btn_class_selected.png",
+    "category": "ui",
+    "length": 1916,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/create/btn_create_confirm.png",
+    "category": "ui",
+    "length": 1919,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/create/btn_create_skip.png",
+    "category": "ui",
+    "length": 1919,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/create/character_stage_glow.png",
+    "category": "ui",
+    "length": 1757,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/create/create_bg.jpg",
+    "category": "ui",
+    "length": 2148,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/create/create_model_stage.jpg",
+    "category": "ui",
+    "length": 2147,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/create/info_panel.png",
+    "category": "ui",
+    "length": 1932,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/create/input_name.png",
+    "category": "ui",
+    "length": 1923,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/create/name_panel.png",
+    "category": "ui",
+    "length": 1929,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/death/btn_revive_active.png",
+    "category": "ui",
+    "length": 1917,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/death/btn_revive_default.png",
+    "category": "ui",
+    "length": 1918,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/death/btn_settle_active.png",
+    "category": "ui",
+    "length": 1917,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/death/btn_settle_default.png",
+    "category": "ui",
+    "length": 1918,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/death/death_bg.jpg",
+    "category": "ui",
+    "length": 2115,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/death/icon_soulstone.png",
+    "category": "ui",
+    "length": 1760,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/death/result_panel.png",
+    "category": "ui",
+    "length": 1927,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/btn_close.png",
+    "category": "ui",
+    "length": 1922,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/btn_equip.png",
+    "category": "ui",
+    "length": 1922,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/equip_body_frame.png",
+    "category": "ui",
+    "length": 1776,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/equip_slot_chest.png",
+    "category": "ui",
+    "length": 1805,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/equip_slot_gloves.png",
+    "category": "ui",
+    "length": 1806,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/equip_slot_helmet.png",
+    "category": "ui",
+    "length": 1807,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/equip_slot_legs.png",
+    "category": "ui",
+    "length": 1806,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/equip_slot_necklace.png",
+    "category": "ui",
+    "length": 1807,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/equip_slot_ring.png",
+    "category": "ui",
+    "length": 1806,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/equip_slot_shoes.png",
+    "category": "ui",
+    "length": 1805,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/equip_slot_weapon.png",
+    "category": "ui",
+    "length": 1807,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/equipment_bg.jpg",
+    "category": "ui",
+    "length": 2105,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/inventory_panel.png",
+    "category": "ui",
+    "length": 1935,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/inventory_slot.png",
+    "category": "ui",
+    "length": 1806,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/item_slot.png",
+    "category": "ui",
+    "length": 1807,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/rarity_common.png",
+    "category": "ui",
+    "length": 1771,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/rarity_legendary.png",
+    "category": "ui",
+    "length": 1774,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/rarity_magic.png",
+    "category": "ui",
+    "length": 1770,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/rarity_rare.png",
+    "category": "ui",
+    "length": 1769,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/equipment/set_counter_bg.png",
+    "category": "ui",
+    "length": 2101,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/event/btn_continue.png",
+    "category": "ui",
+    "length": 1920,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/event/choice_card.png",
+    "category": "ui",
+    "length": 1925,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/event/event_bg.jpg",
+    "category": "ui",
+    "length": 2109,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/event/event_panel.png",
+    "category": "ui",
+    "length": 1927,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/hud/floor_badge.png",
+    "category": "ui",
+    "length": 1766,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/hud/hud_cdmask.png",
+    "category": "ui",
+    "length": 1756,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/hud/hud_hpbar_bg.png",
+    "category": "ui",
+    "length": 2087,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/hud/hud_hpbar_fill.png",
+    "category": "ui",
+    "length": 1760,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/hud/hud_hpbar_frame.png",
+    "category": "ui",
+    "length": 1761,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/hud/hud_rollbtn.png",
+    "category": "ui",
+    "length": 1917,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/hud/hud_skillslot.png",
+    "category": "ui",
+    "length": 1801,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/hud/joystick_base.png",
+    "category": "ui",
+    "length": 1761,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/hud/joystick_dot.png",
+    "category": "ui",
+    "length": 1758,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/hud/kill_badge.png",
+    "category": "ui",
+    "length": 1765,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/hud/pause_btn.png",
+    "category": "ui",
+    "length": 1912,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/log/btn_close.png",
+    "category": "ui",
+    "length": 1917,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/log/log_bg.jpg",
+    "category": "ui",
+    "length": 2090,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/log/log_book_panel.png",
+    "category": "ui",
+    "length": 1925,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/log/stat_row.png",
+    "category": "ui",
+    "length": 1921,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/log/trophy_icon.png",
+    "category": "ui",
+    "length": 1759,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/login/agreement_strip.png",
+    "category": "ui",
+    "length": 1928,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/login/btn_guest.png",
+    "category": "ui",
+    "length": 1917,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/login/btn_wechat.png",
+    "category": "ui",
+    "length": 1917,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/login/login_bg.jpg",
+    "category": "ui",
+    "length": 2109,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/login/login_panel.png",
+    "category": "ui",
+    "length": 1928,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/main/btn_adventure.png",
+    "category": "ui",
+    "length": 1917,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/main/btn_character.png",
+    "category": "ui",
+    "length": 1916,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/main/btn_log.png",
+    "category": "ui",
+    "length": 1919,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/main/btn_settings.png",
+    "category": "ui",
+    "length": 1916,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/main/btn_shop.png",
+    "category": "ui",
+    "length": 1917,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/main/main_bg.jpg",
+    "category": "ui",
+    "length": 2109,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/main/main_titledeco.png",
+    "category": "ui",
+    "length": 1764,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/main/top_status_panel.png",
+    "category": "ui",
+    "length": 1926,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/map/icon_room_boss.png",
+    "category": "ui",
+    "length": 1753,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/map/icon_room_combat.png",
+    "category": "ui",
+    "length": 1760,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/map/icon_room_event.png",
+    "category": "ui",
+    "length": 1759,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/map/icon_room_healing.png",
+    "category": "ui",
+    "length": 1761,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/map/icon_room_shop.png",
+    "category": "ui",
+    "length": 1758,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/map/icon_room_treasure.png",
+    "category": "ui",
+    "length": 1762,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/map/icon_room_upgrade.png",
+    "category": "ui",
+    "length": 1761,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/map/map_line.png",
+    "category": "ui",
+    "length": 1753,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/map/map_node_current.png",
+    "category": "ui",
+    "length": 1762,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/map/map_node_unknown.png",
+    "category": "ui",
+    "length": 1762,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/map/map_node_visited.png",
+    "category": "ui",
+    "length": 1762,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/map/map_panel.png",
+    "category": "ui",
+    "length": 1929,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/settings/btn_close.png",
+    "category": "ui",
+    "length": 1920,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/settings/btn_reset.png",
+    "category": "ui",
+    "length": 1922,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/settings/settings_bg.jpg",
+    "category": "ui",
+    "length": 2093,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/settings/settings_panel.png",
+    "category": "ui",
+    "length": 1931,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/settlement/btn_back.png",
+    "category": "ui",
+    "length": 1924,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/settlement/btn_double.png",
+    "category": "ui",
+    "length": 1924,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/settlement/result_panel.png",
+    "category": "ui",
+    "length": 1936,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/settlement/reward_strip.png",
+    "category": "ui",
+    "length": 1932,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/settlement/settlement_bg.jpg",
+    "category": "ui",
+    "length": 2111,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/settlement/soulstone_icon.png",
+    "category": "ui",
+    "length": 1776,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/shop/btn_buy.png",
+    "category": "ui",
+    "length": 1918,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/shop/coin_panel.png",
+    "category": "ui",
+    "length": 1927,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/shop/icon_coin.png",
+    "category": "ui",
+    "length": 1754,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/shop/shop_bg.jpg",
+    "category": "ui",
+    "length": 2098,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/shop/shop_shelf_panel.png",
+    "category": "ui",
+    "length": 1930,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/shop/shop_slot.png",
+    "category": "ui",
+    "length": 1801,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/splash/loading_bar.png",
+    "category": "ui",
+    "length": 1763,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/splash/splash_bg.jpg",
+    "category": "ui",
+    "length": 2089,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/splash/splash_logo.png",
+    "category": "ui",
+    "length": 1765,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/btn_pick.png",
+    "category": "ui",
+    "length": 1919,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/card_frame_common.png",
+    "category": "ui",
+    "length": 1928,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/card_frame_epic.png",
+    "category": "ui",
+    "length": 1928,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/card_frame_rare.png",
+    "category": "ui",
+    "length": 1932,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_ability_bullettime.png",
+    "category": "ui",
+    "length": 1773,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_ability_doublestrike.png",
+    "category": "ui",
+    "length": 1775,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_ability_elementresonance.png",
+    "category": "ui",
+    "length": 1779,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_ability_firewalker.png",
+    "category": "ui",
+    "length": 1773,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_ability_frostbite.png",
+    "category": "ui",
+    "length": 1772,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_ability_holyshield.png",
+    "category": "ui",
+    "length": 1773,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_ability_lifestealaura.png",
+    "category": "ui",
+    "length": 1776,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_ability_phasewalk.png",
+    "category": "ui",
+    "length": 1772,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_ability_ricochet.png",
+    "category": "ui",
+    "length": 1771,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_ability_shieldreflect.png",
+    "category": "ui",
+    "length": 1776,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_ability_sprint.png",
+    "category": "ui",
+    "length": 1769,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_ability_warcry.png",
+    "category": "ui",
+    "length": 1769,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_blinkstone.png",
+    "category": "ui",
+    "length": 1771,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_decoyscroll.png",
+    "category": "ui",
+    "length": 1772,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_echoorb.png",
+    "category": "ui",
+    "length": 1768,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_flamering.png",
+    "category": "ui",
+    "length": 1770,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_frenzyaxe.png",
+    "category": "ui",
+    "length": 1770,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_frostamulet.png",
+    "category": "ui",
+    "length": 1772,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_gravitystone.png",
+    "category": "ui",
+    "length": 1773,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_immortalstone.png",
+    "category": "ui",
+    "length": 1774,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_ironarmor.png",
+    "category": "ui",
+    "length": 1770,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_lifelink.png",
+    "category": "ui",
+    "length": 1769,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_luckycoin.png",
+    "category": "ui",
+    "length": 1770,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_shadowcloak.png",
+    "category": "ui",
+    "length": 1772,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_shadowdagger.png",
+    "category": "ui",
+    "length": 1773,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_speedgauntlet.png",
+    "category": "ui",
+    "length": 1774,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_thornarmor.png",
+    "category": "ui",
+    "length": 1771,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_relic_timehourglass.png",
+    "category": "ui",
+    "length": 1774,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_upgrade_agileboots.png",
+    "category": "ui",
+    "length": 1773,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_upgrade_aoeenhance.png",
+    "category": "ui",
+    "length": 1773,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_upgrade_berserkerpact.png",
+    "category": "ui",
+    "length": 1776,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_upgrade_greedring.png",
+    "category": "ui",
+    "length": 1772,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_upgrade_ironwall.png",
+    "category": "ui",
+    "length": 1771,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_upgrade_lifecharm.png",
+    "category": "ui",
+    "length": 1772,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_upgrade_longarm.png",
+    "category": "ui",
+    "length": 1770,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_upgrade_meleeboost.png",
+    "category": "ui",
+    "length": 1773,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_upgrade_movespeed.png",
+    "category": "ui",
+    "length": 1772,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_upgrade_rangedboost.png",
+    "category": "ui",
+    "length": 1774,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_upgrade_skillslot.png",
+    "category": "ui",
+    "length": 1807,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/icon_upgrade_windstep.png",
+    "category": "ui",
+    "length": 1771,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  },
+  {
+    "path": "ui/upgrade/upgrade_bg.jpg",
+    "category": "ui",
+    "length": 2111,
+    "risk_hits": [],
+    "had_previous_prompt": true
+  }
+]

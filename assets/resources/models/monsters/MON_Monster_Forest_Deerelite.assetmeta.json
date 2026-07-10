@@ -1,0 +1,24 @@
+{
+  "name": "MON_Monster_Forest_Deerelite",
+  "tri": 2500,
+  "bones": 30,
+  "textureSize": 512,
+  "lodLevels": 3,
+  "animClips": 5,
+  "sockets": [
+    "RightHand",
+    "LeftHand",
+    "Head",
+    "Foot",
+    "SkillOrigin"
+  ],
+  "colliders": [
+    "capsule"
+  ],
+  "lifecycle": "选秀",
+  "perfTier": "low",
+  "version": "1.0.0",
+  "author": "",
+  "date": "2026-07-10",
+  "reviewer": ""
+}

@@ -1,0 +1,32 @@
+{
+  "name": "BOSS_Final_11",
+  "tri": 9000,
+  "bones": 80,
+  "textureSize": 1024,
+  "lodLevels": 3,
+  "animClips": 8,
+  "sockets": [
+    "RightHand",
+    "LeftHand",
+    "Head",
+    "Chest",
+    "Back",
+    "Foot",
+    "Weapon",
+    "SkillOrigin",
+    "Mouth",
+    "Wing",
+    "Tail",
+    "Eye",
+    "WeakPoint"
+  ],
+  "colliders": [
+    "capsule_multi"
+  ],
+  "lifecycle": "选秀",
+  "perfTier": "high",
+  "version": "1.0.0",
+  "author": "",
+  "date": "2026-07-10",
+  "reviewer": ""
+}

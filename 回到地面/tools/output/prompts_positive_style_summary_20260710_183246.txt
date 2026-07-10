@@ -1,0 +1,45 @@
+updated=476
+backup=E:\game\assets\resources\config\prompts.backup_positive_style_20260710_183246.json
+report=E:\game\回到地面\tools\output\prompts_positive_style_report_20260710_183246.json
+risk_count=286
+new_prompt_count=0
+category_counts:
+  backgrounds=17
+  bosses=120
+  characters=12
+  effects=27
+  icons=67
+  monsters=36
+  tiles=24
+  ui=173
+risk_samples:
+  bosses/finalboss/abyss/boss_abyssoverlord_attack.png: ['no']
+  bosses/finalboss/abyss/boss_abyssoverlord_death.png: ['no']
+  bosses/finalboss/abyss/boss_abyssoverlord_idle.png: ['no']
+  bosses/finalboss/abyss/boss_abyssoverlord_phasechange.png: ['no']
+  bosses/finalboss/abyss/boss_abyssoverlord_skill.png: ['no']
+  bosses/finalboss/boss_abyssoverlord_attack.png: ['no']
+  bosses/finalboss/boss_abyssoverlord_death.png: ['no']
+  bosses/finalboss/boss_abyssoverlord_idle.png: ['no']
+  bosses/finalboss/boss_abyssoverlord_phasechange.png: ['no']
+  bosses/finalboss/boss_abyssoverlord_skill.png: ['no']
+  bosses/finalboss/boss_beast_swamp_attack.png: ['no']
+  bosses/finalboss/boss_beast_swamp_death.png: ['no']
+  bosses/finalboss/boss_beast_swamp_idle.png: ['no']
+  bosses/finalboss/boss_beast_swamp_phasechange.png: ['no']
+  bosses/finalboss/boss_beast_swamp_skill.png: ['no']
+  bosses/finalboss/boss_firelord_attack.png: ['no']
+  bosses/finalboss/boss_firelord_death.png: ['no']
+  bosses/finalboss/boss_firelord_idle.png: ['no']
+  bosses/finalboss/boss_firelord_phasechange.png: ['no']
+  bosses/finalboss/boss_firelord_skill.png: ['no']
+  bosses/finalboss/boss_forestguardian_attack.png: ['no']
+  bosses/finalboss/boss_forestguardian_death.png: ['no']
+  bosses/finalboss/boss_forestguardian_idle.png: ['no']
+  bosses/finalboss/boss_forestguardian_phasechange.png: ['no']
+  bosses/finalboss/boss_forestguardian_skill.png: ['no']
+  bosses/finalboss/boss_frostqueen_attack.png: ['no']
+  bosses/finalboss/boss_frostqueen_death.png: ['no']
+  bosses/finalboss/boss_frostqueen_idle.png: ['no']
+  bosses/finalboss/boss_frostqueen_phasechange.png: ['no']
+  bosses/finalboss/boss_frostqueen_skill.png: ['no']

@@ -1,0 +1,626 @@
+这里的“部件化动画”本质是：不要再让 AI 生成整张角色动作序列帧，而是把角色拆成稳定部件，由 Cocos 运行时或编辑器动画控制部件的位置、旋转、缩放来形成动作。
+
+这样能从根上解决：
+
+每帧角色长得不一样
+一张 sprite sheet 里出现多个小人
+动作帧尺寸不一致
+角色贴边、糊、缩放异常
+后续换装、换武器、加职业成本高
+1. 总体思路
+以 archer 为例，不再生成：
+
+characters/archer/archer_attack.png   256x1024
+characters/archer/archer_idle.png     256x1024
+characters/archer/archer_walk.png     256x1024
+改为生成一套稳定部件：
+
+characters/archer/parts/body.png
+characters/archer/parts/head.png
+characters/archer/parts/ear_l.png
+characters/archer/parts/ear_r.png
+characters/archer/parts/arm_l.png
+characters/archer/parts/arm_r.png
+characters/archer/parts/leg_l.png
+characters/archer/parts/leg_r.png
+characters/archer/parts/tail.png
+characters/archer/parts/bow.png
+characters/archer/parts/quiver.png
+characters/archer/parts/cape.png
+然后在 Cocos 中组成：
+
+ArcherRuntime
+├── Shadow
+├── Body
+├── Tail
+├── LegL
+├── LegR
+├── Cape
+├── ArmL
+├── ArmR
+├── Bow
+├── Quiver
+├── Head
+├── EarL
+└── EarR
+动作不再靠图片帧，而是靠配置控制每个部件：
+
+idle：身体轻微上下浮动，耳朵轻摆
+walk：腿部摆动，身体上下起伏
+attack：右臂拉弓，弓旋转，身体后仰，释放后回弹
+hit：身体后仰，头部轻微晃动
+dodge：整体位移 + 缩放 + 旋转
+death：整体下沉、透明度降低、姿态倒下
+2. 资源规范
+2.1 部件资源路径
+建议统一为：
+
+assets/resources/textures/characters/archer/parts/body.png
+assets/resources/textures/characters/archer/parts/head.png
+assets/resources/textures/characters/archer/parts/ear_l.png
+assets/resources/textures/characters/archer/parts/ear_r.png
+assets/resources/textures/characters/archer/parts/arm_l.png
+assets/resources/textures/characters/archer/parts/arm_r.png
+assets/resources/textures/characters/archer/parts/leg_l.png
+assets/resources/textures/characters/archer/parts/leg_r.png
+assets/resources/textures/characters/archer/parts/tail.png
+assets/resources/textures/characters/archer/parts/bow.png
+assets/resources/textures/characters/archer/parts/quiver.png
+assets/resources/textures/characters/archer/parts/cape.png
+2.2 单个部件图片要求
+部件	推荐尺寸	要求
+body	160x160	主体躯干，透明背景
+head	128x128	头部单独完整，不带身体
+arm_l / arm_r	96x128	手臂可单独旋转
+leg_l / leg_r	80x112	腿部可摆动
+ear_l / ear_r	64x96	可轻微摆动
+tail	96x128	可轻微旋转
+bow	128x128	独立武器
+quiver	96x96	箭袋
+cape	128x160	披风
+统一要求：
+
+PNG RGBA
+透明背景
+单个部件居中
+外圈至少 12px 透明边距
+禁止阴影贴在部件图里
+禁止文字、数字、符号
+同一角色所有部件光源一致
+同一角色所有部件线条粗细一致
+3. 配置表设计
+新增：
+
+assets/resources/config/character_parts.json
+assets/resources/config/character_rigs.json
+assets/resources/config/character_part_animations.json
+3.1 character_parts.json
+负责声明角色有哪些部件，每个部件加载哪张图。
+
+{
+  "archer": {
+    "parts": {
+      "body": "textures/characters/archer/parts/body",
+      "head": "textures/characters/archer/parts/head",
+      "ear_l": "textures/characters/archer/parts/ear_l",
+      "ear_r": "textures/characters/archer/parts/ear_r",
+      "arm_l": "textures/characters/archer/parts/arm_l",
+      "arm_r": "textures/characters/archer/parts/arm_r",
+      "leg_l": "textures/characters/archer/parts/leg_l",
+      "leg_r": "textures/characters/archer/parts/leg_r",
+      "tail": "textures/characters/archer/parts/tail",
+      "bow": "textures/characters/archer/parts/bow",
+      "quiver": "textures/characters/archer/parts/quiver",
+      "cape": "textures/characters/archer/parts/cape"
+    }
+  }
+}
+3.2 character_rigs.json
+负责声明每个部件默认位置、层级、锚点。
+
+{
+  "archer": {
+    "rootSize": [256, 256],
+    "parts": {
+      "shadow": {
+        "z": 0,
+        "position": [0, -74],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.5]
+      },
+      "tail": {
+        "z": 1,
+        "position": [-42, -18],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.15]
+      },
+      "cape": {
+        "z": 2,
+        "position": [-12, -8],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.75]
+      },
+      "leg_l": {
+        "z": 3,
+        "position": [-18, -58],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.85]
+      },
+      "leg_r": {
+        "z": 4,
+        "position": [18, -58],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.85]
+      },
+      "body": {
+        "z": 5,
+        "position": [0, -12],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.5]
+      },
+      "quiver": {
+        "z": 6,
+        "position": [-34, 4],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.5]
+      },
+      "arm_l": {
+        "z": 7,
+        "position": [-34, -2],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.85]
+      },
+      "arm_r": {
+        "z": 8,
+        "position": [34, -2],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.85]
+      },
+      "bow": {
+        "z": 9,
+        "position": [48, 0],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.5]
+      },
+      "head": {
+        "z": 10,
+        "position": [0, 48],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.35]
+      },
+      "ear_l": {
+        "z": 11,
+        "position": [-28, 92],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.15]
+      },
+      "ear_r": {
+        "z": 12,
+        "position": [28, 92],
+        "scale": [1, 1],
+        "anchor": [0.5, 0.15]
+      }
+    }
+  }
+}
+3.3 character_part_animations.json
+负责动作。
+
+{
+  "archer": {
+    "idle": {
+      "loop": true,
+      "duration": 1.2,
+      "tracks": {
+        "body": [
+          { "time": 0, "position": [0, -12], "rotation": 0, "scale": [1, 1] },
+          { "time": 0.6, "position": [0, -8], "rotation": 0, "scale": [1.01, 1.01] },
+          { "time": 1.2, "position": [0, -12], "rotation": 0, "scale": [1, 1] }
+        ],
+        "head": [
+          { "time": 0, "position": [0, 48], "rotation": 0 },
+          { "time": 0.6, "position": [0, 51], "rotation": -2 },
+          { "time": 1.2, "position": [0, 48], "rotation": 0 }
+        ],
+        "ear_l": [
+          { "time": 0, "rotation": -4 },
+          { "time": 0.6, "rotation": 3 },
+          { "time": 1.2, "rotation": -4 }
+        ],
+        "ear_r": [
+          { "time": 0, "rotation": 4 },
+          { "time": 0.6, "rotation": -3 },
+          { "time": 1.2, "rotation": 4 }
+        ]
+      }
+    },
+    "attack": {
+      "loop": false,
+      "duration": 0.45,
+      "tracks": {
+        "body": [
+          { "time": 0, "position": [0, -12], "rotation": 0 },
+          { "time": 0.18, "position": [-5, -12], "rotation": -5 },
+          { "time": 0.3, "position": [4, -12], "rotation": 4 },
+          { "time": 0.45, "position": [0, -12], "rotation": 0 }
+        ],
+        "arm_r": [
+          { "time": 0, "rotation": 12 },
+          { "time": 0.18, "rotation": -38 },
+          { "time": 0.3, "rotation": 42 },
+          { "time": 0.45, "rotation": 12 }
+        ],
+        "bow": [
+          { "time": 0, "position": [48, 0], "rotation": 0 },
+          { "time": 0.18, "position": [38, 0], "rotation": -8 },
+          { "time": 0.3, "position": [58, 0], "rotation": 8 },
+          { "time": 0.45, "position": [48, 0], "rotation": 0 }
+        ]
+      }
+    }
+  }
+}
+4. Cocos 运行时结构
+建议新增 prefab：
+
+assets/prefabs/runtime/PartCharacter.prefab
+节点结构：
+
+PartCharacter
+├── Shadow
+├── PartsRoot
+│   ├── Tail
+│   ├── Cape
+│   ├── LegL
+│   ├── LegR
+│   ├── Body
+│   ├── Quiver
+│   ├── ArmL
+│   ├── ArmR
+│   ├── Bow
+│   ├── Head
+│   ├── EarL
+│   └── EarR
+└── EffectSocket
+但也可以不用 prefab，运行时动态创建。更适合你当前项目的方向是：运行时动态创建，减少编辑器手动挂载。
+
+5. 核心代码方案
+5.1 PartCharacterRenderer.ts
+新增：
+
+assets/scripts/render/PartCharacterRenderer.ts
+核心代码：
+
+import { _decorator, Component, Node, Sprite, UITransform, Vec3 } from 'cc';
+import { AssetBundleService } from '../assets/AssetBundleService';
+
+const { ccclass } = _decorator;
+
+interface RigPart {
+    z: number;
+    position: [number, number];
+    scale?: [number, number];
+    anchor?: [number, number];
+}
+
+interface CharacterRig {
+    rootSize: [number, number];
+    parts: Record<string, RigPart>;
+}
+
+interface CharacterParts {
+    parts: Record<string, string>;
+}
+
+@ccclass('PartCharacterRenderer')
+export class PartCharacterRenderer extends Component {
+    private _partNodes = new Map<string, Node>();
+    private _rig: CharacterRig | null = null;
+
+    async setup(characterId: string, partsConfig: CharacterParts, rig: CharacterRig) {
+        this._rig = rig;
+
+        const ui = this.node.getComponent(UITransform) || this.node.addComponent(UITransform);
+        ui.setContentSize(rig.rootSize[0], rig.rootSize[1]);
+
+        const entries = Object.entries(rig.parts).sort((a, b) => a[1].z - b[1].z);
+
+        for (const [partName, partRig] of entries) {
+            if (partName === 'shadow') {
+                this._createShadow(partName, partRig);
+                continue;
+            }
+
+            const assetId = partsConfig.parts[partName];
+            if (!assetId) {
+                continue;
+            }
+
+            const partNode = new Node(partName);
+            partNode.setParent(this.node);
+            partNode.setPosition(new Vec3(partRig.position[0], partRig.position[1], 0));
+            partNode.setScale(partRig.scale?.[0] ?? 1, partRig.scale?.[1] ?? 1, 1);
+
+            const partUi = partNode.addComponent(UITransform);
+            partUi.setAnchorPoint(partRig.anchor?.[0] ?? 0.5, partRig.anchor?.[1] ?? 0.5);
+
+            const sprite = partNode.addComponent(Sprite);
+            const frame = await AssetBundleService.instance.loadById(assetId);
+            sprite.spriteFrame = frame as any;
+
+            this._partNodes.set(partName, partNode);
+        }
+    }
+
+    getPart(name: string): Node | null {
+        return this._partNodes.get(name) || null;
+    }
+
+    resetToRig() {
+        if (!this._rig) {
+            return;
+        }
+
+        for (const [partName, partRig] of Object.entries(this._rig.parts)) {
+            const node = this._partNodes.get(partName);
+            if (!node) {
+                continue;
+            }
+
+            node.setPosition(partRig.position[0], partRig.position[1], 0);
+            node.setRotationFromEuler(0, 0, 0);
+            node.setScale(partRig.scale?.[0] ?? 1, partRig.scale?.[1] ?? 1, 1);
+        }
+    }
+
+    private _createShadow(partName: string, rig: RigPart) {
+        const node = new Node(partName);
+        node.setParent(this.node);
+        node.setPosition(rig.position[0], rig.position[1], 0);
+        node.setScale(rig.scale?.[0] ?? 1, rig.scale?.[1] ?? 1, 1);
+        this._partNodes.set(partName, node);
+    }
+}
+5.2 PartAnimationPlayer.ts
+新增：
+
+assets/scripts/render/PartAnimationPlayer.ts
+核心代码：
+
+import { _decorator, Component, Node, Vec3 } from 'cc';
+import { PartCharacterRenderer } from './PartCharacterRenderer';
+
+const { ccclass } = _decorator;
+
+interface Keyframe {
+    time: number;
+    position?: [number, number];
+    rotation?: number;
+    scale?: [number, number];
+}
+
+interface PartAnimation {
+    loop: boolean;
+    duration: number;
+    tracks: Record<string, Keyframe[]>;
+}
+
+@ccclass('PartAnimationPlayer')
+export class PartAnimationPlayer extends Component {
+    private _renderer: PartCharacterRenderer | null = null;
+    private _anim: PartAnimation | null = null;
+    private _time = 0;
+    private _playing = false;
+
+    setup(renderer: PartCharacterRenderer) {
+        this._renderer = renderer;
+    }
+
+    play(anim: PartAnimation) {
+        this._anim = anim;
+        this._time = 0;
+        this._playing = true;
+    }
+
+    stop() {
+        this._playing = false;
+        this._anim = null;
+    }
+
+    update(dt: number) {
+        if (!this._playing || !this._anim || !this._renderer) {
+            return;
+        }
+
+        this._time += dt;
+
+        if (this._time > this._anim.duration) {
+            if (this._anim.loop) {
+                this._time = this._time % this._anim.duration;
+            } else {
+                this._time = this._anim.duration;
+                this._playing = false;
+            }
+        }
+
+        for (const [partName, frames] of Object.entries(this._anim.tracks)) {
+            const node = this._renderer.getPart(partName);
+            if (!node || frames.length === 0) {
+                continue;
+            }
+
+            this._applyTrack(node, frames, this._time);
+        }
+    }
+
+    private _applyTrack(node: Node, frames: Keyframe[], time: number) {
+        let a = frames[0];
+        let b = frames[frames.length - 1];
+
+        for (let i = 0; i < frames.length - 1; i++) {
+            if (time >= frames[i].time && time <= frames[i + 1].time) {
+                a = frames[i];
+                b = frames[i + 1];
+                break;
+            }
+        }
+
+        const span = Math.max(0.001, b.time - a.time);
+        const t = Math.max(0, Math.min(1, (time - a.time) / span));
+
+        if (a.position || b.position) {
+            const ap = a.position || b.position!;
+            const bp = b.position || a.position!;
+            node.setPosition(
+                ap[0] + (bp[0] - ap[0]) * t,
+                ap[1] + (bp[1] - ap[1]) * t,
+                0
+            );
+        }
+
+        if (a.rotation !== undefined || b.rotation !== undefined) {
+            const ar = a.rotation ?? b.rotation ?? 0;
+            const br = b.rotation ?? a.rotation ?? 0;
+            node.setRotationFromEuler(0, 0, ar + (br - ar) * t);
+        }
+
+        if (a.scale || b.scale) {
+            const as = a.scale || b.scale!;
+            const bs = b.scale || a.scale!;
+            node.setScale(
+                as[0] + (bs[0] - as[0]) * t,
+                as[1] + (bs[1] - as[1]) * t,
+                1
+            );
+        }
+    }
+}
+6. 生成流程改造
+6.1 不再生成角色 sheet
+prompts.json 里角色动作 sheet 类资源逐步废弃：
+
+characters/archer/archer_attack.png
+characters/archer/archer_idle.png
+characters/archer/archer_walk.png
+保留一段过渡期，但新管线不再依赖它们。
+
+6.2 新增部件提示词
+以 archer 为例：
+
+characters/archer/parts/head.png
+提示词方向：
+
+single separated head part for a cute cartoon deer ranger character, front three-quarter view, same character design as archer, warm orange-brown deer fur, big bright eyes, small muzzle, leaf-green ranger hood detail, clean alpha-ready silhouette, centered, transparent-safe margin, no body, no background, no text, high-resolution cartoon animation style
+characters/archer/parts/body.png
+single separated torso body part for a cute cartoon deer ranger character, compact rounded body, leaf-green cape attachment, leather ranger outfit, no head, no arms, no legs, centered with transparent-safe margin, clean cartoon animation style, consistent colors with archer character
+武器：
+
+single separated small wooden bow part for a cute cartoon deer ranger, polished curved wood, leaf-green wrapping, simple readable silhouette, centered with transparent-safe margin, no character body, no background, no text
+7. 质量门禁
+新增脚本检查：
+
+tools/check_character_parts.py
+检查内容：
+
+1. 每个角色必须有 required parts。
+2. 每个 part 必须 RGBA。
+3. alpha bbox 不得贴边。
+4. 部件不能过小。
+5. 部件不能是整个人物。
+6. 部件中心不能偏移太严重。
+7. 同一角色部件颜色饱和度和亮度不能差异过大。
+检查规则示例：
+
+REQUIRED_PARTS = [
+    "body", "head", "arm_l", "arm_r",
+    "leg_l", "leg_r", "tail"
+]
+
+OPTIONAL_PARTS = [
+    "ear_l", "ear_r", "weapon", "bow", "quiver", "cape"
+]
+8. 和现有系统的关系
+8.1 SpriteAnimationService
+现有 SpriteAnimationService 仍可保留，用于：
+
+怪物
+Boss
+特效
+旧版兼容角色
+8.2 新增 CharacterVisualService 分流
+if (visual.mode === 'parts') {
+    // 使用 PartCharacterRenderer
+} else {
+    // 使用 SpriteAnimationService
+}
+配置示例：
+
+{
+  "archer": {
+    "mode": "parts",
+    "partsConfig": "archer",
+    "rig": "archer",
+    "animations": "archer"
+  },
+  "warrior": {
+    "mode": "sheet",
+    "idle": "textures/characters/warrior/warrior_idle"
+  }
+}
+9. 迁移优先级
+建议不要一次性全部改。
+
+P0：只改玩家角色预览
+先用于创建角色界面：
+
+CreatePanel 模型展示区
+CharacterPanel 角色展示区
+MainHub 当前角色展示
+优先迁移：
+
+archer
+warrior
+mage
+assassin
+berserker
+P1：用于地牢玩家角色
+玩家进入地牢后也用部件化角色。
+
+P2：怪物/Boss 仍然暂时用 sprite sheet
+怪物数量多，动作要求低，可以先不改。
+
+P3：主角换装/武器系统
+部件化之后可以支持：
+
+换武器
+换帽子
+换披风
+换皮肤
+职业进阶外观
+10. 这个方案的优缺点
+优点
+角色不会每帧长得不一样
+动作可以无限调，不消耗 AI API
+后续换装成本低
+文件体积更小
+角色预览更清晰
+不会出现一张 sheet 里多个小人
+可以统一所有职业的展示比例
+缺点
+初期代码量更大
+需要配置 rig
+需要调每个部件的锚点
+复杂动作不如手绘逐帧自然
+需要一套小型动画编辑规范
+11. 推荐落地路线
+我建议这样做：
+
+先不要全量重做角色。
+先拿 archer 做样板。
+生成 archer 部件资源。
+配 character_parts.json 和 character_rigs.json。
+在创建角色界面接入 PartCharacterRenderer。
+确认展示效果稳定后，再迁移其他 4 个职业。
+地牢内玩家角色最后再替换。
+这样不会影响当前游戏主流程，也能先验证方案是否真的比 sprite sheet 稳。
+
