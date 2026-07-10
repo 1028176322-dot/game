@@ -4,6 +4,10 @@ import { ConfigService } from '../config/ConfigService';
 import { ConfigManager } from './ConfigManager';
 import { GameManager } from './GameManager';
 import { SceneFlowService } from '../app/SceneFlowService';
+import { GameContext, ILogger, IConfigDatabase } from './GameContext';
+import { Logger } from './Logger';
+import { ConfigDatabase } from './ConfigDatabase';
+import { LifecycleManager, ILifecycle } from './LifecycleManager';
 
 const { ccclass, property } = _decorator;
 
@@ -17,6 +21,8 @@ export class GameBootstrap extends Component {
 
     private _ready = false;
     private _error: string | null = null;
+    private _ctx: GameContext | null = null;
+    private _lifecycle: LifecycleManager | null = null;
 
     get ready(): boolean {
         return this._ready;
@@ -52,12 +58,50 @@ export class GameBootstrap extends Component {
             this._emitProgress(100, 'Done');
             this._setStatus('加载完成');
             console.log('[GameBootstrap] startup complete');
+
+            // Demo0 D0-5: wire GameContext + LifecycleManager (infra only, non-blocking).
+            try {
+                this._wireInfra();
+            } catch (infraErr) {
+                console.warn('[GameBootstrap] infra wiring demo skipped:', infraErr);
+            }
         } catch (err) {
             this._error = err instanceof Error ? err.message : String(err);
             this._emitProgress(100, `Failed: ${this._error}`);
             this._setStatus(`启动失败：${this._error}`);
             console.error('[GameBootstrap] startup failed:', err);
         }
+    }
+
+    private _wireInfra(): void {
+        // Demo0 D0-5: assemble the four core infra via GameContext (ServiceLocator).
+        // Proves DI injection + ILifecycle broadcast are wired. Only infra classes are
+        // `new`-ed here (no business System, per red line 4).
+        // ConfigDatabase does NOT implement ILifecycle, so it is NOT registered into
+        // LifecycleManager (avoid faking lifecycle, per D0-5 strict constraint).
+        this._ctx = new GameContext();
+        this._ctx.register(ILogger, new Logger(true));
+        this._ctx.register(IConfigDatabase, new ConfigDatabase());
+        this._lifecycle = new LifecycleManager();
+
+        const logger = this._ctx.get<Logger>(ILogger);
+        // Demo probe (NOT a business system): implements ILifecycle so LifecycleManager
+        // can broadcast lifecycle events; each method logs via the injected Logger.
+        const probe: ILifecycle = {
+            initialize: () => logger.channel('battle').info('Initialize'),
+            enter:      () => logger.channel('battle').info('Enter'),
+            pause:      () => logger.channel('battle').info('Pause'),
+            resume:     () => logger.channel('battle').info('Resume'),
+            exit:       () => logger.channel('battle').info('Exit'),
+            destroy:    () => logger.channel('battle').info('Destroy'),
+        };
+        this._lifecycle.register(probe);
+        probe.initialize(this._ctx);
+        this._lifecycle.enterAll();
+        this._lifecycle.pauseAll();
+        this._lifecycle.resumeAll();
+        this._lifecycle.exitAll();
+        this._lifecycle.destroyAll();
     }
 
     private _emitProgress(pct: number, msg: string): void {
@@ -114,5 +158,6 @@ export class GameBootstrap extends Component {
 
     onDestroy(): void {
         this.unscheduleAllCallbacks();
+        this._ctx?.onDestroy();
     }
 }
