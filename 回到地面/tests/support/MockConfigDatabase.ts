@@ -7,6 +7,7 @@ import type { AudioConfigSource } from '../../assets/scripts/audio/AudioSystem';
 
 export class MockConfigDatabase implements AudioConfigSource {
   private readonly _audio = new Map<string, unknown>();
+  private readonly _skill = new Map<string, unknown>();
 
   setAudio(id: string, cfg: unknown): void {
     this._audio.set(id, cfg);
@@ -16,8 +17,13 @@ export class MockConfigDatabase implements AudioConfigSource {
     return this._audio.get(id);
   }
 
-  // Unused by current tests; present for structural completeness / future growth.
-  getSkill(_id: string): unknown { return undefined; }
+  setSkill(id: string, cfg: unknown): void {
+    this._skill.set(id, cfg);
+  }
+
+  getSkill(id: string): unknown {
+    return this._skill.get(id) ?? undefined;
+  }
   getMonster(_id: string): unknown { return undefined; }
   getBoss(_id: string): unknown { return undefined; }
   getEffect(_id: string): unknown { return undefined; }
