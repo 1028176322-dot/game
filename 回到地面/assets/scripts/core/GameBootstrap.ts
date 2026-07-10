@@ -20,6 +20,7 @@ import { RoomRuntime, IRoomRuntime } from '../dungeon/RoomRuntime';
 import { DebugPanel } from '../debug/DebugPanel';
 import { SaveManagerImpl, MemorySaveBackend } from '../save/SaveManager';
 import { ReplayRecorder } from '../replay/ReplayRecorder';
+import { AudioSystem, MemoryAudioSink } from '../audio/AudioSystem';
 
 const { ccclass, property } = _decorator;
 
@@ -174,6 +175,14 @@ export class GameBootstrap extends Component {
         this._ctx.register(IReplayRecorder, replayRecorder);
         this._lifecycle.register(replayRecorder);
         replayRecorder.initialize(this._ctx);
+
+        // §5.8 AudioSystem (IAudioService) — audio orchestration (BGM/SFX/Voice/Ambient/3D +
+        // Snapshot). Pure TS; playback delegated to an injected AudioSink (engine wires a
+        // cc.AudioSource-backed sink; MemoryAudioSink for headless demo). Implements ILifecycle.
+        const audioSystem = new AudioSystem(new MemoryAudioSink());
+        this._ctx.register(IAudioService, audioSystem);
+        this._lifecycle.register(audioSystem);
+        audioSystem.initialize(this._ctx);
 
         const logger = this._ctx.get<Logger>(ILogger);
         // Demo probe (NOT a business system): implements ILifecycle so LifecycleManager
