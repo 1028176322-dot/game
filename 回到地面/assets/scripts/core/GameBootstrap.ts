@@ -4,7 +4,7 @@ import { ConfigService } from '../config/ConfigService';
 import { ConfigManager } from './ConfigManager';
 import { GameManager } from './GameManager';
 import { SceneFlowService } from '../app/SceneFlowService';
-import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService, IDebugService, ISaveManager, IReplayRecorder } from './GameContext';
+import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService, IDebugService, ISaveManager, IReplayRecorder, IAnimationController } from './GameContext';
 import { Logger } from './Logger';
 import { ConfigDatabase } from './ConfigDatabase';
 import { LifecycleManager, ILifecycle } from './LifecycleManager';
@@ -22,6 +22,7 @@ import { PerfSampler } from '../debug/PerfSampler';
 import { SaveManagerImpl, MemorySaveBackend } from '../save/SaveManager';
 import { ReplayRecorder } from '../replay/ReplayRecorder';
 import { AudioSystem, MemoryAudioSink } from '../audio/AudioSystem';
+import { AnimationStateMachine } from '../battle/ai/AnimationStateMachine';
 
 const { ccclass, property } = _decorator;
 
@@ -195,6 +196,13 @@ export class GameBootstrap extends Component {
         this._ctx.register(IAudioService, audioSystem);
         this._lifecycle.register(audioSystem);
         audioSystem.initialize(this._ctx);
+
+        // §3.5 / §3.10: AnimationStateMachine (IAnimationController) — state-machine-based
+        // animation controller. Pure TS, no cc. Implements ILifecycle.
+        const animSM = new AnimationStateMachine();
+        this._ctx.register(IAnimationController, animSM);
+        this._lifecycle.register(animSM);
+        animSM.initialize(this._ctx);
 
         const logger = this._ctx.get<Logger>(ILogger);
         // Demo probe (NOT a business system): implements ILifecycle so LifecycleManager
