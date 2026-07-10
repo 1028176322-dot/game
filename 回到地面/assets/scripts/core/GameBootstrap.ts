@@ -4,10 +4,11 @@ import { ConfigService } from '../config/ConfigService';
 import { ConfigManager } from './ConfigManager';
 import { GameManager } from './GameManager';
 import { SceneFlowService } from '../app/SceneFlowService';
-import { GameContext, ILogger, IConfigDatabase } from './GameContext';
+import { GameContext, ILogger, IConfigDatabase, IAssetCache } from './GameContext';
 import { Logger } from './Logger';
 import { ConfigDatabase } from './ConfigDatabase';
 import { LifecycleManager, ILifecycle } from './LifecycleManager';
+import { AssetCache } from '../assets/AssetCache';
 
 const { ccclass, property } = _decorator;
 
@@ -83,6 +84,12 @@ export class GameBootstrap extends Component {
         this._ctx.register(ILogger, new Logger(true));
         this._ctx.register(IConfigDatabase, new ConfigDatabase());
         this._lifecycle = new LifecycleManager();
+
+        // Demo1: AssetCache — loader delegates to existing AssetBundleService (no re-implementation).
+        // Implements ILifecycle, so it is registered into LifecycleManager for teardown.
+        const assetCache = new AssetCache((id) => AssetBundleService.instance.loadById(id));
+        this._ctx.register(IAssetCache, assetCache);
+        this._lifecycle.register(assetCache);
 
         const logger = this._ctx.get<Logger>(ILogger);
         // Demo probe (NOT a business system): implements ILifecycle so LifecycleManager
