@@ -4,7 +4,7 @@ import { ConfigService } from '../config/ConfigService';
 import { ConfigManager } from './ConfigManager';
 import { GameManager } from './GameManager';
 import { SceneFlowService } from '../app/SceneFlowService';
-import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService, IDebugService, ISaveManager, IReplayRecorder, IAnimationController } from './GameContext';
+import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService, IDebugService, ISaveManager, IReplayRecorder, IAnimationController, IEventBus } from './GameContext';
 import { Logger } from './Logger';
 import { ConfigDatabase } from './ConfigDatabase';
 import { LifecycleManager, ILifecycle } from './LifecycleManager';
@@ -23,6 +23,7 @@ import { SaveManagerImpl, MemorySaveBackend } from '../save/SaveManager';
 import { ReplayRecorder } from '../replay/ReplayRecorder';
 import { AudioSystem, MemoryAudioSink } from '../audio/AudioSystem';
 import { AnimationStateMachine } from '../battle/ai/AnimationStateMachine';
+import { EventBusManager } from './EventBusManager';
 
 const { ccclass, property } = _decorator;
 
@@ -203,6 +204,13 @@ export class GameBootstrap extends Component {
         this._ctx.register(IAnimationController, animSM);
         this._lifecycle.register(animSM);
         animSM.initialize(this._ctx);
+
+        // §3.11: EventBusManager (IEventBus) — typed domain event bus with 6 emitters.
+        // Pure TS. Implements ILifecycle. Per-domain log toggle available.
+        const eventBus = new EventBusManager();
+        this._ctx.register(IEventBus, eventBus);
+        this._lifecycle.register(eventBus);
+        eventBus.initialize(this._ctx);
 
         const logger = this._ctx.get<Logger>(ILogger);
         // Demo probe (NOT a business system): implements ILifecycle so LifecycleManager
