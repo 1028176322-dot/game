@@ -4,6 +4,7 @@
 
 import { GameContext, ICameraBrain } from '../core/GameContext';
 import { ILifecycle } from '../core/LifecycleManager';
+import { PerfSampler } from './PerfSampler';
 
 export interface RuntimeStatsProvider {
   getMemoryMB(): number | null;
@@ -82,6 +83,7 @@ export class DebugPanel implements ILifecycle {
   private _events: DebugEvent[] = [];
   private _maxEvents = 200;
   private _stats: RuntimeStatsProvider | null = null;
+  private _perf: PerfSampler | null = null;
 
   initialize(ctx: GameContext): void {
     this._ctx = ctx;
@@ -111,6 +113,12 @@ export class DebugPanel implements ILifecycle {
     this._stats = provider;
   }
 
+  // Demo6: wire the dedicated PerfSampler as the authoritative perf source
+  // (smoothed FPS/frame-time/memory/draw-call) for the 100-monster stress baseline.
+  setPerfSampler(sampler: PerfSampler | null): void {
+    this._perf = sampler;
+  }
+
   toggle(): void {
     this._visible = !this._visible;
   }
@@ -125,6 +133,15 @@ export class DebugPanel implements ILifecycle {
 
   // Called every frame from the engine loop (dtMs = frame delta in ms).
   update(dtMs: number): void {
+    if (this._perf) {
+      this._perf.tick(dtMs);
+      this._fps = this._perf.fps();
+      this._frameMs = this._perf.frameTimeMs();
+      this._mem = this._perf.memoryMB();
+      this._draw = this._perf.drawCall();
+      return;
+    }
+    // Fallback when no PerfSampler is wired (kept for §5.5 parity).
     this._frameMs = dtMs;
     this._fps = dtMs > 0 ? Math.round(1000 / dtMs) : 0;
     if (this._stats) {

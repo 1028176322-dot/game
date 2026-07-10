@@ -18,6 +18,7 @@ import { RoomBuilder } from '../dungeon/RoomBuilder';
 import { NavigationGrid } from '../dungeon/NavigationGrid';
 import { RoomRuntime, IRoomRuntime } from '../dungeon/RoomRuntime';
 import { DebugPanel } from '../debug/DebugPanel';
+import { PerfSampler } from '../debug/PerfSampler';
 import { SaveManagerImpl, MemorySaveBackend } from '../save/SaveManager';
 import { ReplayRecorder } from '../replay/ReplayRecorder';
 import { AudioSystem, MemoryAudioSink } from '../audio/AudioSystem';
@@ -101,6 +102,17 @@ export class GameBootstrap extends Component {
         this._ctx.register(IDebugService, debugPanel);
         this._lifecycle.register(debugPanel);
         debugPanel.initialize(this._ctx);
+
+        // Demo6: PerfSampler — dedicated perf baseline sampler for the 100-monster
+        // stress test (§5.5 / §8.1). Wired as DebugPanel's authoritative perf source
+        // (smoothed FPS / frame-time / memory / draw-call). Implements ILifecycle.
+        // NOTE: DebugPanel + PerfSampler are Dev/Debug-build only (gated by the engine
+        // bundler macro at build time); registered here for the demo/headless path.
+        const perfSampler = new PerfSampler();
+        this._lifecycle.register(perfSampler);
+        perfSampler.initialize(this._ctx);
+        debugPanel.setPerfSampler(perfSampler);
+
         // Demo seed provider (IRuntimeState not built yet; filled by later system).
         debugPanel.registerProvider('seed', () => ({ seed: { seed: 20260710, frame: 0 } }));
 
