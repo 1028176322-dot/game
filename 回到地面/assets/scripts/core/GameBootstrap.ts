@@ -1,14 +1,15 @@
-import { _decorator, Component, Label, Node } from 'cc';
+import { _decorator, Component, Label, Node, Camera } from 'cc';
 import { AssetBundleService } from '../assets/AssetBundleService';
 import { ConfigService } from '../config/ConfigService';
 import { ConfigManager } from './ConfigManager';
 import { GameManager } from './GameManager';
 import { SceneFlowService } from '../app/SceneFlowService';
-import { GameContext, ILogger, IConfigDatabase, IAssetCache } from './GameContext';
+import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain } from './GameContext';
 import { Logger } from './Logger';
 import { ConfigDatabase } from './ConfigDatabase';
 import { LifecycleManager, ILifecycle } from './LifecycleManager';
 import { AssetCache } from '../assets/AssetCache';
+import { CameraBrain, CameraMode, ICameraNode } from '../camera/CameraBrain';
 
 const { ccclass, property } = _decorator;
 
@@ -91,6 +92,17 @@ export class GameBootstrap extends Component {
         this._ctx.register(IAssetCache, assetCache);
         this._lifecycle.register(assetCache);
 
+        // Demo2: CameraBrain — 7-mode follow camera (§3.4). Implements ILifecycle, so it joins
+        // LifecycleManager teardown. Mode params are sourced from ConfigDatabase.getCamera.
+        const cameraBrain = new CameraBrain(this._ctx.get<ConfigDatabase>(IConfigDatabase));
+        this._ctx.register(ICameraBrain, cameraBrain);
+        this._lifecycle.register(cameraBrain);
+        const mainCam = this._findMainCamera();
+        if (mainCam) {
+          cameraBrain.attach(mainCam);
+        }
+        cameraBrain.setMode(CameraMode.Follow);
+
         const logger = this._ctx.get<Logger>(ILogger);
         // Demo probe (NOT a business system): implements ILifecycle so LifecycleManager
         // can broadcast lifecycle events; each method logs via the injected Logger.
@@ -109,6 +121,18 @@ export class GameBootstrap extends Component {
         this._lifecycle.resumeAll();
         this._lifecycle.exitAll();
         this._lifecycle.destroyAll();
+    }
+
+    private _findMainCamera(): ICameraNode | null {
+        // Locate the scene's main camera node and attach it to CameraBrain.
+        // Non-fatal: CameraBrain works in logic-only mode until a camera is attached.
+        try {
+            const scene = this.node.scene;
+            const cam = scene.getComponentInChildren(Camera);
+            return cam ? (cam.node as unknown as ICameraNode) : null;
+        } catch {
+            return null;
+        }
     }
 
     private _emitProgress(pct: number, msg: string): void {
