@@ -10,6 +10,10 @@ import { PlayerController } from '../battle/PlayerController';
 import { DAGGenerator, DungeonDAG, RoomNode } from './DAGGenerator';
 import { GridManager } from './GridManager';
 import { RoomTransition } from './RoomTransition';
+import { RoomBuilder } from './RoomBuilder';
+import { NavigationGrid } from './NavigationGrid';
+import { RoomRuntime } from './RoomRuntime';
+import { GameBootstrap } from '../core/GameBootstrap';
 
 const { ccclass, property } = _decorator;
 
@@ -48,6 +52,12 @@ export class DungeonManager extends Component {
     private _currentStageId: string = '';
     private _stagesCompleted: number = 0;
     private _stageRoomCount: number = 5;
+
+    // P3-4-A: additive delegation to the new five-class pipeline (RoomRuntime).
+    // The legacy DAGGenerator path above is unchanged; these runtimes are built
+    // in parallel and exposed for later stages (navigation or asset lifecycle).
+    private _roomRuntimes: RoomRuntime[] = [];
+    private _enterCount = 0;
 
     init(player: PlayerController, seed: number): void {
         this._player = player;
@@ -104,6 +114,8 @@ export class DungeonManager extends Component {
             isMiniBossFloor: isMiniBoss,
         };
 
+        this._buildRoomRuntimes(floorSeed, roomCount);
+
         this._enterRoom(dag.entryRoomId);
         eventBus.emit('dungeon:floor_generated', floorNumber, floorSeed, dag);
 
@@ -112,6 +124,41 @@ export class DungeonManager extends Component {
         } else {
             eventBus.emit('mutation:cleared');
         }
+    }
+
+    // P3-4-A: build a RoomRuntime per generated room using the new five-class
+    // pipeline (DungeonGenerator then RoomBuilder then NavigationGrid then RoomRuntime).
+    // Pure additive: the legacy DAGGenerator floor logic is untouched.
+    private _buildRoomRuntimes(floorSeed: number, roomCount: number): void {
+        this._roomRuntimes = [];
+        this._enterCount = 0;
+        const ctx = GameBootstrap.context;
+        if (!ctx) return;
+        const layout = new DungeonGenerator().generate(floorSeed, this._currentZone, { roomCount });
+        const builder = new RoomBuilder();
+        for (const rl of layout.rooms) {
+            const roomData = builder.build(rl);
+            const nav = new NavigationGrid(roomData.tileMap);
+            const rt = new RoomRuntime(roomData, nav);
+            rt.initialize(ctx);
+            this._roomRuntimes.push(rt);
+        }
+    }
+
+    // Activate the RoomRuntime for the current enter sequence. The new pipeline room
+    // order is not 1:1 with the legacy DAG room ids (different type vocabulary), so we
+    // index by enter order; room assets and navigation are zone-homogeneous either way.
+    private _activateRoomRuntime(): void {
+        if (this._roomRuntimes.length === 0) return;
+        const rt = this._roomRuntimes[this._enterCount % this._roomRuntimes.length];
+        this._enterCount++;
+        if (!rt) return;
+        if (!rt.active) rt.enter();
+        rt.load().catch((e) => console.warn(`[DungeonManager] room runtime load failed: ${e}`));
+    }
+
+    get roomRuntimes(): RoomRuntime[] {
+        return this._roomRuntimes;
     }
 
     private _isFinalBossFloor(): boolean {
@@ -126,6 +173,8 @@ export class DungeonManager extends Component {
             console.warn(`[DungeonManager] room ${roomId} does not exist`);
             return;
         }
+
+        this._activateRoomRuntime();
 
         this._floorState.currentRoomId = roomId;
         this._floorState.visitedRoomIds.add(roomId);
@@ -350,5 +399,12 @@ export class DungeonManager extends Component {
         const dag1 = DAGGenerator.generate(seed1, 1);
         const dag2 = DAGGenerator.generate(seed2, 1);
         return dag1.rooms.size === dag2.rooms.size;
+    }
+
+    onDestroy(): void {
+        for (const rt of this._roomRuntimes) {
+            if (rt.active) rt.exit();
+        }
+        this._roomRuntimes = [];
     }
 }
