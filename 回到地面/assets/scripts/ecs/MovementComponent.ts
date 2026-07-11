@@ -20,6 +20,7 @@ export class MovementComponent {
   private _gridY = 0;
   private _collision: ICollisionContract | null = null;
   private _moving = false;
+  private _transitRemaining = 0;
 
   initialize(ctx: GameContext, startX: number, startY: number): void {
     this._collision = ctx.get<ICollisionContract>(ICollisionService);
@@ -36,16 +37,20 @@ export class MovementComponent {
   }
 
   // Execute a move command. Returns true if position changed.
-  executeMove(dx: number, dy: number, isWalkable: (x: number, y: number) => boolean): boolean {
+  // `duration` is the transit time (seconds) during which `moving` stays true
+  // (mirrors an engine tween; without it `moving` would never reset in pure TS).
+  executeMove(dx: number, dy: number, isWalkable: (x: number, y: number) => boolean, duration = 0.1): boolean {
     const nx = this._gridX + dx;
     const ny = this._gridY + dy;
     if (!isWalkable(nx, ny)) {
       this._moving = false;
+      this._transitRemaining = 0;
       return false;
     }
     this._gridX = nx;
     this._gridY = ny;
     this._moving = true;
+    this._transitRemaining = duration;
     return true;
   }
 
@@ -55,9 +60,21 @@ export class MovementComponent {
     const dy = Math.sign(ty - this._gridY);
     if (dx === 0 && dy === 0) {
       this._moving = false;
+      this._transitRemaining = 0;
       return false;
     }
     return this.executeMove(dx, dy, isWalkable);
+  }
+
+  // Advance the transit timer; clears `moving` when the step completes.
+  update(dt: number): void {
+    if (this._transitRemaining > 0) {
+      this._transitRemaining -= dt;
+      if (this._transitRemaining <= 0) {
+        this._transitRemaining = 0;
+        this._moving = false;
+      }
+    }
   }
 
   // Teleport (for room transitions).
@@ -65,5 +82,6 @@ export class MovementComponent {
     this._gridX = x;
     this._gridY = y;
     this._moving = false;
+    this._transitRemaining = 0;
   }
 }

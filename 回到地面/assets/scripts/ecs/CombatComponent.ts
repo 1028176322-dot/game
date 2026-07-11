@@ -20,6 +20,8 @@ export class CombatComponent {
 
   get entityId(): string { return this._entityId; }
 
+  get queueLength(): number { return this._queue.length; }
+
   // Enqueue a skill request from AI or player input.
   enqueue(req: SkillRequest): void {
     this._queue.push(req);

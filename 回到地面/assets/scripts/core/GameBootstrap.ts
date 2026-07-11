@@ -42,6 +42,11 @@ export class GameBootstrap extends Component {
     private _ctx: GameContext | null = null;
     private _lifecycle: LifecycleManager | null = null;
 
+    /** Static accessor so engine-side cc components (e.g. EcsEntityBridge) can resolve
+     *  services from the wired GameContext. Null until _wireInfra() succeeds. Additive. */
+    private static _context: GameContext | null = null;
+    static get context(): GameContext | null { return GameBootstrap._context; }
+
     get ready(): boolean {
         return this._ready;
     }
@@ -99,6 +104,7 @@ export class GameBootstrap extends Component {
         // LifecycleManager (avoid faking lifecycle, per D0-5 strict constraint).
         this._ctx = new GameContext();
         this._lifecycle = new LifecycleManager();
+        GameBootstrap._context = this._ctx;
 
         // §5.5 DebugPanel (IDebugService) — created before Logger so the Logger sink
         // forwards its output into the DebugPanel "Events" buffer (ILogger buffer reuse).
