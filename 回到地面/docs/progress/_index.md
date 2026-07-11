@@ -129,3 +129,4 @@ Overall:        XX%
 
 - `docs/progress/PROGRESS_RULES.md` — progress tracking rule system
 - `docs/项目方案实施状态跟踪报告.md` — detailed implementation status report (legacy, still relevant)
+- `docs/progress/P3-4_dungeon_3d_refactor.md` — **P3-4 runtime 3D refactor progress (A/B/C done, D paused, 3D assets not started)**; resume checklist + gate commands + file anchors
