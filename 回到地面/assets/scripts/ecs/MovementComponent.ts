@@ -6,6 +6,7 @@ import type { GameContext } from '../core/GameContext';
 import { ICollisionService } from '../core/GameContext';
 import type { ICollisionService as ICollisionContract } from '../physics/ICollisionService';
 import type { Vec3 } from '../physics/ICollisionService';
+import type { ILifecycle } from '../core/LifecycleManager';
 
 export const IMovementComponent = 'IMovementComponent';
 
@@ -15,17 +16,30 @@ export interface MovementState {
   readonly moving: boolean;
 }
 
-export class MovementComponent {
+export class MovementComponent implements ILifecycle {
   private _gridX = 0;
   private _gridY = 0;
   private _collision: ICollisionContract | null = null;
   private _moving = false;
   private _transitRemaining = 0;
 
-  initialize(ctx: GameContext, startX: number, startY: number): void {
+  // ILifecycle: ctx-dependent wire-up. The per-entity spawn overload below keeps
+  // EcsEntityFactory call sites (initialize(ctx, x, y)) unchanged.
+  initialize(ctx: GameContext): void;
+  initialize(ctx: GameContext, startX: number, startY: number): void;
+  initialize(ctx: GameContext, startX = 0, startY = 0): void {
     this._collision = ctx.get<ICollisionContract>(ICollisionService);
     this._gridX = startX;
     this._gridY = startY;
+  }
+
+  enter(): void {}
+  exit(): void {}
+  pause(): void {}
+  resume(): void {}
+  destroy(): void {
+    this._transitRemaining = 0;
+    this._moving = false;
   }
 
   get gridX(): number { return this._gridX; }

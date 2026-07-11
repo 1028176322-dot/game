@@ -2,20 +2,34 @@
 // Pure TS, no `cc`. Holds a queue of SkillRequests and forwards to CombatSystem.
 // No switch on skillId — CombatSystem handles dispatch.
 
+import type { GameContext } from '../core/GameContext';
+import type { ILifecycle } from '../core/LifecycleManager';
 import type { SkillRequest } from '../battle/ai/IAIController';
 import type { BattleCommand } from '../battle/combat/CombatCommand';
 
 export const ICombatComponent = 'ICombatComponent';
 
-export class CombatComponent {
+export class CombatComponent implements ILifecycle {
   private _queue: SkillRequest[] = [];
   private _cooldowns = new Map<string, number>();
   private _dispatchFn: ((cmd: BattleCommand) => void) | null = null;
   private _entityId = '';
 
-  initialize(entityId: string, dispatch: (cmd: BattleCommand) => void): void {
-    this._entityId = entityId;
-    this._dispatchFn = dispatch;
+  initialize(entityId: string, dispatch: (cmd: BattleCommand) => void): void;
+  initialize(ctx: GameContext): void;
+  initialize(ctxOrId: GameContext | string, dispatch?: (cmd: BattleCommand) => void): void {
+    if (typeof ctxOrId !== 'string') return; // ILifecycle.initialize(ctx)
+    this._entityId = ctxOrId;
+    this._dispatchFn = dispatch ?? null;
+  }
+
+  enter(): void {}
+  exit(): void {}
+  pause(): void {}
+  resume(): void {}
+  destroy(): void {
+    this._queue = [];
+    this._cooldowns.clear();
   }
 
   get entityId(): string { return this._entityId; }

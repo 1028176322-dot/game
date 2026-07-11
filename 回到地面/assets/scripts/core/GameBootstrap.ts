@@ -27,6 +27,12 @@ import { IAIController } from '../battle/ai/IAIController';
 import { AIController } from '../battle/ai/AIController';
 import { EventBusManager } from './EventBusManager';
 import { EntityManager, IEntityManager } from '../ecs/EntityManager';
+import { MovementComponent, IMovementComponent } from '../ecs/MovementComponent';
+import { AnimationComponent, IAnimationComponent } from '../ecs/AnimationComponent';
+import { CombatComponent, ICombatComponent } from '../ecs/CombatComponent';
+import { StatComponent, IStatComponent } from '../ecs/StatComponent';
+import { TargetComponent, ITargetComponent } from '../ecs/TargetComponent';
+import { InteractionComponent, IInteractionComponent } from '../ecs/InteractionComponent';
 import { CombatSystem, ICombatSystem } from '../battle/combat/CombatSystem';
 import { TargetSelector, ITargetSelector } from '../battle/combat/TargetSelector';
 import { HitResolver, DamageResolver, IHitResolver, IDamageResolver } from '../battle/skill/Resolvers';
@@ -257,6 +263,40 @@ export class GameBootstrap extends Component {
         this._ctx.register(IEntityManager, entityManager);
         this._lifecycle.register(entityManager);
         entityManager.initialize(this._ctx);
+
+        // §3.12: Player ECS components (P1-4) — 6 components lifted to ILifecycle so they
+        // join LifecycleManager teardown and can be resolved via GameContext. These are
+        // demo singleton registrations; per-entity instances are assembled by EcsEntityFactory
+        // (which `new`s components and calls their typed initialize). Pure TS.
+        const movementC = new MovementComponent();
+        this._ctx.register(IMovementComponent, movementC);
+        this._lifecycle.register(movementC);
+        movementC.initialize(this._ctx, 0, 0);
+
+        const animC = new AnimationComponent();
+        this._ctx.register(IAnimationComponent, animC);
+        this._lifecycle.register(animC);
+        animC.initialize(this._ctx);
+
+        const combatC = new CombatComponent();
+        this._ctx.register(ICombatComponent, combatC);
+        this._lifecycle.register(combatC);
+        combatC.initialize(this._ctx, 'demo', () => {});
+
+        const statC = new StatComponent();
+        this._ctx.register(IStatComponent, statC);
+        this._lifecycle.register(statC);
+        statC.initialize(this._ctx, 100, 10, 5, 60);
+
+        const targetC = new TargetComponent();
+        this._ctx.register(ITargetComponent, targetC);
+        this._lifecycle.register(targetC);
+        targetC.initialize(this._ctx, 0, 0);
+
+        const interactionC = new InteractionComponent();
+        this._ctx.register(IInteractionComponent, interactionC);
+        this._lifecycle.register(interactionC);
+        interactionC.initialize(this._ctx, 'demo', eventBus);
 
         // §3.8: CombatSystem — combat orchestration (dispatch/target/effect/projectile/lock-on).
         // Consumes SkillRequest from AI or player CombatComponent, executes through the full

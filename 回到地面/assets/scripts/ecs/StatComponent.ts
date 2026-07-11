@@ -2,6 +2,9 @@
 // Pure TS, no `cc`. Holds base + buff-modified stats.
 // Buff stacking uses record-based additive modifiers (no switch on stat type).
 
+import type { GameContext } from '../core/GameContext';
+import type { ILifecycle } from '../core/LifecycleManager';
+
 export const IStatComponent = 'IStatComponent';
 
 export interface StatModifier {
@@ -12,7 +15,7 @@ export interface StatModifier {
   readonly duration: number;        // seconds, 0 = permanent
 }
 
-export class StatComponent {
+export class StatComponent implements ILifecycle {
   private _baseHP = 100;
   private _baseATK = 10;
   private _baseDEF = 5;
@@ -35,14 +38,27 @@ export class StatComponent {
   get speed(): number { return this._compute('speed', this._baseSpeed); }
   get alive(): boolean { return this._alive; }
 
-  initialize(baseHP: number, baseATK: number, baseDEF: number, baseSpeed: number): void {
-    this._baseHP = baseHP;
-    this._baseATK = baseATK;
-    this._baseDEF = baseDEF;
-    this._baseSpeed = baseSpeed;
-    this._hp = baseHP;
+  initialize(baseHP: number, baseATK: number, baseDEF: number, baseSpeed: number): void;
+  initialize(ctx: GameContext): void;
+  initialize(ctxOrBaseHP: GameContext | number, baseATK?: number, baseDEF?: number, baseSpeed?: number): void {
+    if (typeof ctxOrBaseHP !== 'number') return; // ILifecycle.initialize(ctx): no stat config to apply
+    this._baseHP = ctxOrBaseHP;
+    this._baseATK = baseATK ?? 0;
+    this._baseDEF = baseDEF ?? 0;
+    this._baseSpeed = baseSpeed ?? 0;
+    this._hp = ctxOrBaseHP;
     this._alive = true;
     this._modifiers = [];
+  }
+
+  enter(): void {}
+  exit(): void {}
+  pause(): void {}
+  resume(): void {}
+  destroy(): void {
+    this._modifiers = [];
+    this._alive = false;
+    this._hp = 0;
   }
 
   takeDamage(amount: number): void {

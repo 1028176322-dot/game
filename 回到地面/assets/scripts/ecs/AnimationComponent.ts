@@ -5,6 +5,7 @@
 import type { GameContext } from '../core/GameContext';
 import { IAnimationController } from '../core/GameContext';
 import type { IAnimationController as IAnimContract } from '../battle/ai/AnimationStateMachine';
+import type { ILifecycle } from '../core/LifecycleManager';
 
 export const IAnimationComponent = 'IAnimationComponent';
 
@@ -21,7 +22,7 @@ const DEFAULT_CLIP_MAP: Record<PlayerAnimState, string> = {
   die:    'player_die',
 };
 
-export class AnimationComponent {
+export class AnimationComponent implements ILifecycle {
   private _anim: IAnimContract | null = null;
   private _clipMap: Record<PlayerAnimState, string>;
   private _currentState: PlayerAnimState = 'idle';
@@ -32,6 +33,14 @@ export class AnimationComponent {
 
   initialize(ctx: GameContext): void {
     this._anim = ctx.get<IAnimContract>(IAnimationController);
+  }
+
+  enter(): void {}
+  exit(): void {}
+  pause(): void {}
+  resume(): void {}
+  destroy(): void {
+    this._currentState = 'idle';
   }
 
   get currentState(): PlayerAnimState {

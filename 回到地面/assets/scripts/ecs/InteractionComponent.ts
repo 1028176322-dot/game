@@ -1,6 +1,8 @@
 // InteractionComponent.ts — handles pickup / dialogue / trigger interactions (§3.12 ECS).
 // Pure TS, no `cc`. Receives interaction intents and emits events via EventBusManager.
 
+import type { GameContext } from '../core/GameContext';
+import type { ILifecycle } from '../core/LifecycleManager';
 import type { EventBusManager } from '../core/EventBusManager';
 import type { BattleEvent } from '../core/events/BattleEvent';
 
@@ -8,14 +10,25 @@ export const IInteractionComponent = 'IInteractionComponent';
 
 export type InteractionType = 'pickup' | 'dialogue' | 'activate' | 'interact';
 
-export class InteractionComponent {
+export class InteractionComponent implements ILifecycle {
   private _eventBus: EventBusManager | null = null;
   private _entityId = '';
   private _cooldown = 0;
 
-  initialize(entityId: string, eventBus: EventBusManager): void {
-    this._entityId = entityId;
-    this._eventBus = eventBus;
+  initialize(entityId: string, eventBus: EventBusManager): void;
+  initialize(ctx: GameContext): void;
+  initialize(ctxOrId: GameContext | string, eventBus?: EventBusManager): void {
+    if (typeof ctxOrId !== 'string') return; // ILifecycle.initialize(ctx)
+    this._entityId = ctxOrId;
+    this._eventBus = eventBus ?? null;
+  }
+
+  enter(): void {}
+  exit(): void {}
+  pause(): void {}
+  resume(): void {}
+  destroy(): void {
+    this._cooldown = 0;
   }
 
   // Attempt an interaction. Returns true if the interaction was performed.
