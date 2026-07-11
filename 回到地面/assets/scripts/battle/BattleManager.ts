@@ -13,6 +13,8 @@ import { RenderAssetService } from '../assets/RenderAssetService';
 import { MonsterRuntimeFactory } from './MonsterRuntimeFactory';
 import { MonsterRuntimeView } from './MonsterRuntimeView';
 import { CharacterVisualService } from '../render/CharacterVisualService';
+import { GameBootstrap } from '../core/GameBootstrap';
+import { CombatSystem, ICombatSystem } from './combat/CombatSystem';
 
 const { ccclass, property } = _decorator;
 
@@ -21,6 +23,13 @@ export interface MonsterEntry {
     config: MonsterConfig;
 }
 
+/**
+ * @deprecated BattleManager is a legacy battle facade. Per the 2D to 3D upgrade
+ * plan §3.8 and decision F, combat resolution is migrating to CombatSystem and
+ * the seven combat subsystems. New code must resolve combat through the
+ * ICombatSystem service token instead of this class. Existing callers keep
+ * working; this class will be removed once the feature/3d-* runtime wiring lands.
+ */
 @ccclass('BattleManager')
 export class BattleManager extends Component {
     @property(Prefab)
@@ -37,6 +46,9 @@ export class BattleManager extends Component {
     private _killCount = 0;
     private _isRoomCleared = false;
 
+    // P0-1 §3.8: handle to the new combat engine; null until a GameContext is wired.
+    private _combatSystem: CombatSystem | null = null;
+
     init(player: PlayerController, gridManager: GridManager, actorLayer?: Node): void {
         this._player = player;
         this._gridManager = gridManager;
@@ -45,6 +57,11 @@ export class BattleManager extends Component {
         this._autoAttack?.init(this);
         this._setPhase(BattlePhase.Init);
         eventBus.on('monster:summon', this._onSummonMonster, this);
+
+        // P0-1 §3.8: resolve the new combat engine through the service locator.
+        // Null-safe: when no GameContext is wired this stays null and the legacy
+        // battle flow is preserved unchanged.
+        this._combatSystem = GameBootstrap.context?.get<CombatSystem>(ICombatSystem) ?? null;
     }
 
     startBattle(monsterConfigs: MonsterConfig[]): void {
@@ -265,6 +282,8 @@ export class BattleManager extends Component {
 
     update(dt: number): void {
         BattleClock.instance.tick(dt);
+        // Advance the new combat engine when wired; no effect until entities register.
+        this._combatSystem?.update(dt);
         if (this._phase !== BattlePhase.InProgress) return;
 
         this._pruneInvalidMonsters();
@@ -292,4 +311,7 @@ export class BattleManager extends Component {
     getAllMonsters(): MonsterController[] {
         return this.aliveMonsters.map(e => e.monster);
     }
+
+    /** @deprecated Resolve combat through the ICombatSystem service token for new code. */
+    get combatSystem(): CombatSystem | null { return this._combatSystem; }
 }
