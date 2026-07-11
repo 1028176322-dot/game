@@ -19,6 +19,12 @@ import { PlayerDataManager } from '../core/PlayerDataManager';
 
 const { ccclass, property } = _decorator;
 
+/**
+ * @deprecated PlayerController is being decomposed into the 6 ECS components
+ * (Movement/Animation/Combat/Stat/Target/Interaction, §3.12). Runtime behavior
+ * is unchanged by this marker; the scene-node swap (remove PlayerController,
+ * mount the 6 components on the Player node) is an in-editor task (P1-2).
+ */
 @ccclass('PlayerController')
 export class PlayerController extends Component {
     @property

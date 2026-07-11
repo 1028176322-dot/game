@@ -23,6 +23,12 @@ export interface AttackResult {
     killed: boolean;
 }
 
+/**
+ * @deprecated AutoAttack logic (atk-speed / crit / life-steal / distance judgment)
+ * has been absorbed into CombatComponent.resolveAutoAttack (P1-2). This monobehaviour
+ * still drives the live player until the scene-node swap (remove AutoAttack, mount
+ * the 6 ECS components) is done in the editor. Runtime behavior is unchanged.
+ */
 @ccclass('AutoAttack')
 export class AutoAttack extends Component {
     @property

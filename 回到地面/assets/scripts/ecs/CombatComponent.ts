@@ -9,6 +9,32 @@ import type { BattleCommand } from '../battle/combat/CombatCommand';
 
 export const ICombatComponent = 'ICombatComponent';
 
+// AutoAttack logic absorption (P1-2): the pure atk-speed-gated crit / damage-
+// multiplier / life-steal / distance judgment now lives in the ECS component
+// layer (testable) instead of only inside the deprecated AutoAttack monobehaviour.
+// The runtime monobehaviour still drives the live player until the scene-node
+// swap (PlayerController/AutoAttack -> 6 components) is done in the editor.
+export interface AutoAttackContext {
+  readonly atk: number;
+  readonly critChance: number;
+  readonly critMultiplier: number;
+  readonly attackRange: number;
+  readonly damageMultiplier: number;
+  readonly lifeSteal: number;
+}
+export interface AutoAttackTarget {
+  readonly distanceInTiles: number;
+  // Apply the resolved damage; returns whether the target was killed.
+  applyDamage(amount: number, isCrit: boolean): boolean;
+}
+export interface AutoAttackResult {
+  readonly performed: boolean;
+  readonly damage: number;
+  readonly isCrit: boolean;
+  readonly killed: boolean;
+  readonly lifeStealHeal: number;
+}
+
 export class CombatComponent implements ILifecycle {
   private _queue: SkillRequest[] = [];
   private _cooldowns = new Map<string, number>();
@@ -79,6 +105,31 @@ export class CombatComponent implements ILifecycle {
     for (const id of expired) {
       this._cooldowns.delete(id);
     }
+  }
+
+  // Pure auto-attack resolution (P1-2 absorption). Encapsulates the crit roll,
+  // damage multiplier, distance gate, and life-steal heal that AutoAttack used to
+  // own. `rollCrit` injects determinism (defaults to Math.random); consumers wire
+  // it to RunRng for seeded runs so the result stays reproducible.
+  static resolveAutoAttack(
+    ctx: AutoAttackContext,
+    target: AutoAttackTarget | null,
+    rollCrit: () => boolean = () => Math.random() < ctx.critChance,
+  ): AutoAttackResult {
+    if (!target) {
+      return { performed: false, damage: 0, isCrit: false, killed: false, lifeStealHeal: 0 };
+    }
+    if (target.distanceInTiles > ctx.attackRange) {
+      return { performed: false, damage: 0, isCrit: false, killed: false, lifeStealHeal: 0 };
+    }
+    const isCrit = rollCrit();
+    const raw = isCrit ? Math.floor(ctx.atk * ctx.critMultiplier) : ctx.atk;
+    const damage = Math.max(1, Math.floor(raw * ctx.damageMultiplier));
+    const killed = target.applyDamage(damage, isCrit);
+    const lifeStealHeal = damage > 0 && ctx.lifeSteal > 0
+      ? Math.max(1, Math.floor(damage * ctx.lifeSteal))
+      : 0;
+    return { performed: true, damage, isCrit, killed, lifeStealHeal };
   }
 
   // Clear all queued skills (on death / stun).
