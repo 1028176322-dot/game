@@ -23,6 +23,8 @@ import { SaveManagerImpl, MemorySaveBackend } from '../save/SaveManager';
 import { ReplayRecorder } from '../replay/ReplayRecorder';
 import { AudioSystem, MemoryAudioSink } from '../audio/AudioSystem';
 import { AnimationStateMachine } from '../battle/ai/AnimationStateMachine';
+import { IAIController } from '../battle/ai/IAIController';
+import { AIController } from '../battle/ai/AIController';
 import { EventBusManager } from './EventBusManager';
 import { EntityManager, IEntityManager } from '../ecs/EntityManager';
 import { CombatSystem, ICombatSystem } from '../battle/combat/CombatSystem';
@@ -212,6 +214,14 @@ export class GameBootstrap extends Component {
         this._ctx.register(IAnimationController, animSM);
         this._lifecycle.register(animSM);
         animSM.initialize(this._ctx);
+
+        // §3.10: IAIController — registered as a FACTORY (not a singleton) because
+        // AIController is per-owner: its initialize method binds the context and a
+        // specific entity owner. Consumers resolve the factory through ctx.get and
+        // then invoke it to obtain a dedicated instance, followed by initialize.
+        // This removes the previously orphaned infrastructure: the controller was
+        // implemented but never registered, so ctx.get(IAIController) used to throw.
+        this._ctx.register(IAIController, () => new AIController());
 
         // §3.11: EventBusManager (IEventBus) — typed domain event bus with 6 emitters.
         // Pure TS. Implements ILifecycle. Per-domain log toggle available.
