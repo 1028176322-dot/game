@@ -3,6 +3,8 @@
 //
 // Authoritative spec: docs/2D转3D全面升级方案.md §3.8 "找目标：锁定/范围/视线".
 
+import type { GameContext } from '../../core/GameContext';
+import type { ILifecycle } from '../../core/LifecycleManager';
 import type { BattleCommand, CombatEntity, TargetResult } from './CombatCommand';
 
 export const ITargetSelector = 'ITargetSelector';
@@ -15,7 +17,21 @@ function manhattan(ax: number, ay: number, bx: number, by: number): number {
   return Math.abs(ax - bx) + Math.abs(ay - by);
 }
 
-export class TargetSelector {
+export class TargetSelector implements ILifecycle {
+  private _ctx: GameContext | null = null;
+
+  // ILifecycle (§5.1): stateless service; no teardown needed beyond clearing the ctx ref.
+  initialize(ctx: GameContext): void {
+    this._ctx = ctx;
+  }
+  enter(): void {}
+  exit(): void {}
+  pause(): void {}
+  resume(): void {}
+  destroy(): void {
+    this._ctx = null;
+  }
+
   // Select primary target: explicit targetId, then nearest enemy in range.
   selectPrimary(cmd: BattleCommand, pool: CombatEntity[], self: CombatEntity): CombatEntity | null {
     if (cmd.targetId) {

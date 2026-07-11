@@ -28,6 +28,8 @@ import { AIController } from '../battle/ai/AIController';
 import { EventBusManager } from './EventBusManager';
 import { EntityManager, IEntityManager } from '../ecs/EntityManager';
 import { CombatSystem, ICombatSystem } from '../battle/combat/CombatSystem';
+import { TargetSelector, ITargetSelector } from '../battle/combat/TargetSelector';
+import { HitResolver, DamageResolver, IHitResolver, IDamageResolver } from '../battle/skill/Resolvers';
 
 const { ccclass, property } = _decorator;
 
@@ -159,6 +161,24 @@ export class GameBootstrap extends Component {
         const collision = new PhysicsCollisionImpl();
         this._ctx.register(ICollisionService, collision);
         this._lifecycle.register(collision);
+
+        // P1-3: combat leaf resolvers — TargetSelector / HitResolver / DamageResolver (§3.8 / §3.9).
+        // Pure stateless services lifted to instance ILifecycle so CombatSystem and SkillExecutor
+        // inject them via GameContext (red line 4: no `new` of services inside consumers).
+        const targetSelector = new TargetSelector();
+        this._ctx.register(ITargetSelector, targetSelector);
+        this._lifecycle.register(targetSelector);
+        targetSelector.initialize(this._ctx);
+
+        const hitResolver = new HitResolver();
+        this._ctx.register(IHitResolver, hitResolver);
+        this._lifecycle.register(hitResolver);
+        hitResolver.initialize(this._ctx);
+
+        const damageResolver = new DamageResolver();
+        this._ctx.register(IDamageResolver, damageResolver);
+        this._lifecycle.register(damageResolver);
+        damageResolver.initialize(this._ctx);
 
         // Demo4: SkillGraph + SkillExecutor (§3.9). Data-driven skills, no switch (red line 2).
         // SkillGraph builds the node chain; SkillExecutor dispatches nodes by kind via a Map.

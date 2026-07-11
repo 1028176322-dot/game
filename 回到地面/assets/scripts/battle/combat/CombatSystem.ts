@@ -18,9 +18,9 @@ import type { Logger } from '../../core/Logger';
 import type { ConfigDatabase } from '../../core/ConfigDatabase';
 import { ISkillGraph, SkillGraph } from '../skill/SkillGraph';
 import { ISkillExecutor, SkillExecutor } from '../skill/SkillExecutor';
-import { HitResolver, DamageResolver } from '../skill/Resolvers';
+import { HitResolver, DamageResolver, IHitResolver, IDamageResolver } from '../skill/Resolvers';
 import type { SkillData } from '../skill/SkillData';
-import { TargetSelector } from './TargetSelector';
+import { TargetSelector, ITargetSelector } from './TargetSelector';
 import { EffectExecutor } from './EffectExecutor';
 import { ProjectileSystem, type HitRecord } from './ProjectileSystem';
 import { LockOnManager } from './LockOnManager';
@@ -41,7 +41,9 @@ export class CombatSystem implements ILifecycle {
   private _configDB: ConfigDatabase | null = null;
   private _skillGraph: SkillGraph | null = null;
   private _skillExecutor: SkillExecutor | null = null;
-  private readonly _selector = new TargetSelector();
+  private _selector: TargetSelector | null = null;
+  private _hitResolver: HitResolver | null = null;
+  private _damageResolver: DamageResolver | null = null;
   private readonly _effects = new EffectExecutor();
   private readonly _projectiles = new ProjectileSystem();
   private readonly _lockOn = new LockOnManager();
@@ -62,6 +64,9 @@ export class CombatSystem implements ILifecycle {
     this._configDB = ctx.get<ConfigDatabase>(IConfigDatabase);
     this._skillGraph = ctx.get<SkillGraph>(ISkillGraph);
     this._skillExecutor = ctx.get<SkillExecutor>(ISkillExecutor);
+    this._selector = ctx.get<TargetSelector>(ITargetSelector);
+    this._hitResolver = ctx.get<HitResolver>(IHitResolver);
+    this._damageResolver = ctx.get<DamageResolver>(IDamageResolver);
     this._effects.initialize(ctx);
     this._projectiles.initialize(ctx);
     this._lockOn.initialize(ctx);
@@ -110,18 +115,20 @@ export class CombatSystem implements ILifecycle {
   get effects(): EffectExecutor { return this._effects; }
   get projectiles(): ProjectileSystem { return this._projectiles; }
   get lockOn(): LockOnManager { return this._lockOn; }
+  get selector(): TargetSelector { return this._selector!; }
 
   // ---- Dispatch entry point ----
   dispatch(cmd: BattleCommand): void {
-    if (!this._ctx || !this._logger) {
+    if (!this._ctx || !this._logger || !this._selector) {
       throw new Error('[CombatSystem] not initialized');
     }
+    const selector = this._selector;
     const self = this._pool.find((e) => e.id === cmd.entityId);
     if (!self || !self.alive) {
       this._logger.channel('battle').warn(`[CombatSystem] entity not found or dead: ${cmd.entityId}`);
       return;
     }
-    const result = this._selector.resolve(cmd, this._pool, self);
+    const result = selector.resolve(cmd, this._pool, self);
     this._lockOn.apply(result);
 
     const handler = this._handlers.get(cmd.kind);
@@ -148,7 +155,7 @@ export class CombatSystem implements ILifecycle {
   // ---- Private handlers (registered in the Map, no switch) ----
 
   private _handleSkill(cmd: BattleCommand, self: CombatEntity, _pool: CombatEntity[], result: TargetResult): void {
-    if (!this._configDB || !this._skillGraph || !this._skillExecutor) return;
+    if (!this._configDB || !this._skillGraph || !this._skillExecutor || !this._hitResolver || !this._damageResolver) return;
     const skillId = cmd.skillId ?? 'melee_attack';
     const skillConfig: unknown = this._configDB.getSkill(skillId);
     const data = skillConfig as SkillData | undefined;
@@ -166,9 +173,9 @@ export class CombatSystem implements ILifecycle {
     // Apply hit results to the primary target.
     if (result.primary) {
       const dmg = data.onHit?.damage ?? 0;
-      HitResolver.resolve(result.primary as unknown as Damageable, dmg, cmd.sourceId);
+      this._hitResolver!.resolve(result.primary as unknown as Damageable, dmg, cmd.sourceId);
       if (data.onHit?.burn) {
-        DamageResolver.applyBurn(
+        this._damageResolver!.applyBurn(
           result.primary as unknown as Damageable,
           data.onHit.burn.dps,
           data.onHit.burn.duration,
@@ -203,9 +210,10 @@ export class CombatSystem implements ILifecycle {
   }
 
   private _applyProjectileHit(hit: HitRecord): void {
+    if (!this._hitResolver) return;
     const target = this._pool.find((e) => e.id === hit.targetId);
     if (target && target.alive) {
-      HitResolver.resolve(target as unknown as Damageable, hit.damage, hit.sourceId);
+      this._hitResolver!.resolve(target as unknown as Damageable, hit.damage, hit.sourceId);
       this._logger?.channel('battle').info(`[CombatSystem] projectile hit ${hit.targetId} dmg=${hit.damage}`);
     }
   }

@@ -14,7 +14,7 @@ import { ILogger, ICollisionService } from '../../core/GameContext';
 import type { ICollisionService as ICollisionServiceContract, Collider, Vec3 } from '../../physics/ICollisionService';
 import { SkillGraph, ISkillGraph } from './SkillGraph';
 import type { Damageable, SkillCaster, SkillData, SkillNode, SkillNodeKind } from './SkillData';
-import { HitResolver, DamageResolver } from './Resolvers';
+import { HitResolver, DamageResolver, IHitResolver, IDamageResolver } from './Resolvers';
 
 // Service token (co-located with the owning module).
 export const ISkillExecutor = 'ISkillExecutor';
@@ -39,6 +39,8 @@ export class SkillExecutor implements ILifecycle {
   private _logger: Logger | null = null;
   private _collision: ICollisionServiceContract | null = null;
   private _graph: SkillGraph | null = null;
+  private _hitResolver: HitResolver | null = null;
+  private _damageResolver: DamageResolver | null = null;
   private _handlers = new Map<SkillNodeKind, (node: SkillNode, rt: SkillRuntime) => void>();
   private _initialized = false;
 
@@ -49,6 +51,8 @@ export class SkillExecutor implements ILifecycle {
     this._logger = ctx.get<Logger>(ILogger);
     this._collision = ctx.get<ICollisionServiceContract>(ICollisionService);
     this._graph = ctx.get<SkillGraph>(ISkillGraph);
+    this._hitResolver = ctx.get<HitResolver>(IHitResolver);
+    this._damageResolver = ctx.get<DamageResolver>(IDamageResolver);
     this._registerHandlers();
     this._initialized = true;
   }
@@ -85,7 +89,7 @@ export class SkillExecutor implements ILifecycle {
       for (const c of hits) {
         const owner = (c as OwnedCollider).owner;
         if (owner) {
-          HitResolver.resolve(owner, n.damage, rt.caster.id);
+          this._hitResolver!.resolve(owner, n.damage, rt.caster.id);
           rt.hitTargets.push(owner);
         }
       }
@@ -94,14 +98,14 @@ export class SkillExecutor implements ILifecycle {
     this._handlers.set('burn', (node, rt) => {
       const n = node as Extract<SkillNode, { kind: 'burn' }>;
       for (const t of rt.hitTargets) {
-        DamageResolver.applyBurn(t, n.dps, n.duration, rt.caster.id);
+        this._damageResolver!.applyBurn(t, n.dps, n.duration, rt.caster.id);
       }
     });
   }
 
   // Execute a skill: build the data-driven node chain, then run each node through its handler.
   execute(data: SkillData, caster: SkillCaster, aim: Vec3): void {
-    if (!this._graph || !this._collision || !this._logger) {
+    if (!this._graph || !this._collision || !this._logger || !this._hitResolver || !this._damageResolver) {
       throw new Error('[SkillExecutor] not initialized');
     }
     const nodes = this._graph.build(data);
