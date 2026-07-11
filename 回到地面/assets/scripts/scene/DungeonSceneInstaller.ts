@@ -13,6 +13,10 @@ import { CharacterVisualService } from '../render/CharacterVisualService';
 import { UpgradeManager } from '../battle/UpgradeManager';
 import { DungeonManager } from '../dungeon/DungeonManager';
 import { GridManager } from '../dungeon/GridManager';
+import { DungeonGenerator } from '../dungeon/DungeonGenerator';
+import { RoomBuilder } from '../dungeon/RoomBuilder';
+import { NavigationGrid } from '../dungeon/NavigationGrid';
+import { RoomRuntime } from '../dungeon/RoomRuntime';
 import { RoomTransition } from '../dungeon/RoomTransition';
 import { BattleHUD } from '../ui/BattleHUD';
 import { DeathUI } from '../ui/DeathUI';
@@ -56,6 +60,9 @@ export interface DungeonSceneRefs {
     itemSystem: ItemSystem;
     inventoryUI: InventoryUI;
     skillUI: SkillUI;
+    // P1-6: new Dungeon five-class runtime model, built during scene install
+    // (previously only demo-wired in GameBootstrap._wireInfra).
+    roomRuntime: RoomRuntime;
 }
 
 export interface DungeonSceneOverrides {
@@ -206,6 +213,20 @@ export class DungeonSceneInstaller {
         dungeonHUD.dungeonMapUI = dungeonMapUI.node;
         dungeonHUD.applyLayout();
 
+        // P1-6: wire the new Dungeon five-class pipeline (DungeonGenerator ->
+        // RoomBuilder -> TileMap -> NavigationGrid -> RoomRuntime) into the REAL
+        // scene-install path so they are no longer only demo-wired in GameBootstrap.
+        // TileMap is produced inside RoomBuilder.build; the resulting RoomRuntime is
+        // exposed on the refs for dungeon systems to consume. Seed/zone use demo
+        // defaults here; wire from GameManager's run seed at runtime when available
+        // (keeps this install path deterministic in headless tests).
+        const sceneSeed = 20260711;
+        const sceneZone = 'forest';
+        const builtLayout = new DungeonGenerator().generate(sceneSeed, sceneZone);
+        const builtRoom = new RoomBuilder().build(builtLayout.rooms[0]);
+        const builtNav = new NavigationGrid(builtRoom.tileMap);
+        const roomRuntime = new RoomRuntime(builtRoom, builtNav);
+
         return {
             canvas,
             world,
@@ -235,6 +256,7 @@ export class DungeonSceneInstaller {
             itemSystem,
             inventoryUI,
             skillUI,
+            roomRuntime,
         };
     }
 
