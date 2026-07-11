@@ -429,7 +429,7 @@
 | 美术提示词 | `assets/resources/config/prompts.json` | ✅ | AI 生成提示词 418 条 |
 | AI 生成进度 | `art_source/*progress*` | ✅ | 全量 + 179 补齐 |
 | 视觉审计清单 | `art_source/textures_audit_manifest.csv` | ✅ | 审计清单 |
-| UI 设计稿 | `docs/三场景完整结构树.md` | ✅ | 场景节点完整结构 |
+| UI 设计稿 | `docs/三场景完整结构树.md` | ✅ | 场景节点完整结构（2D 现状基线 + 3D 升级目标） |
 | 资源对照表 | `docs/UI资源对照表.md` | ✅ | 本文档 |
 
 ---

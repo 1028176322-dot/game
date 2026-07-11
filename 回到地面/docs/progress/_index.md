@@ -1,6 +1,6 @@
 # Scheme Progress Master Index
 
-> **Last updated**: 2026-07-09
+> **Last updated**: 2026-07-11
 > **Total schemes tracked**: XX
 > **Completed**: XX | **In progress**: XX | **Not started**: XX | **Deprecated**: XX
 
@@ -49,7 +49,7 @@
 | 18 | UI文本配置化与美术无文字整改方案 | ... | P0 | ... |
 | 19 | UI资源自动绑定实施方案 | ... | P0 | ... |
 | 20 | UI资源对照表 | ... | P0 | ... |
-| 21 | 三场景完整结构树 | ... | P0 | ... |
+| 21 | 三场景完整结构树 | 🔄 in_progress | P0 | 2026-07-11 |
 | 22 | UI资源审查报告_2026-06-30 | ... | P2 | ... |
 
 ## TapTap Migration
