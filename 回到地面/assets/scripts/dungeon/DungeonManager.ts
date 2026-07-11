@@ -23,6 +23,12 @@ interface FloorState {
     isMiniBossFloor: boolean;
 }
 
+/**
+ * @deprecated DungeonManager is a legacy shell. Room dispatch is now data-driven
+ * (no switch, red line 2); floor/room generation still delegates to the legacy
+ * DAGGenerator until the new DungeonGenerator five-class pipeline is wired at
+ * runtime (P1-6). Runtime behavior is unchanged by this deprecation marker.
+ */
 @ccclass('DungeonManager')
 export class DungeonManager extends Component {
     @property(GridManager)
@@ -136,30 +142,29 @@ export class DungeonManager extends Component {
         }
     }
 
+    // Data-driven room dispatch (replaces the switch in _onRoomEntered, red line 2:
+    // no switch on room type). Each RoomType maps to a side effect; generation logic
+    // is untouched. Built lazily and cached (handlers close over `this`/eventBus).
+    private _roomHandlerMap: Map<RoomType, (room: RoomNode) => void> | null = null;
+    private _roomHandlers(): Map<RoomType, (room: RoomNode) => void> {
+        if (this._roomHandlerMap) return this._roomHandlerMap;
+        this._roomHandlerMap = new Map<RoomType, (room: RoomNode) => void>([
+            [RoomType.Normal, (r) => this._startBattleInRoom(r)],
+            [RoomType.Elite, (r) => this._startBattleInRoom(r)],
+            [RoomType.Boss, (r) => this._startBattleInRoom(r, true)],
+            [RoomType.Treasure, (r) => eventBus.emit('room:treasure', r.id)],
+            [RoomType.Healing, (r) => eventBus.emit('room:healing', r.id)],
+            [RoomType.Shop, (r) => eventBus.emit('room:shop', r.id)],
+            [RoomType.Upgrade, (r) => eventBus.emit('room:upgrade', r.id)],
+            [RoomType.Event, (r) => eventBus.emit('room:event', r.id)],
+        ]);
+        return this._roomHandlerMap;
+    }
+
     private _onRoomEntered(room: RoomNode): void {
-        switch (room.type) {
-            case RoomType.Normal:
-            case RoomType.Elite:
-                this._startBattleInRoom(room);
-                break;
-            case RoomType.Boss:
-                this._startBattleInRoom(room, true);
-                break;
-            case RoomType.Treasure:
-                eventBus.emit('room:treasure', room.id);
-                break;
-            case RoomType.Healing:
-                eventBus.emit('room:healing', room.id);
-                break;
-            case RoomType.Shop:
-                eventBus.emit('room:shop', room.id);
-                break;
-            case RoomType.Upgrade:
-                eventBus.emit('room:upgrade', room.id);
-                break;
-            case RoomType.Event:
-                eventBus.emit('room:event', room.id);
-                break;
+        const handler = this._roomHandlers().get(room.type);
+        if (handler) {
+            handler(room);
         }
 
         eventBus.emit('room:entered', room);

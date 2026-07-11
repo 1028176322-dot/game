@@ -16,6 +16,11 @@ export interface GridCell {
     node: Node | null;
 }
 
+/**
+ * @deprecated GridManager is a legacy shell. `isWalkable` semantics are preserved;
+ * tile rendering/generation now delegate to the new TileMap / NavigationGrid (§3.7).
+ * Live delegation to the new classes is pending runtime verification (P1-6).
+ */
 @ccclass('GridManager')
 export class GridManager extends Component {
     @property(Prefab)
