@@ -85,7 +85,21 @@ class TypedEmitterImpl<T extends { type: string }> implements TypedEmitter<T> {
   }
 }
 
-export class EventBusManager implements ILifecycle {
+// Contract for the typed event bus (§3.11).
+export interface IEventBus {
+  readonly name: string;
+  readonly battle: TypedEmitter<BattleEvent>;
+  readonly ui: TypedEmitter<UIEvent>;
+  readonly audio: TypedEmitter<AudioEvent>;
+  readonly scene: TypedEmitter<SceneEvent>;
+  readonly input: TypedEmitter<InputEvent>;
+  readonly runtime: TypedEmitter<RuntimeEvent>;
+  setDomainLog(domain: EventDomain, enabled: boolean, logger?: (msg: string) => void): void;
+  clearAll(): void;
+  readonly initialized: boolean;
+}
+
+export class EventBusManager implements ILifecycle, IEventBus {
   readonly name = 'EventBusManager';
 
   readonly battle: TypedEmitter<BattleEvent>;

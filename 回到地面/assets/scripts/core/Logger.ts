@@ -52,7 +52,13 @@ const LEVEL_TAG: Record<LogLevel, string> = {
 // Token for GameContext registration (same value as defined in GameContext.ts).
 export const ILogger = "ILogger";
 
-export class Logger {
+// Contract for the categorized logger (§5.4). Lets consumers depend on the
+// interface rather than the concrete Logger class.
+export interface ILogger {
+  channel(name: ChannelName): LogChannel;
+}
+
+export class Logger implements ILogger {
     private readonly sink: (line: string) => void;
     private readonly levels = new Map<ChannelName, LogLevel>();
     private readonly channels = new Map<ChannelName, LogChannel>();

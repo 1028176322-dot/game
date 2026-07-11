@@ -12,7 +12,19 @@
 
 import type { GameConfigs, ConfigName } from '../config/ConfigTypes';
 
-export class ConfigDatabase {
+// Contract for the typed config query (§5.3).
+export interface IConfigDatabase {
+  loadAll(): Promise<void>;
+  getSkill(id: string): unknown;
+  getMonster(id: string): unknown;
+  getBoss(id: string): unknown;
+  getEffect(id: string): unknown;
+  getAI(id: string): unknown;
+  getCamera(id: string): unknown;
+  getAudio(id: string): unknown;
+}
+
+export class ConfigDatabase implements IConfigDatabase {
   private _configs: Partial<GameConfigs> = {};
   private _loaded = false;
 

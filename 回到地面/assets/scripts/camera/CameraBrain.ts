@@ -67,7 +67,18 @@ function defaultParams(): CameraModeParams {
   };
 }
 
-export class CameraBrain implements ILifecycle {
+// Contract for the camera brain (§3.4).
+export interface ICameraBrain {
+  attach(camera: ICameraNode): void;
+  setTarget(pos: Vec3Like): void;
+  setMode(mode: CameraMode): void;
+  triggerShake(amp?: number, dur?: number): void;
+  readonly currentMode: CameraMode;
+  readonly initialized: boolean;
+  lateUpdate(dt: number): void;
+}
+
+export class CameraBrain implements ILifecycle, ICameraBrain {
   private _db: ConfigDatabase;
   private _camera: ICameraNode | null = null;
   private _target: Vec3Like = { x: 0, y: 0, z: 0 };
