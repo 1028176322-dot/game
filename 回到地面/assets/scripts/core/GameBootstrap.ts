@@ -4,7 +4,7 @@ import { ConfigService } from '../config/ConfigService';
 import { ConfigManager } from './ConfigManager';
 import { GameManager } from './GameManager';
 import { SceneFlowService } from '../app/SceneFlowService';
-import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService, IDebugService, ISaveManager, IReplayRecorder, IAnimationController, IEventBus, IRuntimeState } from './GameContext';
+import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService, IDebugService, ISaveManager, IReplayRecorder, IAnimationController, IEventBus, IRuntimeState, ILightingService } from './GameContext';
 import { Logger } from './Logger';
 import { RuntimeState } from './RuntimeState';
 import { ConfigDatabase } from './ConfigDatabase';
@@ -27,6 +27,7 @@ import { AnimationStateMachine } from '../battle/ai/AnimationStateMachine';
 import { IAIController } from '../battle/ai/IAIController';
 import { AIController } from '../battle/ai/AIController';
 import { EventBusManager } from './EventBusManager';
+import { LightingService } from '../lighting/LightingService';
 import { EntityManager, IEntityManager } from '../ecs/EntityManager';
 import { MovementComponent, IMovementComponent } from '../ecs/MovementComponent';
 import { AnimationComponent, IAnimationComponent } from '../ecs/AnimationComponent';
@@ -172,6 +173,14 @@ export class GameBootstrap extends Component {
           cameraBrain.attach(mainCam);
         }
         cameraBrain.setMode(CameraMode.Follow);
+
+        // P2-1: LightingService (ILightingService) — per-region lighting presets
+        // (directional / ambient / fog / skybox) applied to the live scene root.
+        // Implements ILifecycle so it joins LifecycleManager teardown (red line 3).
+        const lighting = new LightingService();
+        this._ctx.register(ILightingService, lighting);
+        this._lifecycle.register(lighting);
+        lighting.initialize(this._ctx);
 
         // Demo3: PhysicsCollisionImpl — ICollisionService (§3.3). Pure TS, no cc, deterministic.
         // Implements ILifecycle so it joins LifecycleManager teardown (red line 3).

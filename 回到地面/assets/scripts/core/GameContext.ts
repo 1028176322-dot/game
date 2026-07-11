@@ -13,6 +13,7 @@ export const IDebugService = 'IDebugService';
 export const ICameraBrain = 'ICameraBrain';
 export const IEventBus = 'IEventBus';
 export const IRuntimeState = 'IRuntimeState';
+export const ILightingService = 'ILightingService';
 export const IReplayRecorder = 'IReplayRecorder';
 
 interface Disposable {

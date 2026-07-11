@@ -30,6 +30,8 @@ import { ResponsiveUIRoot } from '../ui/ResponsiveUIRoot';
 import { DungeonHudLayout } from '../ui/layout/DungeonHudLayout';
 import { SceneNodeFactory as F } from './SceneNodeFactory';
 import { RuntimeLayerService, LayerType } from '../render/RuntimeLayerService';
+import { GameBootstrap } from '../core/GameBootstrap';
+import { LightingService, ILightingService, LightingRegion } from '../lighting/LightingService';
 
 export interface DungeonSceneRefs {
     canvas: Node;
@@ -226,6 +228,15 @@ export class DungeonSceneInstaller {
         const builtRoom = new RoomBuilder().build(builtLayout.rooms[0]);
         const builtNav = new NavigationGrid(builtRoom.tileMap);
         const roomRuntime = new RoomRuntime(builtRoom, builtNav);
+
+        // P2-1: apply the region lighting preset to the live scene root via the
+        // registered LightingService (best-effort; no-op in headless). Mirrors the
+        // P1-6 Dungeon five-class wiring into this real install path. The actual
+        // 3D look must be verified in the Cocos Creator editor.
+        const lighting = GameBootstrap.context?.get<LightingService>(ILightingService);
+        if (lighting) {
+            lighting.apply(sceneZone as LightingRegion);
+        }
 
         return {
             canvas,
