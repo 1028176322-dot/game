@@ -9,7 +9,7 @@ import { _decorator, Component, Node } from 'cc';
 import { PlayerState } from '../core/Constants';
 import { GameConfig } from '../core/GameConfig';
 import { eventBus } from '../core/EventBus';
-import { PlayerController } from './PlayerController';
+import { IPlayerAgent } from './IPlayerAgent';
 
 const { ccclass, property } = _decorator;
 
@@ -34,7 +34,7 @@ export interface SkillData {
 @ccclass('SkillSystem')
 export class SkillSystem extends Component {
     private _skills: Map<SkillSlot, SkillData | null> = new Map();
-    private _player: PlayerController | null = null;
+    private _player: IPlayerAgent | null = null;
 
     onLoad(): void {
         // 初始化 4 个槽位
@@ -45,7 +45,7 @@ export class SkillSystem extends Component {
     }
 
     /** 初始化 */
-    init(player: PlayerController): void {
+    init(player: IPlayerAgent): void {
         this._player = player;
         // 初始赋予 2 个基础主动技能
         this.equipSkill(SkillSlot.ActiveLeft, {

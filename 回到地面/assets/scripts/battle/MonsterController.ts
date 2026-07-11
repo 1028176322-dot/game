@@ -18,7 +18,7 @@ import { _decorator, Component, Node, tween, Sprite, Vec3 } from 'cc';
 import { GameConfig } from '../core/GameConfig';
 import { MonsterState, MonsterAIType } from '../core/Constants';
 import { eventBus } from '../core/EventBus';
-import { PlayerController } from './PlayerController';
+import { IPlayerAgent } from './IPlayerAgent';
 import { GridManager } from '../dungeon/GridManager';
 import { MonsterAgent, AgentState } from './entity/MonsterAgent';
 import { MonsterRuntimeView } from './MonsterRuntimeView';
@@ -52,7 +52,7 @@ export class MonsterController extends Component {
     private _gridManager: GridManager | null = null;
     private _sprite: Sprite | null = null;
     private _animService: SpriteAnimationService | null = null;
-    private _player: PlayerController | null = null;
+    private _player: IPlayerAgent | null = null;
     private _battleManagerRef: any = null;
     private _view: MonsterRuntimeView | null = null;
 
@@ -91,11 +91,11 @@ export class MonsterController extends Component {
         this.node.setPosition(pos);
     }
 
-    setTarget(player: PlayerController): void {
+    setTarget(player: IPlayerAgent): void {
         this._player = player;
     }
 
-    updateAI(dt: number, player: PlayerController): void {
+    updateAI(dt: number, player: IPlayerAgent): void {
         if (!this._agent || this._agent.isDead || !this._gridManager) return;
         this._agent.updateAI(dt, player.gridX, player.gridY);
     }

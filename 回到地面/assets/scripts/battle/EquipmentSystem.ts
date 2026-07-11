@@ -11,7 +11,7 @@ import { _decorator, Component, Node, Vec3 } from 'cc';
 import { GameConfig } from '../core/GameConfig';
 import { eventBus } from '../core/EventBus';
 import { PlayerStats, RuntimeStats } from './PlayerStats';
-import { PlayerController } from './PlayerController';
+import { IPlayerAgent } from './IPlayerAgent';
 import { MonsterController } from './MonsterController';
 import { MathUtils } from '../utils/MathUtils';
 import { RunRng } from '../core/rng/RunRng';
@@ -296,7 +296,7 @@ function getAffixValue(affix: Affix): number {
 
 @ccclass('EquipmentSystem')
 export class EquipmentSystem extends Component {
-    private _player: PlayerController | null = null;
+    private _player: IPlayerAgent | null = null;
     private _playerStats: PlayerStats | null = null;
 
     /** 当前装备 (8 槽) */
@@ -308,7 +308,7 @@ export class EquipmentSystem extends Component {
     /** 当前激活的套装效果 source 列表 */
     private _activeSetSources: string[] = [];
 
-    init(player: PlayerController): void {
+    init(player: IPlayerAgent): void {
         this._player = player;
         this._playerStats = player.stats;
         this._setBonuses = buildSetBonuses();

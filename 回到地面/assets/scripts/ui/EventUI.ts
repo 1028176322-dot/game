@@ -15,7 +15,7 @@ import { eventBus } from '../core/EventBus';
 import { T } from '../core/TextManager';
 import { GameManager } from '../core/GameManager';
 import { EventSystem, GeneratedEvent } from '../battle/EventSystem';
-import { PlayerController } from '../battle/PlayerController';
+import { IPlayerAgent } from '../battle/IPlayerAgent';
 import { EventVM } from './viewmodel/EventViewModel';
 
 const { ccclass, property } = _decorator;
@@ -26,7 +26,7 @@ export class EventUI extends Component {
     @property(Prefab) eventPrefab: Prefab | null = null;
 
     private _eventSystem: EventSystem | null = null;
-    private _player: PlayerController | null = null;
+    private _player: IPlayerAgent | null = null;
     private _currentEvent: GeneratedEvent | null = null;
     private _autoSelectTimer: number = 0;
     private _isActive: boolean = false;
@@ -50,7 +50,7 @@ export class EventUI extends Component {
     }
 
     /** 初始化 */
-    init(eventSystem: EventSystem, player: PlayerController): void {
+    init(eventSystem: EventSystem, player: IPlayerAgent): void {
         this._eventSystem = eventSystem;
         this._player = player;
     }

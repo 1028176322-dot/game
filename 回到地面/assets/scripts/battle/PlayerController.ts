@@ -13,6 +13,7 @@ import { GameEvent } from '../core/GameManager';
 import { JoystickDirection, JoystickEvent } from '../ui/VirtualJoystick';
 import { GridManager, GridCell } from '../dungeon/GridManager';
 import { PlayerStats } from './PlayerStats';
+import { IPlayerAgent } from './IPlayerAgent';
 import { RunRng } from '../core/rng/RunRng';
 import { runEvents } from '../core/events';
 import { PlayerDataManager } from '../core/PlayerDataManager';
@@ -26,7 +27,7 @@ const { ccclass, property } = _decorator;
  * mount the 6 components on the Player node) is an in-editor task (P1-2).
  */
 @ccclass('PlayerController')
-export class PlayerController extends Component {
+export class PlayerController extends Component implements IPlayerAgent {
     @property
     maxHP: number = 100;
     @property

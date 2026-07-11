@@ -7,7 +7,7 @@
  */
 
 import { GameConfig } from '../core/GameConfig';
-import { PlayerController } from './PlayerController';
+import { IPlayerAgent } from './IPlayerAgent';
 import { RunRng } from '../core/rng/RunRng';
 import { MathUtils } from '../utils/MathUtils';
 
@@ -36,7 +36,7 @@ export interface EventOption {
     description: string;   // 效果描述
     consequences: EventConsequence[];
     /** 选项是否可用（条件不足时置灰） */
-    isAvailable?: (player: PlayerController) => boolean;
+    isAvailable?: (player: IPlayerAgent) => boolean;
 }
 
 export interface EventConsequence {
@@ -131,10 +131,10 @@ const EVENT_SCENES: EventScene[] = [
 ];
 
 export class EventSystem {
-    private _player: PlayerController | null = null;
+    private _player: IPlayerAgent | null = null;
     private _lastEventFloor: number = 0; // 上次触发稀有事件的层数
 
-    init(player: PlayerController): void {
+    init(player: IPlayerAgent): void {
         this._player = player;
     }
 

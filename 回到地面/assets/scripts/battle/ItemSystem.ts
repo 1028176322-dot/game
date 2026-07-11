@@ -15,7 +15,7 @@ import { _decorator, Component, Node, Vec3 } from 'cc';
 import { ElementType } from '../core/Constants';
 import { GameConfig } from '../core/GameConfig';
 import { eventBus } from '../core/EventBus';
-import { PlayerController } from './PlayerController';
+import { IPlayerAgent } from './IPlayerAgent';
 import { BattleManager } from './BattleManager';
 import { MonsterController } from './MonsterController';
 import { MathUtils } from '../utils/MathUtils';
@@ -75,13 +75,13 @@ const DROP_CONFIGS: Record<string, DropConfig> = {
 
 @ccclass('ItemSystem')
 export class ItemSystem extends Component {
-    private _player: PlayerController | null = null;
+    private _player: IPlayerAgent | null = null;
     private _battleManager: BattleManager | null = null;
 
     /** 背包: 最多 5 格 */
     private _bag: (ItemStack | null)[] = new Array(5).fill(null);
 
-    init(player: PlayerController, battleManager: BattleManager): void {
+    init(player: IPlayerAgent, battleManager: BattleManager): void {
         this._player = player;
         this._battleManager = battleManager;
     }

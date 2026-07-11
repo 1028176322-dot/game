@@ -6,7 +6,7 @@ import { GameManager } from '../core/GameManager';
 import { MathUtils } from '../utils/MathUtils';
 import { BattleManager } from '../battle/BattleManager';
 import { MonsterConfig } from '../battle/MonsterController';
-import { PlayerController } from '../battle/PlayerController';
+import { IPlayerAgent } from '../battle/IPlayerAgent';
 import { DAGGenerator, DungeonDAG, RoomNode } from './DAGGenerator';
 import { GridManager } from './GridManager';
 import { RoomTransition } from './RoomTransition';
@@ -45,7 +45,7 @@ export class DungeonManager extends Component {
     battleManager: BattleManager | null = null;
 
     private _floorState: FloorState | null = null;
-    private _player: PlayerController | null = null;
+    private _player: IPlayerAgent | null = null;
     private _globalSeed: number = 0;
     private _subSeedCounter: number = 0;
     private _currentZone: string = 'forest';
@@ -59,7 +59,7 @@ export class DungeonManager extends Component {
     private _roomRuntimes: RoomRuntime[] = [];
     private _enterCount = 0;
 
-    init(player: PlayerController, seed: number): void {
+    init(player: IPlayerAgent, seed: number): void {
         this._player = player;
         this._globalSeed = seed;
         this._subSeedCounter = 0;

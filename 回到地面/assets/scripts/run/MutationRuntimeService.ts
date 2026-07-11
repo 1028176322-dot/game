@@ -11,13 +11,13 @@
 
 import { eventBus } from '../core/EventBus';
 import { MutationManager } from '../battle/MutationManager';
-import { PlayerController } from '../battle/PlayerController';
+import { IPlayerAgent } from '../battle/IPlayerAgent';
 import { BattleHUD } from '../ui/BattleHUD';
 
 export class MutationRuntimeService {
     constructor(
         private readonly _mutationManager: MutationManager | null,
-        private readonly _player: PlayerController | null,
+        private readonly _player: IPlayerAgent | null,
         private readonly _battleHUD: BattleHUD | null,
     ) {}
 

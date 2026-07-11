@@ -14,7 +14,7 @@ import { RoomType } from '../core/Constants';
 import { eventBus } from '../core/EventBus';
 import { GameManager, GameEvent } from '../core/GameManager';
 import { DungeonManager } from '../dungeon/DungeonManager';
-import { PlayerController } from '../battle/PlayerController';
+import { IPlayerAgent } from '../battle/IPlayerAgent';
 import { RewardService, ClearedRoomType } from './RewardService';
 import { WXAdapter } from '../utils/WXAdapter';
 import { BattleClock } from '../core/time/BattleClock';
@@ -23,7 +23,7 @@ export class RoomFlowController {
     constructor(
         private readonly _dungeonManager: DungeonManager,
         private readonly _rewardService: RewardService,
-        private readonly _player: PlayerController | null,
+        private readonly _player: IPlayerAgent | null,
     ) {}
 
     /** 战斗胜利处理 */

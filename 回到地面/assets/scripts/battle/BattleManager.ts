@@ -5,7 +5,7 @@ import { eventBus } from '../core/EventBus';
 import { MathUtils } from '../utils/MathUtils';
 import { BattleClock } from '../core/time/BattleClock';
 import { runEvents } from '../core/events';
-import { PlayerController } from './PlayerController';
+import { IPlayerAgent } from './IPlayerAgent';
 import { MonsterController, MonsterConfig } from './MonsterController';
 import { AutoAttack } from './AutoAttack';
 import { GridManager } from '../dungeon/GridManager';
@@ -36,7 +36,7 @@ export class BattleManager extends Component {
     monsterPrefab: Prefab | null = null;
 
     private _phase: BattlePhase = BattlePhase.Init;
-    private _player: PlayerController | null = null;
+    private _player: IPlayerAgent | null = null;
     private _autoAttack: AutoAttack | null = null;
     private _gridManager: GridManager | null = null;
     private _actorLayer: Node | null = null;
@@ -49,11 +49,11 @@ export class BattleManager extends Component {
     // P0-1 §3.8: handle to the new combat engine; null until a GameContext is wired.
     private _combatSystem: CombatSystem | null = null;
 
-    init(player: PlayerController, gridManager: GridManager, actorLayer?: Node): void {
+    init(player: IPlayerAgent, gridManager: GridManager, actorLayer?: Node): void {
         this._player = player;
         this._gridManager = gridManager;
         this._actorLayer = actorLayer ?? null;
-        this._autoAttack = player.getComponent(AutoAttack);
+        this._autoAttack = player.node.getComponent(AutoAttack);
         this._autoAttack?.init(this);
         this._setPhase(BattlePhase.Init);
         eventBus.on('monster:summon', this._onSummonMonster, this);

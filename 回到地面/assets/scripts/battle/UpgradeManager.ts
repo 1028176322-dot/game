@@ -12,7 +12,7 @@ import { GameConfig } from '../core/GameConfig';
 import { eventBus } from '../core/EventBus';
 import { GameManager, GameEvent } from '../core/GameManager';
 import { PlayerStats, RuntimeStats } from './PlayerStats';
-import { PlayerController } from './PlayerController';
+import { IPlayerAgent } from './IPlayerAgent';
 import { SkillSystem, SkillSlot, SkillData } from './SkillSystem';
 import { AutoAttack, AttackResult } from './AutoAttack';
 import { MathUtils } from '../utils/MathUtils';
@@ -31,7 +31,7 @@ export interface StatModRequest {
 
 @ccclass('UpgradeManager')
 export class UpgradeManager extends Component {
-    private _player: PlayerController | null = null;
+    private _player: IPlayerAgent | null = null;
     private _skillSystem: SkillSystem | null = null;
     private _autoAttack: AutoAttack | null = null;
     private _battleManager: BattleManager | null = null;
@@ -56,7 +56,7 @@ export class UpgradeManager extends Component {
     private _activeAbilities: Set<string> = new Set();
     private _activeRelics: Set<string> = new Set();
 
-    init(player: PlayerController, skillSystem: SkillSystem, autoAttack: AutoAttack, battleManager: BattleManager): void {
+    init(player: IPlayerAgent, skillSystem: SkillSystem, autoAttack: AutoAttack, battleManager: BattleManager): void {
         this._player = player;
         this._skillSystem = skillSystem;
         this._autoAttack = autoAttack;

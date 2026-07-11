@@ -15,7 +15,7 @@ import { GameConfig } from '../core/GameConfig';
 import { eventBus } from '../core/EventBus';
 import { MonsterController } from './MonsterController';
 import { AttackResult } from './AutoAttack';
-import { PlayerController } from './PlayerController';
+import { IPlayerAgent } from './IPlayerAgent';
 import { BattleManager } from './BattleManager';
 import { MathUtils } from '../utils/MathUtils';
 
@@ -192,14 +192,14 @@ function buildReactions(): Map<string, ReactionConfig> {
 export class ElementSystem extends Component {
     private static _REACTIONS: Map<string, ReactionConfig> | null = null;
 
-    private _player: PlayerController | null = null;
+    private _player: IPlayerAgent | null = null;
     private _monsterStatus: Map<MonsterController, ElementStatus[]> = new Map();
     private _battleManager: BattleManager | null = null;
 
     /** 最大链式反应深度 */
     private static readonly MAX_CHAIN_DEPTH = 3;
 
-    init(player: PlayerController, battleManager: BattleManager): void {
+    init(player: IPlayerAgent, battleManager: BattleManager): void {
         this._player = player;
         this._battleManager = battleManager;
 
