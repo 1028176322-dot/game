@@ -4,8 +4,9 @@ import { ConfigService } from '../config/ConfigService';
 import { ConfigManager } from './ConfigManager';
 import { GameManager } from './GameManager';
 import { SceneFlowService } from '../app/SceneFlowService';
-import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService, IDebugService, ISaveManager, IReplayRecorder, IAnimationController, IEventBus } from './GameContext';
+import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService, IDebugService, ISaveManager, IReplayRecorder, IAnimationController, IEventBus, IRuntimeState } from './GameContext';
 import { Logger } from './Logger';
+import { RuntimeState } from './RuntimeState';
 import { ConfigDatabase } from './ConfigDatabase';
 import { LifecycleManager, ILifecycle } from './LifecycleManager';
 import { AssetCache } from '../assets/AssetCache';
@@ -116,6 +117,15 @@ export class GameBootstrap extends Component {
         this._lifecycle = new LifecycleManager();
         GameBootstrap._context = this._ctx;
 
+        // P2-2: IRuntimeState — authoritative run seed + frame counter for the
+        // DebugPanel Seed panel and deterministic replay (§2.2 / §5.5). Pure TS
+        // (delegates seed to RunRng). Registered early so the seed provider
+        // below and any system can read it via ctx.get(IRuntimeState).
+        const runtimeState = new RuntimeState();
+        this._ctx.register(IRuntimeState, runtimeState);
+        this._lifecycle.register(runtimeState);
+        runtimeState.initialize(this._ctx);
+
         // §5.5 DebugPanel (IDebugService) — created before Logger so the Logger sink
         // forwards its output into the DebugPanel "Events" buffer (ILogger buffer reuse).
         const debugPanel = new DebugPanel();
@@ -133,8 +143,9 @@ export class GameBootstrap extends Component {
         perfSampler.initialize(this._ctx);
         debugPanel.setPerfSampler(perfSampler);
 
-        // Demo seed provider (IRuntimeState not built yet; filled by later system).
-        debugPanel.registerProvider('seed', () => ({ seed: { seed: 20260710, frame: 0 } }));
+        // Demo seed provider — now backed by IRuntimeState (P2-2): shows the real
+        // RunRng seed instead of a hard-coded placeholder.
+        debugPanel.registerProvider('seed', () => ({ seed: runtimeState.getSeedDebug() }));
 
         this._ctx.register(
           ILogger,
