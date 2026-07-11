@@ -49,9 +49,6 @@ const LEVEL_TAG: Record<LogLevel, string> = {
     [LogLevel.Error]: "error",
 };
 
-// Token for GameContext registration (same value as defined in GameContext.ts).
-export const ILogger = "ILogger";
-
 // Contract for the categorized logger (§5.4). Lets consumers depend on the
 // interface rather than the concrete Logger class.
 export interface ILogger {
