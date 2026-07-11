@@ -17,6 +17,7 @@ import { DungeonGenerator } from '../dungeon/DungeonGenerator';
 import { RoomBuilder } from '../dungeon/RoomBuilder';
 import { NavigationGrid } from '../dungeon/NavigationGrid';
 import { RoomRuntime } from '../dungeon/RoomRuntime';
+import { EcsEntityBridge } from '../ecs/EcsEntityBridge';
 import { RoomTransition } from '../dungeon/RoomTransition';
 import { BattleHUD } from '../ui/BattleHUD';
 import { DeathUI } from '../ui/DeathUI';
@@ -136,6 +137,17 @@ export class DungeonSceneInstaller {
         F.ensureComponent<Sprite>(playerNode, Sprite);
         F.ensureComponent<AutoAttack>(playerNode, AutoAttack);
         const player = overrides.player ?? F.ensureComponent<PlayerController>(playerNode, PlayerController);
+
+        // P3-4-B: additively mount the ECS bridge as a parallel, inert-by-
+        // default player agent. It implements IPlayerAgent but its onLoad/update
+        // early-return while EcsEntityBridge.USE_ECS_PLAYER is false, so the
+        // live PlayerController stays authoritative and is never fought for node
+        // position. Flip the flag together with the D step (remove
+        // PlayerController/AutoAttack) only after editor verification (audit S10.1).
+        const bridge = F.ensureComponent<EcsEntityBridge>(playerNode, EcsEntityBridge);
+        const center = Math.floor(gridManager.gridSize / 2);
+        bridge.setSpawn(center, center, 'player');
+        bridge.init(gridManager);
 
         const battleManager = overrides.battleManager
             ?? F.findComponentInChildren<BattleManager>(sceneRoot, BattleManager)
