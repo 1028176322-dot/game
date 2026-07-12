@@ -31,8 +31,8 @@ export class ModelDisplay3D extends Component {
 
     /** Load a 3D model asset by id and assign it to the ModelComponent. */
     async showModel(assetId: string): Promise<boolean> {
-        const asset = await AssetBundleService.instance.loadById<Model>(assetId);
-        if (!this.modelComp) return false;
+        const asset = await AssetBundleService.instance.tryLoadById<Model>(assetId);
+        if (!asset || !this.modelComp) return false;
         this.modelComp.asset = asset;
         return true;
     }

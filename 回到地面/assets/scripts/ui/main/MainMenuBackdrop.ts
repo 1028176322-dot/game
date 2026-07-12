@@ -34,7 +34,8 @@ export class MainMenuBackdrop extends Component {
     }
 
     async loadBackdrop(assetId: string): Promise<boolean> {
-        const asset = await AssetBundleService.instance.loadById<Model>(assetId);
+        const asset = await AssetBundleService.instance.tryLoadById<Model>(assetId);
+        if (!asset) return false;
         const mc = this._host?.getComponent(ModelComponent);
         if (!mc) return false;
         mc.asset = asset;

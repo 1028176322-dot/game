@@ -106,6 +106,19 @@ export class AssetBundleService {
             : new Error(`[AssetBundleService] load failed: ${resourceId}`);
     }
 
+    // Safe variant: never throws. Returns null when the id is unknown or the
+    // asset file is missing, so callers that discard the promise (e.g. editor
+    // preview, optional 3D backdrops) cannot produce an unhandled rejection.
+    // Mirrors tryLoadSpriteFrame below.
+    async tryLoadById<T extends Asset>(resourceId: string): Promise<T | null> {
+        try {
+            return await this.loadById<T>(resourceId);
+        } catch (err) {
+            console.warn(`[AssetBundleService] asset load failed (degraded): ${resourceId}`, err);
+            return null;
+        }
+    }
+
     async loadSpriteFrame(resourceId: string): Promise<SpriteFrame> {
         return this.loadById<SpriteFrame>(resourceId);
     }
