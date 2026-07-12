@@ -124,3 +124,11 @@ python tools/scene_tree.py assets/scenes/dungeon.scene   # 核对运行时加载
 ## Resolved Issues (2026-07-12)
 
 - **[PreviewInEditor] PromiseRejectionEvent**（编辑器预览未捕获拒绝）：根因 `MainMenuBackdrop.loadBackdrop` / `ModelDisplay3D.showModel` 经 `void this.xxx()` 丢弃 Promise，内部 `AssetBundleService.loadById<Model>` 因 0 个 3D 模型而 reject 且未 catch。已在 `AssetBundleService` 加 `tryLoadById<T>`（仿 `tryLoadSpriteFrame`，失败返回 null + warn），两处改用之。3D 资产缺失时静默 no-op，不再崩预览。commit `860726a`（TS Static/Architecture/encoding 全绿）。属 D-0 前置的已解决坑。
+
+## Status Update (2026-07-12, 14:42)
+
+- **3D 资产生产已开始**（推翻"0 个 3D 模型"旧判断）：首个成品 `art_source/textures_review/master/characters/archer/CHR_Archer_A.glb` 已存在（~1MB，glTF2.0 / Blender I/O v5.1.20 导出）。
+- **它是完整可上线角色**：1 蒙皮网格(3907 顶点) + Mixamo 20-joint 骨架 + 1 材质(baseColor+normal，2 张内嵌 PNG) + 6 动画(idle/run/shooting/walk_back/walk_left/walk_right)。脚底近原点、高≈1.1，符合规格。
+- **但仍在美术母版，未进 `assets/`**：尚未 import + 登记 `assets.json` AssetMap + 接 `ModelDisplay3D`/`character_visuals.json`(mode=model)。故运行时 `tryLoadById` 仍返回 null（不崩也不显示）。
+- **动画名缺口**：GLB 动画(idle/run/shooting/walk_back/walk_left/walk_right) 与运行时 `AnimationStateMachine`(Idle/Walk/Attack/Skill/HitStun/Dead) **命名不 1:1**——缺 attack/skill/hitstun/dead，多方向行走。导入时需做动画名映射表。
+- **对 D 的影响**：硬前置"3D 资产缺失"**开始松动**（archer 有成品），但仅 1 角色、未导入、命名需映射；距 D 可执行仍有 import/register/wire + 其余 4 角色 + 动画映射 工作。下一步建议：先跑 archer 的 import+register+wire 打通端到端，再批量其余角色。
