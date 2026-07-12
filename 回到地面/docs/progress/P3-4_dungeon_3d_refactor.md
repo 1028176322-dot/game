@@ -120,3 +120,7 @@ python tools/scene_tree.py assets/scenes/dungeon.scene   # 核对运行时加载
 - `#105` P3-4-B 玩家并行挂 bridge + 3D 视觉 ✅（3D 视觉部分因资产缺失未落地）
 - `#106` P3-4-C DungeonSceneController 适配 bridge 接口 → 实际落地为 IPlayerAgent 接口抽象 ✅
 - `#107` P3-4-D 停用并移除 PlayerController + AutoAttack 🟡 受阻（见 §2/§3）
+
+## Resolved Issues (2026-07-12)
+
+- **[PreviewInEditor] PromiseRejectionEvent**（编辑器预览未捕获拒绝）：根因 `MainMenuBackdrop.loadBackdrop` / `ModelDisplay3D.showModel` 经 `void this.xxx()` 丢弃 Promise，内部 `AssetBundleService.loadById<Model>` 因 0 个 3D 模型而 reject 且未 catch。已在 `AssetBundleService` 加 `tryLoadById<T>`（仿 `tryLoadSpriteFrame`，失败返回 null + warn），两处改用之。3D 资产缺失时静默 no-op，不再崩预览。commit `860726a`（TS Static/Architecture/encoding 全绿）。属 D-0 前置的已解决坑。
