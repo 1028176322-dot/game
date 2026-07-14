@@ -1,0 +1,4 @@
+﻿file,severity,field,message
+animations.json,warning,metadata.lastUpdated,metadata.lastUpdated 必须为非空字符串
+text.json,warning,system,缺少顶层字段 'system'
+text.json,warning,buff,缺少顶层字段 'buff'

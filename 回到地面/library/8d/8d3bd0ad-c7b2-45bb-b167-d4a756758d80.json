@@ -1,0 +1,130 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "characters",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "json": {
+    "metadata": {
+      "version": "1.0.0",
+      "lastUpdated": "2026-07-06",
+      "description": "Character definitions — configuration-driven, replaces hardcoded TS arrays in CreatePanel/CharacterPanel"
+    },
+    "characters": {
+      "warrior": {
+        "order": 1,
+        "nameKey": "class.bearWarrior",
+        "animalKey": "classAnimal.bear",
+        "descKey": "classDesc.bearWarrior",
+        "unlock": {
+          "type": "default"
+        },
+        "unlockCost": 500,
+        "visual": {
+          "idle": "character.warrior.idle",
+          "attack": "character.warrior.attack",
+          "walk": "character.warrior.walk",
+          "hit": "character.warrior.hit",
+          "dodge": "character.warrior.dodge",
+          "skill": "character.warrior.skill",
+          "death": "character.warrior.death"
+        },
+        "preview": "character.warrior.idle",
+        "avatar": "character.avatar.warrior",
+        "card": "character.card.warrior"
+      },
+      "archer": {
+        "order": 2,
+        "nameKey": "class.deerArcher",
+        "animalKey": "classAnimal.deer",
+        "descKey": "classDesc.deerArcher",
+        "unlock": {
+          "type": "soulstone",
+          "cost": 500
+        },
+        "unlockCost": 500,
+        "visual": {
+          "idle": "character.archer.idle",
+          "attack": "character.archer.attack",
+          "walk": "character.archer.walk",
+          "hit": "character.archer.hit",
+          "dodge": "character.archer.dodge",
+          "skill": "character.archer.skill",
+          "death": "character.archer.death"
+        },
+        "preview": "character.archer.idle",
+        "avatar": "character.avatar.archer",
+        "card": "character.card.archer"
+      },
+      "assassin": {
+        "order": 3,
+        "nameKey": "class.foxAssassin",
+        "animalKey": "classAnimal.fox",
+        "descKey": "classDesc.foxAssassin",
+        "unlock": {
+          "type": "soulstone",
+          "cost": 800
+        },
+        "unlockCost": 800,
+        "visual": {
+          "idle": "character.assassin.idle",
+          "attack": "character.assassin.attack",
+          "walk": "character.assassin.walk",
+          "hit": "character.assassin.hit",
+          "dodge": "character.assassin.dodge",
+          "skill": "character.assassin.skill",
+          "death": "character.assassin.death"
+        },
+        "preview": "character.assassin.idle",
+        "avatar": "character.avatar.assassin",
+        "card": "character.card.assassin"
+      },
+      "mage": {
+        "order": 4,
+        "nameKey": "class.rabbitMage",
+        "animalKey": "classAnimal.rabbit",
+        "descKey": "classDesc.rabbitMage",
+        "unlock": {
+          "type": "soulstone",
+          "cost": 1000
+        },
+        "unlockCost": 1000,
+        "visual": {
+          "idle": "character.mage.idle",
+          "attack": "character.mage.attack",
+          "walk": "character.mage.walk",
+          "hit": "character.mage.hit",
+          "dodge": "character.mage.dodge",
+          "skill": "character.mage.skill",
+          "death": "character.mage.death"
+        },
+        "preview": "character.mage.idle",
+        "avatar": "character.avatar.mage",
+        "card": "character.card.mage"
+      },
+      "berserker": {
+        "order": 5,
+        "nameKey": "class.boarBerserker",
+        "animalKey": "classAnimal.boar",
+        "descKey": "classDesc.boarBerserker",
+        "unlock": {
+          "type": "soulstone",
+          "cost": 1200
+        },
+        "unlockCost": 1200,
+        "visual": {
+          "idle": "character.berserker.idle",
+          "attack": "character.berserker.attack",
+          "walk": "character.berserker.walk",
+          "hit": "character.berserker.hit",
+          "dodge": "character.berserker.dodge",
+          "skill": "character.berserker.skill",
+          "death": "character.berserker.death"
+        },
+        "preview": "character.berserker.idle",
+        "avatar": "character.avatar.berserker",
+        "card": "character.card.berserker"
+      }
+    }
+  }
+}

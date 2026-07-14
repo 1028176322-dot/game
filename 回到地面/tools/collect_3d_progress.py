@@ -11,7 +11,7 @@ Usage:
     python tools/collect_3d_progress.py --report       # Write to docs/progress/3d_progress.md
 
 Relies on:
-    - assets/resources/config/art_3d_manifest.json (134 items expected)
+    - assets/resources/config/art_3d_manifest.json (176 items expected)
     - assets/resources/models/*/*.assetmeta.json (actual on-disk state)
 """
 

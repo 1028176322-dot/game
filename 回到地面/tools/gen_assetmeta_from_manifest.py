@@ -1,7 +1,7 @@
 """
 gen_assetmeta_from_manifest.py
 
-从 art_3d_manifest.json 批量生成 .assetmeta.json 模板文件（134 项）。
+从 art_3d_manifest.json 批量生成 .assetmeta.json 模板文件（176 项）。
 AI 拿到模板后只需填写实际 Tri/Bone/Animation 数值，无需从头编写。
 
 Usage:
@@ -45,6 +45,7 @@ def map_category_to_rules3d(category: str) -> str:
         "monsters": "monsters",
         "effects": "effects_normal",
         "tiles": "tiles",
+        "dungeon": "dungeon",
     }
     return mapping.get(category, "characters")
 
@@ -122,6 +123,8 @@ def _category_from_name(name: str) -> str:
         return "effects"
     if name.startswith("TILE_"):
         return "tiles"
+    if name.startswith("DNG_"):
+        return "dungeon"
     return "other"
 
 

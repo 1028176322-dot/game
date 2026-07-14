@@ -37,6 +37,13 @@ export class GameContext {
     return this.services.get(token) as T;
   }
 
+  /** Non-throwing variant: returns undefined when the token is not registered.
+   *  Use for best-effort/optional resolution (e.g. cosmetic services) so a
+   *  missing registration degrades gracefully instead of crashing the caller. */
+  getOptional<T>(token: string): T | undefined {
+    return this.services.get(token) as T | undefined;
+  }
+
   // Reverse order: last registered destroyed first (dependents before dependencies).
   onDestroy(): void {
     const tokens = Array.from(this.services.keys());

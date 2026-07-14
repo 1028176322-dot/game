@@ -8,98 +8,6 @@
     ".png"
   ],
   "subMetas": {
-    "f9941": {
-      "importer": "sprite-frame",
-      "uuid": "b459f228-f84f-4a40-bdc1-e226bd2b0283@f9941",
-      "displayName": "icon_relic_luckycoin",
-      "id": "f9941",
-      "name": "spriteFrame",
-      "userData": {
-        "trimThreshold": 1,
-        "rotated": false,
-        "offsetX": 0,
-        "offsetY": 0.5,
-        "trimX": 10,
-        "trimY": 10,
-        "width": 108,
-        "height": 107,
-        "rawWidth": 128,
-        "rawHeight": 128,
-        "borderTop": 0,
-        "borderBottom": 0,
-        "borderLeft": 0,
-        "borderRight": 0,
-        "packable": true,
-        "pixelsToUnit": 100,
-        "pivotX": 0.5,
-        "pivotY": 0.5,
-        "meshType": 0,
-        "vertices": {
-          "rawPosition": [
-            -54,
-            -53.5,
-            0,
-            54,
-            -53.5,
-            0,
-            -54,
-            53.5,
-            0,
-            54,
-            53.5,
-            0
-          ],
-          "indexes": [
-            0,
-            1,
-            2,
-            2,
-            1,
-            3
-          ],
-          "uv": [
-            10,
-            118,
-            118,
-            118,
-            10,
-            11,
-            118,
-            11
-          ],
-          "nuv": [
-            0.078125,
-            0.0859375,
-            0.921875,
-            0.0859375,
-            0.078125,
-            0.921875,
-            0.921875,
-            0.921875
-          ],
-          "minPos": [
-            -54,
-            -53.5,
-            0
-          ],
-          "maxPos": [
-            54,
-            53.5,
-            0
-          ]
-        },
-        "isUuid": true,
-        "imageUuidOrDatabaseUri": "b459f228-f84f-4a40-bdc1-e226bd2b0283@6c48a",
-        "atlasUuid": "",
-        "trimType": "auto"
-      },
-      "ver": "1.0.12",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "6c48a": {
       "importer": "texture",
       "uuid": "b459f228-f84f-4a40-bdc1-e226bd2b0283@6c48a",
@@ -118,6 +26,98 @@
         "visible": false
       },
       "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "b459f228-f84f-4a40-bdc1-e226bd2b0283@f9941",
+      "displayName": "icon_relic_luckycoin",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": -0.5,
+        "offsetY": 0,
+        "trimX": 24,
+        "trimY": 21,
+        "width": 143,
+        "height": 150,
+        "rawWidth": 192,
+        "rawHeight": 192,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -71.5,
+            -75,
+            0,
+            71.5,
+            -75,
+            0,
+            -71.5,
+            75,
+            0,
+            71.5,
+            75,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            24,
+            171,
+            167,
+            171,
+            24,
+            21,
+            167,
+            21
+          ],
+          "nuv": [
+            0.125,
+            0.109375,
+            0.8697916666666666,
+            0.109375,
+            0.125,
+            0.890625,
+            0.8697916666666666,
+            0.890625
+          ],
+          "minPos": [
+            -71.5,
+            -75,
+            0
+          ],
+          "maxPos": [
+            71.5,
+            75,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "b459f228-f84f-4a40-bdc1-e226bd2b0283@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
       "imported": true,
       "files": [
         ".json"

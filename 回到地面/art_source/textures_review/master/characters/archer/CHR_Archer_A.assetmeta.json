@@ -1,0 +1,32 @@
+{
+  "name": "CHR_Archer_A.glb",
+  "tri": 2800,
+  "bones": 20,
+  "textureSize": 512,
+  "lodLevels": 1,
+  "animClips": 11,
+  "sockets": [
+    "RightHand",
+    "LeftHand",
+    "Head",
+    "Chest",
+    "Back",
+    "Foot",
+    "Weapon",
+    "SkillOrigin"
+  ],
+  "colliders": [
+    "capsule"
+  ],
+  "depends": [
+    "CHR_Archer_A_Weapon"
+  ],
+  "lifecycle": "选秀",
+  "perfTier": "medium",
+  "testScene": "CHR_Archer_A_TestScene",
+  "version": "0.3",
+  "author": "AI 3D + Mixamo rig + archer_idle/run/shooting + Longbow walk set + skill/walk + hit/dodge/die",
+  "date": "2026-07-12",
+  "reviewer": "pending",
+  "notes": "减骨 65->20（剪手指/脚趾/HeadTop_End，重挂 Hand/Foot/Head）。动画 11 段全 player_* 命名：player_idle(archer_idle)/player_run(archer_run)/player_attack(archer_shooting)/player_walk+back/left/right(Longbow)/player_skill(standing aim overdraw)/player_hit+player_dodge+player_die(下载 Mixamo)。贴图压 512²，减面到 2800 三角。8 sockets 父级到对应骨，1 capsule 碰撞体。武器依赖 CHR_Archer_A_Weapon。"
+}

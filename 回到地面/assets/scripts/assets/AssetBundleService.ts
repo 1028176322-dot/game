@@ -1,4 +1,4 @@
-import { assetManager, Asset, AssetManager, AudioClip, JsonAsset, Prefab, resources, SpriteFrame, Texture2D } from 'cc';
+import { assetManager, Asset, AssetManager, AudioClip, JsonAsset, Prefab, Rect, resources, Size, SpriteFrame, Texture2D } from 'cc';
 
 export interface AssetMapEntry {
     bundle: string;
@@ -124,6 +124,27 @@ export class AssetBundleService {
     }
 
     async tryLoadSpriteFrame(resourceId: string): Promise<SpriteFrame | null> {
+        const entry = this.resolve(resourceId);
+        // A Texture2D asset can't be used directly as a spriteFrame: it has
+        // no `uv`, so the 2D assembler (Simple.updateUVs) throws
+        // "Cannot read properties of undefined (reading '0')" once the render
+        // loop runs. Wrap it in a SpriteFrame (full-texture quad) instead.
+        // Without this, any asset registered as type "Texture2D" fed through a
+        // SpriteFrame loader (background textures, raw character/monster PNGs, etc.)
+        // crashes the scene the moment it reaches the render loop.
+        if (entry?.type === 'Texture2D') {
+            try {
+                const tex = await this.loadById<Texture2D>(resourceId);
+                const frame = new SpriteFrame();
+                frame.texture = tex;
+                frame.rect = new Rect(0, 0, tex.width, tex.height);
+                frame.originalSize = new Size(tex.width, tex.height);
+                return frame;
+            } catch (err) {
+                console.warn(`[AssetBundleService] texture->sprite wrap failed: ${resourceId}`, err);
+                return null;
+            }
+        }
         try {
             return await this.loadSpriteFrame(resourceId);
         } catch (err) {

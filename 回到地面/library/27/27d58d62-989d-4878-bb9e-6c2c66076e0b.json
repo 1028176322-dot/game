@@ -1,0 +1,74 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "player",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "json": {
+    "metadata": {
+      "version": "1.0.0",
+      "lastUpdated": "2026-06-25",
+      "description": "玩家基础属性配置表 - 角色初始值、属性边界、成长参数"
+    },
+    "baseStats": {
+      "atk": 10,
+      "$comment": "attackRange: 基础攻击范围(格), 范围0.5~10",
+      "def": 3,
+      "maxHP": 100,
+      "moveSpeed": 200,
+      "attackRange": 2
+    },
+    "statBounds": {
+      "atkMin": 0,
+      "defMin": 0,
+      "maxHPMin": 1,
+      "moveSpeedMin": 50,
+      "atkSpeedMin": 0.2,
+      "$comment": "damageReductionMax: 减伤上限, 0~1",
+      "atkSpeedMax": 5,
+      "attackRangeMin": 0.5,
+      "critChanceMax": 1,
+      "critMultiplierMin": 1,
+      "lifeStealMax": 1,
+      "damageMultiplierMin": 0.1,
+      "damageReductionMax": 0.9
+    },
+    "characters": {
+      "warrior": {
+        "name": "战士",
+        "initialAbility": "shield",
+        "unlockCost": 500,
+        "initialSkill": "shield",
+        "description": "初始核心能力: 盾反"
+      },
+      "archer": {
+        "name": "弓手",
+        "initialAbility": "ricochet",
+        "unlockCost": 500,
+        "initialSkill": "snapShot",
+        "description": "初始核心能力: 弹射箭"
+      },
+      "assassin": {
+        "name": "刺客",
+        "initialAbility": "phaseWalk",
+        "unlockCost": 800,
+        "initialSkill": "dash",
+        "description": "初始核心能力: 穿影"
+      },
+      "mage": {
+        "name": "法师",
+        "initialAbility": "elementResonance",
+        "unlockCost": 1000,
+        "initialSkill": "elementBurst",
+        "description": "初始核心能力: 元素共鸣"
+      },
+      "berserker": {
+        "name": "狂战士",
+        "initialAbility": "warCry",
+        "unlockCost": 1200,
+        "initialSkill": "healWave",
+        "description": "初始核心能力: 怒吼"
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "lastUpdated": "2026-07-07",
-    "description": "资源路径与 bundle 映射表 - generated from assets/resources/textures"
+    "lastUpdated": "2026-07-10",
+    "description": "资源路径与 bundle 映射表 - generated from assets/resources/textures（角色部件化后：archer 残留旧条目已清理，待切图导入后由管线重新生成）"
   },
   "data": {
     "textures/backgrounds/bg_combat_abyss": {
@@ -539,156 +539,6 @@
       "bundle": "resources",
       "type": "SpriteFrame",
       "path": "textures/bosses/finalboss/volcano/boss_firelord_skill/spriteFrame"
-    },
-    "textures/bosses/miniboss/abyss/miniboss_abysssentinel_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/abyss/miniboss_abysssentinel_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/abyss/miniboss_nightmareknight_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/abyss/miniboss_nightmareknight_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/abyss/miniboss_shadowdragon_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/abyss/miniboss_shadowdragon_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/abyss/miniboss_voidhunter_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/abyss/miniboss_voidhunter_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/abyss/miniboss_voidlord_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/abyss/miniboss_voidlord_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/catacombs/miniboss_blackknight_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/catacombs/miniboss_blackknight_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/catacombs/miniboss_gargoyle_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/catacombs/miniboss_gargoyle_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/catacombs/miniboss_giantskeleton_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/catacombs/miniboss_giantskeleton_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/catacombs/miniboss_lich_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/catacombs/miniboss_lich_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/catacombs/miniboss_warden_catacombs_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/catacombs/miniboss_warden_catacombs_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/forest/miniboss_boarchief_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/forest/miniboss_boarchief_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/forest/miniboss_poisonflower_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/forest/miniboss_poisonflower_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/forest/miniboss_porcupineking_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/forest/miniboss_porcupineking_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/forest/miniboss_stagbeetle_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/forest/miniboss_stagbeetle_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/forest/miniboss_warden_forest_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/forest/miniboss_warden_forest_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/swamp/miniboss_poisonscorpion_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/swamp/miniboss_poisonscorpion_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/swamp/miniboss_rottreantelite_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/swamp/miniboss_rottreantelite_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/swamp/miniboss_serpentqueen_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/swamp/miniboss_serpentqueen_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/swamp/miniboss_swampcrocodile_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/swamp/miniboss_swampcrocodile_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/swamp/miniboss_swampfrog_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/swamp/miniboss_swampfrog_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/tundra/miniboss_frostelemental_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/tundra/miniboss_frostelemental_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/tundra/miniboss_icegiant_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/tundra/miniboss_icegiant_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/tundra/miniboss_icescorpion_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/tundra/miniboss_icescorpion_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/tundra/miniboss_polarbearking_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/tundra/miniboss_polarbearking_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/tundra/miniboss_snowape_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/tundra/miniboss_snowape_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/volcano/miniboss_firegolem_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/volcano/miniboss_firegolem_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/volcano/miniboss_inferno_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/volcano/miniboss_inferno_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/volcano/miniboss_lavaworm_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/volcano/miniboss_lavaworm_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/volcano/miniboss_volcanogiant_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/volcano/miniboss_volcanogiant_idle/spriteFrame"
-    },
-    "textures/bosses/miniboss/volcano/miniboss_warden_volcano_idle": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/bosses/miniboss/volcano/miniboss_warden_volcano_idle/spriteFrame"
     },
     "textures/effects/combat/fx_crit": {
       "bundle": "resources",
@@ -2325,65 +2175,15 @@
       "type": "SpriteFrame",
       "path": "textures/ui/upgrade/icon_upgrade_skillslot/spriteFrame"
     },
-    "textures/characters/archer/parts/arm_l": {
+    "CHR_Archer_A": {
       "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/characters/archer/parts"
+      "type": "Prefab",
+      "path": "models/characters/CHR_Archer_A"
     },
-    "textures/characters/archer/parts/arm_r": {
+    "CHR_Archer_A_Weapon": {
       "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/characters/archer/parts"
-    },
-    "textures/characters/archer/parts/body": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/characters/archer/parts"
-    },
-    "textures/characters/archer/parts/bow": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/characters/archer/parts"
-    },
-    "textures/characters/archer/parts/cape": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/characters/archer/parts"
-    },
-    "textures/characters/archer/parts/ear_l": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/characters/archer/parts"
-    },
-    "textures/characters/archer/parts/ear_r": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/characters/archer/parts"
-    },
-    "textures/characters/archer/parts/head": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/characters/archer/parts"
-    },
-    "textures/characters/archer/parts/leg_l": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/characters/archer/parts"
-    },
-    "textures/characters/archer/parts/leg_r": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/characters/archer/parts"
-    },
-    "textures/characters/archer/parts/quiver": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/characters/archer/parts"
-    },
-    "textures/characters/archer/parts/tail": {
-      "bundle": "resources",
-      "type": "SpriteFrame",
-      "path": "textures/characters/archer/parts"
+      "type": "Prefab",
+      "path": "models/characters/CHR_Archer_A_Weapon"
     }
   }
 }

@@ -16,6 +16,7 @@
 import { PlatformService } from './PlatformService';
 import { AdAdapter } from './adapters/AdAdapter';
 import { NoopAdAdapter } from './adapters/NoopAdAdapter';
+import { WeChatAdAdapter } from './adapters/WeChatAdAdapter';
 import { AdPlacement } from '../core/Constants';
 
 export interface AdResult {
@@ -160,7 +161,6 @@ export class AdService {
     private _initAdapter(): void {
         if (this._adapter) return;
         if (this._platform.isWX) {
-            const { WeChatAdAdapter } = require('./adapters/WeChatAdAdapter');
             this._adapter = new WeChatAdAdapter();
         } else {
             this._adapter = new NoopAdAdapter();

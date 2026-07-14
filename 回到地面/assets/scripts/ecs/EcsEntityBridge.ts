@@ -108,13 +108,13 @@ export class EcsEntityBridge extends Component implements IPlayerAgent {
       startY: this._startY,
       isBoss: this._isBoss,
       dispatch: (cmd) => {
-        const cs = ctx.get<ICombatContract>(ICombatSystem);
+        const cs = ctx.getOptional<ICombatContract>(ICombatSystem);
         cs?.dispatch(cmd);
       },
     };
 
     const built = EcsEntityFactory.build(ctx, opts);
-    const em = ctx.get<IEmContract>(IEntityManager);
+    const em = ctx.getOptional<IEmContract>(IEntityManager);
     if (!em) {
       console.warn('[EcsEntityBridge] EntityManager missing; entity not wired');
       return;

@@ -8,98 +8,6 @@
     ".png"
   ],
   "subMetas": {
-    "f9941": {
-      "importer": "sprite-frame",
-      "uuid": "8f429064-d0f0-442a-b008-6b55ca9963c5@f9941",
-      "displayName": "monster_tundra_penguinsoldier_idle",
-      "id": "f9941",
-      "name": "spriteFrame",
-      "userData": {
-        "trimThreshold": 1,
-        "rotated": false,
-        "offsetX": -0.5,
-        "offsetY": 0,
-        "trimX": 10,
-        "trimY": 5,
-        "width": 43,
-        "height": 54,
-        "rawWidth": 64,
-        "rawHeight": 64,
-        "borderTop": 0,
-        "borderBottom": 0,
-        "borderLeft": 0,
-        "borderRight": 0,
-        "packable": true,
-        "pixelsToUnit": 100,
-        "pivotX": 0.5,
-        "pivotY": 0.5,
-        "meshType": 0,
-        "vertices": {
-          "rawPosition": [
-            -21.5,
-            -27,
-            0,
-            21.5,
-            -27,
-            0,
-            -21.5,
-            27,
-            0,
-            21.5,
-            27,
-            0
-          ],
-          "indexes": [
-            0,
-            1,
-            2,
-            2,
-            1,
-            3
-          ],
-          "uv": [
-            10,
-            59,
-            53,
-            59,
-            10,
-            5,
-            53,
-            5
-          ],
-          "nuv": [
-            0.15625,
-            0.078125,
-            0.828125,
-            0.078125,
-            0.15625,
-            0.921875,
-            0.828125,
-            0.921875
-          ],
-          "minPos": [
-            -21.5,
-            -27,
-            0
-          ],
-          "maxPos": [
-            21.5,
-            27,
-            0
-          ]
-        },
-        "isUuid": true,
-        "imageUuidOrDatabaseUri": "8f429064-d0f0-442a-b008-6b55ca9963c5@6c48a",
-        "atlasUuid": "",
-        "trimType": "auto"
-      },
-      "ver": "1.0.12",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "6c48a": {
       "importer": "texture",
       "uuid": "8f429064-d0f0-442a-b008-6b55ca9963c5@6c48a",
@@ -118,6 +26,98 @@
         "visible": false
       },
       "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "8f429064-d0f0-442a-b008-6b55ca9963c5@f9941",
+      "displayName": "monster_tundra_penguinsoldier_idle",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 12,
+        "trimY": 0,
+        "width": 168,
+        "height": 192,
+        "rawWidth": 192,
+        "rawHeight": 192,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -84,
+            -96,
+            0,
+            84,
+            -96,
+            0,
+            -84,
+            96,
+            0,
+            84,
+            96,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            12,
+            192,
+            180,
+            192,
+            12,
+            0,
+            180,
+            0
+          ],
+          "nuv": [
+            0.0625,
+            0,
+            0.9375,
+            0,
+            0.0625,
+            1,
+            0.9375,
+            1
+          ],
+          "minPos": [
+            -84,
+            -96,
+            0
+          ],
+          "maxPos": [
+            84,
+            96,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "8f429064-d0f0-442a-b008-6b55ca9963c5@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
       "imported": true,
       "files": [
         ".json"

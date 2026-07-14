@@ -8,98 +8,6 @@
     ".png"
   ],
   "subMetas": {
-    "f9941": {
-      "importer": "sprite-frame",
-      "uuid": "d21e907c-a715-4dbe-9a7c-e45f2117fe36@f9941",
-      "displayName": "icon_item_advancedkey",
-      "id": "f9941",
-      "name": "spriteFrame",
-      "userData": {
-        "trimThreshold": 1,
-        "rotated": false,
-        "offsetX": 0,
-        "offsetY": 0,
-        "trimX": 24,
-        "trimY": 10,
-        "width": 80,
-        "height": 108,
-        "rawWidth": 128,
-        "rawHeight": 128,
-        "borderTop": 0,
-        "borderBottom": 0,
-        "borderLeft": 0,
-        "borderRight": 0,
-        "packable": true,
-        "pixelsToUnit": 100,
-        "pivotX": 0.5,
-        "pivotY": 0.5,
-        "meshType": 0,
-        "vertices": {
-          "rawPosition": [
-            -40,
-            -54,
-            0,
-            40,
-            -54,
-            0,
-            -40,
-            54,
-            0,
-            40,
-            54,
-            0
-          ],
-          "indexes": [
-            0,
-            1,
-            2,
-            2,
-            1,
-            3
-          ],
-          "uv": [
-            24,
-            118,
-            104,
-            118,
-            24,
-            10,
-            104,
-            10
-          ],
-          "nuv": [
-            0.1875,
-            0.078125,
-            0.8125,
-            0.078125,
-            0.1875,
-            0.921875,
-            0.8125,
-            0.921875
-          ],
-          "minPos": [
-            -40,
-            -54,
-            0
-          ],
-          "maxPos": [
-            40,
-            54,
-            0
-          ]
-        },
-        "isUuid": true,
-        "imageUuidOrDatabaseUri": "d21e907c-a715-4dbe-9a7c-e45f2117fe36@6c48a",
-        "atlasUuid": "",
-        "trimType": "auto"
-      },
-      "ver": "1.0.12",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "6c48a": {
       "importer": "texture",
       "uuid": "d21e907c-a715-4dbe-9a7c-e45f2117fe36@6c48a",
@@ -118,6 +26,98 @@
         "visible": false
       },
       "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "d21e907c-a715-4dbe-9a7c-e45f2117fe36@f9941",
+      "displayName": "icon_item_advancedkey",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": -0.5,
+        "offsetY": 0,
+        "trimX": 54,
+        "trimY": 21,
+        "width": 83,
+        "height": 150,
+        "rawWidth": 192,
+        "rawHeight": 192,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -41.5,
+            -75,
+            0,
+            41.5,
+            -75,
+            0,
+            -41.5,
+            75,
+            0,
+            41.5,
+            75,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            54,
+            171,
+            137,
+            171,
+            54,
+            21,
+            137,
+            21
+          ],
+          "nuv": [
+            0.28125,
+            0.109375,
+            0.7135416666666666,
+            0.109375,
+            0.28125,
+            0.890625,
+            0.7135416666666666,
+            0.890625
+          ],
+          "minPos": [
+            -41.5,
+            -75,
+            0
+          ],
+          "maxPos": [
+            41.5,
+            75,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "d21e907c-a715-4dbe-9a7c-e45f2117fe36@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
       "imported": true,
       "files": [
         ".json"

@@ -32,7 +32,8 @@ import { DungeonHudLayout } from '../ui/layout/DungeonHudLayout';
 import { SceneNodeFactory as F } from './SceneNodeFactory';
 import { RuntimeLayerService, LayerType } from '../render/RuntimeLayerService';
 import { GameBootstrap } from '../core/GameBootstrap';
-import { LightingService, ILightingService, LightingRegion } from '../lighting/LightingService';
+import { ILightingService } from '../core/GameContext';
+import { LightingService, LightingRegion } from '../lighting/LightingService';
 
 export interface DungeonSceneRefs {
     canvas: Node;
@@ -245,7 +246,7 @@ export class DungeonSceneInstaller {
         // registered LightingService (best-effort; no-op in headless). Mirrors the
         // P1-6 Dungeon five-class wiring into this real install path. The actual
         // 3D look must be verified in the Cocos Creator editor.
-        const lighting = GameBootstrap.context?.get<LightingService>(ILightingService);
+        const lighting = GameBootstrap.context?.getOptional<LightingService>(ILightingService);
         if (lighting) {
             lighting.apply(sceneZone as LightingRegion);
         }

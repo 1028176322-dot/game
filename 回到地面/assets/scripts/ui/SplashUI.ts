@@ -12,6 +12,8 @@ import { GameManager } from '../core/GameManager';
 import { GameBootstrap } from '../core/GameBootstrap';
 import { AppFlowController } from '../app/AppFlowController';
 import { UISkinSceneApplier } from './UISkinSceneApplier';
+import { SceneModelPreview, PreviewHandle } from '../render/SceneModelPreview';
+import { loadUI3DBackdropConfig } from '../config/ui3d';
 
 const { ccclass, property } = _decorator;
 
@@ -38,6 +40,7 @@ export class SplashUI extends Component {
     private _bootstrap: GameBootstrap | null = null;
     private _loadingDone = false;
     private _progressPct = 0;
+    private _backdropHandle: PreviewHandle | null = null;
 
     // Progress bar nodes (created in code)
     private _barBg: Graphics | null = null;
@@ -63,6 +66,11 @@ export class SplashUI extends Component {
         }
 
         this.node.on(Node.EventType.TOUCH_END, this._onSkip, this);
+
+        // T5: optional 3D splash backdrop (B-lite, default off). Reuses the
+        // existing splashImage as the full-screen slot; degrades to the 2D
+        // background if the config is missing or disabled.
+        void this._applyBackdropConfig();
     }
 
     private _createProgressBar(): void {
@@ -166,7 +174,30 @@ export class SplashUI extends Component {
         AppFlowController.ensure().start();
     }
 
+    private async _applyBackdropConfig(): Promise<void> {
+        if (!this.splashImage) return; // degrade: keep existing 2D splash
+        const cfg = await loadUI3DBackdropConfig('splashBackdrop');
+        if (!cfg?.enabled || !cfg.modelAssetId) return; // degrade: keep 2D splash
+        // Reuse the existing full-screen splashImage as the RT slot (approach B:
+        // no new node). The 3D model renders offscreen into a RenderTexture
+        // pasted back onto a Sprite child of splashImage.
+        this._backdropHandle = await SceneModelPreview.instance.showBackdropInSlot(
+            this.splashImage,
+            cfg.modelAssetId,
+            {
+                ownerId: 'Splash',
+                transparent: cfg.transparent ?? false,
+                fallback2dKey: cfg.fallback2dKey,
+            },
+        );
+    }
+
     onDestroy(): void {
+        if (this._backdropHandle) {
+            this._backdropHandle.destroy();
+            this._backdropHandle = null;
+        }
+        SceneModelPreview.instance.clearOwner('Splash');
         this.node.off(Node.EventType.TOUCH_END, this._onSkip, this);
         this.unscheduleAllCallbacks();
     }

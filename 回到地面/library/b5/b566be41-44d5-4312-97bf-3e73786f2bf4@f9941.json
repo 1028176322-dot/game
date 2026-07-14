@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "boss_forestguardian_attack",
+    "atlas": "",
+    "rect": {
+      "x": 12,
+      "y": 26,
+      "width": 232,
+      "height": 203
+    },
+    "offset": {
+      "x": 0,
+      "y": 0.5
+    },
+    "originalSize": {
+      "width": 256,
+      "height": 256
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -116,
+        -101.5,
+        0,
+        116,
+        -101.5,
+        0,
+        -116,
+        101.5,
+        0,
+        116,
+        101.5,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        12,
+        230,
+        244,
+        230,
+        12,
+        27,
+        244,
+        27
+      ],
+      "nuv": [
+        0.046875,
+        0.10546875,
+        0.953125,
+        0.10546875,
+        0.046875,
+        0.8984375,
+        0.953125,
+        0.8984375
+      ],
+      "minPos": {
+        "x": -116,
+        "y": -101.5,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 116,
+        "y": 101.5,
+        "z": 0
+      }
+    },
+    "texture": "b566be41-44d5-4312-97bf-3e73786f2bf4@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

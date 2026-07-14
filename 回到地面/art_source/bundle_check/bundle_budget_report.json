@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-07-14T12:18:10.769252",
+  "totalBudgetMB": 200.0,
+  "totalActualMB": 26.04,
+  "overBudget": false,
+  "bundles": {
+    "bosses": {
+      "budgetMB": 40.0,
+      "actualMB": 4.91,
+      "pass": true
+    },
+    "characters_basic": {
+      "budgetMB": 20.0,
+      "actualMB": 0.0,
+      "pass": true
+    },
+    "core_ui": {
+      "budgetMB": 15.0,
+      "actualMB": 11.88,
+      "pass": true
+    },
+    "zone_forest": {
+      "budgetMB": 12.0,
+      "actualMB": 9.24,
+      "pass": true
+    }
+  },
+  "issues": []
+}

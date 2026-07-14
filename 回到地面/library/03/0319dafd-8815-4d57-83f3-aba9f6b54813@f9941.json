@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "boss_guardian_forest_death",
+    "atlas": "",
+    "rect": {
+      "x": 4,
+      "y": 6,
+      "width": 88,
+      "height": 84
+    },
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "originalSize": {
+      "width": 96,
+      "height": 96
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -44,
+        -42,
+        0,
+        44,
+        -42,
+        0,
+        -44,
+        42,
+        0,
+        44,
+        42,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        4,
+        90,
+        92,
+        90,
+        4,
+        6,
+        92,
+        6
+      ],
+      "nuv": [
+        0.041666666666666664,
+        0.0625,
+        0.9583333333333334,
+        0.0625,
+        0.041666666666666664,
+        0.9375,
+        0.9583333333333334,
+        0.9375
+      ],
+      "minPos": {
+        "x": -44,
+        "y": -42,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 44,
+        "y": 42,
+        "z": 0
+      }
+    },
+    "texture": "0319dafd-8815-4d57-83f3-aba9f6b54813@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

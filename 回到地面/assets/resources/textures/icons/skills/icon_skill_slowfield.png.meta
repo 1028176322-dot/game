@@ -8,98 +8,6 @@
     ".png"
   ],
   "subMetas": {
-    "f9941": {
-      "importer": "sprite-frame",
-      "uuid": "a66634c6-1a73-4582-a579-9f6722983d81@f9941",
-      "displayName": "icon_skill_slowfield",
-      "id": "f9941",
-      "name": "spriteFrame",
-      "userData": {
-        "trimThreshold": 1,
-        "rotated": false,
-        "offsetX": 0,
-        "offsetY": 0,
-        "trimX": 10,
-        "trimY": 26,
-        "width": 108,
-        "height": 76,
-        "rawWidth": 128,
-        "rawHeight": 128,
-        "borderTop": 0,
-        "borderBottom": 0,
-        "borderLeft": 0,
-        "borderRight": 0,
-        "packable": true,
-        "pixelsToUnit": 100,
-        "pivotX": 0.5,
-        "pivotY": 0.5,
-        "meshType": 0,
-        "vertices": {
-          "rawPosition": [
-            -54,
-            -38,
-            0,
-            54,
-            -38,
-            0,
-            -54,
-            38,
-            0,
-            54,
-            38,
-            0
-          ],
-          "indexes": [
-            0,
-            1,
-            2,
-            2,
-            1,
-            3
-          ],
-          "uv": [
-            10,
-            102,
-            118,
-            102,
-            10,
-            26,
-            118,
-            26
-          ],
-          "nuv": [
-            0.078125,
-            0.203125,
-            0.921875,
-            0.203125,
-            0.078125,
-            0.796875,
-            0.921875,
-            0.796875
-          ],
-          "minPos": [
-            -54,
-            -38,
-            0
-          ],
-          "maxPos": [
-            54,
-            38,
-            0
-          ]
-        },
-        "isUuid": true,
-        "imageUuidOrDatabaseUri": "a66634c6-1a73-4582-a579-9f6722983d81@6c48a",
-        "atlasUuid": "",
-        "trimType": "auto"
-      },
-      "ver": "1.0.12",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "6c48a": {
       "importer": "texture",
       "uuid": "a66634c6-1a73-4582-a579-9f6722983d81@6c48a",
@@ -118,6 +26,98 @@
         "visible": false
       },
       "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "a66634c6-1a73-4582-a579-9f6722983d81@f9941",
+      "displayName": "icon_skill_slowfield",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 41,
+        "trimY": 21,
+        "width": 110,
+        "height": 150,
+        "rawWidth": 192,
+        "rawHeight": 192,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -55,
+            -75,
+            0,
+            55,
+            -75,
+            0,
+            -55,
+            75,
+            0,
+            55,
+            75,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            41,
+            171,
+            151,
+            171,
+            41,
+            21,
+            151,
+            21
+          ],
+          "nuv": [
+            0.21354166666666666,
+            0.109375,
+            0.7864583333333334,
+            0.109375,
+            0.21354166666666666,
+            0.890625,
+            0.7864583333333334,
+            0.890625
+          ],
+          "minPos": [
+            -55,
+            -75,
+            0
+          ],
+          "maxPos": [
+            55,
+            75,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "a66634c6-1a73-4582-a579-9f6722983d81@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
       "imported": true,
       "files": [
         ".json"

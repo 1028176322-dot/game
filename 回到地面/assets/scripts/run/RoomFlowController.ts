@@ -18,16 +18,63 @@ import { IPlayerAgent } from '../battle/IPlayerAgent';
 import { RewardService, ClearedRoomType } from './RewardService';
 import { WXAdapter } from '../utils/WXAdapter';
 import { BattleClock } from '../core/time/BattleClock';
+import type { RouteEncounterContext } from '../core/save/RouteSaveTypes';
 
 export class RoomFlowController {
+    private _routeCtx: RouteEncounterContext | null = null;
+    private _encounterKills = 0;
+
     constructor(
         private readonly _dungeonManager: DungeonManager,
         private readonly _rewardService: RewardService,
         private readonly _player: IPlayerAgent | null,
     ) {}
 
-    /** 战斗胜利处理 */
-    onBattleVictory(): void {
+    /**
+     * v0.4.4 (Demo7): inject the route combat context before entering a route
+     * encounter; pass null to leave the route context. The route branch of
+     * onBattleVictory reads only from this context (no ad-hoc fields).
+     */
+    setRouteEncounterContext(ctx: RouteEncounterContext | null): void {
+        this._routeCtx = ctx;
+        this._encounterKills = 0;
+    }
+
+    /** v0.4.4 (Demo7) P3: true when a route encounter context is injected (route mode
+     *  active). Lets DungeonSceneController route battle victory to onBattleVictory('route')
+     *  without changing legacy behavior when no route context is set. */
+    get hasRouteContext(): boolean {
+        return this._routeCtx !== null;
+    }
+
+    /** v0.4.4 (Demo7): kill counter for the active route encounter (called by combat). */
+    onMonsterKilled(): void {
+        this._encounterKills++;
+    }
+
+    /**
+     * 战斗胜利处理。
+     * @param mode 'legacy' = old multi-room flow (grants reward directly);
+     *             'route'  = node-route flow (emits route:encounter_complete only,
+     *                        no reward here — prevents double-award with NodeRewardResolver)
+     */
+    onBattleVictory(mode: 'legacy' | 'route' = 'legacy'): void {
+        if (mode === 'route') {
+            const ctx = this._routeCtx;
+            if (!ctx) {
+                console.warn('[RoomFlowController] route victory without RouteEncounterContext');
+                return;
+            }
+            eventBus.emit('route:encounter_complete', {
+                nodeId: ctx.nodeId,
+                nodeType: ctx.nodeType,
+                result: 'victory',
+                elapsed: Date.now() - ctx.startedAt,
+                kills: this._encounterKills,
+            });
+            return;
+        }
+
         const room = this._dungeonManager.currentRoom;
         if (!room) return;
 

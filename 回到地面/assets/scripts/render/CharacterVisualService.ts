@@ -16,12 +16,16 @@ import { RenderAssetService } from '../assets/RenderAssetService';
 import { SpriteAnimationService } from './SpriteAnimationService';
 import { PartAnimation, PartAnimationPlayer } from './PartAnimationPlayer';
 import { CharacterParts, CharacterRig, PartCharacterRenderer } from './PartCharacterRenderer';
+import { CharacterModelAssembler } from './CharacterModelAssembler';
 
 interface CharacterVisualConfig {
     mode: 'parts' | 'sheet';
     partsKey?: string;
     rigKey?: string;
     animationsKey?: string;
+    modelAssetId?: string;
+    weaponAssetId?: string;
+    weaponSocket?: string;
 }
 
 export class CharacterVisualService {
@@ -88,10 +92,18 @@ export class CharacterVisualService {
     /**
      * Apply a single static frame onto a node.
      */
-    async applyStatic(node: Node, visualKey: string): Promise<boolean> {
+    async applyStatic(node: Node, visualKey: string, forceUnlit = false, targetLayer?: number): Promise<boolean> {
         const parsed = this._parseKey(visualKey);
         if (parsed) {
             const visual = await this._getVisualConfig(parsed.id);
+            if (visual?.modelAssetId) {
+                console.warn('[CharacterVisualService] try mount 3D model for', parsed.id, 'modelAssetId=', visual.modelAssetId);
+                const ok = await CharacterModelAssembler.instance.mount(
+                    node, visual.modelAssetId, visual.weaponAssetId, visual.weaponSocket ?? 'Weapon', 'idle', forceUnlit, targetLayer,
+                );
+                if (ok) return true;
+                console.warn('[CharacterVisualService] 3D model mount failed, falling back to 2D for', parsed.id);
+            }
             if (visual?.mode === 'parts') {
                 return this._applyPartsStatic(node, parsed.id);
             }
@@ -109,10 +121,16 @@ export class CharacterVisualService {
      * Apply preview frame (frame 0) from a sprite sheet — used in cards and selection UI.
      * For parts mode, this assembles the rig in its default pose.
      */
-    async applyPreviewFrame(node: Node, visualKey: string): Promise<boolean> {
+    async applyPreviewFrame(node: Node, visualKey: string, forceUnlit = false, targetLayer?: number): Promise<boolean> {
         const parsed = this._parseKey(visualKey);
         if (parsed) {
             const visual = await this._getVisualConfig(parsed.id);
+            if (visual?.modelAssetId) {
+                const ok = await CharacterModelAssembler.instance.mount(
+                    node, visual.modelAssetId, visual.weaponAssetId, visual.weaponSocket ?? 'Weapon', 'idle', forceUnlit, targetLayer,
+                );
+                if (ok) return true;
+            }
             if (visual?.mode === 'parts') {
                 return this._applyPartsStatic(node, parsed.id);
             }
@@ -130,10 +148,20 @@ export class CharacterVisualService {
      * Play an animation on a node.
      * Falls back to static frame if the asset is not a sprite sheet.
      */
-    async play(node: Node, visualKey: string, fps: number = 8): Promise<boolean> {
+    async play(node: Node, visualKey: string, fps: number = 8, forceUnlit = false, targetLayer?: number): Promise<boolean> {
         const parsed = this._parseKey(visualKey);
         if (parsed) {
             const visual = await this._getVisualConfig(parsed.id);
+            if (visual?.modelAssetId) {
+                if (CharacterModelAssembler.instance.isMounted(node)) {
+                    CharacterModelAssembler.instance.play(node, parsed.action);
+                    return true;
+                }
+                const ok = await CharacterModelAssembler.instance.mount(
+                    node, visual.modelAssetId, visual.weaponAssetId, visual.weaponSocket ?? 'Weapon', parsed.action, forceUnlit, targetLayer,
+                );
+                if (ok) return true;
+            }
             if (visual?.mode === 'parts') {
                 return this._playParts(node, parsed.id, parsed.action);
             }

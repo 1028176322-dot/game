@@ -131,4 +131,21 @@ python tools/scene_tree.py assets/scenes/dungeon.scene   # 核对运行时加载
 - **它是完整可上线角色**：1 蒙皮网格(3907 顶点) + Mixamo 20-joint 骨架 + 1 材质(baseColor+normal，2 张内嵌 PNG) + 6 动画(idle/run/shooting/walk_back/walk_left/walk_right)。脚底近原点、高≈1.1，符合规格。
 - **但仍在美术母版，未进 `assets/`**：尚未 import + 登记 `assets.json` AssetMap + 接 `ModelDisplay3D`/`character_visuals.json`(mode=model)。故运行时 `tryLoadById` 仍返回 null（不崩也不显示）。
 - **动画名缺口**：GLB 动画(idle/run/shooting/walk_back/walk_left/walk_right) 与运行时 `AnimationStateMachine`(Idle/Walk/Attack/Skill/HitStun/Dead) **命名不 1:1**——缺 attack/skill/hitstun/dead，多方向行走。导入时需做动画名映射表。
-- **对 D 的影响**：硬前置"3D 资产缺失"**开始松动**（archer 有成品），但仅 1 角色、未导入、命名需映射；距 D 可执行仍有 import/register/wire + 其余 4 角色 + 动画映射 工作。下一步建议：先跑 archer 的 import+register+wire 打通端到端，再批量其余角色。
+- **对 D 的影响**：硬前置"3D 资产缺失"**开始松动**（archer 有成品），但仅 1 角色、未导入、命名需映射；距 D 可执行仍有 import/register/wire + 其余 4 角色 + 动画映射 工作。下一步建议：先跑 archer 的 import+register/wire 打通端到端，再批量其余角色。
+
+## Status Update (2026-07-12, 15:45) — Route B 武器挂接实现
+
+- **动画缺口已关闭**：重新解析 `CHR_Archer_A.glb`，确认 11 段动画且全部 `player_*` 命名（player_idle/run/walk/walk_back/left/right/attack/skill/hit/dodge/die），精确匹配 `AnimationComponent.DEFAULT_CLIP_MAP`。无需命名映射表。
+- **弓集成路线 = B（运行时挂接）**：用户确认。保留 `CHR_Archer_A_Weapon.glb` 分离，运行时挂到模型 `Weapon` socket；沿用 assetmeta 的 `depends` 契约（不改为烘焙合并）。本沙箱无 Blender，路线 A 脚本无法在此跑；预览合并版 `CHR_Archer_A_with_bow_preview.glb` 已存在作参考。
+- **新增运行时挂接代码**（additive，零回归）：
+  - `assets/scripts/render/model_clip.ts` — 纯逻辑（无 cc）：`resolveSocketByName`（socket 解析，大小写/mixamorig 前缀无关，回退 RightHand）+ `playerClipName(action)`。
+  - `assets/scripts/render/WeaponAttachService.ts` — Route B 挂接：`resolveSocket(node, name, fallback?)` + `attach(socket, weaponPrefab)`（实例化武器、复位变换、挂到 socket）。
+  - `assets/scripts/render/CharacterModelAssembler.ts` — 3D 角色装配：`mount(node, modelAssetId, weaponAssetId?, weaponSocket='Weapon', action)` 经 `AssetBundleService.tryLoadById` 加载模型+武器（缺失则优雅 no-op），播放 `player_{action}`，幂等；`play(action)` 切换 clip；`MODEL_NODE_NAME='__character_model__'`。
+  - `assets/scripts/render/CharacterVisualService.ts` — `applyStatic/applyPreviewFrame/play` 增加 `modelAssetId` 分支：有 `modelAssetId` 先试 3D，挂载成功即返回；GLB 未导入时 `tryLoadById` 返回 null → 自动回退现有 2D parts（绝不崩、不破坏现状）。
+- **配置注册**：
+  - `assets/resources/config/character_visuals.json` 的 `archer` 增加 `modelAssetId:"CHR_Archer_A"` / `weaponAssetId:"CHR_Archer_A_Weapon"` / `weaponSocket:"Weapon"`（mode 仍 `parts`，保留 2D 回退）。
+  - `assets/resources/config/assets.json` 的 AssetMap 增加 `CHR_Archer_A` 与 `CHR_Archer_A_Weapon`（`type:"Prefab"`, `bundle:"resources"`, `path:"models/characters/CHR_Archer_A[_Weapon]`）。
+- **单测**：`tests/core/weapon_attach.test.ts`（5/5 通过）覆盖 `resolveSocketByName` 与 `playerClipName`。
+- **门禁**：`validate:all` = 6/9（与改造前基线一致）。TS 静态 / 架构 / 编码审计 全 OK。3 个 FAIL 为既有美术轨缺口（资源注册 / 非UI资源注册 / 文档一致性），与本次无关。`check_assets_registry.py` 的 `Type validation errors=0`（Prefab 合法），`check_game_assets_registry.py` 的报错全是 `character.archer.*` 2D 贴图 parts 缺失（长期既有缺口），新增的 `CHR_Archer_A`/`CHR_Archer_A_Weapon` 未引发任何新 error。
+- **用户侧待办（编辑器内）—— 已完成 ✅**：① 两个 GLB 已由 Agent 复制到 `assets/resources/models/characters/`（2026-07-12）；② 用户已在编辑器将 `CHR_Archer_A.glb`/`CHR_Archer_A_Weapon.glb` 拖入场景、存为 `CHR_Archer_A.prefab`/`CHR_Archer_A_Weapon.prefab`（含 `SkinnedMeshRenderer` 子节点 + 11 个 `player_*` 动画 clip），并删除临时场景节点、不保存 splash 场景；③ 启动期 `loadAssetMapFromResources()` 已就绪（GameBootstrap:88）。下一步：用户运行预览实测 archer 由 2D 切 3D + 弓挂 `Weapon` socket。
+- **对 D 的影响**：D-0 的"import+register+wire"端到端已打通（archer）。缺的动作 / 武器挂接不再是阻塞；D 其余缺口（输入→移动、战斗目标、HP 回调、攻击属性镜像）仍按原 §3 清单推进。

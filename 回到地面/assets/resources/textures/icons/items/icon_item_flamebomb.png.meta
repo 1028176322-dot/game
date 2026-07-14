@@ -8,98 +8,6 @@
     ".png"
   ],
   "subMetas": {
-    "f9941": {
-      "importer": "sprite-frame",
-      "uuid": "95374648-19e2-42fe-8f97-30d87983933e@f9941",
-      "displayName": "icon_item_flamebomb",
-      "id": "f9941",
-      "name": "spriteFrame",
-      "userData": {
-        "trimThreshold": 1,
-        "rotated": false,
-        "offsetX": -0.5,
-        "offsetY": 0,
-        "trimX": 26,
-        "trimY": 10,
-        "width": 75,
-        "height": 108,
-        "rawWidth": 128,
-        "rawHeight": 128,
-        "borderTop": 0,
-        "borderBottom": 0,
-        "borderLeft": 0,
-        "borderRight": 0,
-        "packable": true,
-        "pixelsToUnit": 100,
-        "pivotX": 0.5,
-        "pivotY": 0.5,
-        "meshType": 0,
-        "vertices": {
-          "rawPosition": [
-            -37.5,
-            -54,
-            0,
-            37.5,
-            -54,
-            0,
-            -37.5,
-            54,
-            0,
-            37.5,
-            54,
-            0
-          ],
-          "indexes": [
-            0,
-            1,
-            2,
-            2,
-            1,
-            3
-          ],
-          "uv": [
-            26,
-            118,
-            101,
-            118,
-            26,
-            10,
-            101,
-            10
-          ],
-          "nuv": [
-            0.203125,
-            0.078125,
-            0.7890625,
-            0.078125,
-            0.203125,
-            0.921875,
-            0.7890625,
-            0.921875
-          ],
-          "minPos": [
-            -37.5,
-            -54,
-            0
-          ],
-          "maxPos": [
-            37.5,
-            54,
-            0
-          ]
-        },
-        "isUuid": true,
-        "imageUuidOrDatabaseUri": "95374648-19e2-42fe-8f97-30d87983933e@6c48a",
-        "atlasUuid": "",
-        "trimType": "auto"
-      },
-      "ver": "1.0.12",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "6c48a": {
       "importer": "texture",
       "uuid": "95374648-19e2-42fe-8f97-30d87983933e@6c48a",
@@ -118,6 +26,98 @@
         "visible": false
       },
       "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "95374648-19e2-42fe-8f97-30d87983933e@f9941",
+      "displayName": "icon_item_flamebomb",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 39,
+        "trimY": 21,
+        "width": 114,
+        "height": 150,
+        "rawWidth": 192,
+        "rawHeight": 192,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -57,
+            -75,
+            0,
+            57,
+            -75,
+            0,
+            -57,
+            75,
+            0,
+            57,
+            75,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            39,
+            171,
+            153,
+            171,
+            39,
+            21,
+            153,
+            21
+          ],
+          "nuv": [
+            0.203125,
+            0.109375,
+            0.796875,
+            0.109375,
+            0.203125,
+            0.890625,
+            0.796875,
+            0.890625
+          ],
+          "minPos": [
+            -57,
+            -75,
+            0
+          ],
+          "maxPos": [
+            57,
+            75,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "95374648-19e2-42fe-8f97-30d87983933e@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
       "imported": true,
       "files": [
         ".json"

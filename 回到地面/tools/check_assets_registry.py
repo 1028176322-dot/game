@@ -5,6 +5,8 @@ check_assets_registry.py — Resource registry integrity gate
 Checks assets.json / ui_assets.json / disk file 3-way consistency, plus:
   1. disk_exists_but_not_registered — file on disk but missing from assets.json
   2. registered_but_missing_file — entry in assets.json but file missing on disk
+     (texture keys validated by textures/ scan; non-texture keys such as Prefab/
+      model entries validated by resolving their config `path` -> "{path}.*")
   3. ui_assets_type_invalid — type not in allowed set (sprite/sliced/nine_slice/icon/background)
   4. ui_assets_assetId_missing — assetId referenced by ui_assets.json not in assets.json
   5. binder_key_orphaned — UISkinBinder.assetKey / apply() call referencing unknown key
@@ -30,6 +32,7 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = (SCRIPT_DIR / "..").resolve()
+RESOURCES_DIR = PROJECT_DIR / "assets" / "resources"
 TEXTURES_DIR = PROJECT_DIR / "assets" / "resources" / "textures"
 ASSETS_JSON = PROJECT_DIR / "assets" / "resources" / "config" / "assets.json"
 UI_ASSETS_JSON = PROJECT_DIR / "assets" / "resources" / "config" / "ui_assets.json"
@@ -214,12 +217,43 @@ def generate_report():
     # Check A: disk vs assets.json consistency
     disk_keys = set(disk_files.keys())
     assets_keys = set(assets.keys())
+
+    # Texture registry keys are validated by the textures disk scan.
+    # Non-texture keys (e.g. Prefab / model entries under models/) are NOT
+    # covered by the textures scan, so validate them via their config `path`
+    # to avoid false-positive "registered_but_missing_file" reports.
+    texture_asset_keys = {k for k in assets_keys if k.startswith("textures/")}
+    nontexture_asset_keys = assets_keys - texture_asset_keys
+
+    nontexture_missing = []
+    for k in sorted(nontexture_asset_keys):
+        entry = assets.get(k, {})
+        rel = entry.get("path", "")
+        if not rel:
+            nontexture_missing.append(k)
+            continue
+        # The `path` for non-texture entries (e.g. "models/characters/CHR_Archer_A")
+        # has no extension; resolve any matching file "{path}.*" under resources
+        # (matches .prefab / .glb / etc.).
+        candidate = RESOURCES_DIR / rel
+        matches = (
+            list(candidate.parent.glob(candidate.name + ".*"))
+            if candidate.parent.exists()
+            else []
+        )
+        if not matches:
+            nontexture_missing.append(k)
+
+    registered_but_missing_file = sorted(
+        (texture_asset_keys - disk_keys) | set(nontexture_missing)
+    )
     registry_check = {
         "disk_exists_but_not_registered": sorted(disk_keys - assets_keys),
-        "registered_but_missing_file": sorted(assets_keys - disk_keys),
+        "registered_but_missing_file": registered_but_missing_file,
         "total_disk": len(disk_keys),
         "total_registered": len(assets_keys),
-        "total_matched": len(disk_keys & assets_keys),
+        "total_matched": len(disk_keys & assets_keys)
+        + (len(nontexture_asset_keys) - len(nontexture_missing)),
     }
     total_issues += len(registry_check["disk_exists_but_not_registered"])
     total_issues += len(registry_check["registered_but_missing_file"])
@@ -267,7 +301,7 @@ def generate_report():
     report = {
         "metadata": {
             "tool": "check_assets_registry.py",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "timestamp": __import__("datetime").datetime.now().isoformat(),
         },
         "registry": registry_check,

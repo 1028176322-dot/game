@@ -80,7 +80,7 @@ export const TALENT_LIST: TalentDef[] = [
 function createDefaultSave(): PlayerSaveData {
     return {
         soulStones: 0,
-        unlockedCharacters: ['warrior'], // 默认解锁战士
+        unlockedCharacters: ['warrior'],
         selectedCharacter: 'warrior',
         selectedTalent: null,
         unlockedRelicPoolExtras: [],
@@ -371,7 +371,13 @@ export class PlayerDataManager {
         try {
             const saveService = SaveService.instance;
             const profile = saveService.loadProfile();
-            return profileToSaveData(profile);
+            const data = profileToSaveData(profile);
+            console.warn('[PlayerDataManager] loaded profile:', {
+                selectedCharacter: data.selectedCharacter,
+                unlockedCharacters: data.unlockedCharacters,
+                version: data.version,
+            });
+            return data;
         } catch (err) {
             console.warn('[PlayerDataManager] 读档失败，使用默认', err);
         }

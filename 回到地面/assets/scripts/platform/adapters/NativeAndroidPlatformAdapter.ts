@@ -8,6 +8,7 @@
  * - Logs analytics to console
  */
 
+import { sys } from 'cc';
 import { PlatformAdapter } from './PlatformAdapter';
 import { PlatformLoginResult, ComplianceResult } from '../PlatformTypes';
 
@@ -24,7 +25,7 @@ export class NativeAndroidPlatformAdapter implements PlatformAdapter {
     async init(_options?: Record<string, unknown>): Promise<void> {
         // Try to restore saved user from platform storage
         try {
-            const { sys } = require('cc');
+            // sys is provided by the top-level cc import
             // Using sys.localStorage which works in native builds
             if (sys && (sys as any).localStorage) {
                 this._userId = (sys as any).localStorage.getItem(ANDROID_USER_KEY);
@@ -41,7 +42,7 @@ export class NativeAndroidPlatformAdapter implements PlatformAdapter {
         this._userId = userId;
         this._isGuest = false;
         try {
-            const { sys } = require('cc');
+            // sys is provided by the top-level cc import
             if (sys && (sys as any).localStorage) {
                 (sys as any).localStorage.setItem(ANDROID_USER_KEY, userId);
                 (sys as any).localStorage.removeItem(ANDROID_GUEST_KEY);
@@ -56,7 +57,7 @@ export class NativeAndroidPlatformAdapter implements PlatformAdapter {
         this._userId = null;
         this._isGuest = false;
         try {
-            const { sys } = require('cc');
+            // sys is provided by the top-level cc import
             if (sys && (sys as any).localStorage) {
                 (sys as any).localStorage.removeItem(ANDROID_USER_KEY);
                 (sys as any).localStorage.removeItem(ANDROID_GUEST_KEY);

@@ -1,0 +1,46 @@
+{
+  "asset": "CHR_Mage_A",
+  "animal": "rabbit",
+  "weapon": "staff",
+  "tri": 0,
+  "bones": 0,
+  "textureSize": 512,
+  "lodLevels": 3,
+  "animClips": [
+    "player_idle",
+    "player_run",
+    "player_walk",
+    "player_walk_back",
+    "player_walk_left",
+    "player_walk_right",
+    "player_attack",
+    "player_skill",
+    "player_dodge",
+    "player_hit",
+    "player_die"
+  ],
+  "sockets": [
+    "RightHand",
+    "LeftHand",
+    "Head",
+    "Chest",
+    "Back",
+    "Foot",
+    "Weapon",
+    "SkillOrigin"
+  ],
+  "colliders": [
+    "capsule"
+  ],
+  "version": "0.1.0",
+  "author": "<外机制作者>",
+  "date": "<YYYY-MM-DD>",
+  "reviewer": "",
+  "depends": [
+    "CHR_Mage_A_Weapon"
+  ],
+  "perfTier": "medium",
+  "testScene": "char_preview_test",
+  "lifecycle": "review",
+  "_note": "tri/bones 回传前填实测值; date 填制作日期; reviewer 本机审批时填"
+}

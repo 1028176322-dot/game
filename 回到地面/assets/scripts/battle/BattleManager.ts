@@ -60,8 +60,11 @@ export class BattleManager extends Component {
 
         // P0-1 §3.8: resolve the new combat engine through the service locator.
         // Null-safe: when no GameContext is wired this stays null and the legacy
-        // battle flow is preserved unchanged.
-        this._combatSystem = GameBootstrap.context?.get<CombatSystem>(ICombatSystem) ?? null;
+        // battle flow is preserved unchanged. Use getOptional because GameBootstrap
+        // registers ICombatSystem at the tail of its async startup(); the dungeon
+        // scene may wire systems before that registration completes (race). A missing
+        // token must NOT throw — it just means the legacy flow is used.
+        this._combatSystem = GameBootstrap.context?.getOptional<CombatSystem>(ICombatSystem) ?? null;
     }
 
     startBattle(monsterConfigs: MonsterConfig[]): void {

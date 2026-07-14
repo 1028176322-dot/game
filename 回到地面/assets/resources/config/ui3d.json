@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-07-13",
+    "description": "UI 3D backdrop config (T4 main menu / T5 splash), B-lite, default closed"
+  },
+  "mainBackdrop": {
+    "enabled": false,
+    "modelAssetId": "",
+    "fallback2dKey": "ui.main.bg",
+    "quality": "auto",
+    "transparent": false
+  },
+  "splashBackdrop": {
+    "enabled": false,
+    "modelAssetId": "",
+    "fallback2dKey": "ui.splash.bg",
+    "quality": "auto",
+    "transparent": false
+  }
+}

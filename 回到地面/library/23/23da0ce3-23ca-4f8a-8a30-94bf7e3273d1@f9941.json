@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "monster_forest_boar_idle",
+    "atlas": "",
+    "rect": {
+      "x": 0,
+      "y": 10,
+      "width": 192,
+      "height": 171
+    },
+    "offset": {
+      "x": 0,
+      "y": 0.5
+    },
+    "originalSize": {
+      "width": 192,
+      "height": 192
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -96,
+        -85.5,
+        0,
+        96,
+        -85.5,
+        0,
+        -96,
+        85.5,
+        0,
+        96,
+        85.5,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        0,
+        182,
+        192,
+        182,
+        0,
+        11,
+        192,
+        11
+      ],
+      "nuv": [
+        0,
+        0.057291666666666664,
+        1,
+        0.057291666666666664,
+        0,
+        0.9479166666666666,
+        1,
+        0.9479166666666666
+      ],
+      "minPos": {
+        "x": -96,
+        "y": -85.5,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 96,
+        "y": 85.5,
+        "z": 0
+      }
+    },
+    "texture": "23da0ce3-23ca-4f8a-8a30-94bf7e3273d1@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

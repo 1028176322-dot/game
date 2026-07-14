@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "icon_item_flamebomb",
+    "atlas": "",
+    "rect": {
+      "x": 39,
+      "y": 21,
+      "width": 114,
+      "height": 150
+    },
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "originalSize": {
+      "width": 192,
+      "height": 192
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -57,
+        -75,
+        0,
+        57,
+        -75,
+        0,
+        -57,
+        75,
+        0,
+        57,
+        75,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        39,
+        171,
+        153,
+        171,
+        39,
+        21,
+        153,
+        21
+      ],
+      "nuv": [
+        0.203125,
+        0.109375,
+        0.796875,
+        0.109375,
+        0.203125,
+        0.890625,
+        0.796875,
+        0.890625
+      ],
+      "minPos": {
+        "x": -57,
+        "y": -75,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 57,
+        "y": 75,
+        "z": 0
+      }
+    },
+    "texture": "95374648-19e2-42fe-8f97-30d87983933e@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

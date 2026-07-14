@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "description": "Core files that cleanup_scan.py must NEVER auto-delete. Edit this file to register new core files; no code change needed.",
+  "must_keep": [
+    "DebugPanel.ts",
+    "GameBootstrap.ts",
+    "gen_missing_179.py",
+    "auto_bind_scene.py",
+    "gen_scenes.py",
+    "gen_scenes_simple.py"
+  ]
+}

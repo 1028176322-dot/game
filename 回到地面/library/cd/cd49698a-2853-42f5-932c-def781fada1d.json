@@ -1,0 +1,376 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "art_quality_budget",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "json": {
+    "platform": "taptap_android",
+    "packageBudgetMB": {
+      "recommended": 80,
+      "acceptable": 120,
+      "manualReview": 150
+    },
+    "textureBudgetMB": {
+      "recommended": 50,
+      "acceptable": 75,
+      "manualReview": 100
+    },
+    "rules": {
+      "backgrounds": {
+        "format": "jpg",
+        "recommendKB": 600,
+        "warningKB": 1000,
+        "manualReviewKB": 1200,
+        "failOnSize": false,
+        "runtimeQuality": 90
+      },
+      "ui_fullscreen": {
+        "format": "jpg_or_png",
+        "recommendKB": 800,
+        "warningKB": 1200,
+        "manualReviewKB": 1500,
+        "failOnSize": false,
+        "runtimeQuality": 90
+      },
+      "ui_panel": {
+        "format": "png_rgba",
+        "recommendKB": 250,
+        "warningKB": 500,
+        "manualReviewKB": 800,
+        "failOnSize": false,
+        "nineSliceRequired": true
+      },
+      "ui_button": {
+        "format": "png_rgba",
+        "recommendKB": 100,
+        "warningKB": 180,
+        "manualReviewKB": 250,
+        "failOnSize": false,
+        "nineSlicePreferred": true
+      },
+      "characters": {
+        "format": "png_rgba",
+        "recommendKB": 500,
+        "warningKB": 900,
+        "manualReviewKB": 1200,
+        "failOnSize": false
+      },
+      "bosses": {
+        "format": "png_rgba",
+        "recommendKB": 1200,
+        "warningKB": 1800,
+        "manualReviewKB": 2500,
+        "failOnSize": false
+      },
+      "monsters": {
+        "format": "png_rgba",
+        "recommendKB": 350,
+        "warningKB": 600,
+        "manualReviewKB": 900,
+        "failOnSize": false
+      },
+      "effects": {
+        "format": "png_rgba",
+        "recommendKB": 250,
+        "warningKB": 450,
+        "manualReviewKB": 700,
+        "failOnSize": false
+      },
+      "icons": {
+        "format": "png_rgba",
+        "recommendKB": 60,
+        "warningKB": 120,
+        "manualReviewKB": 180,
+        "failOnSize": false
+      },
+      "tiles": {
+        "format": "png_rgba",
+        "recommendKB": 40,
+        "warningKB": 80,
+        "manualReviewKB": 120,
+        "failOnSize": false,
+        "tileableRequired": true
+      }
+    },
+    "rules3d": {
+      "characters": {
+        "category": "characters",
+        "prefix": "CHR",
+        "minTri": 2000,
+        "recommendTri": 2500,
+        "maxTri": 3000,
+        "maxBones": 30,
+        "recommendBones": 26,
+        "textureSize": 512,
+        "astcBlock": 6,
+        "lod": [
+          {
+            "level": 0,
+            "triPct": 1,
+            "dist": 0
+          },
+          {
+            "level": 1,
+            "triPct": 0.6,
+            "dist": 12
+          },
+          {
+            "level": 2,
+            "triPct": 0.3,
+            "dist": 24
+          }
+        ],
+        "animClipsMin": 5,
+        "sockets": [
+          "RightHand",
+          "LeftHand",
+          "Head",
+          "Chest",
+          "Back",
+          "Foot",
+          "Weapon",
+          "SkillOrigin"
+        ],
+        "collider": "capsule",
+        "perfTier": "medium"
+      },
+      "bosses_final": {
+        "category": "bosses_final",
+        "prefix": "BOSS",
+        "minTri": 5000,
+        "recommendTri": 7000,
+        "maxTri": 9000,
+        "maxBones": 80,
+        "recommendBones": 60,
+        "textureSize": 1024,
+        "astcBlock": 8,
+        "lod": [
+          {
+            "level": 0,
+            "triPct": 1,
+            "dist": 0
+          },
+          {
+            "level": 1,
+            "triPct": 0.5,
+            "dist": 18
+          },
+          {
+            "level": 2,
+            "triPct": 0.2,
+            "dist": 36
+          }
+        ],
+        "animClipsMin": 8,
+        "sockets": [
+          "RightHand",
+          "LeftHand",
+          "Head",
+          "Chest",
+          "Back",
+          "Foot",
+          "Weapon",
+          "SkillOrigin",
+          "Mouth",
+          "Wing",
+          "Tail",
+          "Eye",
+          "WeakPoint"
+        ],
+        "collider": "capsule_multi",
+        "perfTier": "high"
+      },
+      "bosses_mini": {
+        "category": "bosses_mini",
+        "prefix": "BOSS",
+        "minTri": 4000,
+        "recommendTri": 5000,
+        "maxTri": 7000,
+        "maxBones": 60,
+        "recommendBones": 40,
+        "textureSize": 512,
+        "astcBlock": 6,
+        "lod": [
+          {
+            "level": 0,
+            "triPct": 1,
+            "dist": 0
+          },
+          {
+            "level": 1,
+            "triPct": 0.5,
+            "dist": 14
+          }
+        ],
+        "animClipsMin": 7,
+        "sockets": [
+          "RightHand",
+          "LeftHand",
+          "Head",
+          "Chest",
+          "Back",
+          "Foot",
+          "Weapon",
+          "SkillOrigin",
+          "Mouth",
+          "Tail",
+          "WeakPoint"
+        ],
+        "collider": "capsule",
+        "perfTier": "medium"
+      },
+      "monsters": {
+        "category": "monsters",
+        "prefix": "MON",
+        "minTri": 1000,
+        "recommendTri": 1800,
+        "maxTri": 2500,
+        "maxBones": 30,
+        "recommendBones": 18,
+        "textureSize": 512,
+        "astcBlock": 6,
+        "lod": [
+          {
+            "level": 0,
+            "triPct": 1,
+            "dist": 0
+          },
+          {
+            "level": 1,
+            "triPct": 0.6,
+            "dist": 14
+          },
+          {
+            "level": 2,
+            "triPct": 0.3,
+            "dist": 28
+          }
+        ],
+        "animClipsMin": 5,
+        "sockets": [
+          "RightHand",
+          "LeftHand",
+          "Head",
+          "Foot",
+          "SkillOrigin"
+        ],
+        "collider": "capsule",
+        "perfTier": "low"
+      },
+      "effects_normal": {
+        "category": "effects_normal",
+        "prefix": "FX",
+        "maxParticles": 80,
+        "maxDrawCall": 2,
+        "textureSize": 256,
+        "astcBlock": 6,
+        "maxDurationSec": 1.5,
+        "perfTier": "medium"
+      },
+      "effects_boss": {
+        "category": "effects_boss",
+        "prefix": "FX",
+        "maxParticles": 300,
+        "maxDrawCall": 4,
+        "textureSize": 512,
+        "astcBlock": 8,
+        "maxDurationSec": 2,
+        "perfTier": "high"
+      },
+      "tiles": {
+        "category": "tiles",
+        "prefix": "TILE",
+        "moduleSizeM": 2,
+        "textureSize": 512,
+        "astcBlock": 6,
+        "lod": [
+          {
+            "level": 0,
+            "triPct": 1,
+            "dist": 0
+          },
+          {
+            "level": 1,
+            "triPct": 0.5,
+            "dist": 20
+          }
+        ],
+        "modules": [
+          "Floor",
+          "Wall",
+          "HighGround",
+          "Thorn",
+          "Corner",
+          "Edge",
+          "Slope",
+          "Ramp"
+        ],
+        "perfTier": "low"
+      },
+      "dungeon": {
+        "category": "dungeon",
+        "prefix": "DNG",
+        "minTri": 800,
+        "recommendTri": 1500,
+        "maxTri": 3000,
+        "maxBones": 0,
+        "textureSize": 512,
+        "astcBlock": 6,
+        "lod": [
+          {
+            "level": 0,
+            "triPct": 1,
+            "dist": 0
+          },
+          {
+            "level": 1,
+            "triPct": 0.5,
+            "dist": 20
+          }
+        ],
+        "modules": [
+          "Entry",
+          "Chest",
+          "HealAltar",
+          "Shop",
+          "Event",
+          "BuffShrine",
+          "BossGate"
+        ],
+        "perfTier": "low"
+      },
+      "backdrop": {
+        "category": "backdrop",
+        "prefix": "BG",
+        "minTri": 1000,
+        "recommendTri": 4000,
+        "maxTri": 6000,
+        "maxBones": 0,
+        "textureSize": 2048,
+        "astcBlock": 8,
+        "lod": [
+          {
+            "level": 0,
+            "triPct": 1,
+            "dist": 0
+          },
+          {
+            "level": 1,
+            "triPct": 0.5,
+            "dist": 30
+          }
+        ],
+        "animClipsMin": 0,
+        "sockets": [],
+        "collider": "none",
+        "perfTier": "high"
+      },
+      "naming": {
+        "pattern": "^(CHR|MON|BOSS|FX|TILE|DNG|BG)_[A-Za-z0-9]+(_[A-Za-z0-9]+)?([.]glb|[.]prefab)?$",
+        "example": "CHR_Warrior_A.glb",
+        "note": "manifest name may include .glb/.prefab; validator strips the extension before matching."
+      }
+    }
+  }
+}

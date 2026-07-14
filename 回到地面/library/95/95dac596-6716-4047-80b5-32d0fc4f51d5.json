@@ -1,0 +1,115 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "character_part_specs",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "json": {
+    "metadata": {
+      "version": "1.0.0",
+      "lastUpdated": "2026-07-10",
+      "description": "Character part specifications: per-profession per-part sizes, roles, and descriptions. Single source for prompt generation and validation."
+    },
+    "archer": {
+      "style": "cute deer ranger",
+      "parts": {
+        "arm_l": {
+          "size": [
+            96,
+            128
+          ],
+          "role": "isolated left arm component",
+          "description": "upper arm, forearm, small hand, green sleeve cuff, clean shoulder joint"
+        },
+        "arm_r": {
+          "size": [
+            96,
+            128
+          ],
+          "role": "isolated right arm component",
+          "description": "upper arm, forearm, small hand, green sleeve cuff, clean shoulder joint"
+        },
+        "body": {
+          "size": [
+            160,
+            160
+          ],
+          "role": "isolated torso component",
+          "description": "rounded chest body, small belt, green collar, cape attachment points, clean shoulder sockets"
+        },
+        "head": {
+          "size": [
+            128,
+            128
+          ],
+          "role": "isolated head component",
+          "description": "round deer face, bright eyes, small muzzle, leaf ranger ornament, clean neck socket"
+        },
+        "ear_l": {
+          "size": [
+            64,
+            96
+          ],
+          "role": "isolated left ear component",
+          "description": "warm orange fur, soft pink inner ear, clean base joint"
+        },
+        "ear_r": {
+          "size": [
+            64,
+            96
+          ],
+          "role": "isolated right ear component",
+          "description": "warm orange fur, soft pink inner ear, clean base joint"
+        },
+        "leg_l": {
+          "size": [
+            80,
+            112
+          ],
+          "role": "isolated left leg component",
+          "description": "small thigh, shin, green boot, clean hip joint"
+        },
+        "leg_r": {
+          "size": [
+            80,
+            112
+          ],
+          "role": "isolated right leg component",
+          "description": "small thigh, shin, green boot, clean hip joint"
+        },
+        "tail": {
+          "size": [
+            96,
+            128
+          ],
+          "role": "isolated tail component",
+          "description": "fluffy deer tail, warm orange fur, cream tip, curved readable silhouette, clean base joint"
+        },
+        "bow": {
+          "size": [
+            128,
+            128
+          ],
+          "role": "isolated bow weapon component",
+          "description": "small wooden bow, curved polished wood, green wrapping, clear bow string, readable silhouette"
+        },
+        "quiver": {
+          "size": [
+            96,
+            96
+          ],
+          "role": "isolated quiver component",
+          "description": "small leather arrow holder with arrow tips, green strap detail, readable silhouette"
+        },
+        "cape": {
+          "size": [
+            128,
+            160
+          ],
+          "role": "isolated cape component",
+          "description": "green cape, soft cloth shape, rounded lower edge, small collar attachment"
+        }
+      }
+    }
+  }
+}

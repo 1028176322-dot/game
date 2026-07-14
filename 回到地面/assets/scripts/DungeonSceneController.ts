@@ -40,6 +40,12 @@ import { AssetBundleService } from './assets/AssetBundleService';
 import { DungeonSceneInstaller, DungeonSceneRefs } from './scene/DungeonSceneInstaller';
 import { PlayerDataManager } from './core/PlayerDataManager';
 import { UISkinSceneApplier } from './ui/UISkinSceneApplier';
+import { ILightingService } from './core/GameContext';
+import { GameBootstrap } from './core/GameBootstrap';
+import { LightingService, LightingRegion } from './lighting/LightingService';
+import { SceneFlowService } from './app/SceneFlowService';
+import { RouteRunController } from './dungeon/route/RouteRunController';
+import { RouteSaveAdapter } from './core/save/RouteSaveAdapter';
 
 const { ccclass, property } = _decorator;
 
@@ -71,6 +77,7 @@ export class DungeonSceneController extends Component {
     private _installer = new DungeonSceneInstaller();
     private _installedRefs: DungeonSceneRefs | null = null;
     private _booted = false;
+    private _routeRun: RouteRunController | null = null;
 
     onLoad(): void {
         this._installSceneRefs();
@@ -132,6 +139,16 @@ export class DungeonSceneController extends Component {
 
         const gm = GameManager.ensure(this.node.scene);
         const rc = RunCoordinator.instance;
+
+        // P2-1: best-effort region lighting (cosmetic). Applied here (after
+        // startup is ready) because GameBootstrap._wireInfra registers
+        // ILightingService asynchronously; the synchronous install() path may
+        // run before it is registered, so we re-apply once infra is available.
+        const lighting = GameBootstrap.context?.getOptional<LightingService>(ILightingService);
+        if (lighting) {
+            const zone = (rc.state ? rc.getCurrentZone() : gm.currentZone) as unknown as LightingRegion;
+            lighting.apply(zone);
+        }
 
         // Ensure run state is initialized from RunCoordinator
         if (!rc.state || !rc.state.isActive) {
@@ -214,6 +231,19 @@ export class DungeonSceneController extends Component {
         const rs = new RewardService(this.equipmentSystem, this.itemSystem);
         this._roomFlow = new RoomFlowController(this.dungeonManager!, rs, this.player);
         new CharacterStartService(this.skillSystem).applySelectedCharacter();
+
+        // v0.4.4 (Demo7) P3 production wiring: bring RouteRunController live with
+        // injected deps. sceneLoader -> only SceneFlowService may loadScene (GDD 8.5);
+        // injectContext -> the RoomFlowController that owns the active route context;
+        // savePort -> route save adapter (persists via RunSave.route). The controller
+        // stays dormant until the 2D map UI (out of scope) calls startFloor + requestEnter.
+        const routeRun = new RouteRunController({
+            sceneLoader: () => SceneFlowService.instance.goToDungeon(),
+            injectContext: (ctx) => this._roomFlow?.setRouteEncounterContext(ctx),
+            savePort: new RouteSaveAdapter(),
+        });
+        routeRun.activate();
+        this._routeRun = routeRun;
     }
 
     private _wireUI(): void {
@@ -241,7 +271,10 @@ export class DungeonSceneController extends Component {
         const rf = this._roomFlow;
         const mr = this._mutationRuntime;
         eventBus.on('player:revive', () => rf?.onPlayerRevive(), this);
-        eventBus.on('battle:victory', () => rf?.onBattleVictory(), this);
+        eventBus.on('battle:victory', () => {
+            if (rf?.hasRouteContext()) rf.onBattleVictory('route');
+            else rf?.onBattleVictory();
+        }, this);
         eventBus.on('room:shop', (id: number) => rf?.onEnterShopRoom(id), this);
         eventBus.on('room:treasure', (id: number) => rf?.onEnterTreasureRoom(id), this);
         eventBus.on('room:healing', (id: number) => rf?.onEnterHealingRoom(id), this);
@@ -270,7 +303,14 @@ export class DungeonSceneController extends Component {
     }
 
     protected onDestroy(): void {
+        this._routeRun?.deactivate();
         eventBus.offTarget(this);
+    }
+
+    /** v0.4.4 (Demo7) P3: the live route run controller for the current dungeon
+     *  scene. The 2D map UI (out of scope) drives it via startFloor() + requestEnter(). */
+    get routeRun(): RouteRunController | null {
+        return this._routeRun;
     }
 
     /** 调试用：打印场景节点树 */

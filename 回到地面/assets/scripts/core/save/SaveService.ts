@@ -87,6 +87,22 @@ export class SaveService {
         const defaults = defaultProfile();
         let profile = this._migrator.loadProfile(defaults);
 
+        // Merge newly-added default unlocks into existing profiles so old saves
+        // pick up starter characters added after their first launch.
+        const defaultUnlocks = defaults.profile.unlockedCharacters;
+        const existingUnlocks = profile.profile.unlockedCharacters;
+        for (const charId of defaultUnlocks) {
+            if (!existingUnlocks.includes(charId)) {
+                existingUnlocks.push(charId);
+            }
+        }
+        // The selected character must be one of the default starters. If the stored
+        // selection is not a default-unlocked starter (for example a previously
+        // force-unlocked test character), reset it to the default.
+        if (!defaultUnlocks.includes(profile.profile.selectedCharacter)) {
+            profile.profile.selectedCharacter = defaults.profile.selectedCharacter;
+        }
+
         // Validate and auto-repair
         const result = SaveValidator.validateProfile(profile);
         if (!result.ok) {

@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "dev",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "json": {
+    "metadata": {
+      "version": "1.0.0",
+      "lastUpdated": "2026-06-25",
+      "description": "开发环境配置覆盖层 - 仅包含与默认值不同的项"
+    },
+    "overrides": {
+      "AUTO_ATTACK_INTERVAL": 0.5,
+      "$comment": "缩短翻滚CD方便测试操作",
+      "DROP_NORMAL_CHANCE": 0.5,
+      "SPLASH_MIN_DURATION": 0.5,
+      "DODGE_COOLDOWN": 1
+    }
+  }
+}

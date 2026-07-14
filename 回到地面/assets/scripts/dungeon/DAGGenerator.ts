@@ -1,4 +1,9 @@
 /**
+ * @deprecated (Demo7, 2026-07-13): the node-route roguelike now uses
+ * dungeon/route/NodeRouteGenerator for Spire-style maps. This DAGGenerator is
+ * kept as a legacy multi-room fallback and will be removed gradually; do NOT use
+ * it in the new route path.
+ *
  * DAGGenerator - 地牢 DAG 生成器 (Phase 3)
  * 按种子生成有向无环图地牢地图
  * 支持区域/小关配置、Boss房标记

@@ -12,6 +12,10 @@
 import { sys } from 'cc';
 import { PlatformAdapter } from './adapters/PlatformAdapter';
 import { PlatformLoginResult, ComplianceResult, PlatformInitOptions, RuntimePlatform } from './PlatformTypes';
+import { WebDevPlatformAdapter } from './adapters/WebDevPlatformAdapter';
+import { WeChatPlatformAdapter } from './adapters/WeChatPlatformAdapter';
+import { TapTapAndroidAdapter } from './adapters/TapTapAndroidAdapter';
+import { NativeAndroidPlatformAdapter } from './adapters/NativeAndroidPlatformAdapter';
 
 export type { PlatformLoginResult, ComplianceResult, PlatformInitOptions, RuntimePlatform };
 
@@ -73,24 +77,15 @@ export class PlatformService {
     /** Create the appropriate adapter based on detected platform */
     private _createAdapter(): PlatformAdapter {
         if (this._platform === 'wechat_minigame') {
-            // Use dynamic import or require to keep WeChatAdapter tree-shakable
-            const { WeChatPlatformAdapter } = require('./adapters/WeChatPlatformAdapter');
             return new WeChatPlatformAdapter();
         }
         if (this._platform === 'native_android') {
             if (this._channel === 'taptap') {
-                try {
-                    const { TapTapAndroidAdapter } = require('./adapters/TapTapAndroidAdapter');
-                    return new TapTapAndroidAdapter();
-                } catch (err) {
-                    console.warn('[PlatformService] TapTap Android adapter load failed, fallback to NativeAndroidAdapter:', err);
-                }
+                return new TapTapAndroidAdapter();
             }
-            const { NativeAndroidPlatformAdapter } = require('./adapters/NativeAndroidPlatformAdapter');
             return new NativeAndroidPlatformAdapter();
         }
-        // Default: Web Dev
-        const { WebDevPlatformAdapter } = require('./adapters/WebDevPlatformAdapter');
+        // Default: Web Dev (browser / editor preview)
         return new WebDevPlatformAdapter();
     }
 

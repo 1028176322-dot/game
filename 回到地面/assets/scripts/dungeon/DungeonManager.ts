@@ -8,6 +8,7 @@ import { BattleManager } from '../battle/BattleManager';
 import { MonsterConfig } from '../battle/MonsterController';
 import { IPlayerAgent } from '../battle/IPlayerAgent';
 import { DAGGenerator, DungeonDAG, RoomNode } from './DAGGenerator';
+import { DungeonGenerator } from './DungeonGenerator';
 import { GridManager } from './GridManager';
 import { RoomTransition } from './RoomTransition';
 import { RoomBuilder } from './RoomBuilder';

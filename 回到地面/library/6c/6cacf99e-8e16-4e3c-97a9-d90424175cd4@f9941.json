@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "boss_forestguardian_skill",
+    "atlas": "",
+    "rect": {
+      "x": 12,
+      "y": 18,
+      "width": 232,
+      "height": 219
+    },
+    "offset": {
+      "x": 0,
+      "y": 0.5
+    },
+    "originalSize": {
+      "width": 256,
+      "height": 256
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -116,
+        -109.5,
+        0,
+        116,
+        -109.5,
+        0,
+        -116,
+        109.5,
+        0,
+        116,
+        109.5,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        12,
+        238,
+        244,
+        238,
+        12,
+        19,
+        244,
+        19
+      ],
+      "nuv": [
+        0.046875,
+        0.07421875,
+        0.953125,
+        0.07421875,
+        0.046875,
+        0.9296875,
+        0.953125,
+        0.9296875
+      ],
+      "minPos": {
+        "x": -116,
+        "y": -109.5,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 116,
+        "y": 109.5,
+        "z": 0
+      }
+    },
+    "texture": "6cacf99e-8e16-4e3c-97a9-d90424175cd4@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

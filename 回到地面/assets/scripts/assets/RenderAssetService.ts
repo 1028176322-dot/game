@@ -7,6 +7,16 @@ import { getSheetInfo, createFrameFromSheet } from './SpriteSheetUtil';
 export class RenderAssetService {
     static async applySpriteById(node: Node, resourceId: string): Promise<SpriteFrame | null> {
         const sprite = this._ensureSprite(node);
+        // Route raw Texture2D entries through the wrapper. A raw Texture2D has no
+        // `uv`, so assigning it directly to `sprite.spriteFrame` crashes the 2D
+        // assembler (Simple.updateUVs: frame.uv[0] -> undefined). Mirrors the
+        // guard already present in UISkinService._applyAsset. Without this, any
+        // asset registered as type "Texture2D" (e.g. the combat background
+        // textures) fed through this method ends up as the sprite's frame.
+        const entry = AssetBundleService.instance.resolve(resourceId);
+        if (entry?.type === 'Texture2D') {
+            return this.applyTextureAsSprite(node, resourceId);
+        }
         const frame = await AssetBundleService.instance.tryLoadSpriteFrame(resourceId);
         if (!frame || !node.isValid) return null;
 

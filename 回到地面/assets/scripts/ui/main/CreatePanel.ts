@@ -26,7 +26,7 @@ import { AppFlowController, AppFlowState } from '../../app/AppFlowController';
 import { PlayerDataManager } from '../../core/PlayerDataManager';
 import { T } from '../../core/TextManager';
 import { UISkinService } from '../UISkinService';
-import { CharacterVisualService } from '../../render/CharacterVisualService';
+import { SceneModelPreview, PreviewHandle } from '../../render/SceneModelPreview';
 import { NodeRef } from '../../utils/NodeRef';
 
 const { ccclass, property } = _decorator;
@@ -66,6 +66,8 @@ export class CreatePanel extends Component implements UIPanel {
     // Select phase nodes
     private _titleLabel: Node | null = null;
     private _modelDisplay: Node | null = null;
+    private _previewHandle: PreviewHandle | null = null;
+    private _previewGen = 0;
     private _cardRoot: Node | null = null;
     private _selectedInfo: Node | null = null;
     private _selectedDesc: Node | null = null;
@@ -93,7 +95,15 @@ export class CreatePanel extends Component implements UIPanel {
         this._layoutAll();
 
         this._buildCards();
-        this._selectCharacter('warrior');
+
+        // Default to the player's currently selected character (e.g. archer during 3D testing),
+        // falling back to the first unlocked option and finally warrior.
+        const pdm = PlayerDataManager.getInstance();
+        const selected = pdm.selectedCharacter;
+        const defaultId = CHAR_OPTIONS.some(c => c.id === selected) && pdm.isCharacterUnlocked(selected)
+            ? selected
+            : (CHAR_OPTIONS.find(c => pdm.isCharacterUnlocked(c.id))?.id ?? 'warrior');
+        this._selectCharacter(defaultId);
 
         this.scheduleOnce(() => {
             this._layoutAll();
@@ -102,6 +112,11 @@ export class CreatePanel extends Component implements UIPanel {
     }
 
     close(): void {
+        // T1B: invalidate any in-flight preview + release the surface/handle.
+        this._previewGen++;
+        this._previewHandle?.destroy();
+        this._previewHandle = null;
+        SceneModelPreview.instance.clearOwner('CreatePanel');
         if (this.panelRoot) this.panelRoot.active = false;
     }
 
@@ -231,9 +246,8 @@ export class CreatePanel extends Component implements UIPanel {
         const frame = root?.getChildByName('PanelFrame');
         const mask = root?.getChildByName('DimMask');
 
-        if (frame) frame.active = false;
-        if (mask) mask.active = false;
-
+        // Only disable the background sprites, never deactivate the nodes.
+        // PanelFrame carries the ContentRoot subtree with all buttons/inputs.
         const frameSprite = frame?.getComponent(Sprite);
         if (frameSprite) frameSprite.enabled = false;
 
@@ -306,6 +320,15 @@ export class CreatePanel extends Component implements UIPanel {
 
         if (this._selectView) this._selectView.active = isSelect;
         if (this._namingView) this._namingView.active = isNaming;
+
+        // When entering the naming phase the SelectView (and its PreviewZone
+        // slot) is hidden, so the offscreen RT/rig must be released to avoid
+        // leaks. Returning to select re-triggers _updateModelDisplay via _onSkip.
+        if (isNaming) {
+            this._previewGen++;
+            this._previewHandle?.destroy();
+            this._previewHandle = null;
+        }
 
         // Update button labels
         const skipLabel = this._skipBtn?.getComponentInChildren(Label);
@@ -431,18 +454,38 @@ export class CreatePanel extends Component implements UIPanel {
         this._clearError();
     }
 
+    /**
+     * Render the selected class's 3D character into the offscreen RenderTexture
+     * bound to the runtime ModelDisplay slot (T1A/T1B). `_modelDisplay` is the
+     * runtime `PanelRoot/SelectView/PreviewZone/ModelDisplay` node (UITransform +
+     * Sprite surface) — NOT a world-space anchor. Its position/size follow layout,
+     * so the render adapts to resolution automatically.
+     */
     private async _updateModelDisplay(id: string): Promise<void> {
         if (!this._modelDisplay) return;
-        this._modelDisplay.removeAllChildren();
 
-        const previewNode = new Node('CharacterPreview');
-        const trans = previewNode.addComponent(UITransform);
-        trans.setContentSize(128, 128);
-        previewNode.setPosition(0, 0);
-        previewNode.setScale(0.82, 0.82, 1);
-        this._modelDisplay.addChild(previewNode);
+        // Generation token guards against stale-handle leaks: if a newer request
+        // supersedes this in-flight mount, the resolved handle is discarded.
+        const gen = ++this._previewGen;
 
-        await CharacterVisualService.instance.play(previewNode, `character.${id}.attack`, 8);
+        // Rebuild: release any previous preview first (covers class switching).
+        this._previewHandle?.destroy();
+        this._previewHandle = null;
+
+        const handle = await SceneModelPreview.instance.showCharacterInSlot(
+            this._modelDisplay,
+            id,
+            'attack',
+            { ownerId: 'CreatePanel', forceUnlit: true },
+        );
+
+        // If a newer request (class switch / phase change / close) superseded
+        // this one while it was loading, discard the now-stale handle.
+        if (gen !== this._previewGen) {
+            handle?.destroy();
+            return;
+        }
+        this._previewHandle = handle;
     }
 
     private _refreshSelectedButtonState(): void {

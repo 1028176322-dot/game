@@ -4,7 +4,7 @@ import { ConfigService } from '../config/ConfigService';
 import { ConfigManager } from './ConfigManager';
 import { GameManager } from './GameManager';
 import { SceneFlowService } from '../app/SceneFlowService';
-import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService, IDebugService, ISaveManager, IReplayRecorder, IAnimationController, IEventBus, IRuntimeState, ILightingService } from './GameContext';
+import { GameContext, ILogger, IConfigDatabase, IAssetCache, ICameraBrain, ICollisionService, IDebugService, ISaveManager, IReplayRecorder, IAnimationController, IAudioService, IEventBus, IRuntimeState, ILightingService } from './GameContext';
 import { Logger } from './Logger';
 import { RuntimeState } from './RuntimeState';
 import { ConfigDatabase } from './ConfigDatabase';
@@ -339,6 +339,19 @@ export class GameBootstrap extends Component {
         };
         this._lifecycle.register(probe);
         probe.initialize(this._ctx);
+        // v0.4.4 (Demo7): formal startup keeps all infra services alive for the
+        // whole session. The enter/pause/resume/exit/destroy probe is extracted to
+        // runLifecycleSmokeTestOnly() so it can run in a test harness without
+        // tearing down the real runtime (the old destroyAll() here killed services).
+    }
+
+    /**
+     * Demo / headless lifecycle smoke test ONLY. Not called by formal startup().
+     * Runs the full lifecycle cycle against the wired infra and tears it down.
+     * Safe to invoke from a test harness; must NOT be mixed into startup().
+     */
+    runLifecycleSmokeTestOnly(): void {
+        if (!this._lifecycle) return;
         this._lifecycle.enterAll();
         this._lifecycle.pauseAll();
         this._lifecycle.resumeAll();

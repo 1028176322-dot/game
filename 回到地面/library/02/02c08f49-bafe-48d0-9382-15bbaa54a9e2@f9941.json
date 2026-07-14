@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "icon_debuff_stun",
+    "atlas": "",
+    "rect": {
+      "x": 21,
+      "y": 27,
+      "width": 150,
+      "height": 138
+    },
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "originalSize": {
+      "width": 192,
+      "height": 192
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -75,
+        -69,
+        0,
+        75,
+        -69,
+        0,
+        -75,
+        69,
+        0,
+        75,
+        69,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        21,
+        165,
+        171,
+        165,
+        21,
+        27,
+        171,
+        27
+      ],
+      "nuv": [
+        0.109375,
+        0.140625,
+        0.890625,
+        0.140625,
+        0.109375,
+        0.859375,
+        0.890625,
+        0.859375
+      ],
+      "minPos": {
+        "x": -75,
+        "y": -69,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 75,
+        "y": 69,
+        "z": 0
+      }
+    },
+    "texture": "02c08f49-bafe-48d0-9382-15bbaa54a9e2@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

@@ -34,6 +34,8 @@ PREFIX_BUCKET = {
     "BOSS": "bosses_final",
     "FX": "effects_normal",
     "TILE": "tiles",
+    "DNG": "dungeon",
+    "BG": "backdrop",
 }
 
 

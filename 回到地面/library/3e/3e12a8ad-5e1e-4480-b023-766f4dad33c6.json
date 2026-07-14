@@ -1,0 +1,91 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "character_parts",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "json": {
+    "metadata": {
+      "version": "2.0.0",
+      "lastUpdated": "2026-07-11",
+      "description": "Character part asset paths (modular cut from one rig master per profession). archer uses arm_r_weapon (hand+bow merged); quiver only for archer."
+    },
+    "warrior": {
+      "parts": {
+        "body": "textures/characters/warrior/parts/body",
+        "head": "textures/characters/warrior/parts/head",
+        "ear_l": "textures/characters/warrior/parts/ear_l",
+        "ear_r": "textures/characters/warrior/parts/ear_r",
+        "leg_l": "textures/characters/warrior/parts/leg_l",
+        "leg_r": "textures/characters/warrior/parts/leg_r",
+        "tail": "textures/characters/warrior/parts/tail",
+        "cape": "textures/characters/warrior/parts/cape",
+        "helmet": "textures/characters/warrior/parts/helmet",
+        "shield_arm_l": "textures/characters/warrior/parts/shield_arm_l",
+        "sword_arm_r": "textures/characters/warrior/parts/sword_arm_r"
+      }
+    },
+    "archer": {
+      "parts": {
+        "body": "textures/characters/archer/parts/body",
+        "head": "textures/characters/archer/parts/head",
+        "ear_l": "textures/characters/archer/parts/ear_l",
+        "ear_r": "textures/characters/archer/parts/ear_r",
+        "leg_l": "textures/characters/archer/parts/leg_l",
+        "leg_r": "textures/characters/archer/parts/leg_r",
+        "tail": "textures/characters/archer/parts/tail",
+        "cape": "textures/characters/archer/parts/cape",
+        "quiver": "textures/characters/archer/parts/quiver",
+        "arm_l": "textures/characters/archer/parts/arm_l",
+        "arm_r_weapon": "textures/characters/archer/parts/arm_r_weapon"
+      }
+    },
+    "assassin": {
+      "parts": {
+        "body": "textures/characters/assassin/parts/body",
+        "head": "textures/characters/assassin/parts/head",
+        "ear_l": "textures/characters/assassin/parts/ear_l",
+        "ear_r": "textures/characters/assassin/parts/ear_r",
+        "leg_l": "textures/characters/assassin/parts/leg_l",
+        "leg_r": "textures/characters/assassin/parts/leg_r",
+        "tail": "textures/characters/assassin/parts/tail",
+        "cape": "textures/characters/assassin/parts/cape",
+        "scarf": "textures/characters/assassin/parts/scarf",
+        "dagger_arm_l": "textures/characters/assassin/parts/dagger_arm_l",
+        "dagger_arm_r": "textures/characters/assassin/parts/dagger_arm_r"
+      }
+    },
+    "mage": {
+      "parts": {
+        "body": "textures/characters/mage/parts/body",
+        "head": "textures/characters/mage/parts/head",
+        "ear_l": "textures/characters/mage/parts/ear_l",
+        "ear_r": "textures/characters/mage/parts/ear_r",
+        "leg_l": "textures/characters/mage/parts/leg_l",
+        "leg_r": "textures/characters/mage/parts/leg_r",
+        "tail": "textures/characters/mage/parts/tail",
+        "cape": "textures/characters/mage/parts/cape",
+        "hat": "textures/characters/mage/parts/hat",
+        "robe_front": "textures/characters/mage/parts/robe_front",
+        "arm_l": "textures/characters/mage/parts/arm_l",
+        "staff_arm_r": "textures/characters/mage/parts/staff_arm_r"
+      }
+    },
+    "berserker": {
+      "parts": {
+        "body": "textures/characters/berserker/parts/body",
+        "head": "textures/characters/berserker/parts/head",
+        "ear_l": "textures/characters/berserker/parts/ear_l",
+        "ear_r": "textures/characters/berserker/parts/ear_r",
+        "leg_l": "textures/characters/berserker/parts/leg_l",
+        "leg_r": "textures/characters/berserker/parts/leg_r",
+        "tail": "textures/characters/berserker/parts/tail",
+        "cape": "textures/characters/berserker/parts/cape",
+        "shoulder_guard": "textures/characters/berserker/parts/shoulder_guard",
+        "belt": "textures/characters/berserker/parts/belt",
+        "arm_l": "textures/characters/berserker/parts/arm_l",
+        "axe_arm_r": "textures/characters/berserker/parts/axe_arm_r"
+      }
+    }
+  }
+}

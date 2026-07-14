@@ -608,27 +608,27 @@
         "usage": "element_icon"
     },
     "character.preview.warrior": {
-        "assetId": "textures/characters/warrior/warrior_idle",
+        "assetId": "textures/ui/character/avatar_warrior",
         "type": "sprite",
         "usage": "character_preview"
     },
     "character.preview.archer": {
-        "assetId": "textures/characters/archer/archer_idle",
+        "assetId": "textures/ui/character/avatar_archer",
         "type": "sprite",
         "usage": "character_preview"
     },
     "character.preview.assassin": {
-        "assetId": "textures/characters/assassin/assassin_idle",
+        "assetId": "textures/ui/character/avatar_assassin",
         "type": "sprite",
         "usage": "character_preview"
     },
     "character.preview.mage": {
-        "assetId": "textures/characters/mage/mage_idle",
+        "assetId": "textures/ui/character/avatar_mage",
         "type": "sprite",
         "usage": "character_preview"
     },
     "character.preview.berserker": {
-        "assetId": "textures/characters/berserker/berserker_idle",
+        "assetId": "textures/ui/character/avatar_berserker",
         "type": "sprite",
         "usage": "character_preview"
     },

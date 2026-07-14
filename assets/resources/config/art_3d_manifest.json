@@ -7,7 +7,8 @@
     "monsters": 36,
     "bosses": 42,
     "effects": 27,
-    "tiles": 24
+    "tiles": 24,
+    "dungeon": 42
   },
   "entries": [
     {
@@ -1456,6 +1457,384 @@
       "source_2d": [
         "tiles/volcano/tile_volcano_wall.png"
       ],
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Forest_Entry",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Forest_Chest",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Forest_HealAltar",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Forest_Shop",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Forest_Event",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Forest_BuffShrine",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Forest_BossGate",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Catacombs_Entry",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Catacombs_Chest",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Catacombs_HealAltar",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Catacombs_Shop",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Catacombs_Event",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Catacombs_BuffShrine",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Catacombs_BossGate",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Volcano_Entry",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Volcano_Chest",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Volcano_HealAltar",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Volcano_Shop",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Volcano_Event",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Volcano_BuffShrine",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Volcano_BossGate",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Tundra_Entry",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Tundra_Chest",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Tundra_HealAltar",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Tundra_Shop",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Tundra_Event",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Tundra_BuffShrine",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Tundra_BossGate",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Swamp_Entry",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Swamp_Chest",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Swamp_HealAltar",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Swamp_Shop",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Swamp_Event",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Swamp_BuffShrine",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Swamp_BossGate",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Abyss_Entry",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Abyss_Chest",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Abyss_HealAltar",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Abyss_Shop",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Abyss_Event",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Abyss_BuffShrine",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
+      "lifecycle": "选秀"
+    },
+    {
+      "name": "DNG_Abyss_BossGate",
+      "category": "dungeon",
+      "bucket": "dungeon",
+      "dim": "3d",
+      "source_2d": [],
+      "note": "dungeon functional prop (room feature); 2D concept art TBD - produce a 2D concept pass first or design from Brief 7 region palette; see Brief 2.8 / 8.7",
       "lifecycle": "选秀"
     }
   ]

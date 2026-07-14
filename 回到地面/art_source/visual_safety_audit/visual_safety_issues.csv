@@ -1,0 +1,96 @@
+﻿path,decision,risk_reasons
+backgrounds/bg_combat_volcano.png,manual_review,red_visual_heuristic_dark:15.8%
+backgrounds/bg_event_volcano.png,manual_review,red_visual_heuristic_dark:12.3%
+backgrounds/bg_room_shop.png,manual_review,red_visual_heuristic_dark:8.5%
+bosses/finalboss/abyss/boss_abyssoverlord_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/boss_abyssoverlord_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/boss_beast_swamp_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/boss_firelord_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/boss_forestguardian_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/boss_frostqueen_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/boss_guardian_forest_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/boss_lord_abyss_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/boss_lord_catacombs_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/boss_lord_volcano_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/boss_queen_tundra_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/boss_skeletonlord_attack.png,manual_review,manual_review_skeleton_keyword
+bosses/finalboss/boss_skeletonlord_death.png,manual_review,manual_review_death_theme; manual_review_skeleton_keyword
+bosses/finalboss/boss_skeletonlord_idle.png,manual_review,manual_review_skeleton_keyword
+bosses/finalboss/boss_skeletonlord_phasechange.png,manual_review,manual_review_skeleton_keyword
+bosses/finalboss/boss_skeletonlord_skill.png,manual_review,manual_review_skeleton_keyword
+bosses/finalboss/boss_swampbehemoth_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/catacombs/boss_skeletonlord_attack.png,manual_review,manual_review_skeleton_keyword
+bosses/finalboss/catacombs/boss_skeletonlord_death.png,manual_review,manual_review_death_theme; manual_review_skeleton_keyword
+bosses/finalboss/catacombs/boss_skeletonlord_idle.png,manual_review,manual_review_skeleton_keyword
+bosses/finalboss/catacombs/boss_skeletonlord_phasechange.png,manual_review,manual_review_skeleton_keyword
+bosses/finalboss/catacombs/boss_skeletonlord_skill.png,manual_review,manual_review_skeleton_keyword
+bosses/finalboss/forest/boss_forestguardian_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/swamp/boss_swampbehemoth_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/tundra/boss_frostqueen_death.png,manual_review,manual_review_death_theme
+bosses/finalboss/volcano/boss_firelord_death.png,manual_review,manual_review_death_theme
+bosses/miniboss/catacombs/miniboss_giantskeleton_idle.png,manual_review,manual_review_skeleton_keyword
+characters/archer/archer_death.png,manual_review,manual_review_death_theme
+characters/assassin/assassin_death.png,manual_review,manual_review_death_theme
+characters/berserker/berserker_attack.png,manual_review,manual_review_berserker_theme; red_visual_heuristic_dark:9.5%
+characters/berserker/berserker_death.png,manual_review,manual_review_berserker_theme; manual_review_death_theme; red_visual_heuristic_dark:12.7%
+characters/berserker/berserker_dodge.png,manual_review,manual_review_berserker_theme
+characters/berserker/berserker_hit.png,manual_review,manual_review_berserker_theme; red_visual_heuristic_dark:15.1%
+characters/berserker/berserker_idle.png,manual_review,manual_review_berserker_theme; red_visual_heuristic_dark:16.0%
+characters/berserker/berserker_skill.png,manual_review,manual_review_berserker_theme
+characters/berserker/berserker_walk.png,manual_review,manual_review_berserker_theme
+characters/mage/mage_death.png,manual_review,manual_review_death_theme
+characters/warrior/warrior_death.png,manual_review,manual_review_death_theme
+effects/reactions/fx_reaction_burn.png,manual_review,red_visual_heuristic_dark:99.5%
+effects/relics/fx_relic_flame_ring.png,manual_review,red_visual_heuristic_dark:77.2%
+icons/buffs/icon_buff_atkup.png,manual_review,red_visual_heuristic_dark:11.6%
+icons/buffs/icon_buff_shield.png,manual_review,red_visual_heuristic_dark:12.0%
+icons/buffs/icon_buff_stealth.png,manual_review,red_visual_heuristic_dark:8.0%
+icons/buffs/icon_debuff_slow.png,reject_rework_required,known unsafe: generated buff/debuff icon contains English/fake text
+icons/buffs/icon_debuff_stun.png,manual_review,red_visual_heuristic_dark:8.9%
+icons/elements/icon_element_fire.png,manual_review,red_visual_heuristic_dark:8.7%
+icons/items/icon_item_flamebomb.png,manual_review,red_visual_heuristic_dark:9.0%
+icons/relics/icon_relic_flamering.png,manual_review,red_visual_heuristic_dark:21.6%
+icons/relics/icon_relic_frenzyaxe.png,manual_review,manual_review_blade_keyword; red_visual_heuristic_dark:68.3%
+icons/relics/icon_relic_shadowdagger.png,manual_review,manual_review_blade_keyword
+icons/relics/icon_relic_thornarmor.png,manual_review,manual_review_spike_keyword
+icons/sets/icon_set_frostbite.png,reject_rework_required,known unsafe: generated set icon contains English/fake text
+icons/sets/icon_set_fury.png,reject_rework_required,known unsafe: generated set icon contains English/fake text
+icons/sets/icon_set_ironwall.png,reject_rework_required,known unsafe: generated set icon contains English/fake text
+icons/sets/icon_set_tempest.png,reject_rework_required,known unsafe: generated set icon contains English/fake text
+icons/skills/icon_skill_dash.png,reject_rework_required,known unsafe: generated skill icon contains English/fake text
+icons/skills/icon_skill_elementburst.png,reject_rework_required,known unsafe: generated skill icon contains English/fake text
+icons/skills/icon_skill_healwave.png,reject_rework_required,known unsafe: generated skill icon contains English/fake text
+monsters/catacombs/monster_catacombs_deathknight_idle.png,manual_review,manual_review_death_theme
+monsters/catacombs/monster_catacombs_skeleton_idle.png,manual_review,manual_review_skeleton_keyword
+monsters/catacombs/monster_catacombs_skeletonarcher_idle.png,manual_review,manual_review_skeleton_keyword
+monsters/tundra/monster_tundra_iceskeleton_idle.png,manual_review,manual_review_skeleton_keyword
+tiles/abyss/tile_abyss_thorn.png,manual_review,manual_review_spike_keyword
+tiles/catacombs/tile_catacombs_thorn.png,manual_review,manual_review_spike_keyword
+tiles/forest/tile_forest_thorn.png,manual_review,manual_review_spike_keyword
+tiles/swamp/tile_swamp_thorn.png,manual_review,manual_review_spike_keyword
+tiles/tundra/tile_tundra_thorn.png,manual_review,manual_review_spike_keyword
+tiles/volcano/tile_volcano_thorn.png,manual_review,manual_review_spike_keyword
+ui/common/btn_active.png,reject_rework_required,known unsafe: fake text or skull-like decoration in generated button
+ui/common/btn_default.png,reject_rework_required,known unsafe: fake text or skull-like decoration in generated button
+ui/common/btn_hover.png,reject_rework_required,known unsafe: fake text or skull-like decoration in generated button
+ui/death/btn_revive_active.png,reject_rework_required,known unsafe death-ui batch: fake text or horror visual risk; manual_review_death_theme
+ui/death/btn_revive_default.png,reject_rework_required,known unsafe death-ui batch: fake text or horror visual risk; manual_review_death_theme
+ui/death/btn_settle_active.png,reject_rework_required,known unsafe death-ui batch: fake text or horror visual risk; manual_review_death_theme; red_visual_heuristic_dark:11.1%
+ui/death/btn_settle_default.png,reject_rework_required,known unsafe death-ui batch: fake text or horror visual risk; manual_review_death_theme
+ui/death/death_bg.png,reject_rework_required,known unsafe: skulls/blood/organs/bones in generated result background; manual_review_death_theme
+ui/death/icon_soulstone.png,reject_rework_required,known unsafe death-ui batch: must recheck as family-friendly crystal; manual_review_death_theme
+ui/death/result_panel.png,reject_rework_required,known unsafe death-ui batch: must recheck as family-friendly result panel; manual_review_death_theme
+ui/hud/hud_cdmask.png,reject_rework_required,known unsafe: generated image contains English/fake UI text
+ui/hud/hud_rollbtn.png,reject_rework_required,known unsafe: generated image contains English/fake UI text
+ui/hud/hud_skillslot.png,reject_rework_required,known unsafe: generated image contains English/fake UI text
+ui/map/icon_room_boss.png,reject_rework_required,known unsafe: skull-like icon generated for boss room marker
+ui/map/icon_room_treasure.png,manual_review,red_visual_heuristic_dark:10.2%
+ui/splash/splash_bg.png,reject_rework_required,known unsafe: generated image contains English/fake UI text
+ui/upgrade/icon_ability_firewalker.png,manual_review,red_visual_heuristic_dark:10.9%
+ui/upgrade/icon_ability_lifestealaura.png,reject_rework_required,known unsafe: pierced realistic heart/blood/fake text in generated icon; manual_review_lifesteal_theme
+ui/upgrade/icon_ability_warcry.png,manual_review,red_visual_heuristic_dark:20.7%
+ui/upgrade/icon_relic_frenzyaxe.png,manual_review,manual_review_blade_keyword
+ui/upgrade/icon_relic_lifelink.png,manual_review,red_visual_heuristic_dark:13.0%
+ui/upgrade/icon_relic_shadowdagger.png,manual_review,manual_review_blade_keyword
+ui/upgrade/icon_relic_thornarmor.png,manual_review,manual_review_spike_keyword
+ui/upgrade/icon_upgrade_berserkerpact.png,reject_rework_required,known unsafe: skull/blood/fake text in generated icon; manual_review_berserker_theme; red_visual_heuristic_dark:30.5%

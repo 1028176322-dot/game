@@ -1,0 +1,13 @@
+{
+  "total": 418,
+  "generated_png": 338,
+  "issue_count": 95,
+  "decision_counts": {
+    "pass": 323,
+    "manual_review": 70,
+    "reject_rework_required": 25
+  },
+  "known_reject_count": 25,
+  "prompt_rework_count": 0,
+  "manual_review_count": 70
+}

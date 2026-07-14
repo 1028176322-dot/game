@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "icon_element_lightning",
+    "atlas": "",
+    "rect": {
+      "x": 48,
+      "y": 21,
+      "width": 96,
+      "height": 150
+    },
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "originalSize": {
+      "width": 192,
+      "height": 192
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -48,
+        -75,
+        0,
+        48,
+        -75,
+        0,
+        -48,
+        75,
+        0,
+        48,
+        75,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        48,
+        171,
+        144,
+        171,
+        48,
+        21,
+        144,
+        21
+      ],
+      "nuv": [
+        0.25,
+        0.109375,
+        0.75,
+        0.109375,
+        0.25,
+        0.890625,
+        0.75,
+        0.890625
+      ],
+      "minPos": {
+        "x": -48,
+        "y": -75,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 48,
+        "y": 75,
+        "z": 0
+      }
+    },
+    "texture": "ccb3b651-65bf-4944-8698-6f225d8fed0d@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

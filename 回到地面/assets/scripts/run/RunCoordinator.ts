@@ -11,6 +11,8 @@ import { AppFlowController, AppFlowState } from '../app/AppFlowController';
 import { SceneFlowService } from '../app/SceneFlowService';
 import { ComplianceService } from '../platform/ComplianceService';
 import { T } from '../core/TextManager';
+import { SaveService } from '../core/save/SaveService';
+import { RunSave } from '../core/save/SaveTypes';
 
 const { ccclass } = _decorator;
 
@@ -69,6 +71,28 @@ export class RunCoordinator {
             elapsed: 0,
             isActive: true,
         };
+
+        // v0.4.4 (Demo7): create + persist a base RunSave (route: undefined) so
+        // RouteSaveAdapter has an active run to attach route state to. A new RunSave
+        // is ONLY ever created here (red line: RouteSaveAdapter must not fabricate one).
+        // NOTE: player/inventory are P0 base defaults; the real character-stat source
+        // (PlayerDataManager) is not yet implemented — follow-up to wire actual stats.
+        const runId = `run_${config.startedAt}_${config.seed}`;
+        const runSave: RunSave = {
+            schemaVersion: 1,
+            runId,
+            seed: config.seed,
+            startedAt: config.startedAt,
+            updatedAt: Date.now(),
+            zoneId: this.getCurrentZone(),
+            floor: 1,
+            roomId: '',
+            player: { hp: 100, maxHp: 100, level: 1, exp: 0 },
+            inventory: { items: [], equipment: [] },
+            rng: { runSeed: config.seed, combatStep: 0, lootStep: 0 },
+            route: undefined,
+        };
+        SaveService.instance.saveRun(runSave);
 
         // Update AppFlow state
         const appFlow = AppFlowController.instance;

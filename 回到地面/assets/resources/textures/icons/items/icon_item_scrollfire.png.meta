@@ -8,98 +8,6 @@
     ".png"
   ],
   "subMetas": {
-    "f9941": {
-      "importer": "sprite-frame",
-      "uuid": "d327dc12-4481-4b9b-8d3a-2e8bb3f8708d@f9941",
-      "displayName": "icon_item_scrollfire",
-      "id": "f9941",
-      "name": "spriteFrame",
-      "userData": {
-        "trimThreshold": 1,
-        "rotated": false,
-        "offsetX": -0.5,
-        "offsetY": 0,
-        "trimX": 16,
-        "trimY": 10,
-        "width": 95,
-        "height": 108,
-        "rawWidth": 128,
-        "rawHeight": 128,
-        "borderTop": 0,
-        "borderBottom": 0,
-        "borderLeft": 0,
-        "borderRight": 0,
-        "packable": true,
-        "pixelsToUnit": 100,
-        "pivotX": 0.5,
-        "pivotY": 0.5,
-        "meshType": 0,
-        "vertices": {
-          "rawPosition": [
-            -47.5,
-            -54,
-            0,
-            47.5,
-            -54,
-            0,
-            -47.5,
-            54,
-            0,
-            47.5,
-            54,
-            0
-          ],
-          "indexes": [
-            0,
-            1,
-            2,
-            2,
-            1,
-            3
-          ],
-          "uv": [
-            16,
-            118,
-            111,
-            118,
-            16,
-            10,
-            111,
-            10
-          ],
-          "nuv": [
-            0.125,
-            0.078125,
-            0.8671875,
-            0.078125,
-            0.125,
-            0.921875,
-            0.8671875,
-            0.921875
-          ],
-          "minPos": [
-            -47.5,
-            -54,
-            0
-          ],
-          "maxPos": [
-            47.5,
-            54,
-            0
-          ]
-        },
-        "isUuid": true,
-        "imageUuidOrDatabaseUri": "d327dc12-4481-4b9b-8d3a-2e8bb3f8708d@6c48a",
-        "atlasUuid": "",
-        "trimType": "auto"
-      },
-      "ver": "1.0.12",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "6c48a": {
       "importer": "texture",
       "uuid": "d327dc12-4481-4b9b-8d3a-2e8bb3f8708d@6c48a",
@@ -118,6 +26,98 @@
         "visible": false
       },
       "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "d327dc12-4481-4b9b-8d3a-2e8bb3f8708d@f9941",
+      "displayName": "icon_item_scrollfire",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": -0.5,
+        "offsetY": 0,
+        "trimX": 30,
+        "trimY": 21,
+        "width": 131,
+        "height": 150,
+        "rawWidth": 192,
+        "rawHeight": 192,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -65.5,
+            -75,
+            0,
+            65.5,
+            -75,
+            0,
+            -65.5,
+            75,
+            0,
+            65.5,
+            75,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            30,
+            171,
+            161,
+            171,
+            30,
+            21,
+            161,
+            21
+          ],
+          "nuv": [
+            0.15625,
+            0.109375,
+            0.8385416666666666,
+            0.109375,
+            0.15625,
+            0.890625,
+            0.8385416666666666,
+            0.890625
+          ],
+          "minPos": [
+            -65.5,
+            -75,
+            0
+          ],
+          "maxPos": [
+            65.5,
+            75,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "d327dc12-4481-4b9b-8d3a-2e8bb3f8708d@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
       "imported": true,
       "files": [
         ".json"

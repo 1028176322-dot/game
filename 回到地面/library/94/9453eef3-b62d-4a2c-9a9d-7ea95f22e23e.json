@@ -1,0 +1,48 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "ui_skin_bindings",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "json": {
+    "metadata": {
+      "version": "1.0.0",
+      "lastUpdated": "2026-07-06",
+      "description": "Scene node path to ui_assets semantic key bindings. Path starts from Canvas."
+    },
+    "splash": {
+      "Canvas/SplashUI/SplashImage": "ui.splash.bg"
+    },
+    "main": {
+      "Canvas/MainBackground": "ui.main.bg",
+      "Canvas/MainUI/StartButton": "ui.main.start_button",
+      "Canvas/MainUI/characterBtn": "ui.main.character_button",
+      "Canvas/MainUI/ShopBtn": "ui.main.shop_button",
+      "Canvas/MainUI/LogBtn": "ui.main.log_button",
+      "Canvas/MainUI/SettingsBtn": "ui.main.settings_button",
+      "Canvas/LoginPanel/PanelRoot/PanelFrame": "ui.panel.frame",
+      "Canvas/CreatePanel/PanelRoot/CreateBackground": "ui.create.bg",
+      "Canvas/CharacterPanel/PanelRoot/PanelFrame": "ui.panel.frame",
+      "Canvas/AreaSelectPanel/PanelRoot/PanelFrame": "ui.panel.frame",
+      "Canvas/SettlementPanel/PanelRoot/PanelFrame": "ui.panel.frame",
+      "Canvas/SettingsPanel/PanelRoot/PanelFrame": "ui.panel.frame",
+      "Canvas/AdventureLogPanel/PanelRoot/PanelFrame": "ui.panel.frame",
+      "Canvas/SettlementPanel/PanelRoot/PanelFrame/ContentRoot/DoubleBtn": "ui.settlement.double_btn",
+      "Canvas/SettlementPanel/PanelRoot/PanelFrame/ContentRoot/BackBtn": "ui.settlement.back_btn",
+      "Canvas/SettingsPanel/PanelRoot/PanelFrame/ContentRoot/CloseBtn": "ui.settings.close_btn",
+      "Canvas/SettingsPanel/PanelRoot/PanelFrame/ContentRoot/ResetBtn": "ui.settings.reset_btn",
+      "Canvas/AdventureLogPanel/PanelRoot/PanelFrame/ContentRoot/CloseBtn": "ui.log.close_btn",
+      "Canvas/CharacterPanel/PanelRoot/PanelFrame/ContentRoot/CloseBtn": "ui.character.close_btn",
+      "Canvas/AreaSelectPanel/PanelRoot/PanelFrame/ContentRoot/StartBtn": "ui.area.start_btn",
+      "Canvas/AreaSelectPanel/PanelRoot/PanelFrame/ContentRoot/BackBtn": "ui.area.back_btn",
+      "Canvas/LoginPanel/PanelRoot/PanelFrame/ContentRoot/PlatformLoginBtn": "ui.login.platform_btn",
+      "Canvas/LoginPanel/PanelRoot/PanelFrame/ContentRoot/GuestBtn": "ui.login.guest_btn"
+    },
+    "dungeon": {
+      "Canvas/UIRoot/BattleHUD": "ui.hud.hpbar_bg",
+      "Canvas/UIRoot/SkillUI": "ui.hud.skillslot",
+      "Canvas/UIRoot/VirtualJoystick": "ui.joystick.base",
+      "Canvas/UIRoot/DungeonMapUI": "ui.map.node_current"
+    }
+  }
+}

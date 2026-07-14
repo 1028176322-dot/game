@@ -1,0 +1,19 @@
+{
+  "expected_png": 418,
+  "actual_png": 313,
+  "missing": 105,
+  "extra": 0,
+  "non_png": 0,
+  "issue_count": 643,
+  "issue_types": {
+    "dimension_mismatch": 89,
+    "alpha_opaque": 182,
+    "bosses_low_transparent_ratio": 84,
+    "size_over_2x_budget": 83,
+    "missing_png": 105,
+    "icons_low_transparent_ratio": 51,
+    "monsters_low_transparent_ratio": 6,
+    "ui_low_transparent_ratio": 41,
+    "visual_safety_rework_required": 2
+  }
+}

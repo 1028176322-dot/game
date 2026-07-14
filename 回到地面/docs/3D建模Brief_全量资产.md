@@ -1,14 +1,14 @@
 # 3D 建模 Brief — 全量资产生产规格
 
 > **编码**: UTF-8
-> **版本**: 1.0 / 2026-07-10
+> **版本**: 1.2.0 / 2026-07-11
 > **用途**: 供 AI / Blender 美术师独立制作 3D 游戏资产，无需额外询问规格
 
 ```yaml
 Document:
   Name: Art3D_Production_Brief
-  Version: 1.1.0
-  LastUpdate: 2026-07-10
+  Version: 1.2.0
+  LastUpdate: 2026-07-11
   Compatible:
     - art_3d_manifest.json v1
     - art_quality_budget.json → rules3d v1
@@ -32,7 +32,7 @@ Document:
 - **平台**: TapTap Android（参考分辨率 1920×1080）
 - **运行时**: Cocos Creator 3.8.8 内置渲染管线（非 URP/HDRP/Three.js），Cocos standard 材质
 - **烘焙光照**: **不需要** — 使用 Cocos 动态光照或 Shader 级卡通光照，无需 UV 展开烘焙
-- **当前阶段**: 2D → 3D 升级，已注册 134 项 3D 资产等待生产
+- **当前阶段**: 2D → 3D 升级，已注册 176 项（134 + 42 地牢功能道具）3D 资产等待生产
 
 ---
 
@@ -48,10 +48,11 @@ Document:
 | 小 Boss | `BOSS_` | `BOSS_{Name}_{NN}.glb` | `BOSS_Mini_01.glb` |
 | 特效 | `FX_` | `FX_{Name}.prefab` | `FX_Crit.prefab` |
 | 地块 | `TILE_` | `TILE_{Region}_{Module}.glb` | `TILE_Forest_Floor.glb` |
+| 地牢道具 | `DNG_` | `DNG_{Region}_{Func}.glb` | `DNG_Forest_Chest.glb` |
 
 - 动画 clip：`{前缀}_{Token}_{Clip}`（如 `CHR_Warrior_Attack`）
-- 正则校验（`asset_validate.py` 执行）：`^(CHR|MON|BOSS|FX|TILE)_[A-Za-z0-9]+(_[A-Za-z0-9]+)?([.]glb|[.]prefab)?$`
-- **命名一致性**：所有名字必须保持**大小写统一**。例如 `HighGround`（PascalCase）不得写成 `Highground` 或 `highground`。Tile 模块命名：`Floor`/`Wall`/`HighGround`/`Thorn`/`Corner`/`Edge`/`Slope`/`Ramp`。
+- 正则校验（`asset_validate.py` 执行）：`^(CHR|MON|BOSS|FX|TILE|DNG)_[A-Za-z0-9]+(_[A-Za-z0-9]+)?([.]glb|[.]prefab)?$`
+- **命名一致性**：所有名字必须保持**大小写统一**。例如 `HighGround`（PascalCase）不得写成 `Highground` 或 `highground`。Tile 模块命名：`Floor`/`Wall`/`HighGround`/`Thorn`/`Corner`/`Edge`/`Slope`/`Ramp`。Dungeon 功能件命名：`Entry`/`Chest`/`HealAltar`/`Shop`/`Event`/`BuffShrine`/`BossGate`。
 
 ---
 
@@ -156,6 +157,22 @@ Document:
 
 > tiles 为**静态模块件，不需要骨骼/动画**。
 
+### 2.8 地牢功能道具 `dungeon`（每区域 7 件 × 6 区域 = 42 件）
+
+| 指标 | 值 |
+|------|-----|
+| 模块类型 | Entry（入口门）/ Chest（宝箱）/ HealAltar（治疗祭坛，对应地形码3）/ Shop（商店柜台）/ Event（事件标记）/ BuffShrine（强化神龛）/ BossGate（Boss 闸门） |
+| 面数 (Tri) | 800 – 3000 |
+| 骨骼 (Bones) | 0（静态道具，无骨骼/动画） |
+| 贴图尺寸 | 512² |
+| ASTC 压缩 | 6×6 |
+| LOD | L0 100% (0m), L1 50% (20m) |
+| 性能等级 | low |
+| 区域主题 | 配色继承 §7 的 6 区域主色调（Forest 暖绿 / Catacombs 灰绿 / Volcano 橙黑 / Tundra 蓝白 / Swamp 墨绿 / Abyss 紫黑） |
+
+> dungeon 道具为**静态功能件**，与 tiles 同理不需要骨骼/动画。它们填补地牢 DAG 房间的功能性视觉——每间房除地板/墙（`TILE_`）外，还需对应功能道具才构成可辨识房间（宝箱房有 `Chest`、回复房有 `HealAltar` 等）。
+> **2D 参考缺口**：当前 `source_2d` 为空——这些功能道具尚无 2D 概念稿。生产前需先补一轮 2D 概念稿（或按 §7 区域色板直接由 AI 几何化设计；须遵守 §10.11 仅用本 Brief + 区域色板，禁止引用训练知识）。
+
 ---
 
 ## 3. 导出规范（所有 .glb）
@@ -186,7 +203,7 @@ Document:
 ### 3.2 动画需求明细
 
 **需要骨骼绑定的资产**：characters(5) + monsters(36) + bosses(42) = **83 项**
-**不需要骨骼的资产**：tiles(24 静态模块件) + effects(27 粒子 Prefab) = **51 项**
+**不需要骨骼的资产**：tiles(24 静态模块件) + effects(27 粒子 Prefab) + dungeon(42 静态功能道具) = **93 项**
 
 | 动作类型 | 适用 | 建议帧数 | 说明 |
 |---------|------|---------|------|
@@ -267,13 +284,13 @@ Document:
 
 ### 6.1 前置：生成 .assetmeta.json 模板
 
-在开始任何模型制作之前，先运行工具脚本为全部 134 项资产生成 .assetmeta.json 模板。AI 只需填入实际数值（Tri/Bone/Animation等），无需从头编写：
+在开始任何模型制作之前，先运行工具脚本为全部 176 项资产生成 .assetmeta.json 模板。AI 只需填入实际数值（Tri/Bone/Animation等），无需从头编写：
 
 ```bash
 # 先确认工作目录
 cd E:/game/回到地面/
 
-# 生成全部 134 项模板（输出到 assets/resources/models/{cat}/）
+# 生成全部 176 项模板（输出到 assets/resources/models/{cat}/）
 python tools/gen_assetmeta_from_manifest.py
 
 # 仅生成单个资产（用于测试）
@@ -377,7 +394,7 @@ python tools/collect_3d_progress.py --report
 
 ---
 
-## 8. 全量资产清单（134 项，按优先级排序）
+## 8. 全量资产清单（176 项，含 42 地牢功能道具，按优先级排序）
 
 > 优先级：P1（角色）→ P2（地块+雕像怪）→ P3（Boss+剩余怪+特效）
 > 生命周期均为"选秀"。
@@ -617,6 +634,37 @@ python tools/collect_3d_progress.py --report
 | `FX_UiGlow.prefab` | `effects/ui/fx_ui_glow.png` |
 | `FX_UiLoading.prefab` | `effects/ui/fx_ui_loading.png` |
 
+### 8.7 P4 — 地牢功能道具 Dungeon Props（42 项）
+
+> 地牢 DAG 房间（入口/战斗/宝箱/回复/商店/事件/强化/Boss）除地板墙（`TILE_`）外，还需功能道具构成可辨识房间。地形码 3（治疗）/5（暗区）也由 `HealAltar` / 暗区体积（见下）表达。
+
+**7 功能件 × 6 区域 = 42 件**，命名 `DNG_{Region}_{Func}.glb`：
+
+| 功能件 | 含义 | 地形/房间 |
+|--------|------|-----------|
+| `DNG_{R}_Entry` | 入口门/传送门 | 入口房 |
+| `DNG_{R}_Chest` | 宝箱 | 宝箱房 |
+| `DNG_{R}_HealAltar` | 治疗祭坛 | 回复房（地形码3） |
+| `DNG_{R}_Shop` | 商店柜台 | 商店房 |
+| `DNG_{R}_Event` | 事件标记石/符文 | 事件房 |
+| `DNG_{R}_BuffShrine` | 强化神龛 | 强化房 |
+| `DNG_{R}_BossGate` | Boss 闸门/传送门 | Boss 房 |
+
+`{R}` ∈ Forest / Catacombs / Volcano / Tundra / Swamp / Abyss。战斗房由 `MON_*` 怪物本身定义，无独立道具；Boss 房由 `BOSS_*` + `BossGate` 道具共同定义。
+
+**6 区域 × 7 件清单**：
+
+| 区域 | 7 件命名 |
+|------|--------|
+| Forest | `DNG_Forest_Entry` `DNG_Forest_Chest` `DNG_Forest_HealAltar` `DNG_Forest_Shop` `DNG_Forest_Event` `DNG_Forest_BuffShrine` `DNG_Forest_BossGate` |
+| Catacombs | `DNG_Catacombs_Entry` `DNG_Catacombs_Chest` `DNG_Catacombs_HealAltar` `DNG_Catacombs_Shop` `DNG_Catacombs_Event` `DNG_Catacombs_BuffShrine` `DNG_Catacombs_BossGate` |
+| Volcano | `DNG_Volcano_Entry` `DNG_Volcano_Chest` `DNG_Volcano_HealAltar` `DNG_Volcano_Shop` `DNG_Volcano_Event` `DNG_Volcano_BuffShrine` `DNG_Volcano_BossGate` |
+| Tundra | `DNG_Tundra_Entry` `DNG_Tundra_Chest` `DNG_Tundra_HealAltar` `DNG_Tundra_Shop` `DNG_Tundra_Event` `DNG_Tundra_BuffShrine` `DNG_Tundra_BossGate` |
+| Swamp | `DNG_Swamp_Entry` `DNG_Swamp_Chest` `DNG_Swamp_HealAltar` `DNG_Swamp_Shop` `DNG_Swamp_Event` `DNG_Swamp_BuffShrine` `DNG_Swamp_BossGate` |
+| Abyss | `DNG_Abyss_Entry` `DNG_Abyss_Chest` `DNG_Abyss_HealAltar` `DNG_Abyss_Shop` `DNG_Abyss_Event` `DNG_Abyss_BuffShrine` `DNG_Abyss_BossGate` |
+
+> 完整 42 项已写入 `art_3d_manifest.json`（category=`dungeon`）。`source_2d` 暂为空——需补 2D 概念稿后再 3D 生产（或见 §2.8 的几何化例外）。
+
 ---
 
 ## 9. 资产优先级排序
@@ -664,7 +712,17 @@ P3 — Boss 阵容 + 进阶特效：
 | **P3c** | 8 | **剩余元素反应特效**（Conduct/Corrode/Decay/Melt/Overload/Radiance/Shatter/Vaporize/Void 等） |
 | **P3d** | 12 | **遗物特效 + UI 特效** |
 
-> P3 合计 60 项。完成后全量 134 项 3D 资产齐备。
+> P3 合计 60 项。
+
+### Deferred（第四期，42 项）— 地牢功能道具
+
+P4 — 地牢 DAG 房间的功能性视觉补全：
+
+| 优先级 | 项数 | 资产 |
+|--------|------|------|
+| **P4** | 42 | **地牢功能道具**（`DNG_*`，6 区域 × 7 功能件：Entry/Chest/HealAltar/Shop/Event/BuffShrine/BossGate） |
+
+> P4 为**地牢房间功能道具**，补全 DAG 房间的可辨识视觉（宝箱房有 `Chest`、回复房有 `HealAltar` 等）。当前 `source_2d` 为空（无 2D 概念稿），需先补 2D 概念稿或按 §2.8 几何化例外生产。建议在所有战斗资产（P1–P3）完成后，随地牢系统实装一并推进。
 
 ### 汇总
 
@@ -673,6 +731,7 @@ P3 — Boss 阵容 + 进阶特效：
 | 第一期 | Must-Have (P1) | 21 | 21 |
 | 第二期 | Should-Have (P2) | 53 | 74 |
 | 第三期 | Nice-to-Have (P3) | 60 | 134 |
+| 第四期 | Deferred (P4) | 42 | 176 |
 
 > **建议生产顺序**：先 P1 打通 Forest 区域闭环 → 再 P2 扩展到 6 区域 → 最后 P3 补 Boss 阵容。
 
@@ -820,7 +879,7 @@ AI 的职责是**将 2D 转换为 3D，不是重新创作**。
 
 #### 角色 Mesh 拆分
 
-角色模型**必须按以下部件拆分**（每个部件为独立 Mesh／独立材质 ID／独立骨骼控制），与项目的部件化动画系统（`角色.txt`）对齐：
+角色模型**必须按以下部件拆分**（每个部件为独立 Mesh／独立材质 ID／独立骨骼控制），与项目的 2D 部件化方案对齐（权威来源：`docs/角色部件化母版标准姿势规范.md` + `docs/角色部件化母版切割与精确拼装方案.md`；旧 `角色.txt` 的 arm_r+bow 拆分已废弃）：
 
 ```
 Body（躯干）
@@ -850,9 +909,11 @@ Accessory（装饰物）— 复数可拆
 
 **命名规则**：所有部件 Mesh 名使用 PascalCase + 角色前缀，例如 `CHR_Archer_Body`、`CHR_Archer_Head`、`CHR_Archer_Ear_L`。
 
+> **2D / 3D 部件名一致性**：2D 侧部件名用 snake_case（`ear_l`/`ear_r`/`arm_l`/`arm_r_weapon`/`shield_arm_l`/`sword_arm_r`/`dagger_arm_l`/`dagger_arm_r`/`staff_arm_r`/`axe_arm_r`/`quiver`/`cape`/`scarf`/`hat`/`helmet`/`shoulder_guard`/`belt`/`robe_front`/`tail`/`leg_l`/`leg_r`/`body`/`head`），3D Mesh 名用 PascalCase 并对称件加 `_L`/`_R` 后缀（`Ear_L`/`Ear_R`/`Arm_L`/`Arm_R`/`Leg_L`/`Leg_R`）。映射示例：`ear_l`→`Ear_L`，`arm_r_weapon`→`Arm_R_Weapon`（或 `Sword_Arm_R`），`shield_arm_l`→`Shield_Arm_L`。武器 Mesh 按实际类型命名（`Bow`/`Sword`/`Staff`/`Dagger`/`Axe`），挂在右手 Socket。
+
 **标准部件集速查**：
 
-| # | 部件 | 类型 | 必/可选 | 对应角色.txt |
+| # | 部件 | 类型 | 必/可选 | 对应 2D 部件名（§4.3） |
 |---|------|------|---------|------------|
 | 1 | Body | 独立 Mesh | **必须** | body |
 | 2 | Head | 独立 Mesh | **必须** | head |
@@ -1281,10 +1342,10 @@ Notes: 无
 | `docs/美术资源制作参数总表_3D.md` | 逐资源参数表（命名/预算/LOD/依赖） |
 | `.workbuddy/memory/topics/ART_RESOURCE_RULES.md §16` | 3D 权威规则（命名/预算/目录/生命周期） |
 | `assets/resources/config/art_quality_budget.json → rules3d` | 机器可读预算数值 |
-| `assets/resources/config/art_3d_manifest.json` | 134 项注册表（含 source_2d 参考路径） |
+| `assets/resources/config/art_3d_manifest.json` | 176 项注册表（含 source_2d 参考路径） |
 | `tools/asset_validate.py` | 3D 技术校验器 |
 | `tools/art_pipeline.py` | 3D 入库入口（`import --mode 3d`） |
-| `tools/gen_assetmeta_from_manifest.py` | 从 manifest 批量生成 .assetmeta.json 模板（134 项） |
+| `tools/gen_assetmeta_from_manifest.py` | 从 manifest 批量生成 .assetmeta.json 模板（176 项） |
 | `tools/collect_3d_progress.py` | 扫描模型目录，聚合 3D 资产进度（支持 JSON/MD 输出） |
 
 ---

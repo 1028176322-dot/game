@@ -5,6 +5,9 @@
  * Separates save data types from PlayerDataManager to avoid circular deps.
  */
 
+// ── Route run state (node-route roguelike, Demo7) ──
+import { RouteRunSnapshot } from './RouteSaveTypes';
+
 // ── Player Profile (局外永久数据) ──
 
 export interface PlayerProfile {
@@ -73,6 +76,7 @@ export interface RunSave {
     player: RunPlayerState;
     inventory: RunInventory;
     rng: RunRngState;
+    route?: RouteRunSnapshot;   // v0.4.4 (Demo7): route run state rides on RunSave
 }
 
 // ── Settings (设置) ──

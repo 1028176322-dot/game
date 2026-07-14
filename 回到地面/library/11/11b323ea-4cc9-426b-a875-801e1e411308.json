@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "_index",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "json": {
+    "version": "1.0.0",
+    "generated": "2026-06-25",
+    "tool": "generate_placeholder_art.py",
+    "count": 74,
+    "zones": [
+      "forest",
+      "catacombs",
+      "volcano",
+      "tundra",
+      "swamp",
+      "abyss"
+    ]
+  }
+}

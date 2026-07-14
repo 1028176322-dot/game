@@ -9,6 +9,9 @@ import { _decorator, Component, Node, Label, Button, Sprite, Color, Vec3 } from 
 import { UiRouter, UiPanelId, UIPanel } from '../UiRouter';
 import { PlayerDataManager } from '../../core/PlayerDataManager';
 import { T } from '../../core/TextManager';
+import { SceneModelPreview } from '../../render/SceneModelPreview';
+import type { PreviewHandle } from '../../render/SceneModelPreview';
+import { CharacterPanelLayout } from '../layout/CharacterPanelLayout';
 
 const { ccclass, property } = _decorator;
 
@@ -54,19 +57,29 @@ export class CharacterPanel extends Component implements UIPanel {
     @property(Button)
     closeBtn: Button | null = null;
 
+    // 3D preview (T3): slot + handle + generation token to guard in-flight leaks.
+    private _previewSlot: Node | null = null;
+    private _previewHandle: PreviewHandle | null = null;
+    private _previewGen: number = 0;
+
     // ── UIPanel ──
 
     open(_params?: unknown): void {
         if (this.panelRoot) this.panelRoot.active = true;
-        this._refresh();
+        void this._refresh();
     }
 
     close(): void {
+        // Drop the 3D preview before hiding so no RT/rig leaks across open/close.
+        this._previewGen++;
+        this._previewHandle?.destroy();
+        this._previewHandle = null;
+        SceneModelPreview.instance.clearOwner('CharacterPanel');
         if (this.panelRoot) this.panelRoot.active = false;
     }
 
     refresh(): void {
-        this._refresh();
+        void this._refresh();
     }
 
     // ── Lifecycle ──
@@ -79,7 +92,7 @@ export class CharacterPanel extends Component implements UIPanel {
 
     // ── Render ──
 
-    private _refresh(): void {
+    private async _refresh(): Promise<void> {
         const pdm = PlayerDataManager.getInstance();
 
         // Soul stones
@@ -89,8 +102,8 @@ export class CharacterPanel extends Component implements UIPanel {
 
         // Current character card
         const selectedId = pdm.getSelectedCharacterId();
-        const slot = CHAR_SLOTS.find(s => s.id === selectedId);
-        const className = slot ? T(slot.classKey) : T('ui.unknown');
+        const slotInfo = CHAR_SLOTS.find(s => s.id === selectedId);
+        const className = slotInfo ? T(slotInfo.classKey) : T('ui.unknown');
 
         if (this.currentName) {
             this.currentName.string = className;
@@ -107,6 +120,41 @@ export class CharacterPanel extends Component implements UIPanel {
 
         // Other character slots
         this._buildSlots(pdm, selectedId);
+
+        // 3D character preview in PreviewSlot (T3). Re-acquire every refresh so
+        // switching characters swaps the model; destroy the previous handle first.
+        this._previewGen++;
+        this._previewHandle?.destroy();
+        this._previewHandle = null;
+        const slot = this._ensurePreviewSlot();
+        if (!slot) return; // no slot -> safe no-op, keep text-only UI
+
+        const gen = this._previewGen;
+        const handle = await SceneModelPreview.instance.showCharacterInSlot(
+            slot, selectedId, 'idle', { ownerId: 'CharacterPanel', forceUnlit: true },
+        );
+        // A newer refresh may have started while this await was pending; if so,
+        // the resolved handle is stale and must be dropped to avoid leaks.
+        if (gen !== this._previewGen) {
+            handle?.destroy();
+            return;
+        }
+        this._previewHandle = handle;
+    }
+
+    private _ensurePreviewSlot(): Node | null {
+        if (this._previewSlot) return this._previewSlot;
+        // Resolve ContentRoot per structure tree (PanelRoot/PanelFrame/ContentRoot);
+        // fall back to panelRoot if the scene tree has no nested ContentRoot.
+        const contentRoot = this.panelRoot?.getChildByPath('PanelFrame/ContentRoot')
+            ?? this.panelRoot?.getChildByName('ContentRoot')
+            ?? this.panelRoot;
+        if (!contentRoot) {
+            console.warn('[CharacterPanel] no ContentRoot; skip 3D preview');
+            return null;
+        }
+        this._previewSlot = CharacterPanelLayout.ensurePreviewSlot(contentRoot);
+        return this._previewSlot;
     }
 
     private _buildSlots(pdm: PlayerDataManager, selectedId: string): void {
@@ -130,20 +178,20 @@ export class CharacterPanel extends Component implements UIPanel {
                 this._addRowLabel(row, T('ui.charUnlocked', { class: className }), -150, 0);
                 this._addRowButton(row, T('ui.charSelect'), 160, 0, () => {
                     pdm.selectCharacter(slot.id);
-                    this._refresh();
+                    void this._refresh();
                 });
             } else if (isDefault) {
                 this._addRowLabel(row, T('ui.charDefault', { class: className }), -150, 0);
                 this._addRowButton(row, T('ui.charSelect'), 160, 0, () => {
                     pdm.selectCharacter(slot.id);
-                    this._refresh();
+                    void this._refresh();
                 });
             } else {
                 this._addRowLabel(row, T('ui.charLocked', { class: className, cost: slot.unlockCost }), -150, 0);
                 this._addRowButton(row, T('ui.charUnlock'), 160, 0, () => {
                     if (canAfford) {
                         pdm.unlockCharacter(slot.id);
-                        this._refresh();
+                        void this._refresh();
                     }
                 }, !canAfford);
             }

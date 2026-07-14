@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "icon_relic_luckycoin",
+    "atlas": "",
+    "rect": {
+      "x": 24,
+      "y": 21,
+      "width": 143,
+      "height": 150
+    },
+    "offset": {
+      "x": -0.5,
+      "y": 0
+    },
+    "originalSize": {
+      "width": 192,
+      "height": 192
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -71.5,
+        -75,
+        0,
+        71.5,
+        -75,
+        0,
+        -71.5,
+        75,
+        0,
+        71.5,
+        75,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        24,
+        171,
+        167,
+        171,
+        24,
+        21,
+        167,
+        21
+      ],
+      "nuv": [
+        0.125,
+        0.109375,
+        0.8697916666666666,
+        0.109375,
+        0.125,
+        0.890625,
+        0.8697916666666666,
+        0.890625
+      ],
+      "minPos": {
+        "x": -71.5,
+        "y": -75,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 71.5,
+        "y": 75,
+        "z": 0
+      }
+    },
+    "texture": "b459f228-f84f-4a40-bdc1-e226bd2b0283@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

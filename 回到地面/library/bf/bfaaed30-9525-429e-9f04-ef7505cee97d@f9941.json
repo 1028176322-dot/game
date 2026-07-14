@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "fx_relic_time_hourglass",
+    "atlas": "",
+    "rect": {
+      "x": 1,
+      "y": 50,
+      "width": 191,
+      "height": 718
+    },
+    "offset": {
+      "x": 0.5,
+      "y": -25
+    },
+    "originalSize": {
+      "width": 192,
+      "height": 768
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -95.5,
+        -359,
+        0,
+        95.5,
+        -359,
+        0,
+        -95.5,
+        359,
+        0,
+        95.5,
+        359,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        1,
+        718,
+        192,
+        718,
+        1,
+        0,
+        192,
+        0
+      ],
+      "nuv": [
+        0.005208333333333333,
+        0,
+        1,
+        0,
+        0.005208333333333333,
+        0.9348958333333334,
+        1,
+        0.9348958333333334
+      ],
+      "minPos": {
+        "x": -95.5,
+        "y": -359,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 95.5,
+        "y": 359,
+        "z": 0
+      }
+    },
+    "texture": "bfaaed30-9525-429e-9f04-ef7505cee97d@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

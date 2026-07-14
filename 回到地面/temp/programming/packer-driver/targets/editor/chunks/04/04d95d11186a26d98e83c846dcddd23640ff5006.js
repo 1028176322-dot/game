@@ -1,0 +1,510 @@
+System.register(["__unresolved_0", "cc", "__unresolved_1", "__unresolved_2", "__unresolved_3"], function (_export, _context) {
+  "use strict";
+
+  var _reporterNs, _cclegacy, __checkObsolete__, __checkObsoleteInNamespace__, Animation, Color, director, DirectionalLight, instantiate, Layers, Material, MeshRenderer, Node, PointLight, SkeletalAnimation, SkinnedMeshRenderer, Vec3, AssetBundleService, WeaponAttachService, playerClipName, CharacterModelAssembler, _crd, MODEL_NODE_NAME;
+
+  function _reportPossibleCrUseOfAssetBundleService(extras) {
+    _reporterNs.report("AssetBundleService", "../assets/AssetBundleService", _context.meta, extras);
+  }
+
+  function _reportPossibleCrUseOfWeaponAttachService(extras) {
+    _reporterNs.report("WeaponAttachService", "./WeaponAttachService", _context.meta, extras);
+  }
+
+  function _reportPossibleCrUseOfplayerClipName(extras) {
+    _reporterNs.report("playerClipName", "./model_clip", _context.meta, extras);
+  }
+
+  _export("CharacterModelAssembler", void 0);
+
+  return {
+    setters: [function (_unresolved_) {
+      _reporterNs = _unresolved_;
+    }, function (_cc) {
+      _cclegacy = _cc.cclegacy;
+      __checkObsolete__ = _cc.__checkObsolete__;
+      __checkObsoleteInNamespace__ = _cc.__checkObsoleteInNamespace__;
+      Animation = _cc.Animation;
+      Color = _cc.Color;
+      director = _cc.director;
+      DirectionalLight = _cc.DirectionalLight;
+      instantiate = _cc.instantiate;
+      Layers = _cc.Layers;
+      Material = _cc.Material;
+      MeshRenderer = _cc.MeshRenderer;
+      Node = _cc.Node;
+      PointLight = _cc.PointLight;
+      SkeletalAnimation = _cc.SkeletalAnimation;
+      SkinnedMeshRenderer = _cc.SkinnedMeshRenderer;
+      Vec3 = _cc.Vec3;
+    }, function (_unresolved_2) {
+      AssetBundleService = _unresolved_2.AssetBundleService;
+    }, function (_unresolved_3) {
+      WeaponAttachService = _unresolved_3.WeaponAttachService;
+    }, function (_unresolved_4) {
+      playerClipName = _unresolved_4.playerClipName;
+    }],
+    execute: function () {
+      _crd = true;
+
+      _cclegacy._RF.push({}, "0c01cTuWkJAS5c11jDAeq0e", "CharacterModelAssembler", undefined); // CharacterModelAssembler.ts - Route B runtime assembly of a 3D character.
+      //
+      // Mounts the character model prefab, then attaches its dependency weapon onto
+      // the configured socket. All loads go through AssetBundleService.tryLoadById so
+      // a missing/un-imported asset degrades to a no-op instead of throwing (consistent
+      // with the PreviewInEditor fix). When the 3D asset is absent the caller (usually
+      // CharacterVisualService) falls back to the 2D parts/sheet path.
+      //
+      // Engine-side (cc); not vitest-runnable. The pure clip-name helper lives in
+      // model_clip.ts and is unit-tested.
+
+
+      __checkObsolete__(['Animation', 'Color', 'director', 'DirectionalLight', 'instantiate', 'Layers', 'Material', 'MeshRenderer', 'Node', 'PointLight', 'Prefab', 'SkeletalAnimation', 'SkinnedMeshRenderer', 'Vec3']);
+
+      _export("MODEL_NODE_NAME", MODEL_NODE_NAME = '__character_model__');
+
+      _export("CharacterModelAssembler", CharacterModelAssembler = class CharacterModelAssembler {
+        static get instance() {
+          if (!this._instance) this._instance = new CharacterModelAssembler();
+          return this._instance;
+        } // Imported weapon GLBs often have the mesh pivot offset from the model origin.
+        // Shift the weapon root so the mesh's world bounding-box center lands on the
+        // socket. This fixes "weapon floating next to hand" without requiring manual
+        // prefab edits for every weapon.
+
+
+        _alignWeaponToSocket(weaponNode, socket) {
+          const renderer = weaponNode.getComponentInChildren(MeshRenderer);
+          const model = renderer == null ? void 0 : renderer.model;
+          const bounds = model == null ? void 0 : model.worldBounds;
+
+          if (!bounds) {
+            console.warn('[CharacterModelAssembler] weapon has no bounds, skipping auto-align');
+            return;
+          }
+
+          const halfExtents = bounds.halfExtents;
+          const center = halfExtents ? new Vec3(bounds.center.x, bounds.center.y, bounds.center.z) : bounds.center;
+
+          if (!center) {
+            console.warn('[CharacterModelAssembler] weapon bounds center unavailable');
+            return;
+          } // Current mesh center in world space. Socket world position is where we want it.
+
+
+          const socketPos = socket.worldPosition;
+          const deltaWorld = new Vec3(center.x - socketPos.x, center.y - socketPos.y, center.z - socketPos.z); // Convert world delta to weapon local space (approximate; assumes socket scale uniform).
+
+          const socketScale = socket.worldScale;
+          const invScaleX = socketScale.x !== 0 ? 1 / socketScale.x : 1;
+          const invScaleY = socketScale.y !== 0 ? 1 / socketScale.y : 1;
+          const invScaleZ = socketScale.z !== 0 ? 1 / socketScale.z : 1;
+          const localDelta = new Vec3(deltaWorld.x * invScaleX, deltaWorld.y * invScaleY, deltaWorld.z * invScaleZ);
+          weaponNode.setPosition(-localDelta.x, -localDelta.y, -localDelta.z);
+          console.warn('[CharacterModelAssembler] aligned weapon; meshCenter=', center.toString(), 'socketPos=', socketPos.toString(), 'shift=', localDelta.toString());
+        }
+
+        isMounted(node) {
+          return node.getChildByName(MODEL_NODE_NAME) !== null;
+        } // Cocos 3.8's runtime export of Layers.Enum.UI_2D is not reliable in the
+        // packer-driver build used by this project. Resolve the layer by name first,
+        // then enum, then fall back to the documented runtime value.
+        //
+        // Important: nameToLayer returns the layer INDEX (0..31), but Node.layer
+        // expects a bitmask. Convert it with 1 << index before assigning.
+
+
+        _resolveUiLayer() {
+          try {
+            const index = Layers.nameToLayer == null ? void 0 : Layers.nameToLayer('UI_2D');
+
+            if (typeof index === 'number' && index >= 0 && index < 32) {
+              const mask = 1 << index;
+              console.warn('[CharacterModelAssembler] resolved UI_2D layer by name: index=', index, 'mask=', mask);
+              return mask;
+            }
+          } catch {
+            /* ignore */
+          }
+
+          try {
+            var _Enum;
+
+            const enumLayer = (_Enum = Layers.Enum) == null ? void 0 : _Enum.UI_2D;
+
+            if (typeof enumLayer === 'number' && enumLayer > 0) {
+              console.warn('[CharacterModelAssembler] resolved UI_2D layer by enum:', enumLayer);
+              return enumLayer;
+            }
+          } catch {
+            /* ignore */
+          }
+
+          console.warn('[CharacterModelAssembler] using hardcoded UI_2D layer:', 33554432);
+          return 33554432;
+        }
+
+        async mount(node, modelAssetId, weaponAssetId, weaponSocket = 'Weapon', action = 'idle', forceUnlit = false, targetLayerArg) {
+          console.warn('[CharacterModelAssembler] mount requested:', modelAssetId, 'on', node.name, 'action=', action, 'parentLayer=', node.layer);
+          let modelNode = node.getChildByName(MODEL_NODE_NAME);
+
+          if (!modelNode) {
+            var _modelNode$worldPosit, _modelNode$worldScale;
+
+            const prefab = await (_crd && AssetBundleService === void 0 ? (_reportPossibleCrUseOfAssetBundleService({
+              error: Error()
+            }), AssetBundleService) : AssetBundleService).instance.tryLoadById(modelAssetId);
+
+            if (!prefab) {
+              console.warn('[CharacterModelAssembler] FAILED to load prefab:', modelAssetId, '(asset map not loaded or path wrong)');
+              return false;
+            }
+
+            console.warn('[CharacterModelAssembler] prefab loaded:', modelAssetId, 'instantiating...');
+            modelNode = instantiate(prefab);
+            modelNode.name = MODEL_NODE_NAME; // Imported GLB models often have their mesh vertices offset far from the
+            // prefab root origin (e.g. the original exporter placed the mesh at z=-50).
+            // If we only reset the root position to (0,0,0), the actual geometry can
+            // still sit outside the camera frustum and be clipped. After auto-fit we
+            // shift the root so the geometry center lands on the desired local origin.
+
+            modelNode.setPosition(0, 0, 0);
+            modelNode.setRotationFromEuler(0, 0, 0);
+            modelNode.setScale(1, 1, 1); // Imported GLB models often sit on a non-UI layer (e.g. PROFILER / 1073741824)
+            // that the Canvas/UI camera does NOT render. Always force the whole model
+            // subtree onto the desired layer so it is visible in both dungeon and
+            // character preview scenes, regardless of the parent node's layer.
+            //
+            // Note: Layers.Enum.UI_2D is not reliably available in this engine build, so
+            // we resolve the layer by name and fall back to the known runtime value.
+
+            const targetLayer = targetLayerArg != null ? targetLayerArg : this._resolveUiLayer();
+
+            const applyLayer = n => {
+              n.layer = targetLayer;
+              n.children.forEach(applyLayer);
+            };
+
+            applyLayer(modelNode);
+            node.addChild(modelNode); // Keep the model on top of other siblings in the same preview area so it is
+            // not overdrawn by UI decorations or background sprites.
+
+            modelNode.setSiblingIndex(node.children.length - 1);
+            console.warn('[CharacterModelAssembler] model node added under', node.name, 'children=', node.children.length, 'modelLayer=', modelNode.layer, 'targetLayer=', targetLayer, 'worldPos=', (_modelNode$worldPosit = modelNode.worldPosition) == null ? void 0 : _modelNode$worldPosit.toString(), 'worldScale=', (_modelNode$worldScale = modelNode.worldScale) == null ? void 0 : _modelNode$worldScale.toString()); // UI scenes (e.g. character creation preview) may have no 3D lighting or
+            // environment map, so imported PBR models render black there. For those
+            // scenes we force a built-in `unlit` material that is guaranteed visible
+            // without any lighting. Dungeon keeps the lit (PBR) path via _ensureVisibility.
+
+            if (forceUnlit) {
+              this._forceUnlitMaterials(modelNode);
+            } else {
+              this._ensureVisibility(modelNode);
+            } // Auto-fit: GLB models are meter-scaled, but the dungeon is a pixel-based UI
+            // scene, so at scale 1,1,1 the model would be ~1px tall. Fit its largest
+            // extent to a visible target height.
+
+
+            this._autoFitScale(modelNode, 120);
+
+            if (weaponAssetId) {
+              const weapon = await (_crd && AssetBundleService === void 0 ? (_reportPossibleCrUseOfAssetBundleService({
+                error: Error()
+              }), AssetBundleService) : AssetBundleService).instance.tryLoadById(weaponAssetId);
+
+              if (weapon) {
+                const socket = (_crd && WeaponAttachService === void 0 ? (_reportPossibleCrUseOfWeaponAttachService({
+                  error: Error()
+                }), WeaponAttachService) : WeaponAttachService).resolveSocket(modelNode, weaponSocket, 'RightHand');
+
+                if (socket) {
+                  const weaponNode = (_crd && WeaponAttachService === void 0 ? (_reportPossibleCrUseOfWeaponAttachService({
+                    error: Error()
+                  }), WeaponAttachService) : WeaponAttachService).attach(socket, weapon);
+
+                  this._alignWeaponToSocket(weaponNode, socket);
+                } else {
+                  console.warn('[CharacterModelAssembler] no socket', weaponSocket, 'found on', modelAssetId);
+                }
+              } else {
+                console.warn('[CharacterModelAssembler] failed to load weapon prefab:', weaponAssetId);
+              }
+            }
+          }
+
+          this._playClip(modelNode, action);
+
+          return true;
+        } // Scale a freshly mounted model so its largest bounding-box extent matches
+        // `targetHeight` (in the parent's coordinate space). Also recenters the model
+        // so its geometry center sits at the parent origin; imported GLB meshes often
+        // have their vertices shifted far from the root node (e.g. z=-50), which puts
+        // them outside the UI camera frustum and makes them invisible.
+
+
+        _autoFitScale(modelNode, targetHeight) {
+          var _ref, _ref2, _modelNode$getCompone, _renderer$node, _renderer$constructor;
+
+          const renderer = (_ref = (_ref2 = (_modelNode$getCompone = modelNode.getComponentInChildren(SkinnedMeshRenderer)) != null ? _modelNode$getCompone : modelNode.getComponentInChildren(MeshRenderer)) != null ? _ref2 : modelNode.getComponent(SkinnedMeshRenderer)) != null ? _ref : modelNode.getComponent(MeshRenderer);
+          console.warn('[CharacterModelAssembler] auto-fit renderer search:', renderer ? (_renderer$node = renderer.node) == null ? void 0 : _renderer$node.name : 'NONE', 'type=', renderer == null || (_renderer$constructor = renderer.constructor) == null ? void 0 : _renderer$constructor.name);
+          const model = renderer == null ? void 0 : renderer.model;
+
+          if (!model) {
+            console.warn('[CharacterModelAssembler] no SkinnedMeshRenderer/MeshRenderer found, using fixed scale fallback');
+            modelNode.setScale(60, 60, 60);
+            return;
+          }
+
+          const bounds = model.worldBounds;
+
+          if (!bounds) {
+            console.warn('[CharacterModelAssembler] worldBounds unavailable, using fixed scale fallback');
+            modelNode.setScale(60, 60, 60);
+            return;
+          } // Cocos AABB API: halfExtents is always available; size = halfExtents * 2.
+          // The getSize() helper does not exist on this engine version.
+
+
+          const halfExtents = bounds.halfExtents;
+
+          if (!halfExtents) {
+            console.warn('[CharacterModelAssembler] missing halfExtents, using fixed scale fallback');
+            modelNode.setScale(60, 60, 60);
+            return;
+          }
+
+          const extent = Math.max(halfExtents.x, halfExtents.y, halfExtents.z) * 2;
+
+          if (extent <= 0) {
+            console.warn('[CharacterModelAssembler] zero extent, using fixed scale fallback');
+            modelNode.setScale(60, 60, 60);
+            return;
+          }
+
+          const s = targetHeight / extent;
+          modelNode.setScale(s, s, s); // Recenter: shift the root so the geometry center lands on the parent origin.
+          // After setScale, the world bounds are updated in the next frame; use the
+          // current bounds center divided by the new scale to estimate the local offset.
+
+          const center = bounds.center;
+
+          if (center) {
+            var _model$worldBounds$ce, _model$worldBounds, _modelNode$worldPosit2;
+
+            const localOffset = new Vec3(center.x / s, center.y / s, center.z / s);
+            modelNode.setPosition(-localOffset.x, -localOffset.y, -localOffset.z);
+            console.warn('[CharacterModelAssembler] auto-fit scale=', s.toFixed(3), 'extent=', extent.toFixed(3), '-> height~', targetHeight, 'geometryCenter=', center.toString(), 'localOffset=', localOffset.toString(), 'newWorldCenter=', (_model$worldBounds$ce = (_model$worldBounds = model.worldBounds) == null || (_model$worldBounds = _model$worldBounds.center) == null ? void 0 : _model$worldBounds.toString()) != null ? _model$worldBounds$ce : 'N/A', 'modelWorldPos=', (_modelNode$worldPosit2 = modelNode.worldPosition) == null ? void 0 : _modelNode$worldPosit2.toString());
+          } else {
+            var _modelNode$worldPosit3;
+
+            console.warn('[CharacterModelAssembler] auto-fit scale=', s.toFixed(3), 'extent=', extent.toFixed(3), '-> height~', targetHeight, 'modelWorldPos=', (_modelNode$worldPosit3 = modelNode.worldPosition) == null ? void 0 : _modelNode$worldPosit3.toString());
+          }
+        }
+
+        play(node, action) {
+          const modelNode = node.getChildByName(MODEL_NODE_NAME);
+          if (modelNode) this._playClip(modelNode, action);
+        }
+
+        _playClip(modelNode, action) {
+          var _modelNode$getCompone2;
+
+          const anim = (_modelNode$getCompone2 = modelNode.getComponent(SkeletalAnimation)) != null ? _modelNode$getCompone2 : modelNode.getComponent(Animation);
+          if (!anim) return;
+          const clip = (_crd && playerClipName === void 0 ? (_reportPossibleCrUseOfplayerClipName({
+            error: Error()
+          }), playerClipName) : playerClipName)(action);
+          const state = anim.getState(clip);
+
+          if (state) {
+            anim.play(clip);
+            return;
+          }
+
+          const idle = anim.getState('idle');
+          if (idle) anim.play('idle');else anim.play();
+        }
+
+        _ensureVisibility(modelNode) {
+          // Avoid adding duplicate helpers if the model is re-mounted.
+          if (modelNode.getChildByName('__model_light__')) return; // 1) Local lights so the model is lit even in UI scenes with no scene light.
+
+          const lightNode = new Node('__model_light__');
+          const dir = lightNode.addComponent(DirectionalLight);
+          dir.illuminance = 120000;
+          dir.color = Color.WHITE;
+          lightNode.setRotationFromEuler(-45, 30, 0);
+          lightNode.setPosition(0, 5, 8);
+          modelNode.addChild(lightNode);
+          const pointNode = new Node('__model_point__');
+          const point = pointNode.addComponent(PointLight);
+          point.color = Color.WHITE;
+
+          try {
+            point.intensity = 300;
+          } catch {
+            /* prop optional */
+          }
+
+          try {
+            point.range = 60;
+          } catch {
+            /* prop optional */
+          }
+
+          pointNode.setPosition(0, 0, 6);
+          modelNode.addChild(pointNode); // 2) Brighten the global ambient as a cheap fill (wrapped; may be
+          //    unavailable in some scenes).
+
+          try {
+            var _globals;
+
+            const scene = director.getScene();
+            const ambient = scene == null || (_globals = scene.globals) == null ? void 0 : _globals.ambient;
+
+            if (ambient) {
+              if (ambient.skyColor) ambient.skyColor = Color.WHITE;
+              if (ambient.groundColor) ambient.groundColor = Color.WHITE;
+              if (typeof ambient.skyIllum === 'number') ambient.skyIllum = 1.0;
+            }
+          } catch (e) {
+            console.warn('[CharacterModelAssembler] ambient light adjustment skipped:', e);
+          } // 3) Self-lit fallback: force every material to a low-metal, slightly
+          //    emissive look so metallic / IBL-dependent PBR models still show up in
+          //    UI previews where there is no environment map.
+
+
+          this._makeMaterialsEmissive(modelNode);
+
+          console.warn('[CharacterModelAssembler] ensured model visibility (local lights)');
+        } // Guaranteed-visible fallback for UI scenes with no lighting / environment
+        // map. Replaces every mesh material with the built-in `builtin-unlit` material,
+        // which renders a flat color regardless of scene lights. This sidesteps the
+        // PBR emissive/IBL type pitfalls that make imported models render black in UI
+        // previews. Materials are set per-renderer instance (setMaterial) so the
+        // imported shared assets are never mutated.
+
+
+        _forceUnlitMaterials(root) {
+          const renderers = root.getComponentsInChildren(MeshRenderer).concat(root.getComponentsInChildren(SkinnedMeshRenderer));
+          let replaced = 0;
+
+          for (const r of renderers) {
+            var _r$node, _r$node2, _r$node3;
+
+            const count = r.materials.length;
+            console.warn('[CharacterModelAssembler] renderer on', (_r$node = r.node) == null ? void 0 : _r$node.name, 'materials=', count, 'layer=', (_r$node2 = r.node) == null ? void 0 : _r$node2.layer, 'enabled=', r.enabled, 'nodeActive=', (_r$node3 = r.node) == null ? void 0 : _r$node3.active);
+
+            for (let i = 0; i < count; i++) {
+              try {
+                var _oldMat$name, _effectName;
+
+                const oldMat = r.getMaterial(i);
+                console.warn('[CharacterModelAssembler]   material', i, 'old=', (_oldMat$name = oldMat == null ? void 0 : oldMat.name) != null ? _oldMat$name : 'null', 'effect=', (_effectName = oldMat == null ? void 0 : oldMat.effectName) != null ? _effectName : 'unknown');
+                const unlit = new Material();
+                unlit.initialize({
+                  effectName: 'builtin-unlit'
+                }); // Neutral off-white so the model is visible against dark UI scenes without
+                // looking like a diagnostic marker. Cocos Color constructor uses 0-255.
+
+                unlit.setProperty('color', new Color(235, 235, 240, 255));
+                r.setMaterial(i, unlit);
+                console.warn('[CharacterModelAssembler]   material', i, 'replaced with builtin-unlit color=235,235,240,255');
+                replaced++;
+              } catch (e) {
+                var _r$node4;
+
+                console.warn('[CharacterModelAssembler] failed to set unlit material on', (_r$node4 = r.node) == null ? void 0 : _r$node4.name, e);
+              }
+            }
+          }
+
+          console.warn('[CharacterModelAssembler] forced unlit materials:', replaced, 'renderers:', renderers.length);
+        } // Best-effort: make every mesh material visible without depending on scene
+        // lighting. Uses scalar props only (metallic / roughness) — no emissive, which
+        // trips a FLOAT3 uniform type assertion in this engine build.
+
+
+        _makeMaterialsEmissive(root) {
+          const renderers = root.getComponentsInChildren(MeshRenderer).concat(root.getComponentsInChildren(SkinnedMeshRenderer));
+          let touched = 0;
+
+          const setMatProp = (mat, key, value) => {
+            try {
+              if (typeof mat.setProperty === 'function') mat.setProperty(key, value);
+            } catch {
+              /* ignore */
+            }
+
+            try {
+              if (key in mat) mat[key] = value;
+            } catch {
+              /* ignore */
+            }
+          };
+
+          for (const r of renderers) {
+            let mats = []; // Cocos 3.8 prefers shared-material APIs; cloned getMaterials() can be
+            // empty until the renderer is fully enabled, so shared refs are safer.
+
+            try {
+              const shared = r.getSharedMaterials == null ? void 0 : r.getSharedMaterials();
+              if (shared) mats = shared.filter(m => m !== null);
+            } catch {
+              /* ignore */
+            }
+
+            if (!mats.length) {
+              try {
+                const arr = r.sharedMaterials;
+                if (arr) mats = arr.filter(m => m !== null);
+              } catch {
+                /* ignore */
+              }
+            }
+
+            if (!mats.length) {
+              try {
+                const m = r.getSharedMaterial == null ? void 0 : r.getSharedMaterial(0);
+                if (m) mats = [m];
+              } catch {
+                /* ignore */
+              }
+            }
+
+            if (!mats.length) {
+              try {
+                const m = r.sharedMaterial;
+                if (m) mats = [m];
+              } catch {
+                /* ignore */
+              }
+            }
+
+            for (const m of mats) {
+              if (!m) continue;
+              touched++;
+              const mat = m; // Reduce metalness so the surface responds to the local directional
+              // light with a diffuse response (a pure-metal PBR surface with no IBL
+              // renders black even under direct lights).
+
+              setMatProp(mat, 'metallic', 0);
+              setMatProp(mat, 'roughness', 0.7);
+              setMatProp(mat, 'pbrMetallic', 0);
+              setMatProp(mat, 'pbrRoughness', 0.7);
+            }
+          }
+
+          console.warn('[CharacterModelAssembler] touched materials:', touched, 'renderers:', renderers.length);
+        }
+
+      });
+
+      CharacterModelAssembler._instance = null;
+
+      _cclegacy._RF.pop();
+
+      _crd = false;
+    }
+  };
+});
+//# sourceMappingURL=04d95d11186a26d98e83c846dcddd23640ff5006.js.map

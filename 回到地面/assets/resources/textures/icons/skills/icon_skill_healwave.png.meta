@@ -8,98 +8,6 @@
     ".png"
   ],
   "subMetas": {
-    "f9941": {
-      "importer": "sprite-frame",
-      "uuid": "5ef23b90-92bc-42f0-8653-92e2c23d8b30@f9941",
-      "displayName": "icon_skill_healwave",
-      "id": "f9941",
-      "name": "spriteFrame",
-      "userData": {
-        "trimThreshold": 1,
-        "rotated": false,
-        "offsetX": -0.5,
-        "offsetY": 0,
-        "trimX": 10,
-        "trimY": 10,
-        "width": 107,
-        "height": 108,
-        "rawWidth": 128,
-        "rawHeight": 128,
-        "borderTop": 0,
-        "borderBottom": 0,
-        "borderLeft": 0,
-        "borderRight": 0,
-        "packable": true,
-        "pixelsToUnit": 100,
-        "pivotX": 0.5,
-        "pivotY": 0.5,
-        "meshType": 0,
-        "vertices": {
-          "rawPosition": [
-            -53.5,
-            -54,
-            0,
-            53.5,
-            -54,
-            0,
-            -53.5,
-            54,
-            0,
-            53.5,
-            54,
-            0
-          ],
-          "indexes": [
-            0,
-            1,
-            2,
-            2,
-            1,
-            3
-          ],
-          "uv": [
-            10,
-            118,
-            117,
-            118,
-            10,
-            10,
-            117,
-            10
-          ],
-          "nuv": [
-            0.078125,
-            0.078125,
-            0.9140625,
-            0.078125,
-            0.078125,
-            0.921875,
-            0.9140625,
-            0.921875
-          ],
-          "minPos": [
-            -53.5,
-            -54,
-            0
-          ],
-          "maxPos": [
-            53.5,
-            54,
-            0
-          ]
-        },
-        "isUuid": true,
-        "imageUuidOrDatabaseUri": "5ef23b90-92bc-42f0-8653-92e2c23d8b30@6c48a",
-        "atlasUuid": "",
-        "trimType": "auto"
-      },
-      "ver": "1.0.12",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "6c48a": {
       "importer": "texture",
       "uuid": "5ef23b90-92bc-42f0-8653-92e2c23d8b30@6c48a",
@@ -118,6 +26,98 @@
         "visible": false
       },
       "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "5ef23b90-92bc-42f0-8653-92e2c23d8b30@f9941",
+      "displayName": "icon_skill_healwave",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 23,
+        "trimY": 21,
+        "width": 146,
+        "height": 150,
+        "rawWidth": 192,
+        "rawHeight": 192,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -73,
+            -75,
+            0,
+            73,
+            -75,
+            0,
+            -73,
+            75,
+            0,
+            73,
+            75,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            23,
+            171,
+            169,
+            171,
+            23,
+            21,
+            169,
+            21
+          ],
+          "nuv": [
+            0.11979166666666667,
+            0.109375,
+            0.8802083333333334,
+            0.109375,
+            0.11979166666666667,
+            0.890625,
+            0.8802083333333334,
+            0.890625
+          ],
+          "minPos": [
+            -73,
+            -75,
+            0
+          ],
+          "maxPos": [
+            73,
+            75,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "5ef23b90-92bc-42f0-8653-92e2c23d8b30@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
       "imported": true,
       "files": [
         ".json"

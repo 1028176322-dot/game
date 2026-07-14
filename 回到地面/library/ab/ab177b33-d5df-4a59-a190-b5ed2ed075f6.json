@@ -1,0 +1,32 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "platform",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "json": {
+    "metadata": {
+      "version": "1.0.0",
+      "lastUpdated": "2026-07-08",
+      "description": "Plataform channel configuration — controls runtime behavior per platform"
+    },
+    "channel": "taptap",
+    "platform": "android",
+    "login": {
+      "provider": "taptap",
+      "allowGuest": false
+    },
+    "compliance": {
+      "enabled": true,
+      "checkOnLogin": true,
+      "checkBeforeRun": true
+    },
+    "analytics": {
+      "provider": "local_buffer"
+    },
+    "ads": {
+      "enabled": false,
+      "provider": "none"
+    }
+  }
+}

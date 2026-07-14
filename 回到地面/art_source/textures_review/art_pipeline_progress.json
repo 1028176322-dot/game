@@ -1,0 +1,1374 @@
+{
+  "version": 2,
+  "resources": {
+    "monsters/abyss/monster_abyss_abyssarcher_idle.png": {
+      "status": "imported",
+      "promptHash": "733e76347a86831a",
+      "fileHash": "6a5e309faca22a59",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:15+00:00"
+    },
+    "monsters/abyss/monster_abyss_abysslordelite_idle.png": {
+      "status": "imported",
+      "promptHash": "e22e4397ad48b5cb",
+      "fileHash": "415e2f9ca3adef27",
+      "source": "ai",
+      "failCount": 4,
+      "lastError": "HTTP 401: {\"error\":{\"code\":\"\",\"message\":\"无效的令牌 (request id: 20260709085054485642396WtxT0pud)\",\"type\":\"AgnesAI_error\"}}",
+      "updatedAt": "2026-07-09T11:59:16+00:00"
+    },
+    "monsters/abyss/monster_abyss_shadowdemon_idle.png": {
+      "status": "imported",
+      "promptHash": "2dc0c9cf59c877af",
+      "fileHash": "9f891e14e2af81a6",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:16+00:00"
+    },
+    "monsters/abyss/monster_abyss_shadowgolem_idle.png": {
+      "status": "imported",
+      "promptHash": "8e2291ad545ffbee",
+      "fileHash": "f73c3b4f10a19aad",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:16+00:00"
+    },
+    "monsters/abyss/monster_abyss_voidrift_idle.png": {
+      "status": "imported",
+      "promptHash": "9481d15296ef9bd7",
+      "fileHash": "fa1b6f57fcaa2d99",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:16+00:00"
+    },
+    "monsters/abyss/monster_abyss_voidwraith_idle.png": {
+      "status": "imported",
+      "promptHash": "da19c62db7c6d0c8",
+      "fileHash": "7647dde86a864098",
+      "source": "ai",
+      "failCount": 2,
+      "lastError": "尺寸不匹配: 期望 (192, 192), 实际 (128, 128)",
+      "updatedAt": "2026-07-09T11:59:16+00:00"
+    },
+    "monsters/catacombs/monster_catacombs_batswarm_idle.png": {
+      "status": "imported",
+      "promptHash": "35c780fbbae2a160",
+      "fileHash": "99e18bf1ee13819f",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:17+00:00"
+    },
+    "monsters/catacombs/monster_catacombs_deathknight_idle.png": {
+      "status": "imported",
+      "promptHash": "cc2902c0d92dafe9",
+      "fileHash": "8f5bfc17f7e7f635",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:17+00:00"
+    },
+    "monsters/catacombs/monster_catacombs_ghost_idle.png": {
+      "status": "imported",
+      "promptHash": "10e7a4459cada4d0",
+      "fileHash": "07548903ba0c6f4d",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:17+00:00"
+    },
+    "monsters/catacombs/monster_catacombs_ghoul_idle.png": {
+      "status": "imported",
+      "promptHash": "21495f65d3b71b80",
+      "fileHash": "f33f501867ff26e3",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:17+00:00"
+    },
+    "monsters/catacombs/monster_catacombs_skeleton_idle.png": {
+      "status": "imported",
+      "promptHash": "1e966461d074b4d1",
+      "fileHash": "3ae03eadaa2753ea",
+      "source": "ai",
+      "failCount": 2,
+      "lastError": "尺寸不匹配: 期望 (192, 192), 实际 (128, 128)",
+      "updatedAt": "2026-07-09T11:59:17+00:00"
+    },
+    "monsters/catacombs/monster_catacombs_skeletonarcher_idle.png": {
+      "status": "imported",
+      "promptHash": "b692079df9d55ba0",
+      "fileHash": "8923bb39a4886731",
+      "source": "ai",
+      "failCount": 2,
+      "lastError": "尺寸不匹配: 期望 (192, 192), 实际 (128, 128)",
+      "updatedAt": "2026-07-09T11:59:17+00:00"
+    },
+    "monsters/forest/monster_forest_boar_idle.png": {
+      "status": "imported",
+      "promptHash": "3cb47b50285d8980",
+      "fileHash": "32cbc153d02a9901",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:17+00:00"
+    },
+    "monsters/forest/monster_forest_deerelite_idle.png": {
+      "status": "imported",
+      "promptHash": "a16af4eb98523d67",
+      "fileHash": "f9339825107b2003",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:18+00:00"
+    },
+    "monsters/forest/monster_forest_elfarcher_idle.png": {
+      "status": "imported",
+      "promptHash": "ea01790cc4891ae5",
+      "fileHash": "a4591917af4a011f",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:18+00:00"
+    },
+    "monsters/forest/monster_forest_mushroom_idle.png": {
+      "status": "imported",
+      "promptHash": "74ecaecb3c03fe70",
+      "fileHash": "3250bacbdaa2323c",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:18+00:00"
+    },
+    "monsters/forest/monster_forest_slime_idle.png": {
+      "status": "imported",
+      "promptHash": "0a4b371eec970673",
+      "fileHash": "d4030797151e4a4c",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:18+00:00"
+    },
+    "monsters/forest/monster_forest_treant_idle.png": {
+      "status": "imported",
+      "promptHash": "b5ffb532f72041c7",
+      "fileHash": "1b931b9b4c48efae",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:18+00:00"
+    },
+    "monsters/swamp/monster_swamp_gianttoad_idle.png": {
+      "status": "imported",
+      "promptHash": "3259c7a4834a8261",
+      "fileHash": "82739d420c98005d",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:18+00:00"
+    },
+    "monsters/swamp/monster_swamp_rottreant_idle.png": {
+      "status": "imported",
+      "promptHash": "52f6f304229f6d32",
+      "fileHash": "2e169aef067aca70",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:19+00:00"
+    },
+    "monsters/swamp/monster_swamp_slimepoison_idle.png": {
+      "status": "imported",
+      "promptHash": "5079521cd5f95ef6",
+      "fileHash": "42a6cd8b848e6cbe",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:19+00:00"
+    },
+    "monsters/swamp/monster_swamp_swampdragon_idle.png": {
+      "status": "imported",
+      "promptHash": "dd617d90d196deb9",
+      "fileHash": "48ab521a92833be8",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:19+00:00"
+    },
+    "monsters/swamp/monster_swamp_swampspider_idle.png": {
+      "status": "imported",
+      "promptHash": "4a2816ac2af704b4",
+      "fileHash": "605469684423a6ac",
+      "source": "ai",
+      "failCount": 2,
+      "lastError": "尺寸不匹配: 期望 (192, 192), 实际 (128, 128)",
+      "updatedAt": "2026-07-09T11:59:19+00:00"
+    },
+    "monsters/swamp/monster_swamp_viper_idle.png": {
+      "status": "imported",
+      "promptHash": "62d5787acc5b3595",
+      "fileHash": "882ed270385baa62",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:19+00:00"
+    },
+    "monsters/tundra/monster_tundra_frostgiant_idle.png": {
+      "status": "imported",
+      "promptHash": "2247119c5174033c",
+      "fileHash": "bf90f33f10e0ca07",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:19+00:00"
+    },
+    "monsters/tundra/monster_tundra_frostmage_idle.png": {
+      "status": "imported",
+      "promptHash": "eb11a3822b066573",
+      "fileHash": "47f70c1c56def539",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:20+00:00"
+    },
+    "monsters/tundra/monster_tundra_iceskeleton_idle.png": {
+      "status": "imported",
+      "promptHash": "ec2b95fa216c75c4",
+      "fileHash": "a4a22ee3fe9811d9",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:20+00:00"
+    },
+    "monsters/tundra/monster_tundra_penguinsoldier_idle.png": {
+      "status": "imported",
+      "promptHash": "c616dabffcf8ed57",
+      "fileHash": "22a24b028a0b6b4f",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:20+00:00"
+    },
+    "monsters/tundra/monster_tundra_snowman_idle.png": {
+      "status": "imported",
+      "promptHash": "8724690d4d504884",
+      "fileHash": "ec12fbe8c1159e21",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:20+00:00"
+    },
+    "monsters/tundra/monster_tundra_snowwolf_idle.png": {
+      "status": "imported",
+      "promptHash": "074d4e0c28cfa083",
+      "fileHash": "9b9fdc065e62d35e",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:20+00:00"
+    },
+    "monsters/volcano/monster_volcano_ashwraith_idle.png": {
+      "status": "imported",
+      "promptHash": "818b3dbb9eb6e609",
+      "fileHash": "8455b3267f495960",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:20+00:00"
+    },
+    "monsters/volcano/monster_volcano_demon_idle.png": {
+      "status": "imported",
+      "promptHash": "2449f9bfd0b3bb01",
+      "fileHash": "8c0bd90b79cb6e95",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:20+00:00"
+    },
+    "monsters/volcano/monster_volcano_fireelemental_idle.png": {
+      "status": "imported",
+      "promptHash": "d910d7bdd6779422",
+      "fileHash": "88a4e6157489ff7d",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:21+00:00"
+    },
+    "monsters/volcano/monster_volcano_infernoelite_idle.png": {
+      "status": "imported",
+      "promptHash": "9d04bab95f81bf9e",
+      "fileHash": "89de74a1773002cc",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:21+00:00"
+    },
+    "monsters/volcano/monster_volcano_lavaspider_idle.png": {
+      "status": "imported",
+      "promptHash": "0ccc225939e46725",
+      "fileHash": "a282bbf1d6297d7a",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:21+00:00"
+    },
+    "monsters/volcano/monster_volcano_suicidegolem_idle.png": {
+      "status": "imported",
+      "promptHash": "24100e0616a55193",
+      "fileHash": "e6c830cbbf1ed02f",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:59:21+00:00"
+    },
+    "icons/buffs/icon_buff_atkup.png": {
+      "status": "imported",
+      "promptHash": "a21254c74ed52ff7",
+      "fileHash": "035998baa5de6757",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:06+00:00"
+    },
+    "icons/buffs/icon_buff_defup.png": {
+      "status": "imported",
+      "promptHash": "941a1755871cc976",
+      "fileHash": "6979b52305c4b61b",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:07+00:00"
+    },
+    "icons/buffs/icon_buff_shield.png": {
+      "status": "imported",
+      "promptHash": "a9677e5074dbdbb0",
+      "fileHash": "6827a4ac04327f8b",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:07+00:00"
+    },
+    "icons/buffs/icon_buff_speedup.png": {
+      "status": "imported",
+      "promptHash": "f4f4ab647962b8a9",
+      "fileHash": "faf6b6efbd6058e2",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:07+00:00"
+    },
+    "icons/buffs/icon_buff_stealth.png": {
+      "status": "imported",
+      "promptHash": "01c28068e8990aac",
+      "fileHash": "03f48f29c3bd504a",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:08+00:00"
+    },
+    "icons/buffs/icon_debuff_burn.png": {
+      "status": "imported",
+      "promptHash": "50d78f3d8a440a6a",
+      "fileHash": "20d5c4a7ad566794",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:08+00:00"
+    },
+    "icons/buffs/icon_debuff_freeze.png": {
+      "status": "imported",
+      "promptHash": "0d2b07fd7ec75eeb",
+      "fileHash": "c8ee0fa3287b1c91",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:08+00:00"
+    },
+    "icons/buffs/icon_debuff_poison.png": {
+      "status": "imported",
+      "promptHash": "f07551b3fbfc9e2f",
+      "fileHash": "ba33c306fa6350a3",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:08+00:00"
+    },
+    "icons/buffs/icon_debuff_slow.png": {
+      "status": "imported",
+      "promptHash": "ec5d683d6963d15d",
+      "fileHash": "1dbbd409cf37e4ea",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:08+00:00"
+    },
+    "icons/buffs/icon_debuff_stun.png": {
+      "status": "imported",
+      "promptHash": "8f17a8ebdff6ac51",
+      "fileHash": "1192399b96e33944",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:08+00:00"
+    },
+    "icons/elements/icon_element_fire.png": {
+      "status": "imported",
+      "promptHash": "4445b331adbce4c1",
+      "fileHash": "84c268e44f383812",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:09+00:00"
+    },
+    "icons/elements/icon_element_frost.png": {
+      "status": "imported",
+      "promptHash": "57c9945419ecd779",
+      "fileHash": "38270732a0ad35d1",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:09+00:00"
+    },
+    "icons/elements/icon_element_holy.png": {
+      "status": "imported",
+      "promptHash": "345c021cc46b3329",
+      "fileHash": "b909eca1156e4901",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:09+00:00"
+    },
+    "icons/elements/icon_element_lightning.png": {
+      "status": "imported",
+      "promptHash": "010cbb9039b5a5d9",
+      "fileHash": "128d130e273bbff1",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:09+00:00"
+    },
+    "icons/elements/icon_element_poison.png": {
+      "status": "imported",
+      "promptHash": "b12c9790afab1edc",
+      "fileHash": "6f4943fd48930eda",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:09+00:00"
+    },
+    "icons/elements/icon_element_shadow.png": {
+      "status": "imported",
+      "promptHash": "7609f4a06f11972a",
+      "fileHash": "7f01fd353f4dba1e",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:09+00:00"
+    },
+    "icons/items/icon_item_advancedkey.png": {
+      "status": "imported",
+      "promptHash": "6349962cd6007b20",
+      "fileHash": "bb788625682c4503",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:10+00:00"
+    },
+    "icons/items/icon_item_bighealingpotion.png": {
+      "status": "imported",
+      "promptHash": "869281826f8e1bb2",
+      "fileHash": "3a6a4ea563a74bef",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:10+00:00"
+    },
+    "icons/items/icon_item_flamebomb.png": {
+      "status": "imported",
+      "promptHash": "a6e34a88675cf3b7",
+      "fileHash": "9a36c9cbf6d20f58",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:10+00:00"
+    },
+    "icons/items/icon_item_furypotion.png": {
+      "status": "imported",
+      "promptHash": "e773ece3f025d972",
+      "fileHash": "9709465eeb336b0a",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:10+00:00"
+    },
+    "icons/items/icon_item_healingpotion.png": {
+      "status": "imported",
+      "promptHash": "a60d604b7709e09d",
+      "fileHash": "4f5144c91239978d",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:10+00:00"
+    },
+    "icons/items/icon_item_icebomb.png": {
+      "status": "imported",
+      "promptHash": "3e7dc57e18c9b2a7",
+      "fileHash": "f86749290af8d39c",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:11+00:00"
+    },
+    "icons/items/icon_item_ironpotion.png": {
+      "status": "imported",
+      "promptHash": "b8c43f448e01053f",
+      "fileHash": "dcd4ed323b03a3c8",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:11+00:00"
+    },
+    "icons/items/icon_item_key.png": {
+      "status": "imported",
+      "promptHash": "b21265f06e8fea75",
+      "fileHash": "9370a05257e1dc01",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:11+00:00"
+    },
+    "icons/items/icon_item_mapscroll.png": {
+      "status": "imported",
+      "promptHash": "ecb31dbdafe4be0c",
+      "fileHash": "9a8921d86e3cf446",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:11+00:00"
+    },
+    "icons/items/icon_item_purifypotion.png": {
+      "status": "imported",
+      "promptHash": "b17fd0636795a881",
+      "fileHash": "ac7aa3571b6204da",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:11+00:00"
+    },
+    "icons/items/icon_item_rerollscroll.png": {
+      "status": "imported",
+      "promptHash": "1808f6b0215e749e",
+      "fileHash": "30c1397edd33e215",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:11+00:00"
+    },
+    "icons/items/icon_item_revivecoin.png": {
+      "status": "imported",
+      "promptHash": "8cfa591d63286bc2",
+      "fileHash": "28a4abcfe58d41d9",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:12+00:00"
+    },
+    "icons/items/icon_item_scrollfire.png": {
+      "status": "imported",
+      "promptHash": "df3567f981a6ea3a",
+      "fileHash": "73c2843f0d569a9d",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:12+00:00"
+    },
+    "icons/items/icon_item_scrollholy.png": {
+      "status": "imported",
+      "promptHash": "93566be41aab53b4",
+      "fileHash": "4e5356c7aaa0c18a",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:12+00:00"
+    },
+    "icons/items/icon_item_scrollice.png": {
+      "status": "imported",
+      "promptHash": "cfd323ff5acd33ee",
+      "fileHash": "edd812b450cfdd58",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:12+00:00"
+    },
+    "icons/items/icon_item_scrollpoison.png": {
+      "status": "imported",
+      "promptHash": "f11028c4fa897ec5",
+      "fileHash": "7b3e9fb7d6bde7e4",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:12+00:00"
+    },
+    "icons/items/icon_item_scrollshadow.png": {
+      "status": "imported",
+      "promptHash": "f41017cd6860b0e4",
+      "fileHash": "8dc22dbc39f9d73f",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:12+00:00"
+    },
+    "icons/items/icon_item_scrollthunder.png": {
+      "status": "imported",
+      "promptHash": "2bd24cac09120f0b",
+      "fileHash": "658814d759f640d0",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:13+00:00"
+    },
+    "icons/items/icon_item_speedpotion.png": {
+      "status": "imported",
+      "promptHash": "7dc422a29c663301",
+      "fileHash": "cb418caad3e3621f",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:13+00:00"
+    },
+    "icons/items/item_healthPotion.png": {
+      "status": "imported",
+      "promptHash": "e41e577d3aa17d8e",
+      "fileHash": "39857990a9b52718",
+      "source": "ai",
+      "failCount": 1,
+      "lastError": "文件名不合规: item_healthPotion.png（必须小写英文+数字+下划线）",
+      "updatedAt": "2026-07-09T11:58:26+00:00"
+    },
+    "icons/items/item_key.png": {
+      "status": "imported",
+      "promptHash": "e36a659b6f445dba",
+      "fileHash": "d3cd1d004be38558",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:13+00:00"
+    },
+    "icons/items/item_largeHealthPotion.png": {
+      "status": "imported",
+      "promptHash": "982fa26f3a2c8cd2",
+      "fileHash": "61ca64fc26e45c21",
+      "source": "ai",
+      "failCount": 1,
+      "lastError": "文件名不合规: item_largeHealthPotion.png（必须小写英文+数字+下划线）",
+      "updatedAt": "2026-07-09T11:58:05+00:00"
+    },
+    "icons/items/item_map.png": {
+      "status": "imported",
+      "promptHash": "823a721c22117da2",
+      "fileHash": "5f94486318d1a8e5",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:13+00:00"
+    },
+    "icons/relics/icon_relic_blinkstone.png": {
+      "status": "imported",
+      "promptHash": "6bd3bf3aca781f84",
+      "fileHash": "66c4a9138a25fa79",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:13+00:00"
+    },
+    "icons/relics/icon_relic_decoyscroll.png": {
+      "status": "imported",
+      "promptHash": "d8cf30bab8d1ef73",
+      "fileHash": "ecf206ab91c16bc1",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:13+00:00"
+    },
+    "icons/relics/icon_relic_echoorb.png": {
+      "status": "imported",
+      "promptHash": "4870e2de09c7de89",
+      "fileHash": "1dc50f250c58f390",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:14+00:00"
+    },
+    "icons/relics/icon_relic_flamering.png": {
+      "status": "imported",
+      "promptHash": "23a731b86417dbb0",
+      "fileHash": "661555d4d1119467",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:14+00:00"
+    },
+    "icons/relics/icon_relic_frenzyaxe.png": {
+      "status": "imported",
+      "promptHash": "3cf402face7ac6a5",
+      "fileHash": "ef77c00462226815",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:41:14+00:00"
+    },
+    "icons/relics/icon_relic_frostamulet.png": {
+      "status": "imported",
+      "promptHash": "5ad0354f431e70a4",
+      "fileHash": "a28c2d0492008eba",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:06+00:00"
+    },
+    "icons/relics/icon_relic_gravitystone.png": {
+      "status": "imported",
+      "promptHash": "b466813e8a95ab4f",
+      "fileHash": "64033993a5668bcd",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:06+00:00"
+    },
+    "icons/relics/icon_relic_immortalstone.png": {
+      "status": "imported",
+      "promptHash": "5cc2e9de164c5fea",
+      "fileHash": "d49513d3e72000dd",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:06+00:00"
+    },
+    "icons/relics/icon_relic_ironarmor.png": {
+      "status": "imported",
+      "promptHash": "157a1cb3c46f7201",
+      "fileHash": "fb1c8e79f4ab61f5",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:06+00:00"
+    },
+    "icons/relics/icon_relic_lifelink.png": {
+      "status": "imported",
+      "promptHash": "4e3b1fb973f4f99a",
+      "fileHash": "13ed90136ee8d2a4",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:07+00:00"
+    },
+    "icons/relics/icon_relic_luckycoin.png": {
+      "status": "imported",
+      "promptHash": "742d10f3c980a86d",
+      "fileHash": "25e26e54c2f602f9",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:07+00:00"
+    },
+    "icons/relics/icon_relic_shadowcloak.png": {
+      "status": "imported",
+      "promptHash": "b77482d0a1b4805d",
+      "fileHash": "393189bb4395582b",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:07+00:00"
+    },
+    "icons/relics/icon_relic_shadowdagger.png": {
+      "status": "imported",
+      "promptHash": "01f0e548d5b8bed2",
+      "fileHash": "502bda8f9c9e0465",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:07+00:00"
+    },
+    "icons/relics/icon_relic_speedgauntlet.png": {
+      "status": "imported",
+      "promptHash": "d83cff905849ade6",
+      "fileHash": "68466d34cb6fe0bf",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:07+00:00"
+    },
+    "icons/relics/icon_relic_thornarmor.png": {
+      "status": "imported",
+      "promptHash": "f54cbbe40540e6fb",
+      "fileHash": "796a8ff566bc3be2",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:07+00:00"
+    },
+    "icons/relics/icon_relic_timehourglass.png": {
+      "status": "imported",
+      "promptHash": "15d9cc3315e4ca37",
+      "fileHash": "bb669617d4b7af28",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:08+00:00"
+    },
+    "icons/sets/icon_set_frostbite.png": {
+      "status": "imported",
+      "promptHash": "c603c78b72ed921c",
+      "fileHash": "c59f2cbe4a3576a2",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:08+00:00"
+    },
+    "icons/sets/icon_set_fury.png": {
+      "status": "imported",
+      "promptHash": "054c87480dd4c4db",
+      "fileHash": "b862a86d40dd29ed",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:08+00:00"
+    },
+    "icons/sets/icon_set_ironwall.png": {
+      "status": "imported",
+      "promptHash": "6a7d3410823a19f3",
+      "fileHash": "fcf12be6413a1022",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:08+00:00"
+    },
+    "icons/sets/icon_set_radiance.png": {
+      "status": "imported",
+      "promptHash": "0cabaa5be49504f8",
+      "fileHash": "828a74258c82df13",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:08+00:00"
+    },
+    "icons/sets/icon_set_shadow.png": {
+      "status": "imported",
+      "promptHash": "04be9b6d1ea4bb2d",
+      "fileHash": "79678437a4031333",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:08+00:00"
+    },
+    "icons/sets/icon_set_tempest.png": {
+      "status": "imported",
+      "promptHash": "f0ac81e56e89d8d9",
+      "fileHash": "e8983f63d9509b4e",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:09+00:00"
+    },
+    "icons/skills/icon_skill_dash.png": {
+      "status": "imported",
+      "promptHash": "9327075ef8aaab2d",
+      "fileHash": "58be179ab08c419d",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:09+00:00"
+    },
+    "icons/skills/icon_skill_elementburst.png": {
+      "status": "imported",
+      "promptHash": "0644fe643c655056",
+      "fileHash": "95717e6f50396354",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:09+00:00"
+    },
+    "icons/skills/icon_skill_healwave.png": {
+      "status": "imported",
+      "promptHash": "a3f77a003668fa58",
+      "fileHash": "88b7e43d07f5fc00",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:09+00:00"
+    },
+    "icons/skills/icon_skill_shield.png": {
+      "status": "imported",
+      "promptHash": "8a7070eaddf84b05",
+      "fileHash": "e9309e82616965b1",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:09+00:00"
+    },
+    "icons/skills/icon_skill_slowfield.png": {
+      "status": "imported",
+      "promptHash": "fa4b32438abb8b31",
+      "fileHash": "a2c810b26422f127",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:09+00:00"
+    },
+    "icons/skills/icon_skill_snapshot.png": {
+      "status": "imported",
+      "promptHash": "77ace7618449466d",
+      "fileHash": "27b13058f235f259",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T11:56:09+00:00"
+    },
+    "backgrounds/bg_combat_abyss.jpg": {
+      "status": "generated",
+      "promptHash": "b10e4b5b0770d9b8",
+      "fileHash": "4c8f8dc41a52721f",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:34:33+00:00"
+    },
+    "backgrounds/bg_combat_catacombs.jpg": {
+      "status": "generated",
+      "promptHash": "8fe1cec95859b0bf",
+      "fileHash": "fa8598a342b243cf",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:36:14+00:00"
+    },
+    "backgrounds/bg_combat_forest.jpg": {
+      "status": "generated",
+      "promptHash": "44483052dad18de4",
+      "fileHash": "fd9f6c3d8b2c1ad4",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:37:55+00:00"
+    },
+    "backgrounds/bg_combat_swamp.jpg": {
+      "status": "generated",
+      "promptHash": "3737af7dad776df8",
+      "fileHash": "0174d82c14737bf6",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:39:28+00:00"
+    },
+    "backgrounds/bg_combat_tundra.jpg": {
+      "status": "generated",
+      "promptHash": "0a6b71f9924cf840",
+      "fileHash": "ee8b69c3366e2a7b",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:41:05+00:00"
+    },
+    "backgrounds/bg_combat_volcano.jpg": {
+      "status": "generated",
+      "promptHash": "9ffe36d48a29d6eb",
+      "fileHash": "c046a6f9e099d17f",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:42:55+00:00"
+    },
+    "backgrounds/bg_event_abyss.jpg": {
+      "status": "generated",
+      "promptHash": "d99c735fd607d8a1",
+      "fileHash": "b8bc2a34735be9ea",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:44:44+00:00"
+    },
+    "backgrounds/bg_event_catacombs.jpg": {
+      "status": "generated",
+      "promptHash": "25027915bb829b54",
+      "fileHash": "f87cb2f7576cfed6",
+      "source": "ai",
+      "failCount": 1,
+      "lastError": "<urlopen error retrieval incomplete: got only 6191840 out of 6205051 bytes>",
+      "updatedAt": "2026-07-09T13:46:25+00:00"
+    },
+    "backgrounds/bg_event_forest.jpg": {
+      "status": "generated",
+      "promptHash": "eb7485e5306a4b23",
+      "fileHash": "47ebfdddbe8f764a",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:48:20+00:00"
+    },
+    "backgrounds/bg_event_swamp.jpg": {
+      "status": "generated",
+      "promptHash": "5fd0a31813d5576e",
+      "fileHash": "90fbb2f22da2d92e",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:49:58+00:00"
+    },
+    "backgrounds/bg_event_tundra.jpg": {
+      "status": "generated",
+      "promptHash": "79ed2bc922333764",
+      "fileHash": "6ce648782c5470d2",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:51:33+00:00"
+    },
+    "backgrounds/bg_event_volcano.jpg": {
+      "status": "generated",
+      "promptHash": "6bbc3cd033519e57",
+      "fileHash": "0c7738309adf444c",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:53:09+00:00"
+    },
+    "backgrounds/bg_room_healing.jpg": {
+      "status": "prompting",
+      "promptHash": "6fa4c707d5a82076",
+      "fileHash": "ad2c8915baebcf08",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:53:09+00:00"
+    },
+    "backgrounds/bg_room_rest.jpg": {
+      "status": "generated",
+      "promptHash": "ecb9df7e1005df45",
+      "fileHash": "1e24fe6399e2fbdd",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:28:14+00:00"
+    },
+    "backgrounds/bg_room_shop.jpg": {
+      "status": "generated",
+      "promptHash": "46de50cb1438968f",
+      "fileHash": "e97f929e23ca631a",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:29:54+00:00"
+    },
+    "backgrounds/bg_room_treasure.jpg": {
+      "status": "generated",
+      "promptHash": "6ac60a2a6148ad46",
+      "fileHash": "b782775ae688ee0f",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:31:35+00:00"
+    },
+    "backgrounds/bg_room_upgrade.jpg": {
+      "status": "generated",
+      "promptHash": "6396bc78988cf79e",
+      "fileHash": "a31a8b5b273a2f91",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T13:33:08+00:00"
+    },
+    "characters/archer/archer_idle.png": {
+      "status": "generated",
+      "promptHash": "8100e506673f8895",
+      "fileHash": "532347eaa1cab067",
+      "source": "ai",
+      "failCount": 1,
+      "lastError": "HTTP 401: {\"error\":{\"code\":\"\",\"message\":\"无效的令牌 (request id: 20260709152701673506994jEPUtpTu)\",\"type\":\"AgnesAI_error\"}}",
+      "updatedAt": "2026-07-09T15:30:54+00:00"
+    },
+    "characters/archer/archer_death.png": {
+      "status": "generated",
+      "promptHash": "fb17e04f39722d33",
+      "fileHash": "1adb9a97d6ca8744",
+      "source": "ai",
+      "failCount": 1,
+      "lastError": "HTTP 401: {\"error\":{\"code\":\"\",\"message\":\"无效的令牌 (request id: 20260709152658739815754mWJPzwEO)\",\"type\":\"AgnesAI_error\"}}",
+      "updatedAt": "2026-07-09T15:29:48+00:00"
+    },
+    "characters/archer/archer_dodge.png": {
+      "status": "generated",
+      "promptHash": "8100e506673f8895",
+      "fileHash": "aa878ade1e3b444e",
+      "source": "ai",
+      "failCount": 1,
+      "lastError": "HTTP 401: {\"error\":{\"code\":\"\",\"message\":\"无效的令牌 (request id: 20260709152659769732629tcvdMixx)\",\"type\":\"AgnesAI_error\"}}",
+      "updatedAt": "2026-07-09T15:30:10+00:00"
+    },
+    "characters/archer/archer_hit.png": {
+      "status": "generated",
+      "promptHash": "8100e506673f8895",
+      "fileHash": "63ad581a7faec04f",
+      "source": "ai",
+      "failCount": 1,
+      "lastError": "HTTP 401: {\"error\":{\"code\":\"\",\"message\":\"无效的令牌 (request id: 20260709152700834139612ISMAatBT)\",\"type\":\"AgnesAI_error\"}}",
+      "updatedAt": "2026-07-09T15:30:32+00:00"
+    },
+    "characters/archer/archer_skill.png": {
+      "status": "prompting",
+      "promptHash": "c3b4fdc19ff744b0",
+      "fileHash": "d3a436a89c109b1b",
+      "source": "ai",
+      "failCount": 1,
+      "lastError": "HTTP 401: {\"error\":{\"code\":\"\",\"message\":\"无效的令牌 (request id: 20260709152702913752101mBmYqV0c)\",\"type\":\"AgnesAI_error\"}}",
+      "updatedAt": "2026-07-09T15:30:54+00:00"
+    },
+    "characters/archer/archer_walk.png": {
+      "status": "failed",
+      "promptHash": "79e2c9f162169515",
+      "fileHash": "e0918535eb05ea83",
+      "source": "ai",
+      "failCount": 1,
+      "lastError": "HTTP 401: {\"error\":{\"code\":\"\",\"message\":\"无效的令牌 (request id: 202607091527053390412114DkQzzBv)\",\"type\":\"AgnesAI_error\"}}",
+      "updatedAt": "2026-07-09T15:26:58+00:00"
+    },
+    "characters/assassin/assassin_attack.png": {
+      "status": "failed",
+      "promptHash": "c67e694bf2c7a5d9",
+      "fileHash": "15867626591f4d69",
+      "source": "ai",
+      "failCount": 1,
+      "lastError": "[Errno 22] Invalid argument",
+      "updatedAt": "2026-07-09T15:26:58+00:00"
+    },
+    "characters/assassin/assassin_death.png": {
+      "status": "generated",
+      "promptHash": "e9c1a4765ec81db1",
+      "fileHash": "6da06c1f6ca41973",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T15:20:00+00:00"
+    },
+    "characters/assassin/assassin_dodge.png": {
+      "status": "generated",
+      "promptHash": "ee7a6f8cc3976dd2",
+      "fileHash": "8994740e6caf599f",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T15:20:22+00:00"
+    },
+    "characters/assassin/assassin_hit.png": {
+      "status": "generated",
+      "promptHash": "ee7a6f8cc3976dd2",
+      "fileHash": "d20fe1bec58435f7",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T15:20:45+00:00"
+    },
+    "characters/assassin/assassin_idle.png": {
+      "status": "generated",
+      "promptHash": "ee7a6f8cc3976dd2",
+      "fileHash": "f08c000b724c9d5e",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T15:21:06+00:00"
+    },
+    "characters/assassin/assassin_skill.png": {
+      "status": "generated",
+      "promptHash": "9069c6e7b6017f4d",
+      "fileHash": "8e9f7af0f3104e65",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T15:21:27+00:00"
+    },
+    "characters/assassin/assassin_walk.png": {
+      "status": "generated",
+      "promptHash": "bb5ee5c0bad2ed1d",
+      "fileHash": "c2092e8d919b8942",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T15:21:48+00:00"
+    },
+    "characters/berserker/berserker_attack.png": {
+      "status": "generated",
+      "promptHash": "a7cda217a2bac01d",
+      "fileHash": "b5e2f5f24e573691",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T15:22:09+00:00"
+    },
+    "characters/berserker/berserker_death.png": {
+      "status": "generated",
+      "promptHash": "3fc28d5a5b43d302",
+      "fileHash": "6d59a3af1fd61310",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T15:22:31+00:00"
+    },
+    "characters/berserker/berserker_dodge.png": {
+      "status": "generated",
+      "promptHash": "9c2d86654d88a2ff",
+      "fileHash": "c3860f8774a541cd",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T15:23:01+00:00"
+    },
+    "characters/berserker/berserker_hit.png": {
+      "status": "generated",
+      "promptHash": "9c2d86654d88a2ff",
+      "fileHash": "5057be5333b8cf5e",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T15:23:18+00:00"
+    },
+    "characters/berserker/berserker_idle.png": {
+      "status": "generated",
+      "promptHash": "9c2d86654d88a2ff",
+      "fileHash": "842938137f83c5f5",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T15:23:40+00:00"
+    },
+    "characters/berserker/berserker_skill.png": {
+      "status": "prompting",
+      "promptHash": "",
+      "fileHash": "",
+      "source": "",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-09T15:23:40+00:00"
+    },
+    "characters/archer/archer_attack.png": {
+      "status": "validated",
+      "promptHash": "1506ff23006e8615",
+      "fileHash": "e47d95562613b56c",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-10T08:45:01+00:00"
+    },
+    "characters/archer/parts/body.png": {
+      "status": "generated",
+      "promptHash": "a478d8c02b3aee22",
+      "fileHash": "e3deb89d45df3ddc",
+      "source": "ai",
+      "failCount": 2,
+      "lastError": "HTTP 520: error code: 520\n",
+      "updatedAt": "2026-07-10T11:08:25+00:00"
+    },
+    "characters/archer/parts/head.png": {
+      "status": "generated",
+      "promptHash": "83a52d5b9896ecaa",
+      "fileHash": "8c917b1fe2ec2036",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-10T11:07:20+00:00"
+    },
+    "characters/archer/parts/cape.png": {
+      "status": "generated",
+      "promptHash": "a3f23f43000eb812",
+      "fileHash": "431a23b190bae992",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-10T10:36:44+00:00"
+    },
+    "characters/archer/parts/arm_l.png": {
+      "status": "generated",
+      "promptHash": "b8e6eaba1fa6cb65",
+      "fileHash": "c658a427e235956e",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-10T11:08:59+00:00"
+    },
+    "characters/archer/parts/arm_r.png": {
+      "status": "generated",
+      "promptHash": "84c4c5009ab55cb9",
+      "fileHash": "951303ea57c9aadc",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-10T11:09:43+00:00"
+    },
+    "characters/archer/parts/leg_l.png": {
+      "status": "failed",
+      "promptHash": "7a2d26cebaccbae3",
+      "fileHash": "006e874a03f1fbf0",
+      "source": "ai",
+      "failCount": 2,
+      "lastError": "prompts.json 中没有该资源的 prompt",
+      "updatedAt": "2026-07-10T11:11:07+00:00"
+    },
+    "characters/archer/parts/leg_r.png": {
+      "status": "generated",
+      "promptHash": "3b73a878d6f7b696",
+      "fileHash": "43fbaf30d7604b7f",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-10T10:59:27+00:00"
+    },
+    "characters/archer/parts/ear_l.png": {
+      "status": "generated",
+      "promptHash": "1baeacf3f545ae7f",
+      "fileHash": "5b96c12cd73eb428",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-10T11:00:14+00:00"
+    },
+    "characters/archer/parts/ear_r.png": {
+      "status": "generated",
+      "promptHash": "fa67099ec6857935",
+      "fileHash": "85bffb9a2f97cd1b",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-10T11:00:54+00:00"
+    },
+    "characters/archer/parts/tail.png": {
+      "status": "generated",
+      "promptHash": "26a6862f7657f539",
+      "fileHash": "11785c451d1ebd46",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-10T10:41:15+00:00"
+    },
+    "characters/archer/parts/bow.png": {
+      "status": "generated",
+      "promptHash": "5115385503e2419a",
+      "fileHash": "00145ee9d6f5f593",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-10T10:41:45+00:00"
+    },
+    "characters/archer/parts/quiver.png": {
+      "status": "generated",
+      "promptHash": "64b683eafb9508fc",
+      "fileHash": "8d4b58f0856124bb",
+      "source": "ai",
+      "failCount": 0,
+      "lastError": "",
+      "updatedAt": "2026-07-10T10:42:18+00:00"
+    }
+  },
+  "lastUpdated": "2026-07-10T11:11:07+00:00"
+}

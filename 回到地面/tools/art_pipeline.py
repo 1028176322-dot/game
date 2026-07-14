@@ -12,6 +12,9 @@ art_pipeline.py — 美术资源生成与入库一体化管线
                （2D->textures/；3D 模型->models/，prefab->prefabs/）
   - status     打印进度摘要
   - reset      重置某资源或某类资源的进度状态
+  - cut-parts       从角色母版精确切割部件（部件化方案，需先有 *_rig_master.png）
+  - preview-rig     用切割出的部件生成拼装预览图
+  - validate-parts  校验角色部件配置与文件一致性
 
 3D 升级说明（P2）：
   3D 类别（characters/monsters/bosses/effects/tiles）不经由 Agnes 出图，
@@ -2226,6 +2229,11 @@ def main():
   python tools/art_pipeline.py status --category backgrounds
   python tools/art_pipeline.py reset --resource backgrounds/bg_combat_forest.jpg
   python tools/art_pipeline.py reset --category bosses
+
+  # 角色部件化（先生成 *_rig_master.png 并建 cut spec，详见两份部件化文档）
+  python tools/art_pipeline.py cut-parts --character archer
+  python tools/art_pipeline.py preview-rig --character archer
+  python tools/art_pipeline.py validate-parts --character archer
         """,
     )
     parser.add_argument("--progress", default=PROGRESS_FILE,
@@ -2292,6 +2300,21 @@ def main():
     p_res.add_argument("--resource", help="指定单个资源 key 重置")
     p_res.add_argument("--category", help="按类别前缀重置")
 
+    # cut-parts: 从角色母版精确切割部件（需先有母版）
+    p_cut = subparsers.add_parser(
+        "cut-parts", help="切割角色母版为部件（需先有 *_rig_master.png）")
+    p_cut.add_argument("--character", required=True, help="角色 id")
+
+    # preview-rig: 生成拼装预览图
+    p_prev = subparsers.add_parser(
+        "preview-rig", help="用切割出的部件生成拼装预览图")
+    p_prev.add_argument("--character", required=True, help="角色 id")
+
+    # validate-parts: 校验部件配置与文件一致性
+    p_vp = subparsers.add_parser(
+        "validate-parts", help="校验角色部件配置与文件一致性")
+    p_vp.add_argument("--character", required=True, help="角色 id")
+
     args = parser.parse_args()
 
     if not args.command:
@@ -2313,9 +2336,41 @@ def main():
         cmd_status(args)
     elif args.command == "reset":
         cmd_reset(args)
+    elif args.command == "cut-parts":
+        cmd_cut_parts(args)
+    elif args.command == "preview-rig":
+        cmd_preview_rig(args)
+    elif args.command == "validate-parts":
+        cmd_validate_parts(args)
     else:
         parser.print_help()
         sys.exit(1)
+
+
+def _run_character_script(script_name, character):
+    """调用 tools/ 下的角色部件化脚本（subprocess 隔离）。"""
+    script = os.path.join(_SCRIPT_DIR, script_name)
+    if not os.path.isfile(script):
+        print("[ERROR] 缺少脚本: {0}".format(script))
+        return 2
+    cmd = [sys.executable, script, "--character", character]
+    print("$ {0}".format(" ".join(cmd)))
+    return subprocess.call(cmd)
+
+
+def cmd_cut_parts(args):
+    """cut-parts: 调用 cut_character_parts.py 切割母版。"""
+    return _run_character_script("cut_character_parts.py", args.character)
+
+
+def cmd_preview_rig(args):
+    """preview-rig: 调用 preview_character_rig.py 生成预览。"""
+    return _run_character_script("preview_character_rig.py", args.character)
+
+
+def cmd_validate_parts(args):
+    """validate-parts: 调用 check_character_parts.py 校验。"""
+    return _run_character_script("check_character_parts.py", args.character)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "5529218b-a147-4ab0-b6fd-aa92a6ab17dd",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "5529218b-a147-4ab0-b6fd-aa92a6ab17dd@f9941",
+      "displayName": "icon_buff_stealth",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0.5,
+        "trimX": 10,
+        "trimY": 18,
+        "width": 108,
+        "height": 91,
+        "rawWidth": 128,
+        "rawHeight": 128,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -54,
+            -45.5,
+            0,
+            54,
+            -45.5,
+            0,
+            -54,
+            45.5,
+            0,
+            54,
+            45.5,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            10,
+            110,
+            118,
+            110,
+            10,
+            19,
+            118,
+            19
+          ],
+          "nuv": [
+            0.078125,
+            0.1484375,
+            0.921875,
+            0.1484375,
+            0.078125,
+            0.859375,
+            0.921875,
+            0.859375
+          ],
+          "minPos": [
+            -54,
+            -45.5,
+            0
+          ],
+          "maxPos": [
+            54,
+            45.5,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "5529218b-a147-4ab0-b6fd-aa92a6ab17dd@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "5529218b-a147-4ab0-b6fd-aa92a6ab17dd@6c48a",
+      "displayName": "icon_buff_stealth",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "5529218b-a147-4ab0-b6fd-aa92a6ab17dd",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "fixAlphaTransparencyArtifacts": false,
+    "hasAlpha": true,
+    "redirect": "5529218b-a147-4ab0-b6fd-aa92a6ab17dd@6c48a"
+  }
+}

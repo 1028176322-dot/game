@@ -1,3 +1,10 @@
+> **⚠️ 已废弃（旧方案）：** 本文件描述的是「独立生成各部件（arm_r + bow 拆分）」的旧方案，已被以下两份文档取代：
+> - `docs/角色部件化母版标准姿势规范.md`
+> - `docs/角色部件化母版切割与精确拼装方案.md`
+>
+> 新方案核心：**每个职业只生成 1 张完整母版，再由脚本从同一张母版精确切割部件；手与武器第一版合并（archer 用 `arm_r_weapon`，不再拆 `arm_r` + `bow`）。** 禁止独立生成各部件再拼。
+> 本文件仅保留作为 3D Mesh 拆分思路的参考；2D 部件集 / z-order / 命名以新文档 §4.3 / §4.5 为准。
+
 这里的“部件化动画”本质是：不要再让 AI 生成整张角色动作序列帧，而是把角色拆成稳定部件，由 Cocos 运行时或编辑器动画控制部件的位置、旋转、缩放来形成动作。
 
 这样能从根上解决：
@@ -20,11 +27,11 @@ characters/archer/parts/head.png
 characters/archer/parts/ear_l.png
 characters/archer/parts/ear_r.png
 characters/archer/parts/arm_l.png
-characters/archer/parts/arm_r.png
+characters/archer/parts/arm_r_weapon.png   # 旧 arm_r + bow 拆分已废弃，合并为 arm_r_weapon
 characters/archer/parts/leg_l.png
 characters/archer/parts/leg_r.png
 characters/archer/parts/tail.png
-characters/archer/parts/bow.png
+# characters/archer/parts/bow.png  # 已废弃：弓与右手合并进 arm_r_weapon
 characters/archer/parts/quiver.png
 characters/archer/parts/cape.png
 然后在 Cocos 中组成：

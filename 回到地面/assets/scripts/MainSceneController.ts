@@ -7,7 +7,8 @@
  *   3. No longer manages dungeon entry directly
  */
 
-import { _decorator, Button, Component, Node } from 'cc';
+import { _decorator, Button, Component, Node, UITransform, Vec2 } from 'cc';
+import { MainMenuBackdrop } from './ui/main/MainMenuBackdrop';
 import { PlayerDataManager } from './core/PlayerDataManager';
 import { ShopUI } from './ui/ShopUI';
 import { WXAdapter } from './utils/WXAdapter';
@@ -96,9 +97,31 @@ export class MainSceneController extends Component {
             bg.layer = canvas.layer;
             canvas.addChild(bg);
         }
-
         bg.setSiblingIndex(0);
         bg.active = true;
+
+        // T4: ensure the 3D backdrop slot. It renders behind all foreground UI
+        // (above the 2D MainBackground placeholder) so the 3D backdrop can
+        // replace the 2D one when enabled, without being hidden behind it.
+        // Node creation is T4's job; the actual 3D render is driven by the
+        // MainMenuBackdrop component (reads ui3d.json) mounted on this node.
+        let backdrop3D = canvas.getChildByName('MainMenuBackdrop3D');
+        if (!backdrop3D) {
+            backdrop3D = new Node('MainMenuBackdrop3D');
+            backdrop3D.layer = canvas.layer;
+            const ui = backdrop3D.addComponent(UITransform);
+            ui.anchorMin = new Vec2(0, 0);
+            ui.anchorMax = new Vec2(1, 1);
+            ui.anchorPoint = new Vec2(0.5, 0.5);
+            backdrop3D.addComponent(MainMenuBackdrop);
+            canvas.addChild(backdrop3D);
+        }
+        // Order: MainBackground (0) at the very bottom, MainMenuBackdrop3D (1)
+        // just above it, still below MainUI / panels.
+        bg.setSiblingIndex(0);
+        backdrop3D.setSiblingIndex(1);
+        backdrop3D.active = true;
+
         return bg;
     }
 

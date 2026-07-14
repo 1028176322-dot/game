@@ -1,0 +1,909 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "character_rigs",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "json": {
+    "metadata": {
+      "version": "2.0.0",
+      "lastUpdated": "2026-07-11",
+      "description": "Character rig: z-order + placeholder part positions. Positions are placeholders; regenerate from cut spec via cut_character_parts.py after master cut."
+    },
+    "warrior": {
+      "rootSize": [
+        256,
+        256
+      ],
+      "parts": {
+        "body": {
+          "z": 5,
+          "position": [
+            0,
+            -12
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "head": {
+          "z": 10,
+          "position": [
+            0,
+            48
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.35
+          ]
+        },
+        "ear_l": {
+          "z": 11,
+          "position": [
+            -28,
+            92
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "ear_r": {
+          "z": 12,
+          "position": [
+            28,
+            92
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "leg_l": {
+          "z": 3,
+          "position": [
+            -18,
+            -58
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "leg_r": {
+          "z": 4,
+          "position": [
+            18,
+            -58
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "tail": {
+          "z": 1,
+          "position": [
+            -42,
+            -18
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "cape": {
+          "z": 2,
+          "position": [
+            -12,
+            -8
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.75
+          ]
+        },
+        "helmet": {
+          "z": 9,
+          "position": [
+            0,
+            40
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "shield_arm_l": {
+          "z": 7,
+          "position": [
+            -34,
+            -2
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "sword_arm_r": {
+          "z": 8,
+          "position": [
+            34,
+            -2
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        }
+      }
+    },
+    "archer": {
+      "rootSize": [
+        256,
+        256
+      ],
+      "parts": {
+        "body": {
+          "z": 5,
+          "position": [
+            0,
+            -12
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "head": {
+          "z": 10,
+          "position": [
+            0,
+            48
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.35
+          ]
+        },
+        "ear_l": {
+          "z": 11,
+          "position": [
+            -28,
+            92
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "ear_r": {
+          "z": 12,
+          "position": [
+            28,
+            92
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "leg_l": {
+          "z": 3,
+          "position": [
+            -18,
+            -58
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "leg_r": {
+          "z": 4,
+          "position": [
+            18,
+            -58
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "tail": {
+          "z": 1,
+          "position": [
+            -42,
+            -18
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "cape": {
+          "z": 2,
+          "position": [
+            -12,
+            -8
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.75
+          ]
+        },
+        "quiver": {
+          "z": 6,
+          "position": [
+            -34,
+            4
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "arm_l": {
+          "z": 7,
+          "position": [
+            -34,
+            -2
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "arm_r_weapon": {
+          "z": 8,
+          "position": [
+            34,
+            -2
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        }
+      }
+    },
+    "assassin": {
+      "rootSize": [
+        256,
+        256
+      ],
+      "parts": {
+        "body": {
+          "z": 5,
+          "position": [
+            0,
+            -12
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "head": {
+          "z": 10,
+          "position": [
+            0,
+            48
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.35
+          ]
+        },
+        "ear_l": {
+          "z": 11,
+          "position": [
+            -28,
+            92
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "ear_r": {
+          "z": 12,
+          "position": [
+            28,
+            92
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "leg_l": {
+          "z": 3,
+          "position": [
+            -18,
+            -58
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "leg_r": {
+          "z": 4,
+          "position": [
+            18,
+            -58
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "tail": {
+          "z": 1,
+          "position": [
+            -42,
+            -18
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "cape": {
+          "z": 2,
+          "position": [
+            -12,
+            -8
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.75
+          ]
+        },
+        "scarf": {
+          "z": 9,
+          "position": [
+            0,
+            40
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "dagger_arm_l": {
+          "z": 7,
+          "position": [
+            -34,
+            -2
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "dagger_arm_r": {
+          "z": 8,
+          "position": [
+            34,
+            -2
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        }
+      }
+    },
+    "mage": {
+      "rootSize": [
+        256,
+        256
+      ],
+      "parts": {
+        "body": {
+          "z": 5,
+          "position": [
+            0,
+            -12
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "head": {
+          "z": 10,
+          "position": [
+            0,
+            48
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.35
+          ]
+        },
+        "ear_l": {
+          "z": 11,
+          "position": [
+            -28,
+            92
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "ear_r": {
+          "z": 12,
+          "position": [
+            28,
+            92
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "leg_l": {
+          "z": 3,
+          "position": [
+            -18,
+            -58
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "leg_r": {
+          "z": 4,
+          "position": [
+            18,
+            -58
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "tail": {
+          "z": 1,
+          "position": [
+            -42,
+            -18
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "cape": {
+          "z": 2,
+          "position": [
+            -12,
+            -8
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.75
+          ]
+        },
+        "hat": {
+          "z": 9,
+          "position": [
+            0,
+            40
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "robe_front": {
+          "z": 6,
+          "position": [
+            -34,
+            4
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "arm_l": {
+          "z": 7,
+          "position": [
+            -34,
+            -2
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "staff_arm_r": {
+          "z": 8,
+          "position": [
+            34,
+            -2
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        }
+      }
+    },
+    "berserker": {
+      "rootSize": [
+        256,
+        256
+      ],
+      "parts": {
+        "body": {
+          "z": 5,
+          "position": [
+            0,
+            -12
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "head": {
+          "z": 10,
+          "position": [
+            0,
+            48
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.35
+          ]
+        },
+        "ear_l": {
+          "z": 11,
+          "position": [
+            -28,
+            92
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "ear_r": {
+          "z": 12,
+          "position": [
+            28,
+            92
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "leg_l": {
+          "z": 3,
+          "position": [
+            -18,
+            -58
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "leg_r": {
+          "z": 4,
+          "position": [
+            18,
+            -58
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "tail": {
+          "z": 1,
+          "position": [
+            -42,
+            -18
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.15
+          ]
+        },
+        "cape": {
+          "z": 2,
+          "position": [
+            -12,
+            -8
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.75
+          ]
+        },
+        "shoulder_guard": {
+          "z": 9,
+          "position": [
+            0,
+            40
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "belt": {
+          "z": 6,
+          "position": [
+            -34,
+            4
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "arm_l": {
+          "z": 7,
+          "position": [
+            -34,
+            -2
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        },
+        "axe_arm_r": {
+          "z": 8,
+          "position": [
+            34,
+            -2
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "anchor": [
+            0.5,
+            0.85
+          ]
+        }
+      }
+    }
+  }
+}

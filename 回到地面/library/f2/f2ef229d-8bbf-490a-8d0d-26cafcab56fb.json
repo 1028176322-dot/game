@@ -1,0 +1,41 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "battle",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "json": {
+    "metadata": {
+      "version": "1.0.0",
+      "lastUpdated": "2026-06-25",
+      "description": "核心战斗参数配置表 - 所有战斗机制的数值配置"
+    },
+    "autoAttack": {
+      "baseInterval": 1,
+      "$comment": "switchTargetDelay: 目标死亡后切换锁定的延迟(秒), 范围0.05~0.5",
+      "minDamage": 1,
+      "rangeDecayRate": 0.2,
+      "switchTargetDelay": 0.2
+    },
+    "dodge": {
+      "duration": 0.3,
+      "$comment": "cooldown: 翻滚冷却时间(秒), 范围1.0~10.0",
+      "cooldown": 3
+    },
+    "crit": {
+      "diceSides": 6,
+      "$comment": "baseChance: 快速判定的基础暴击率, 范围0~1",
+      "triggerValue": 6,
+      "multiplier": 1.5,
+      "baseChance": 0.05
+    },
+    "damage": {
+      "defReductionFactor": 0.5,
+      "$comment": "formulaDiceRange: 伤害公式骰子范围, 范围1~12",
+      "formulaDiceRange": 6
+    },
+    "skillCastTime": 0.2,
+    "$comment": "itemUseTime: 道具使用前摇动画时间(秒), 范围0.1~1.0",
+    "itemUseTime": 0.3
+  }
+}

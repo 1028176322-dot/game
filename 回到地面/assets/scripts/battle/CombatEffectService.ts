@@ -12,18 +12,11 @@
  * sprite sheet 定义（5 角色 × 7 动作，竖排 4 帧，每帧 192×192）。
  */
 
-import { Node, Sprite, tween, Vec3, Color, UITransform, director, Camera } from 'cc';
+import { Node, Sprite, tween, Vec3, Color, UITransform, director, Camera, Canvas } from 'cc';
 import { eventBus } from '../core/EventBus';
 import { CharacterVisualService } from '../render/CharacterVisualService';
 import { PlayerDataManager } from '../core/PlayerDataManager';
-
-export interface AttackResult {
-    target: Node;
-    damage: number;
-    isCrit: boolean;
-    element: string;
-    killed: boolean;
-}
+import type { AttackResult } from './AutoAttack';
 
 const FLASH_DURATION = 0.08;
 const SHAKE_DURATION = 0.15;
@@ -107,14 +100,14 @@ export class CombatEffectService {
         this._playAnim('attack', false, 10);
 
         // 2. 刀光弹道
-        if (this._playerNode && result.target?.isValid) {
-            this._spawnProjectile(this._playerNode.getPosition(), result.target.getPosition(), result.isCrit);
+        if (this._playerNode && result.target?.isValid && result.target.node?.isValid) {
+            this._spawnProjectile(this._playerNode.getPosition(), result.target.node.getPosition(), result.isCrit);
         }
 
         // 3. 受击闪白 + 抖动
-        if (result.target?.isValid) {
-            this._flashWhite(result.target);
-            this._jolt(result.target, SHAKE_INTENSITY);
+        if (result.target?.isValid && result.target.node?.isValid) {
+            this._flashWhite(result.target.node);
+            this._jolt(result.target.node, SHAKE_INTENSITY);
         }
 
         // 4. 屏幕震动（暴击更猛）
@@ -190,11 +183,11 @@ export class CombatEffectService {
     }
 
     private _spawnProjectile(from: Vec3, to: Vec3, isCrit: boolean): void {
-        const canvas = director.getScene()?.getComponentInChildren(cc.Canvas as any);
+        const canvas = director.getScene()?.getComponentInChildren(Canvas);
         if (!canvas) return;
 
         const proj = new Node('_projectile');
-        const uiTransform = proj.addComponent(cc.UITransform as any);
+        const uiTransform = proj.addComponent(UITransform);
         const size = isCrit ? 32 : 20;
         uiTransform.setContentSize(size, size);
         const sprite = proj.addComponent(Sprite);

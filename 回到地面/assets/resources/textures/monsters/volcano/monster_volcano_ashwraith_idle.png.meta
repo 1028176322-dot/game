@@ -8,98 +8,6 @@
     ".png"
   ],
   "subMetas": {
-    "f9941": {
-      "importer": "sprite-frame",
-      "uuid": "6ae08720-f9b4-4828-a3eb-37d9cd42242d@f9941",
-      "displayName": "monster_volcano_ashwraith_idle",
-      "id": "f9941",
-      "name": "spriteFrame",
-      "userData": {
-        "trimThreshold": 1,
-        "rotated": false,
-        "offsetX": 0,
-        "offsetY": 0,
-        "trimX": 3,
-        "trimY": 4,
-        "width": 42,
-        "height": 40,
-        "rawWidth": 48,
-        "rawHeight": 48,
-        "borderTop": 0,
-        "borderBottom": 0,
-        "borderLeft": 0,
-        "borderRight": 0,
-        "packable": true,
-        "pixelsToUnit": 100,
-        "pivotX": 0.5,
-        "pivotY": 0.5,
-        "meshType": 0,
-        "vertices": {
-          "rawPosition": [
-            -21,
-            -20,
-            0,
-            21,
-            -20,
-            0,
-            -21,
-            20,
-            0,
-            21,
-            20,
-            0
-          ],
-          "indexes": [
-            0,
-            1,
-            2,
-            2,
-            1,
-            3
-          ],
-          "uv": [
-            3,
-            44,
-            45,
-            44,
-            3,
-            4,
-            45,
-            4
-          ],
-          "nuv": [
-            0.0625,
-            0.08333333333333333,
-            0.9375,
-            0.08333333333333333,
-            0.0625,
-            0.9166666666666666,
-            0.9375,
-            0.9166666666666666
-          ],
-          "minPos": [
-            -21,
-            -20,
-            0
-          ],
-          "maxPos": [
-            21,
-            20,
-            0
-          ]
-        },
-        "isUuid": true,
-        "imageUuidOrDatabaseUri": "6ae08720-f9b4-4828-a3eb-37d9cd42242d@6c48a",
-        "atlasUuid": "",
-        "trimType": "auto"
-      },
-      "ver": "1.0.12",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "6c48a": {
       "importer": "texture",
       "uuid": "6ae08720-f9b4-4828-a3eb-37d9cd42242d@6c48a",
@@ -118,6 +26,98 @@
         "visible": false
       },
       "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "6ae08720-f9b4-4828-a3eb-37d9cd42242d@f9941",
+      "displayName": "monster_volcano_ashwraith_idle",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0.5,
+        "trimX": 0,
+        "trimY": 3,
+        "width": 192,
+        "height": 185,
+        "rawWidth": 192,
+        "rawHeight": 192,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -96,
+            -92.5,
+            0,
+            96,
+            -92.5,
+            0,
+            -96,
+            92.5,
+            0,
+            96,
+            92.5,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            0,
+            189,
+            192,
+            189,
+            0,
+            4,
+            192,
+            4
+          ],
+          "nuv": [
+            0,
+            0.020833333333333332,
+            1,
+            0.020833333333333332,
+            0,
+            0.984375,
+            1,
+            0.984375
+          ],
+          "minPos": [
+            -96,
+            -92.5,
+            0
+          ],
+          "maxPos": [
+            96,
+            92.5,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "6ae08720-f9b4-4828-a3eb-37d9cd42242d@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
       "imported": true,
       "files": [
         ".json"

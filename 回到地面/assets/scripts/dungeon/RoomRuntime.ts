@@ -63,7 +63,11 @@ export class RoomRuntime implements ILifecycle {
   initialize(ctx: GameContext): void {
     this._ctx = ctx;
     // Pull the asset cache from the container (red line 4: no `new`, inject via ctx.get).
-    this._cache = ctx.get<IAssetCacheApi>(IAssetCache);
+    // getOptional: GameBootstrap registers IAssetCache at the tail of its async startup();
+    // during the dungeon scene's synchronous _wireSystems the token may not be registered
+    // yet. _cache is already designed nullable (guarded at lines 99/109), so a missing token
+    // just means the new asset-cache pipeline is inactive this run — legacy flow is preserved.
+    this._cache = ctx.getOptional<IAssetCacheApi>(IAssetCache);
   }
 
   enter(): void {
@@ -97,7 +101,11 @@ export class RoomRuntime implements ILifecycle {
   // Acquire every asset this room needs, reference-counted through IAssetCache.
   async load(): Promise<void> {
     if (!this._cache) {
-      throw new Error('[RoomRuntime] load before initialize (no IAssetCache)');
+      // Legacy flow: IAssetCache not yet registered (e.g., _wireSystems runs before
+      // GameBootstrap._wireInfra completes). Skip asset preloading; the new asset-cache
+      // pipeline is inactive for this run.
+      console.warn('[RoomRuntime] IAssetCache unavailable; skipping asset preload.');
+      return;
     }
     for (const id of this._room.assetIds) {
       await this._cache.load(id);

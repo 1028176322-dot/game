@@ -1,0 +1,61 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "economy",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "json": {
+    "metadata": {
+      "version": "1.0.0",
+      "lastUpdated": "2026-06-25",
+      "description": "经济系统配置表 - 金币/魂石/商店/广告定价"
+    },
+    "gold": {
+      "cap": 99,
+      "dropNormalMin": 1,
+      "dropNormalMax": 5,
+      "dropEliteMin": 5,
+      "dropEliteMax": 15,
+      "dropBossMin": 20,
+      "dropBossMax": 50,
+      "hitLoss": 1,
+      "$comment": "hitLoss: 每次受击损失金币数, 范围0~5"
+    },
+    "keys": {
+      "cap": 3,
+      "dropChance": 0.2,
+      "dropFromMonster": true,
+      "$comment": "dropChance: 战斗房掉落钥匙概率"
+    },
+    "soulStone": {
+      "baseRate": 8,
+      "perFloorBonus": 8,
+      "$comment": "unlockTotalCost: 全部解锁所需魂石, 根据经济模型调整为8800",
+      "bossKillBonus": 10,
+      "talentGreedMultiplier": 1.15,
+      "adMultiplier": 2,
+      "unlockTotalCost": 8800
+    },
+    "shop": {
+      "keyPrice": 10,
+      "advancedKeyPrice": 15,
+      "rerollPrice": 12,
+      "scrollPrice": 10,
+      "equipMinPrice": 8,
+      "equipMaxPrice": 15,
+      "specialOfferPrice": 3,
+      "$comment": "specialOfferPrice: DDA保底药水价格"
+    },
+    "ads": {
+      "rewardDuration": 30,
+      "interstitialInterval": 3,
+      "dailyLimit": 20,
+      "samePosCooldown": 60,
+      "retryLimit": 3,
+      "retryInterval": 3,
+      "reviveHpRatio": 0.5,
+      "targetDailyViews": 6,
+      "$comment": "targetDailyViews: 目标人均广告观看次数/日"
+    }
+  }
+}
